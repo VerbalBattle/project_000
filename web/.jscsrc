@@ -22,5 +22,5 @@
   "requireSpacesInForStatement": true,
   "requireSpacesInFunctionDeclaration": {"beforeOpeningCurlyBrace": true},
   "requireSpacesInFunctionExpression": {"beforeOpeningCurlyBrace": true},
-  "excludeFiles": ["node_modules/*", "bower_components/*", "public/lib/*"]
+  "excludeFiles": ["node_modules/*"]
 }

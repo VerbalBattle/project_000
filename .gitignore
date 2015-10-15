@@ -24,3 +24,4 @@ web/client/lib
 .floobit
 .floo
 .flooignore
+npm-debug.log
