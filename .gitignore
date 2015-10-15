@@ -17,7 +17,7 @@ Icon
 .Spotlight-V100
 .Trashes
 web/node_modules/
-web/public/lib
+web/public/libs/
 
 # Floobits
 .floo
