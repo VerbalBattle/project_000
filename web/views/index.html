@@ -2,8 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>VerBattle</title>
+
+  <script src="/libs/angular/angular.js"></script>
+  <script src="/libs/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script src="/libs/angular-route/angular-route.min.js"></script>
+
+  <script src="/user/signin.js"></script>
+  <script src="/user/signup.js"></script>
+  <script src="/app.js"></script>
+
+  <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
-<body>
+
+<body ng-app="VBattle">
+  <div ng-view></div>
 </body>
+
+
+
 </html>

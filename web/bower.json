@@ -2,7 +2,10 @@
   "name": "insult_app",
   "version": "0.0.0",
   "authors": [
-    "rfenolio <mordoc@gmail.com>"
+    "Blaine Killen",
+    "Bowen Yang",
+    "Simon Schmalfuss",
+    "Zach Freedman"
   ],
   "description": "",
   "license": "MIT",
