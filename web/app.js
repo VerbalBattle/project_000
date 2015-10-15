@@ -17,6 +17,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var db = require('./db/db_config');
 
 // Make express app
 var app = express();

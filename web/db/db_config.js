@@ -21,5 +21,22 @@ var Sequelize = require('sequelize');
 //                    | |    
 //                    |_|    
 
-// Setup sequelize to connect to InsultPvP
-var sequelize = new Sequelize('');
+// Setup sequelize to connect to InsultPvP database
+// with root user and empty password
+var sequelize = new Sequelize('InsultPvP', 'root', '', {
+  host: 'localhost',
+  dialect: 'mysql'
+});
+
+// Define user model
+var User = sequelize.define('user', {
+  username: {
+    type: Sequelize.STRING
+  }
+});
+
+// Sync to database
+User.sync().then(function () {
+  // Table created
+  console.log('Synced to User Table');
+});
