@@ -1,5 +1,7 @@
-angular.module('VBattle', {
-})
+angular.module('VBattle', [
+'VBattle.signin',
+'VBattle.signup'
+])
 .config(function ($routeProvider, $httpProvider, $authProvider) {
   $routeProvider
     .when('/', {
