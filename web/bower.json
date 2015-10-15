@@ -1,0 +1,17 @@
+{
+  "name": "insult_app",
+  "version": "0.0.0",
+  "authors": [
+    "rfenolio <mordoc@gmail.com>"
+  ],
+  "description": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*"
+  ],
+  "dependencies": {
+    "angular": "~1.4.6",
+    "angular-route": "~1.4.7",
+    "angular-ui-router": "~0.2.15"
+  }
+}
