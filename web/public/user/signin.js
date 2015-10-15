@@ -1,4 +1,4 @@
 angular.module('VBattle.signin', [])
-.controller('SinginCtrl', function($scope, $location, $route) {
+.controller('SigninCtrl', function($scope, $location, $route) {
   
 });

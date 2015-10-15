@@ -1,15 +1,17 @@
 angular.module('VBattle', [
 'VBattle.signin',
-'VBattle.signup'
+'VBattle.signup',
+'ngRoute'
 ])
-.config(function ($routeProvider, $httpProvider, $authProvider) {
+.config(function ($routeProvider, $httpProvider) {
   $routeProvider
+
     .when('/', {
-      templateUrl: '/signin/signin.html',
+      templateUrl: '/user/signin.html',
       controller: 'SigninCtrl'
     })
     .when('/signup', {
-      templateUrl: '/signup/signup.html',
+      templateUrl: '/user/signup.html',
       controller: 'SignupCtrl'
     })
     .otherwise('/');
