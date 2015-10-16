@@ -35,8 +35,9 @@ var sequelize = new Sequelize('InsultPvP', 'root', '', {
 
 // Define user model
 var users = sequelize.define('user', {
-  // User username
+  // User username / PRIMARY KEY
   username: {
+    primaryKey: true,
     type: Sequelize.STRING(32),
     allowNull: false
   },
@@ -75,8 +76,9 @@ var users = sequelize.define('user', {
 
 // Define player model
 var players = sequelize.define('players', {
-  // Player name
+  // Player name / PRIMARY KEY
   playername: {
+    primaryKey: true,
     type: Sequelize.STRING(32),
     allowNull: false
   },
@@ -104,10 +106,11 @@ var players = sequelize.define('players', {
   }
 });
 
-// Set foreign key for players
+// Players FOREIGN KEY
 users.hasMany(players, {
   foreignKey: {
-    name: 'userID',
+    name: 'username',
+    unique: true,
     allowNull: false
   }
 });
@@ -123,6 +126,16 @@ users.hasMany(players, {
 
 // Define player stats model
 var playerStats = sequelize.define('playerStats', {
+  // Player name / FOREIGN KEY / PRIMARY KEY
+  playername: {
+    primaryKey: true,
+    type: Sequelize.STRING(32),
+    references: {
+      model: 'players',
+      key: 'playername'
+    },
+    allowNull: false
+  },
   // Player win loss ratio
   winLossRatio: {
     type: Sequelize.FLOAT,
@@ -143,9 +156,9 @@ var playerStats = sequelize.define('playerStats', {
   },
   // Player rank
   rank: {
-    type: Sequelize.STRING(32),
+    type: Sequelize.INTEGER,
     allowNull: false,
-    defaultValue: 'Division 10'
+    defaultValue: 0
   },
   // Player win streak
   winStreak: {
@@ -164,14 +177,6 @@ var playerStats = sequelize.define('playerStats', {
     type: Sequelize.DATE,
     allowNull: false,
     defaultValue: Sequelize.NOW
-  }
-});
-
-// Add foreign key dependency
-players.hasOne(playerStats, {
-  foreignKey: {
-    name: 'playerID',
-    allowNull: false
   }
 });
 
@@ -219,3 +224,7 @@ users.sync().then(function () {
 
 // Export users
 module.exports.users = users;
+// Export players
+module.exports.players = players;
+// Export player stats
+module.exports.playerStats = playerStats;
