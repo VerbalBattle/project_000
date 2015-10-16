@@ -1,11 +1,11 @@
 angular.module('VBattle', [
+'VBattle.services',
 'VBattle.signin',
 'VBattle.signup',
 'ngRoute'
 ])
 .config(function ($routeProvider, $httpProvider) {
   $routeProvider
-
     .when('/', {
       templateUrl: '/user/signin.html',
       controller: 'SigninCtrl'

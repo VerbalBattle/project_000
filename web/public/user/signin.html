@@ -1,8 +1,10 @@
-<div class="container">
-  <div class="row">
-    <h2 class="text-center">Log in</h2>
-    <button class="btn btn-block btn-facebook submit" ng-click="authenticate('facebook')">
-      <i class="ion-social-facebook"></i> Sign in with Facebook
-    </button>
-  </div>
+<div class="row">
+  <h2 class="text-center">Log in</h2>
+  <form name="signinForm" class="form-group" ng-submit="signin()">
+    <label id="label_login" for="usr">Name:</label>
+    <input type="text" class="form-control login" ng-model="username">
+    <label id="label_login" for="pwd">Password:</label>
+    <input type="password" class="form-control login" ng-model="password">
+    <input type="submit" class="login"">
+  </form>
 </div>
