@@ -37,6 +37,7 @@ var sequelize = new Sequelize('InsultPvP', 'root', '', {
 var users = sequelize.define('user', {
   // User username
   username: {
+    primaryKey: true,
     type: Sequelize.STRING(32),
     allowNull: false
   },
@@ -77,6 +78,7 @@ var users = sequelize.define('user', {
 var players = sequelize.define('players', {
   // Player name
   playername: {
+    primaryKey: true,
     type: Sequelize.STRING(32),
     allowNull: false
   },
@@ -107,7 +109,8 @@ var players = sequelize.define('players', {
 // Set foreign key for players
 users.hasMany(players, {
   foreignKey: {
-    name: 'userID',
+    name: 'username',
+    unique: true,
     allowNull: false
   }
 });
@@ -143,9 +146,9 @@ var playerStats = sequelize.define('playerStats', {
   },
   // Player rank
   rank: {
-    type: Sequelize.STRING(32),
+    type: Sequelize.INTEGER,
     allowNull: false,
-    defaultValue: 'Division 10'
+    defaultValue: 0
   },
   // Player win streak
   winStreak: {
@@ -170,7 +173,8 @@ var playerStats = sequelize.define('playerStats', {
 // Add foreign key dependency
 players.hasOne(playerStats, {
   foreignKey: {
-    name: 'playerID',
+    name: 'playername',
+    unique: true,
     allowNull: false
   }
 });
@@ -219,3 +223,7 @@ users.sync().then(function () {
 
 // Export users
 module.exports.users = users;
+// Export players
+module.exports.players = players;
+// Export player stats
+module.exports.playerStats = playerStats;
