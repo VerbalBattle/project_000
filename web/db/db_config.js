@@ -90,15 +90,6 @@ var players = sequelize.define('players', {
     type: Sequelize.STRING(255),
     allowNull: true
   },
-  // Player's associated user
-  // userID: {
-  //   type: Sequelize.INTEGER,
-  //   allowNull: false,
-  //   references: {
-  //     model: users,
-  //     key: 'id'
-  //   }
-  // },
   // Player createdAt time
   createdAt: {
     type: Sequelize.DATE,
