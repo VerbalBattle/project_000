@@ -7,7 +7,7 @@ angular.module('VBattle.services', [])
       password: password
     }
     
-    return $http.post('/signin',user)
+    return $http.post('/login', user)
       .then(function (resp) {
         return resp.data;
       }, function (err) {
