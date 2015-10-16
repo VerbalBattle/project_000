@@ -3,6 +3,7 @@ angular.module('VBattle', [
 'VBattle.signin',
 'VBattle.signup',
 'VBattle.profile',
+'VBattle.sideBar',
 'ngRoute'
 ])
 .config(function ($routeProvider, $httpProvider) {
@@ -12,6 +13,10 @@ angular.module('VBattle', [
       controller: 'SigninCtrl'
     })
     .when('/signup', {
+      templateUrl: '/user/signup.html',
+      controller: 'SignupCtrl'
+    })
+    .when('/signout', {
       templateUrl: '/user/signup.html',
       controller: 'SignupCtrl'
     })

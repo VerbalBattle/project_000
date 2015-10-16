@@ -1,6 +1,6 @@
 angular.module('VBattle.signup', [])
 
-.controller('SignupCtrl', function($scope, $location, Users) {
+.controller('SignupCtrl', function($rootScope, $scope, $location, Users) {
   $scope.signup = function () {
     var user = {
       username: $scope.username,
@@ -10,8 +10,12 @@ angular.module('VBattle.signup', [])
     Users.signup(user)
     .then(function (data) {
       console.log(data)
+      $scope.username = '';
+      $scope.password = '';
+      if(data.signupSuccess) {
+        $rootScope.auth = true;
+        $location.path('/');
+      }
     });
-    $scope.username = '';
-    $scope.password = '';
   };
 });
