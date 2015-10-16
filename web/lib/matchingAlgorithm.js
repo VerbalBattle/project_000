@@ -36,19 +36,25 @@ var findOpponent = function() {
   // and exert the same influence on the overall algorithm
 
   // find the min and max for each feature in dataset
-  otherPlayers.forEach( function(player) {
-    features.forEach( function(feature) {
-      if(feature !== 'username') {
-        var val = player[feature];
+  otherPlayers.forEach( function(player, index) {
+    // if the users searching for matchmakin is not within a one rank margin,
+    // dont consider the user as a potential match
+    if(Math.abs(player.rank - playerObj.rank) <= 1) {
+      features.forEach( function(feature) {
+        if(feature !== 'username') {
+          var val = player[feature];
 
-        if( val > max[feature] ) {
-          max[feature] = val;
+          if( val > max[feature] ) {
+            max[feature] = val;
+          }
+          if( val < min[feature] ) {
+            min[feature] = val;
+          }
         }
-        if( val < min[feature] ) {
-          min[feature] = val;
-        }
-      }
-    });
+      });
+    } else {
+      delete otherPlayers[index];
+    }
   })
 
   // scale the players stats
