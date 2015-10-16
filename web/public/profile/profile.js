@@ -1,6 +1,6 @@
-angular.module('VBattle.signin', [])
+angular.module('VBattle.profile', [])
 
-.controller('SigninCtrl', function ($scope, $location, Users) {
+.controller('ProfileCtrl', function ($scope, $location, Users) {
   $scope.signin = function () {
     Users.signin($scope.username, $scope.password)
     .then(function (data) {
