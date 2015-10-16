@@ -1,10 +1,11 @@
 <div class="row">
   <h2 class="text-center">Log in</h2>
   <form name="signinForm" class="form-group" ng-submit="signin()">
-    <label id="label_login" for="usr">Name:</label>
-    <input type="text" class="form-control login" ng-model="username">
-    <label id="label_login" for="pwd">Password:</label>
-    <input type="password" class="form-control login" ng-model="password">
-    <input type="submit" class="login"">
+    <label id="label_signin">Name:</label>
+    <input type="text" class="form-control signin" ng-model="username">
+    <label id="label_signin">Password:</label>
+    <input type="password" class="form-control signin" ng-model="password">
+    <input type="submit" class="signin">
+  <a href="#/signup">Signup</a>
   </form>
 </div>

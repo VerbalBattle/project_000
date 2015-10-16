@@ -2,7 +2,12 @@ angular.module('VBattle.services', [])
 .factory('Users', function ($http) {
   // make API call to get 
   var signin = function (username, password) {
-    return $http.get('/users/'+username+'/'+password)
+    var user = {
+      username: username,
+      password: password
+    }
+    
+    return $http.post('/signin',user)
       .then(function (resp) {
         return resp.data;
       }, function (err) {
@@ -10,8 +15,8 @@ angular.module('VBattle.services', [])
       });
   };
   var signup = function (user) {
-    
-    return $http.post('/signup')
+
+    return $http.post('/signup', user)
       .then(function (resp) {
         return resp.data;
       }, function (err) {
