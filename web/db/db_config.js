@@ -27,6 +27,11 @@ var sequelize = new Sequelize('InsultPvP', 'root', '', {
   host: 'localhost',
   dialect: 'mysql'
 });
+               
+//  _   _ ___  ___ _ __ ___ 
+// | | | / __|/ _ \ '__/ __|
+// | |_| \__ \  __/ |  \__ \
+//  \__,_|___/\___|_|  |___/
 
 // Define user model
 var users = sequelize.define('user', {
@@ -59,10 +64,157 @@ var users = sequelize.define('user', {
   }
 });
 
-// Sync to database
+//        _                           
+//       | |                          
+//  _ __ | | __ _ _   _  ___ _ __ ___ 
+// | '_ \| |/ _` | | | |/ _ \ '__/ __|
+// | |_) | | (_| | |_| |  __/ |  \__ \
+// | .__/|_|\__,_|\__, |\___|_|  |___/
+// | |             __/ |              
+// |_|            |___/               
+
+// Define player model
+var players = sequelize.define('players', {
+  // Player name
+  playername: {
+    type: Sequelize.STRING(32),
+    allowNull: false
+  },
+  // Player image path
+  imagePath: {
+    type: Sequelize.STRING(32),
+    allowNull: false
+  },
+  // Player about me
+  aboutMe: {
+    type: Sequelize.STRING(255),
+    allowNull: true
+  },
+  // Player's associated user
+  // userID: {
+  //   type: Sequelize.INTEGER,
+  //   allowNull: false,
+  //   references: {
+  //     model: users,
+  //     key: 'id'
+  //   }
+  // },
+  // Player createdAt time
+  createdAt: {
+    type: Sequelize.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.NOW
+  },
+  // Player updatedAt time
+  updatedAt: {
+    type: Sequelize.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.NOW
+  }
+});
+
+// Set foreign key for players
+users.hasMany(players, {
+  foreignKey: {
+    name: 'userID',
+    allowNull: false
+  }
+});
+
+//        _                       _____ _        _       
+//       | |                     /  ___| |      | |      
+//  _ __ | | __ _ _   _  ___ _ __\ `--.| |_ __ _| |_ ___ 
+// | '_ \| |/ _` | | | |/ _ \ '__|`--. \ __/ _` | __/ __|
+// | |_) | | (_| | |_| |  __/ |  /\__/ / || (_| | |_\__ \
+// | .__/|_|\__,_|\__, |\___|_|  \____/ \__\__,_|\__|___/
+// | |             __/ |                                 
+// |_|            |___/                                  
+
+// Define player stats model
+var playerStats = sequelize.define('playerStats', {
+  // Player win loss ratio
+  winLossRatio: {
+    type: Sequelize.FLOAT,
+    allowNull: false,
+    defaultValue: 0
+  },
+  // Player type
+  playerType: {
+    type: Sequelize.STRING(32),
+    allowNull: false,
+    defaultValue: 'untyped'
+  },
+  // Player win velocity
+  winVelocity: {
+    type: Sequelize.FLOAT,
+    allowNull: false,
+    defaultValue: 0
+  },
+  // Player rank
+  rank: {
+    type: Sequelize.STRING(32),
+    allowNull: false,
+    defaultValue: 'Division 10'
+  },
+  // Player win streak
+  winStreak: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    defaultValue: 0
+  },
+  // Player stat createdAt time
+  createdAt: {
+    type: Sequelize.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.NOW
+  },
+  // Player stat updatedAt time
+  updatedAt: {
+    type: Sequelize.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.NOW
+  }
+});
+
+// Add foreign key dependency
+players.hasOne(playerStats, {
+  foreignKey: {
+    name: 'playerID',
+    allowNull: false
+  }
+});
+
+//                       _             
+//                      (_)            
+//  ___ _   _ _ __   ___ _ _ __   __ _ 
+// / __| | | | '_ \ / __| | '_ \ / _` |
+// \__ \ |_| | | | | (__| | | | | (_| |
+// |___/\__, |_| |_|\___|_|_| |_|\__, |
+//       __/ |                    __/ |
+//      |___/                    |___/ 
+
+// Users database sync
 users.sync().then(function () {
-  // Table created
+  // Users table created
   console.log('Synced to User Table');
+})
+
+// Players database sync
+.then(function () {
+  // Sync to database
+  players.sync().then(function () {
+  // Table created
+  console.log('Synced to Player Table');
+  });
+})
+
+// Player stats database sync
+.then(function () {
+  // Sync to database
+  playerStats.sync().then(function () {
+    // Table created
+    console.log('Synced to Player Stats Table');
+  });
 });
 
 //                             _       
