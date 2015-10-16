@@ -29,6 +29,16 @@ var findOpponent = function(playerObj, otherPlayers, features) {
   var min = cloneObj(playerObj);
   var max = cloneObj(playerObj);
 
+  // loosen the rank margin based on the rank of the player
+  // players in lower divisions will receive a looser rank margin
+  var rankMargin = 1;
+  if(playerObj.rank >= 0 && playerObj.rank <= 2 ) {
+    rankMargin = 2;
+  }
+  else if(playerObj.rank === 10) {
+    rankMargin = 2;
+  }
+
   // scale each feature so that the values are within the same range
   // and exert the same influence on the overall algorithm
 
@@ -36,9 +46,9 @@ var findOpponent = function(playerObj, otherPlayers, features) {
   Object.keys(otherPlayers).forEach( function(name) {
     var player = otherPlayers[name];
 
-    // if the users searching for matchmakin is not within a one rank margin,
+    // if the users searching for matchmaking is not within a one rank margin,
     // dont consider the user as a potential match
-    if(Math.abs(player.rank - playerObj.rank) <= 1) {
+    if(Math.abs(player.rank - playerObj.rank) <= rankMargin) {
       features.forEach( function(feature) {
         var val = player[feature];
 
