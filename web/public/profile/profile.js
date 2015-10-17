@@ -1,8 +1,8 @@
 angular.module('VBattle.profile', [])
 
-.controller('ProfileCtrl', function ($scope, $location, Users) {
-  $scope.auth = true;
-  if(!$scope.auth) {
+.controller('ProfileCtrl', function ($scope, $rootScope, $location, Users) {
+  $rootScope.auth = true;
+  if(!$rootScope.auth) {
     $location.path('/login');
   }
 });

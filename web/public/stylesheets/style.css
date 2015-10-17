@@ -8,9 +8,9 @@ a {
 }
 
 .sidebar {
-  position : absolute;
+  position : fixed;
+  left:-30px;
   top : 0;
-  left : 0;
   transition : 100ms left;
 }
 
@@ -22,57 +22,36 @@ ul {
   list-style-type: none;
 }
 
-
-.navigation {
-  position: fixed;
-  left:-40px;
-}
-
-.navigation-items a {
+.navigation-items a{
   display: block;
   background-color: #f7f7f7;
   opacity: 0.7;
   color: #a7a7a7;
-  margin: 25px;
   width: 100px;
   height: 100px;
+  top: 25px;
   position: relative;
-  text-align: center;
   border-radius: 50%;
 }
+
 .navigation-items a:hover {
   box-shadow: 0px 0px 20px #000000, inset 0px 0px 10px #fff;
 }
+
 .navigation-items div {
+  z-index: initial;
   position: relative;
   opacity: 0;
-  transition-delay: all .5s ease-out; 
-  -webkit-transition-delay: all .5s ease-out; 
-  left: 150px;
-  top: 82.5px;
+  transition: all .5s ease-out; 
+  -webkit-transition: all .5s ease-out; 
+  left: 85px;
+  top: 85px;
+  font-family: "Courier New";
+  font-size: 26px;
 }
-.navigation-items div:hover {
+.navigation-items div.show {
   opacity: 1;
-  transition-delay: all .5s ease-out; 
-  -webkit-transition-delay: all .5s ease-out ; 
-}
-
-#slide {
-  position: absolute;
-  left: -100px;
-  width: 100px;
-  height: 100px;
-  background: blue;
-  -webkit-animation: slide 0.5s forwards;
-  -webkit-animation-delay: 2s;
-  animation: slide 0.5s forwards;
-  animation-delay: 2s;
-}
-
-@-webkit-keyframes slide {
-  100% { left: 0; }
-}
-
-@keyframes slide {
-  100% { left: 0; }
+  left: 110px;
+  transition: all .5s ease-out; 
+  -webkit-transition: all .5s ease-out;
 }
