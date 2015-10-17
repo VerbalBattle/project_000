@@ -192,6 +192,63 @@ var playerStats = sequelize.define('playerStats', {
   }
 });
 
+//  _ __ ___   ___  _ __ ___  ___ 
+// | '__/ _ \ / _ \| '_ ` _ \/ __|
+// | | | (_) | (_) | | | | | \__ \
+// |_|  \___/ \___/|_| |_| |_|___/
+
+// Define rooms model
+var rooms = sequelize.define('rooms', {
+  // First player's ID
+  player1_id: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'players',
+      key: 'id'
+    }
+  },
+  // Second player's ID
+  player2_id: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'players',
+      key: 'id'
+    }
+  },
+  // String to file path
+  filepath: {
+    type: Sequelize.STRING(64),
+    allowNull: false,
+    defaultValue: 'some/file/path/myFile.txt'
+  },
+  // Boolean to decide if room is active or ready for judging
+  isOpen: {
+    type: Sequelize.BOOLEAN(),
+    allowNull: false,
+    defaultValue: true
+  },
+  // The number of turns that have passed
+  turnCount: {
+    type: Sequelize.INTEGER(),
+    allowNull: false,
+    defaultValue: 0
+  },
+  // Room createdAt time
+  createdAt: {
+    type: Sequelize.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.NOW
+  },
+  // Room updatedAt time
+  updatedAt: {
+    type: Sequelize.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.NOW
+  }
+});
+
 //                       _             
 //                      (_)            
 //  ___ _   _ _ __   ___ _ _ __   __ _ 
@@ -201,13 +258,13 @@ var playerStats = sequelize.define('playerStats', {
 //       __/ |                    __/ |
 //      |___/                    |___/ 
 
-// Users database sync
+// Users table sync
 users.sync().then(function () {
   // Users table created
   console.log('Synced to User Table');
 })
 
-// Players database sync
+// Players table sync
 .then(function () {
   // Sync to database
   players.sync().then(function () {
@@ -216,14 +273,23 @@ users.sync().then(function () {
   });
 })
 
-// Player stats database sync
+// Player stats table sync
 .then(function () {
   // Sync to database
   playerStats.sync().then(function () {
     // Table created
     console.log('Synced to Player Stats Table');
   });
-});
+})
+
+// Player rooms table sync
+.then(function () {
+  // Sync to database
+  rooms.sync().then(function () {
+    // Table created
+    console.log('Synced to Rooms Table');
+  });
+})
 
 //                             _       
 //                            | |      
@@ -240,3 +306,5 @@ module.exports.users = users;
 module.exports.players = players;
 // Export player stats
 module.exports.playerStats = playerStats;
+// Export rooms
+module.exports.rooms = rooms;

@@ -13,7 +13,7 @@
 // Requirements
 var express = require('express');
 var router = express.Router();
-var usersHelper = require('../db/db_helpers').usersHelper;
+var usersHelper = require('../db/usersHelper');
 
 //                  _            
 //                 | |           
@@ -22,7 +22,7 @@ var usersHelper = require('../db/db_helpers').usersHelper;
 // | | | (_) | |_| | ||  __/\__ \
 // |_|  \___/ \__,_|\__\___||___/
 
- // POST to signup a new user
+// POST to signup a new user
 router.post('/', function (req, res, next) {
   // Expected request body example
   // {

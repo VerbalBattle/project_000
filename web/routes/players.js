@@ -13,7 +13,7 @@
 // Requirements
 var express = require('express');
 var router = express.Router();
-var playersHelper = require('../db/db_helpers').playersHelper;
+var playersHelper = require('../db/playersHelper');
 
 //                  _            
 //                 | |           
@@ -22,7 +22,7 @@ var playersHelper = require('../db/db_helpers').playersHelper;
 // | | | (_) | |_| | ||  __/\__ \
 // |_|  \___/ \__,_|\__\___||___/
 
-// Create a user in the database
+// POST to create a player
 router.post('/', function (req, res, next) {
   // Expected request body example
   // {
@@ -71,7 +71,7 @@ router.post('/', function (req, res, next) {
   // }
 });
 
-// Delete a user in the database
+// DELETE to delete a player
 router.delete('/', function (req, res, next) {
   // Expected request body example
   // {
