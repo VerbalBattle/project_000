@@ -1,9 +1,10 @@
 angular.module('VBattle.sideBar', [])
 
 .controller('SidebarCtrl', function ($scope, $element) {
-  
+  // indicate whether sidebar is visible or not
   $scope.state = false;
 
+  // Elements in the sidebar
   $scope.list = [
   {
     status: '',
@@ -20,26 +21,22 @@ angular.module('VBattle.sideBar', [])
   {
     status: '',
     filePath: '../assets/profile.png',
-    text: 'Edit Profile!',
+    text: 'Edit Profile',
     route: '#/profile'
   },
   {
     status: '',
     filePath: '../assets/setting.png',
-    text: 'Edit Settings!',
+    text: 'Edit Settings',
     route: '#/setting'
   },
   {
     status: '',
     filePath: '../assets/logout.png',
     text: 'Logout',
-    route: '#/signout'
+    route: '#/logout'
   }
   ];
-
-  $scope.toggleState = function () {
-    $scope.state = !$scope.state;
-  };
 
   // Change classname for tag with specific ID
   $scope.showText = function (index) {
