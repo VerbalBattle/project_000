@@ -22,7 +22,7 @@ var playersHelper = require('../db/db_helpers').playersHelper;
 // | | | (_) | |_| | ||  __/\__ \
 // |_|  \___/ \__,_|\__\___||___/
 
-/* GET users listing. */
+// Create a user in the database
 router.post('/', function (req, res, next) {
   // Data to pass to addPlayer
   var data = {
@@ -39,5 +39,24 @@ router.post('/', function (req, res, next) {
   console.log('\n\nNEW PLAYER\n\n');
   // Handoff to players helper
   playersHelper.addPlayer(data);
+});
+
+// Delete a user in the database
+router.delete('/', function (req, res, next) {
+  // Data to pass to deletePlayer
+  var data = {
+    // Username
+    username: req.body.username,
+    // Playername
+    playername: req.body.playername,
+    // Callback
+    callback: function (result) {
+      res.send(result);
+    }
+  };
+  // Log route called
+  console.log('\n\nDELETE PLAYER\n\n');
+  // Handoff to players helper
+  playersHelper.deletePlayer(data);
 });
 module.exports = router;

@@ -221,13 +221,11 @@ playersHelper.getAllPlayers = function (result) {
 
   // Get username
   var username = result.username;
-  // Any players found bool
-  result.playersFound = false;
 
   // If no username found
   if (username && username !== '') {
     // Query players table
-    return db.players.find({
+    return db.players.findAll({
       where: {
         username: username
       }
@@ -244,7 +242,7 @@ playersHelper.getAllPlayers = function (result) {
         // Iterate over all players
         for (var i = 0; i < playersFound.length; ++i) {
           // Get player reference
-          var player = result.players[playersFound[i]];
+          var player = playersFound[i].dataValues;
           // Add player information for client
           players[player.playername] = {
             imagePath: '../some/Image/Path.png',
@@ -255,18 +253,16 @@ playersHelper.getAllPlayers = function (result) {
         // Passoff result to player stats collector
         return playerStatsHelper.getAllStats(result)
           .then(function () {
-            // Return the modified result with populated stats
-            // return result;
+            ;
           });
       } else {
         // No players were found
-        // callback(result);
+        result.playersFound = false;
       }
     })
   } else {
     // Username wasn't provided
     result.usernameProvided = false;
-    // callback(result);
   }
 };
 
@@ -383,6 +379,57 @@ playersHelper.addPlayer = function (data) {
   });
 };
 
+// Players helper delete player
+playersHelper.deletePlayer = function (data) {
+  // Get username
+  var username = data.username;
+  // Get playername
+  var playername = data.playername;
+  // Get callback
+  var callback = data.callback;
+
+  // Result for data to return to client
+  var result = {};
+  // Assume removal unsuccessful
+  result.removeSuccess = false;
+
+  // Find player stats
+  return db.playerStats.destroy({
+    where: {
+      playername: playername
+    },
+    limit: 1
+  }).then(function (affectedStatsRow) {
+    // If a player stats row was found
+    console.log('\n\naffectedRows:', affectedStatsRow, '\n\n');
+    if (affectedStatsRow) {
+      
+      // Delete corresponding player info
+      return db.players.destroy({
+        where: {
+          username: username,
+          playername: playername
+        },
+        limit: 1
+      }).then(function (affectedInfoRow) {
+        // If player info was found
+        console.log('\n\naffectedInfoRow:', affectedInfoRow, '\n\n');
+
+        // Player removed successfully
+        result.removeSuccess = true;
+
+        // Invoke callback
+        callback(result);
+      })
+    } else {
+      // No player was found
+      result.playerLookupSuccess = false;
+      // Invoke callback
+      callback(result);
+    }
+  });
+};
+
 //        _                       _____ _        _        _   _      _                 
 //       | |                     /  ___| |      | |      | | | |    | |                
 //  _ __ | | __ _ _   _  ___ _ __\ `--.| |_ __ _| |_ ___ | |_| | ___| |_ __   ___ _ __ 
@@ -406,7 +453,7 @@ playerStatsHelper.getAllStats = function (result) {
   result.playerStatsFound = false;
 
   // Query player stats table
-  return db.playerStats.find({
+  return db.playerStats.findAll({
     where: {
       playername: {
         $in: playerKeys
@@ -421,7 +468,7 @@ playerStatsHelper.getAllStats = function (result) {
       // Iterate over all player stats
       for (var i = 0; i < playerStats.length; ++i) {
         // Get the player stats
-        var stats_i = playerStats[i];
+        var stats_i = playerStats[i].dataValues;
         // Get playername
         var playername = stats_i.playername;
         // Add player stats to result's associated player
