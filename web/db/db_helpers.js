@@ -227,7 +227,7 @@ playersHelper.getAllPlayers = function (result) {
   // If no username found
   if (username && username !== '') {
     // Query players table
-    return db.players.find({
+    return db.players.findAll({
       where: {
         username: username
       }
@@ -244,7 +244,7 @@ playersHelper.getAllPlayers = function (result) {
         // Iterate over all players
         for (var i = 0; i < playersFound.length; ++i) {
           // Get player reference
-          var player = result.players[playersFound[i]];
+          var player = playersFound[i].dataValues;
           // Add player information for client
           players[player.playername] = {
             imagePath: '../some/Image/Path.png',
@@ -406,7 +406,7 @@ playerStatsHelper.getAllStats = function (result) {
   result.playerStatsFound = false;
 
   // Query player stats table
-  return db.playerStats.find({
+  return db.playerStats.findAll({
     where: {
       playername: {
         $in: playerKeys
@@ -421,7 +421,7 @@ playerStatsHelper.getAllStats = function (result) {
       // Iterate over all player stats
       for (var i = 0; i < playerStats.length; ++i) {
         // Get the player stats
-        var stats_i = playerStats[i];
+        var stats_i = playerStats[i].dataValues;
         // Get playername
         var playername = stats_i.playername;
         // Add player stats to result's associated player
