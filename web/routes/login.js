@@ -34,6 +34,7 @@ router.post('/', function (req, res, next) {
       res.send(result);
     }
   };
+  // Log route called
   console.log('\n\nLOGIN\n\n');
   // Attempt login
   usersHelper.login(data);

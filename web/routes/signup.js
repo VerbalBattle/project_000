@@ -34,6 +34,7 @@ router.post('/', function (req, res, next) {
       res.send(result);
     }
   };
+  // Log route called
   console.log('\n\nSIGNUP\n\n');
   // Attempt signup
   usersHelper.signup(data);
