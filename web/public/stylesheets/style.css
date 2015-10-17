@@ -24,7 +24,7 @@ ul {
   color: #a7a7a7;
   width: 100px;
   height: 100px;
-  top: 25px;
+  margin-top: 25px;
   position: relative;
   border-radius: 50%;
 }

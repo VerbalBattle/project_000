@@ -34,7 +34,7 @@ angular.module('VBattle.sideBar', [])
     status: '',
     filePath: '../assets/logout.png',
     text: 'Logout',
-    route: '#/logout'
+    route: '#/login'
   }
   ];
 
