@@ -1,4 +1,4 @@
 angular.module('VBattle.battle', [])
 
-.controller('BattleCtrl', function ($scope, $location, Users) {
+.controller('BattleCtrl', function ($scope, $location) {
 });

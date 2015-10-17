@@ -1,8 +1,8 @@
 angular.module('VBattle.signin', [])
 
-.controller('SigninCtrl', function ($scope, $rootScope, $location, Users) {
+.controller('SigninCtrl', function ($scope, $rootScope, $location, Auth) {
   $scope.signin = function () {
-    Users.signin($scope.username, $scope.password)
+    Auth.signin($scope.username, $scope.password)
     .then(function (data) {
       console.log(data)
       $scope.username = '';

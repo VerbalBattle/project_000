@@ -14,14 +14,14 @@ angular.module('VBattle', [
 .config(function ($routeProvider, $httpProvider) {
   $routeProvider
     .when('/login', {
-      templateUrl: '/user/signin.html',
+      templateUrl: '/auth/signin.html',
       controller: 'SigninCtrl'
     })
     .when('/signup', {
-      templateUrl: '/user/signup.html',
+      templateUrl: '/auth/signup.html',
       controller: 'SignupCtrl'
     })
-    .when('/signout', {
+    .when('/logout', {
       template: null,
       controller: 'SignoutCtrl'
     })
@@ -35,7 +35,7 @@ angular.module('VBattle', [
     })
     .when('/search', {
       templateUrl: '/social/search.html',
-      controller: 'ProfileCtrl'
+      controller: 'SearchCtrl'
     })
     .when('/profile', {
       templateUrl: '/profile/profile.html',

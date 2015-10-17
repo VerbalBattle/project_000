@@ -1,4 +1,4 @@
 angular.module('VBattle.pending', [])
 
-.controller('PendingCtrl', function ($scope, $location, Users) {
+.controller('PendingCtrl', function ($scope, $location) {
 });
