@@ -20,13 +20,13 @@ angular.module('VBattle.sideBar', [])
   {
     status: '',
     filePath: '../assets/profile.png',
-    text: 'Edit Profile!',
+    text: 'Edit Profile',
     route: '#/profile'
   },
   {
     status: '',
     filePath: '../assets/setting.png',
-    text: 'Edit Settings!',
+    text: 'Edit Settings',
     route: '#/setting'
   },
   {

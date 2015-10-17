@@ -4,6 +4,7 @@ angular.module('VBattle.signin', [])
   $scope.signin = function () {
     Users.signin($scope.username, $scope.password)
     .then(function (data) {
+      console.log(data)
       $scope.username = '';
       $scope.password = '';
       if(data.loginSuccess) {

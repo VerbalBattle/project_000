@@ -28,3 +28,10 @@ angular.module('VBattle.services', [])
     signup: signup
   };
 })
+.factory('GamePlay', function () {
+  
+  
+  return {
+
+  }
+});

@@ -25,4 +25,7 @@ web/public/libs/
 .floo
 .flooignore
 
+# Temporary files
+.~*
+
 npm-debug.log

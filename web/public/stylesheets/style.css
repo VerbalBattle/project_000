@@ -10,12 +10,7 @@ a {
 .sidebar {
   position : fixed;
   left:-30px;
-  top : 0;
-  transition : 100ms left;
-}
-
-.verybottom {
-  margin-top: 1000px;
+  top: 0;
 }
 
 ul {
@@ -41,16 +36,16 @@ ul {
 .navigation-items div {
   z-index: initial;
   position: relative;
-  opacity: 0;
   transition: all .5s ease-out; 
   -webkit-transition: all .5s ease-out; 
   left: 85px;
   top: 85px;
   font-family: "Courier New";
-  font-size: 26px;
+  font-size: 0px;
 }
+
 .navigation-items div.show {
-  opacity: 1;
+  font-size: 26px;
   left: 110px;
   transition: all .5s ease-out; 
   -webkit-transition: all .5s ease-out;
