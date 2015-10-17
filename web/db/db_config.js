@@ -110,7 +110,6 @@ var players = sequelize.define('players', {
 users.hasMany(players, {
   foreignKey: {
     name: 'username',
-    unique: true,
     allowNull: false
   }
 });

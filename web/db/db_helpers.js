@@ -270,6 +270,119 @@ playersHelper.getAllPlayers = function (result) {
   }
 };
 
+// Players helper add player
+playersHelper.addPlayer = function (data) {
+  // Get username
+  var username = data.username;
+  // Get callback
+  var callback = data.callback;
+  // Get playerdata
+  var playerData = data.playerData;
+
+  // Result to store player data in
+  var result = {};
+  // Assume player can't be created
+  result.playerCreated = false;
+  result.playerCount = 0;
+
+  // Count all players for user
+  return db.players.findAll({
+    where: {
+      username: username
+    }
+  }).then(function (playersFound) {
+    // Set the player count
+    result.playerCount = 0;
+
+    // Set count if players found
+    if (playersFound) {
+      // Set players found to be what we need
+      result.playerCount = playersFound.length;
+    }
+    console.log('playerCOUNT: \t\t', playersFound.length);
+    // Continue only if playerCount is less than 9
+    if (result.playerCount < 9) {
+      
+      // Check to make sure player hasn't already been created
+      result.playerAlreadyExists = true;
+      for (var i = 0; i < playersFound.length; ++i) {
+        // Check playername
+        if (playersFound[i].dataValues.playername.toUpperCase()
+          === playerData.playername.toUpperCase()) {
+          // Invoke callback
+          callback(result);
+          // Return
+          return;
+        }
+      }
+
+      // Set playerAlreadyExists to be true
+      result.playerAlreadyExists = false;
+
+      // Create player
+      return db.players.create({
+        // Username
+        username: username,
+        // Player name
+        playername: playerData.playername,
+        // Image path
+        imagePath: 'something/goes/here.png',
+        // About me
+        aboutMe: playerData.aboutMe
+      }).then(function (playerCreated) {
+
+        // Get reference to data we need
+        playerCreated = playerCreated.dataValues;
+        // Set result data
+        result.playerData = {
+          // Player name
+          playername: playerCreated.playername,
+          // Image path
+          imagePath: playerCreated.imagePath,
+          // About me
+          aboutMe: playerCreated.aboutMe
+        };
+
+        // Initialize stats for the player created
+        return db.playerStats.create({
+          playername: playerData.playername
+        }).then(function (statsCreated) {
+
+          // Get reference to data we need
+          statsCreated = statsCreated.dataValues;
+
+          // Set stats data
+          result.playerStats = {
+            // Win loss ratio
+            winLossRatio: statsCreated.winLossRatio,
+            // Player type
+            playerType: statsCreated.playerType,
+            // Win velocity
+            winVelocity: statsCreated.winVelocity,
+            // Rank
+            rank: statsCreated.rank,
+            // Win streak
+            winStreak: statsCreated.winStreak
+          };
+
+          // Set result's player created bool
+          result.playerCreated = true;
+          // Increment player count
+          ++result.playerCount;
+
+          // Invoke callback
+          callback(result);
+        });
+      });
+    }
+
+    // Player count exceeded 9
+    result.tooManyPlayers = true;
+    // Invoke callback
+    callback(result);
+  });
+};
+
 //        _                       _____ _        _        _   _      _                 
 //       | |                     /  ___| |      | |      | | | |    | |                
 //  _ __ | | __ _ _   _  ___ _ __\ `--.| |_ __ _| |_ ___ | |_| | ___| |_ __   ___ _ __ 

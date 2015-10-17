@@ -24,6 +24,20 @@ var playersHelper = require('../db/db_helpers').playersHelper;
 
 /* GET users listing. */
 router.post('/', function (req, res, next) {
-  // Code here
+  // Data to pass to addPlayer
+  var data = {
+    // Username
+    username: req.body.username,
+    // Player data
+    playerData: req.body.playerData,
+    // Callback
+    callback: function (result) {
+      res.send(result);
+    }
+  };
+  // Log route called
+  console.log('\n\nNEW PLAYER\n\n');
+  // Handoff to players helper
+  playersHelper.addPlayer(data);
 });
 module.exports = router;
