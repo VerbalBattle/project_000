@@ -3,13 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <title>VerBattle</title>
+</head>
+
+<!-- Angular app initialized -->
+<body ng-app="VBattle">
+  <div class="container">
+    <div ng-view></div>
+  </div>
 
   <!-- Libraries: installed via Bower -->
   <script src="/libs/jquery/dist/jquery.js"></script>
   <script src="/libs/bootstrap/dist/js/bootstrap.js"></script>
   <script src="/libs/angular/angular.js"></script>
-  <script src="/libs/angular-ui-router/release/angular-ui-router.min.js"></script>
-  <script src="/libs/angular-route/angular-route.min.js"></script>
+  <script src="/libs/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="/libs/angular-route/angular-route.js"></script>
+
+  <!-- CSS for the app -->
+  <link rel="stylesheet" href="/libs/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="/stylesheets/style.css">
 
   <!-- Factories for the app -->
   <script src="/services/services.js"></script>
@@ -28,16 +39,6 @@
   <!-- Routes for the app -->
   <script src="/app.js"></script>
 
-  <!-- CSS for the app -->
-  <link rel="stylesheet" href="/libs/bootstrap/dist/css/bootstrap.css">
-  <link rel="stylesheet" href="/stylesheets/style.css">
-</head>
-
-<!-- Angular app initialized -->
-<body ng-app="VBattle">
-  <div class="container">
-    <div ng-view></div>
-  </div>
 </body>
 
 </html>
