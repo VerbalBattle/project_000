@@ -13,7 +13,7 @@
 // Requirements
 var express = require('express');
 var router = express.Router();
-var usersHelper = require('../db/db_helpers').usersHelper;
+var playersHelper = require('../db/db_helpers').playersHelper;
 
 //                  _            
 //                 | |           
@@ -24,19 +24,6 @@ var usersHelper = require('../db/db_helpers').usersHelper;
 
 /* GET users listing. */
 router.post('/', function (req, res, next) {
-  var data = {
-    // Username
-    username: req.body.username,
-    // Password
-    password: req.body.password,
-    // Callback
-    callback: function (result) {
-      res.send(result);
-    }
-  };
-  console.log('\n\nLOGIN\n\n');
-  // Attempt login
-  usersHelper.login(data);
+  // Code here
 });
-
 module.exports = router;

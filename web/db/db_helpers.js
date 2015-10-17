@@ -17,20 +17,20 @@ var db = require('./db_config.js');
 // Require bcrypt
 var bcrypt = require('bcrypt');
 
-//                      _   _      _                 
-//                     | | | |    | |                
-//  _   _ ___  ___ _ __| |_| | ___| |_ __   ___ _ __ 
-// | | | / __|/ _ \ '__|  _  |/ _ \ | '_ \ / _ \ '__|
-// | |_| \__ \  __/ |  | | | |  __/ | |_) |  __/ |   
-//  \__,_|___/\___|_|  \_| |_/\___|_| .__/ \___|_|   
-//                                  | |              
-//                                  |_|              
+//                           _   _      _                 
+//                          | | | |    | |                
+//  _   _ ___  ___ _ __ ___ | |_| | ___| |_ __   ___ _ __ 
+// | | | / __|/ _ \ '__/ __||  _  |/ _ \ | '_ \ / _ \ '__|
+// | |_| \__ \  __/ |  \__ \| | | |  __/ | |_) |  __/ |   
+//  \__,_|___/\___|_|  |___/\_| |_/\___|_| .__/ \___|_|   
+//                                       | |              
+//                                       |_|              
 
-// User helper master object
-var userHelper = {};
+// Users helper master object
+var usersHelper = {};
 
-// User helper make new user
-userHelper.makeUser = function (username, password) {
+// Users helper make new user
+usersHelper.makeUser = function (username, password) {
   // Generate a salt
   var salt = bcrypt.genSaltSync(10);
   // Find one user with username
@@ -43,8 +43,14 @@ userHelper.makeUser = function (username, password) {
   });
 };
 
-// User helper signup
-userHelper.signup = function (username, password, callback) {
+// Users helper signup
+usersHelper.signup = function (data) {
+  // Get username
+  var username = data.username;
+  // Get password
+  var password = data.password;
+  // Get callback
+  var callback = data.callback;
   // Result to return
   var result = {};
   
@@ -54,17 +60,13 @@ userHelper.signup = function (username, password, callback) {
   result.usernameAvailable = false;
 
   // If username or password is not provided
-  console.log('fuck you', password);
-  if (!password) {
-    result.fuckyou = false;
-    callback(result);
-    return;
-  }
   if (username && username !== ''
     && password && password !== '') {
     // Look for one user with username
     return db.users.find({
-      where: {username: username},
+      where: {
+        username: username
+      },
       limit: 1
     }).then(function (userFound) {
       // If user is found
@@ -77,7 +79,7 @@ userHelper.signup = function (username, password, callback) {
         // Set username available bool
         result.usernameAvailable = true;
         // Make user
-        return userHelper.makeUser(username, password)
+        return usersHelper.makeUser(username, password)
           .then(function (userCreated) {
             console.log('\n\nUSER CREATED:\n',
               userCreated, 'added');
@@ -88,8 +90,9 @@ userHelper.signup = function (username, password, callback) {
             result.userID = userCreated.id;
             // Set username
             result.username = userCreated.username;
-            // Invoke callback on user
-            callback(result);
+
+            // Get the rest of the user's data
+            usersHelper.getAllLoginData(result, callback);
           });
       }
     });
@@ -97,13 +100,20 @@ userHelper.signup = function (username, password, callback) {
     // Username or password is empty/not provided
     // Invoke callback
     result.empty = true;
+    // Invoke callback
     callback(result);
   }
 
 };
 
-// User helper login
-userHelper.login = function (username, password, callback) {
+// Users helper login
+usersHelper.login = function (data) {
+  // Get username
+  var username = data.username;
+  // Get password
+  var password = data.password;
+  // Get callback
+  var callback = data.callback;
   // Result to return
   var result = {};
 
@@ -133,7 +143,7 @@ userHelper.login = function (username, password, callback) {
 
         // Try to match username and password
         result.passwordSuccess
-          = userHelper.passwordMatch(userFound.salt,
+          = usersHelper.passwordMatch(userFound.salt,
               password,
               userFound.password);
 
@@ -147,23 +157,19 @@ userHelper.login = function (username, password, callback) {
           result.userID = userFound.id;
           // Username found
           result.username = userFound.username;
-          console.log(callback.toString());
-          // Invoke callback on result
-          callback(result);
 
-          // Get other required data
-          // return userHelper.getAllLoginData(result)
-          //   .then(function (finalResult) {
-          //     return finalResult;
-          //   });
+          // Get the rest of the user's data
+          usersHelper.getAllLoginData(result, callback);
         } else {
           // Password is not correct
           console.log('\n\nWrong password');
+          // Invoke callback
           callback(result);
         }
       } else {
         // Username wasn't found
         console.log('\n\nLOGIN | USERNAME NOT FOUND:', username);
+        // Invoke callback
         callback(result);
       }
     });
@@ -171,29 +177,156 @@ userHelper.login = function (username, password, callback) {
     // Username or password is incorrect or not provided
     // Invoke callback
     result.empty = true;
+    // Invoke callback
     callback(result);
   }
 };
 
-// User helper password match
-userHelper.passwordMatch = function (salt, givenPass, testPass) {
+// Users helper password match
+usersHelper.passwordMatch = function (salt, givenPass, testPass) {
   // Generate hash
   var hash = bcrypt.hashSync(givenPass, salt);
   // Return if passwords match
   return givenPass === testPass;
 };
 
-// User helper get user stats
-userHelper.getUserStats = function (data) {
+// Users helper get user stats
+usersHelper.getUserStats = function (data) {
 
 };
 
-// Get all user data for login
-userHelper.getAllLoginData = function (data) {
-  return data;
-  // Get user statistics
-  return getUserStats(data)
-    .then(function (statsResult) {
+// Users helper get all login data
+usersHelper.getAllLoginData = function (data, callback) {
+  return playersHelper.getAllPlayers(data)
+    .then(function () {
+      callback(data);
+    });
+};
+
+//        _                            _   _      _                 
+//       | |                          | | | |    | |                
+//  _ __ | | __ _ _   _  ___ _ __ ___ | |_| | ___| |_ __   ___ _ __ 
+// | '_ \| |/ _` | | | |/ _ \ '__/ __||  _  |/ _ \ | '_ \ / _ \ '__|
+// | |_) | | (_| | |_| |  __/ |  \__ \| | | |  __/ | |_) |  __/ |   
+// | .__/|_|\__,_|\__, |\___|_|  |___/\_| |_/\___|_| .__/ \___|_|   
+// | |             __/ |                           | |              
+// |_|            |___/                            |_|              
+
+// Player helper master object
+var playersHelper = {};
+
+// Player help get all players
+playersHelper.getAllPlayers = function (result) {
+  // result param is the result to return (send to client)
+
+  // Get username
+  var username = result.username;
+  // Any players found bool
+  result.playersFound = false;
+
+  // If no username found
+  if (username && username !== '') {
+    // Query players table
+    return db.players.find({
+      where: {
+        username: username
+      }
+    }).then(function (playersFound) {
+      // If any players were found
+      if (playersFound) {
+        // Set playersFound bool
+        result.playersFound = true;
+
+        // Set players object
+        result.players = {};
+        var players = result.players;
+
+        // Iterate over all players
+        for (var i = 0; i < playersFound.length; ++i) {
+          // Get player reference
+          var player = result.players[playersFound[i]];
+          // Add player information for client
+          players[player.playername] = {
+            imagePath: '../some/Image/Path.png',
+            aboutMe: player.aboutMe
+          };
+        }
+
+        // Passoff result to player stats collector
+        return playerStatsHelper.getAllStats(result)
+          .then(function () {
+            // Return the modified result with populated stats
+            // return result;
+          });
+      } else {
+        // No players were found
+        // callback(result);
+      }
+    })
+  } else {
+    // Username wasn't provided
+    result.usernameProvided = false;
+    // callback(result);
+  }
+};
+
+//        _                       _____ _        _        _   _      _                 
+//       | |                     /  ___| |      | |      | | | |    | |                
+//  _ __ | | __ _ _   _  ___ _ __\ `--.| |_ __ _| |_ ___ | |_| | ___| |_ __   ___ _ __ 
+// | '_ \| |/ _` | | | |/ _ \ '__|`--. \ __/ _` | __/ __||  _  |/ _ \ | '_ \ / _ \ '__|
+// | |_) | | (_| | |_| |  __/ |  /\__/ / || (_| | |_\__ \| | | |  __/ | |_) |  __/ |   
+// | .__/|_|\__,_|\__, |\___|_|  \____/ \__\__,_|\__|___/\_| |_/\___|_| .__/ \___|_|   
+// | |             __/ |                                              | |              
+// |_|            |___/                                               |_|              
+
+// Player stats master object
+var playerStatsHelper = {};
+
+// Player stats helper get stats
+playerStatsHelper.getAllStats = function (result) {
+  // Reference the player stats
+  var playerData = result.players;
+  // Get player keys (playernames)
+  var playerKeys = Object.keys(playerData);
+
+  // Set result's player stats found bool
+  result.playerStatsFound = false;
+
+  // Query player stats table
+  return db.playerStats.find({
+    where: {
+      playername: {
+        $in: playerKeys
+      }
+    }
+  }).then(function (playerStats) {
+    // If playerStats were found
+    if (playerStats) {
+      // Set player stats found bool to be true
+      result.playerStatsFound = true;
+
+      // Iterate over all player stats
+      for (var i = 0; i < playerStats.length; ++i) {
+        // Get the player stats
+        var stats_i = playerStats[i];
+        // Get playername
+        var playername = stats_i.playername;
+        // Add player stats to result's associated player
+        playerData[playername].stats = {
+          // Win loss ratio
+          winLossRatio: stats_i.winLossRatio,
+          // Player type
+          playerType: stats_i.playerType,
+          // Win velocity
+          winVelocity: stats_i.winVelocity,
+          // Rank
+          rank: stats_i.rank,
+          // Win streak
+          winStreak: stats_i.winStreak
+        };
+      }
+    }
+    // Otherwise, player stats weren't found
 
   });
 };
@@ -208,4 +341,8 @@ userHelper.getAllLoginData = function (data) {
 //           |_|    
 
 // Export users helpers
-module.exports.userHelper = userHelper;
+module.exports.usersHelper = usersHelper;
+// Export players helper
+module.exports.playersHelper = playersHelper;
+// Export player stats helper
+module.exports.playerStatsHelper = playerStatsHelper;
