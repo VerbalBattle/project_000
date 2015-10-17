@@ -220,18 +220,18 @@ playersHelper.getAllPlayers = function (result) {
   // result param is the result to return (send to client)
 
   // Get username
-  var username = result.username;
+  var userID = result.userID;
 
   // If no username found
-  if (username && username !== '') {
+  if (userID !== undefined && userID > 0) {
     // Query players table
     return db.players.findAll({
       where: {
-        username: username
+        userID: userID
       }
     }).then(function (playersFound) {
       // If any players were found
-      if (playersFound) {
+      if (playersFound.length > 0) {
         // Set playersFound bool
         result.playersFound = true;
 
@@ -244,9 +244,10 @@ playersHelper.getAllPlayers = function (result) {
           // Get player reference
           var player = playersFound[i].dataValues;
           // Add player information for client
-          players[player.playername] = {
+          players[player.id] = {
+            playername: player.playername,
             imagePath: '../some/Image/Path.png',
-            aboutMe: player.aboutMe
+            aboutMe: player.aboutMe,
           };
         }
 
@@ -269,11 +270,12 @@ playersHelper.getAllPlayers = function (result) {
 // Players helper add player
 playersHelper.addPlayer = function (data) {
   // Get username
-  var username = data.username;
+  var userID = data.userID;
   // Get callback
   var callback = data.callback;
   // Get playerdata
   var playerData = data.playerData;
+  console.log('\n\n', data, '\n\n');
 
   // Result to store player data in
   var result = {};
@@ -284,7 +286,7 @@ playersHelper.addPlayer = function (data) {
   // Count all players for user
   return db.players.findAll({
     where: {
-      username: username
+      userID: userID
     }
   }).then(function (playersFound) {
     // Set the player count
@@ -295,7 +297,7 @@ playersHelper.addPlayer = function (data) {
       // Set players found to be what we need
       result.playerCount = playersFound.length;
     }
-    console.log('playerCOUNT: \t\t', playersFound.length);
+
     // Continue only if playerCount is less than 9
     if (result.playerCount < 9) {
       
@@ -318,7 +320,7 @@ playersHelper.addPlayer = function (data) {
       // Create player
       return db.players.create({
         // Username
-        username: username,
+        userID: userID,
         // Player name
         playername: playerData.playername,
         // Image path
@@ -336,12 +338,18 @@ playersHelper.addPlayer = function (data) {
           // Image path
           imagePath: playerCreated.imagePath,
           // About me
-          aboutMe: playerCreated.aboutMe
+          aboutMe: playerCreated.aboutMe,
+          // id
+
+          // ENCRYPT LATER
+          // ENCRYPT LATER
+          // ENCRYPT LATER
+          playerID: playerCreated.id
         };
 
         // Initialize stats for the player created
         return db.playerStats.create({
-          playername: playerData.playername
+          id: playerCreated.id
         }).then(function (statsCreated) {
 
           // Get reference to data we need
@@ -382,9 +390,9 @@ playersHelper.addPlayer = function (data) {
 // Players helper delete player
 playersHelper.deletePlayer = function (data) {
   // Get username
-  var username = data.username;
+  var userID = data.userID;
   // Get playername
-  var playername = data.playername;
+  var playerID = data.playerID;
   // Get callback
   var callback = data.callback;
 
@@ -396,7 +404,7 @@ playersHelper.deletePlayer = function (data) {
   // Find player stats
   return db.playerStats.destroy({
     where: {
-      playername: playername
+      id: playerID
     },
     limit: 1
   }).then(function (affectedStatsRow) {
@@ -407,8 +415,8 @@ playersHelper.deletePlayer = function (data) {
       // Delete corresponding player info
       return db.players.destroy({
         where: {
-          username: username,
-          playername: playername
+          userID: userID,
+          id: playerID
         },
         limit: 1
       }).then(function (affectedInfoRow) {
@@ -446,8 +454,11 @@ var playerStatsHelper = {};
 playerStatsHelper.getAllStats = function (result) {
   // Reference the player stats
   var playerData = result.players;
-  // Get player keys (playernames)
-  var playerKeys = Object.keys(playerData);
+  // Get player IDs
+  var playerIDs = [];
+  for (var player in playerData) {
+    playerIDs.push(player.id);
+  }
 
   // Set result's player stats found bool
   result.playerStatsFound = false;
@@ -455,8 +466,8 @@ playerStatsHelper.getAllStats = function (result) {
   // Query player stats table
   return db.playerStats.findAll({
     where: {
-      playername: {
-        $in: playerKeys
+      id: {
+        $in: playerIDs
       }
     }
   }).then(function (playerStats) {
@@ -470,9 +481,9 @@ playerStatsHelper.getAllStats = function (result) {
         // Get the player stats
         var stats_i = playerStats[i].dataValues;
         // Get playername
-        var playername = stats_i.playername;
+        var playerID = stats_i.id;
         // Add player stats to result's associated player
-        playerData[playername].stats = {
+        playerData[playerID].stats = {
           // Win loss ratio
           winLossRatio: stats_i.winLossRatio,
           // Player type
@@ -484,6 +495,11 @@ playerStatsHelper.getAllStats = function (result) {
           // Win streak
           winStreak: stats_i.winStreak
         };
+
+        // Swap stats key for playername key
+        var playername = playerData[playerID].playername;
+        playerData[playername] = playerData[playerID];
+        delete playerData[playerID];
       }
     }
     // Otherwise, player stats weren't found

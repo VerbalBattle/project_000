@@ -24,6 +24,13 @@ var usersHelper = require('../db/db_helpers').usersHelper;
 
 /* GET users listing. */
 router.post('/', function (req, res, next) {
+  // Expected request body example
+  // {
+  //     "username": "mike",
+  //     "password": "mike"
+  // }
+
+  // Data to pass player login
   var data = {
     // Username
     username: req.body.username,
@@ -38,6 +45,29 @@ router.post('/', function (req, res, next) {
   console.log('\n\nLOGIN\n\n');
   // Attempt login
   usersHelper.login(data);
+
+  // Expected result sent to client
+  // {
+  //   "loginSuccess": true,
+  //   "usernameFound": true,
+  //   "passwordSuccess": true,
+  //   "userID": 1,
+  //   "username": "laura",
+  //   "playersFound": true,
+  //   "players": {
+  //     "2": {
+  //       "playername": "laura's player",
+  //       "imagePath": "../some/Image/Path.png",
+  //       "aboutMe": "I'm laura and I play to win."
+  //     },
+  //     "4": {
+  //       "playername": "laura's waffle",
+  //       "imagePath": "../some/Image/Path.png",
+  //       "aboutMe": "I'm laura and I play to win."
+  //     }
+  //   },
+  //   "playerStatsFound": true
+  // }
 });
 
 module.exports = router;
