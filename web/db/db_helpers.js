@@ -221,8 +221,6 @@ playersHelper.getAllPlayers = function (result) {
 
   // Get username
   var username = result.username;
-  // Any players found bool
-  result.playersFound = false;
 
   // If no username found
   if (username && username !== '') {
@@ -255,18 +253,16 @@ playersHelper.getAllPlayers = function (result) {
         // Passoff result to player stats collector
         return playerStatsHelper.getAllStats(result)
           .then(function () {
-            // Return the modified result with populated stats
-            // return result;
+            ;
           });
       } else {
         // No players were found
-        // callback(result);
+        result.playersFound = false;
       }
     })
   } else {
     // Username wasn't provided
     result.usernameProvided = false;
-    // callback(result);
   }
 };
 
@@ -380,6 +376,57 @@ playersHelper.addPlayer = function (data) {
     result.tooManyPlayers = true;
     // Invoke callback
     callback(result);
+  });
+};
+
+// Players helper delete player
+playersHelper.deletePlayer = function (data) {
+  // Get username
+  var username = data.username;
+  // Get playername
+  var playername = data.playername;
+  // Get callback
+  var callback = data.callback;
+
+  // Result for data to return to client
+  var result = {};
+  // Assume removal unsuccessful
+  result.removeSuccess = false;
+
+  // Find player stats
+  return db.playerStats.destroy({
+    where: {
+      playername: playername
+    },
+    limit: 1
+  }).then(function (affectedStatsRow) {
+    // If a player stats row was found
+    console.log('\n\naffectedRows:', affectedStatsRow, '\n\n');
+    if (affectedStatsRow) {
+      
+      // Delete corresponding player info
+      return db.players.destroy({
+        where: {
+          username: username,
+          playername: playername
+        },
+        limit: 1
+      }).then(function (affectedInfoRow) {
+        // If player info was found
+        console.log('\n\naffectedInfoRow:', affectedInfoRow, '\n\n');
+
+        // Player removed successfully
+        result.removeSuccess = true;
+
+        // Invoke callback
+        callback(result);
+      })
+    } else {
+      // No player was found
+      result.playerLookupSuccess = false;
+      // Invoke callback
+      callback(result);
+    }
   });
 };
 
