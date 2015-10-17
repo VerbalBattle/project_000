@@ -1,0 +1,8 @@
+<ul class="navigation" ng-repeat="item in list">
+  <li class="navigation-items"><div class="{{ item.status }}">{{ item.text }}</div>
+  <a href="{{ item.route }}"
+    style="background: url('{{ item.filePath }}');background-size: 70%;background-repeat: no-repeat;background-position: center;"
+    ng-mouseenter="showText($index)"
+    ng-mouseleave="hideText($index)">
+  </a></li>
+</ul>
