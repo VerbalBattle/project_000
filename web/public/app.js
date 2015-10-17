@@ -1,6 +1,7 @@
 angular.module('VBattle', [
 'VBattle.services',
 'VBattle.signin',
+'VBattle.signout',
 'VBattle.signup',
 'VBattle.profile',
 'VBattle.sideBar',
@@ -17,8 +18,8 @@ angular.module('VBattle', [
       controller: 'SignupCtrl'
     })
     .when('/signout', {
-      templateUrl: '/user/signup.html',
-      controller: 'SignupCtrl'
+      template: null,
+      controller: 'SignoutCtrl'
     })
     .when('/', {
       templateUrl: '/profile/profile.html',
