@@ -35,9 +35,15 @@ var sequelize = new Sequelize('InsultPvP', 'root', '', {
 
 // Define user model
 var users = sequelize.define('user', {
-  // User username / PRIMARY KEY
-  username: {
+  // ID
+  id: {
     primaryKey: true,
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    autoIncrement: true
+  },
+  // User username
+  username: {
     type: Sequelize.STRING(32),
     allowNull: false
   },
@@ -76,11 +82,26 @@ var users = sequelize.define('user', {
 
 // Define player model
 var players = sequelize.define('players', {
-  // Player name / PRIMARY KEY
-  playername: {
+  // ID
+  id: {
     primaryKey: true,
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    autoIncrement: true
+  },
+  // Player name
+  playername: {
     type: Sequelize.STRING(32),
     allowNull: false
+  },
+  // Username foreign key
+  userID: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'users',
+      key: 'id'
+    }
   },
   // Player image path
   imagePath: {
@@ -106,14 +127,6 @@ var players = sequelize.define('players', {
   }
 });
 
-// Players FOREIGN KEY
-users.hasMany(players, {
-  foreignKey: {
-    name: 'username',
-    allowNull: false
-  }
-});
-
 //        _                       _____ _        _       
 //       | |                     /  ___| |      | |      
 //  _ __ | | __ _ _   _  ___ _ __\ `--.| |_ __ _| |_ ___ 
@@ -125,15 +138,15 @@ users.hasMany(players, {
 
 // Define player stats model
 var playerStats = sequelize.define('playerStats', {
-  // Player name / FOREIGN KEY / PRIMARY KEY
-  playername: {
+  // FOREIGN KEY / PRIMARY KEY
+  id: {
     primaryKey: true,
-    type: Sequelize.STRING(32),
+    type: Sequelize.INTEGER,
+    allowNull: false,
     references: {
       model: 'players',
-      key: 'playername'
-    },
-    allowNull: false
+      key: 'id'
+    }
   },
   // Player win loss ratio
   winLossRatio: {
@@ -198,8 +211,8 @@ users.sync().then(function () {
 .then(function () {
   // Sync to database
   players.sync().then(function () {
-  // Table created
-  console.log('Synced to Player Table');
+    // Table created
+    console.log('Synced to Player Table');
   });
 })
 

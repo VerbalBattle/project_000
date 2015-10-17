@@ -22,8 +22,15 @@ var usersHelper = require('../db/db_helpers').usersHelper;
 // | | | (_) | |_| | ||  __/\__ \
 // |_|  \___/ \__,_|\__\___||___/
 
-/* GET users listing. */
+ // POST to signup a new user
 router.post('/', function (req, res, next) {
+  // Expected request body example
+  // {
+  //     "username": "mike",
+  //     "password": "mike"
+  // }
+
+  // Data to pass player signup
   var data = {
     // Username
     username: req.body.username,
@@ -38,5 +45,14 @@ router.post('/', function (req, res, next) {
   console.log('\n\nSIGNUP\n\n');
   // Attempt signup
   usersHelper.signup(data);
+
+  // Expected result sent to client
+  // {
+  //   "signupSuccess": true,
+  //   "usernameAvailable": true,
+  //   "userID": 2,
+  //   "username": "mike",
+  //   "playersFound": false
+  // }
 });
 module.exports = router;
