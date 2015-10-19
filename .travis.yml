@@ -1,4 +1,11 @@
 language: node_js
 node_js:
   - "0.12.7"
-  - "iojs"
+branches:
+  only:
+    - angular
+before_script:
+  - npm install -g bower
+  - npm install -g grunt
+  - bower install
+  - grunt build
