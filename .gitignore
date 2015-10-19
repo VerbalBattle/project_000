@@ -16,8 +16,8 @@ Icon
 # Files that might appear on external disk
 .Spotlight-V100
 .Trashes
-web/node_modules/
-web/public/libs/
+node_modules/
+public/libs/
 
 # Floobits
 .floo
