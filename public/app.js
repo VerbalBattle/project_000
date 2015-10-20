@@ -1,5 +1,7 @@
 angular.module('VBattle', [
-'VBattle.services',
+'VBattle.authServices',
+'VBattle.profileServices',
+'VBattle.gameplayServices',
 'VBattle.signin',
 'VBattle.signout',
 'VBattle.signup',
