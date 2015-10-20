@@ -8,20 +8,22 @@
 // | | |  __/ (_| | |_| | | | |  __/ (_| |
 // |_|  \___|\__, |\__,_|_|_|  \___|\__,_|
 //              | |                       
-//              |_|                         
+//              |_|       
 
-// Get linked list class
-var LinkedList = require('./linkedList');
+// Require sequelize
+var Sequelize = require('sequelize');
+// Require bcrypt
+var bcrypt = require('bcrypt');
 
-//   __ _ _   _  ___ _   _  ___ 
-//  / _` | | | |/ _ \ | | |/ _ \
-// | (_| | |_| |  __/ |_| |  __/
-//  \__, |\__,_|\___|\__,_|\___|
-//     | |                      
-//     |_|                      
+//                                _   _      _                 
+//  _ __ ___   ___  _ __ ___  ___| | | | ___| |_ __   ___ _ __ 
+// | '__/ _ \ / _ \| '_ ` _ \/ __| |_| |/ _ \ | '_ \ / _ \ '__|
+// | | | (_) | (_) | | | | | \__ \  _  |  __/ | |_) |  __/ |   
+// |_|  \___/ \___/|_| |_| |_|___/_| |_|\___|_| .__/ \___|_|   
+//                                            |_|              
 
-// Make a new linked list for players waiting for game
-var waitingForGame = new LinkedList();
+// Rooms helper master object
+var roomsHelper = {};
 
 //                             _       
 //                            | |      
@@ -32,5 +34,5 @@ var waitingForGame = new LinkedList();
 //           | |                       
 //           |_|    
 
-// Export waiting for game queue
-module.exports.waitingForGame = waitingForGame;
+// Export users helpers
+module.exports = roomsHelper;
