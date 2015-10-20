@@ -32,6 +32,55 @@ messagesHelper.addMessageToRoom = function (data) {
   });
 };
 
+// Message helper fetch messages by roomID
+messagesHelper.fetchMessagesForRoom = function (roomID) {
+  // Get all messages associated with roomID
+  return messgesTable.findAll({
+    where: {
+      roomID: roomID
+    }
+  }).then(function (foundMessages) {
+    console.log(foundMessages);
+  });
+};
+
+// Message helper fetch messages for login
+messagesHelper.fetchMessagesForLogin = function (data) {
+  // Create key value mapping from rooms to avatarIDs
+  var map = {};
+  // Iterate over all players
+  for (var avatarID in data.avatars) {
+    // Get rooms
+    var rooms = data.avatars[avatarID].rooms;
+    // Iterate over all rooms
+    for (var room in rooms) {
+      // Add key value pair
+      map[room] = avatarID;
+      // Add messages object
+      rooms[room].messages = {};
+    }
+  }
+
+  // Get messages for all rooms
+  return messagesTable.findAll({
+    where: {
+      roomID: {
+        $in: Object.keys(map)
+      }
+    }
+  }).then(function (messagesFound) {
+    // Iterate over all messages
+    for (var i = 0; i < messagesFound.length; ++i) {
+      // Get message data
+      var message = messagesFound[i].dataValues;
+      // Get avatar
+      var rooms = data.avatars[map[message.roomID]].rooms;
+      // Add message to room
+      rooms[message.roomID].messages[message.id] = message;
+    }
+  });
+};
+
 //                             _       
 //                            | |      
 //   _____  ___ __   ___  _ __| |_ ___ 

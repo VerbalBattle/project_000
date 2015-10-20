@@ -159,8 +159,6 @@ roomsHelper.getAllRooms = function (data) {
       var currRoom = roomsFound[i].dataValues;
       // Get avatar id that we need
       var currAvatarID = currRoom.avatar1_id;
-      console.log(currRoom.avatar1_id in data.avatars);
-      console.log(currRoom.avatar2_id in data.avatars);
       if (currRoom.avatar2_id in data.avatars) {
         currAvatarID = currRoom.avatar2_id;
       }
@@ -171,6 +169,9 @@ roomsHelper.getAllRooms = function (data) {
       // Add key
       data.avatars[currAvatarID].rooms[currRoom.id] = currRoom;
     }
+
+    // Handoff to messagesHelper
+    return messagesHelper.fetchMessagesForLogin(data);
   });
 };
 
