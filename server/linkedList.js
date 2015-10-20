@@ -142,7 +142,7 @@ LinkedList.prototype.removeByAvatarID = function (avatarID) {
     delete this.nodes[avatarID];
   } else {
     // Log avatar removal attempt for avatar not in line
-    console.log('Avatar removal error')
+    console.log('Avatar removal error');
   }
 };
 

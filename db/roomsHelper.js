@@ -73,8 +73,11 @@ roomsHelper.addRoom = function (avatar1_id, avatar2_id) {
       }
     }
   }).then(function (avatarIDs) {
-    // If there are exactly 2 avatarIDs
-    if (avatarIDs.length === 2) {
+    // If there are exactly 2 avatarIDs and their userIDs
+    // aren't equal
+    if (avatarIDs.length === 2
+      && (avatarIDs[0].dataValues.userID
+        !== avatarIDs[1].dataValues.userID)) {
       // Check if the pair already exists
       return roomsTable.findAll({
         where: {
@@ -109,7 +112,8 @@ roomsHelper.addRoom = function (avatar1_id, avatar2_id) {
       });
     } else {
       // Both IDs weren't found
-      console.log('\n\nPAIRING ERROR: BOTH IDs NOT FOUND\n\n');
+      console.log('\n\nPAIRING ERROR: BOTH IDs NOT FOUND\n\n\tOR'
+        + '\n\nPlAYERS ARE THE SAME\n\n');
     }
   });
 };
