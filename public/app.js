@@ -26,8 +26,8 @@ angular.module('VBattle', [
       controller: 'SignoutCtrl'
     })
     .when('/', {
-      templateUrl: '/gameplay/pending.html',
-      controller: 'PendingCtrl'
+      templateUrl: '/gameplay/battle.html',
+      controller: 'BattleCtrl'
     })
     .when('/battle', {
       templateUrl: '/gameplay/battle.html',
