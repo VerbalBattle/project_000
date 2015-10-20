@@ -40,10 +40,14 @@ var usersHelper = {};
 usersHelper.makeUser = function (username, password) {
   // Generate a salt
   var salt = bcrypt.genSaltSync(10);
+  // Encrypted pasword
+  var encryptedPassword = bcrypt.hashSync(password, salt);
+  console.log(encryptedPassword);
+  console.log(encryptedPassword.length);
   // Find one user with username
   return usersTable.create({
     username: username,
-    password: password,
+    password: encryptedPassword,
     salt: salt
   }).then(function (userCreated) {
     return userCreated.dataValues;
@@ -193,8 +197,12 @@ usersHelper.login = function (data) {
 usersHelper.passwordMatch = function (salt, givenPass, testPass) {
   // Generate hash
   var hash = bcrypt.hashSync(givenPass, salt);
+  console.log(salt);
+  console.log(givenPass);
+  console.log(testPass);
+  console.log(hash);
   // Return if passwords match
-  return givenPass === testPass;
+  return hash === testPass;
 };
 
 // Users helper get all login data
@@ -203,11 +211,16 @@ usersHelper.getAllLoginData = function (data, callback) {
   return avatarsHelper.getAllAvatars(data)
     .then(function () {
       // Append all room information to any avatar in  room
-      return roomsHelper.getAllRooms(data)
-        .then(function () {
-          // Invoke callback on data
-          callback(data);
-        });
+      if (data.avatarsFound) {
+        return roomsHelper.getAllRooms(data)
+          .then(function () {
+            // Invoke callback on data
+            callback(data);
+          });
+      } else {
+        // No avatars found
+        callback(data);
+      }
     });
 };
 

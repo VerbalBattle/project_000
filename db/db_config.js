@@ -49,7 +49,7 @@ var users = sequelize.define('user', {
   },
   // User password
   password: {
-    type: Sequelize.STRING(32),
+    type: Sequelize.STRING(60),
     allowNull: false
   },
   // User salt for password hashing
