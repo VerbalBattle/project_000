@@ -118,6 +118,47 @@ roomsHelper.addRoom = function (avatar1_id, avatar2_id) {
   });
 };
 
+// Rooms helper that gets rooms to every avatar in a room
+roomsHelper.getAllRooms = function (data) {
+  // Get array of all avatars
+  var avatarIDs = Object.keys(data.avatars);
+  // Get all rooms associated with avatars
+  return roomsTable.findAll({
+    where: {
+      $or: [{
+          avatar1_id: {
+            $in: avatarIDs
+          }
+        },
+        {
+          avatar2_id: {
+            $in: avatarIDs
+          }
+        }
+      ]
+    }
+  }).then(function (roomsFound) {
+    // Iterate over all rooms found
+    for (var i = 0; i < roomsFound.length; ++i) {
+      // Get current room
+      var currRoom = roomsFound[i].dataValues;
+      // Get avatar id that we need
+      var currAvatarID = currRoom.avatar1_id;
+      console.log(currRoom.avatar1_id in data.avatars);
+      console.log(currRoom.avatar2_id in data.avatars);
+      if (currRoom.avatar2_id in data.avatars) {
+        currAvatarID = currRoom.avatar2_id;
+      }
+      // Add room data
+      if (data.avatars[currAvatarID].rooms === undefined) {
+        data.avatars[currAvatarID].rooms = {};
+      }
+      // Add key
+      data.avatars[currAvatarID].rooms[currRoom.id] = currRoom;
+    }
+  });
+};
+
 //                             _       
 //                            | |      
 //   _____  ___ __   ___  _ __| |_ ___ 

@@ -71,19 +71,14 @@ router.post('/', function (req, res, next) {
 });
 
 // DELETE to delete a avatar
-router.delete('/', function (req, res, next) {
-  // Expected request body example
-  // {
-  //     "userID": 1,
-  //     "avatarID": 3
-  // }
+router.delete('/:userID/:avatarID', function (req, res, next) {
 
   // Data to pass to deleteAvatar
   var data = {
     // Username
-    userID: req.body.userID,
+    userID: req.params.userID,
     // Avatarname
-    avatarID: req.body.avatarID,
+    avatarID: req.params.avatarID,
     // Callback
     callback: function (result) {
       res.send(result);
