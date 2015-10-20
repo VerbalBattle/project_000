@@ -8,7 +8,7 @@
   "disallowMultipleVarDecl": {"allExcept": ["require", "undefined"]},
   "disallowNewlineBeforeBlockStatements": true,
   "disallowTrailingComma": true,
-  "disallowTrailingWhitespace": true,
+  "disallowTrailingWhitespace": false,
   "requireBlocksOnNewline": true,
   "requireCurlyBraces": true,
   "requireObjectKeysOnNewLine": true,
