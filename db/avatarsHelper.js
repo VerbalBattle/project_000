@@ -135,8 +135,8 @@ avatarsHelper.addAvatar = function (data) {
           result.avatarCount = avatarsFound.length;
         }
 
-        // Continue only if avatarCount is less than 9
-        if (result.avatarCount < 9) {
+        // Continue only if avatarCount is less than 3
+        if (result.avatarCount < 3) {
           
           // Check to make sure avatar hasn't already been created
           result.avatarAlreadyExists = true;
