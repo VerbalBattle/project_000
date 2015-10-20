@@ -5,6 +5,7 @@
   </div>
   <div class="row avatars" ng-repeat="(key, value) in user.avatars">
     <div class="col-md-4" ng-repeat="(key1, value1) in value">{{value1}}</div>
+    <button ng-click="removeAvatar()">Remove</button>
   </div>
   <button ng-click="addForm=!addForm">Add New Player</button>
   <form ng-show="addForm" ng-submit="addAvatar()">

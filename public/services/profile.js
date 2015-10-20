@@ -13,7 +13,18 @@ angular.module('VBattle.profileServices', [])
         throw err;
       });
   };
+
+  var removeAvatar = function (avatar) {
+    var url = '/avatars/' + avatar.userID + '/' + avatar.avatarID;
+    return $http.delete(url, avatar)
+      .then(function (resp) {
+        return resp.data;
+      }, function (err) {
+        throw err;
+      });
+  };
   return {
-    addAvatar: addAvatar
+    addAvatar: addAvatar,
+    removeAvatar: removeAvatar
   };
 });
