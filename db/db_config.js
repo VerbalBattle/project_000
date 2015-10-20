@@ -287,7 +287,7 @@ users.sync().then(function () {
     // Table created
     console.log('Synced to Rooms Table');
   });
-})
+});
 
 //                             _       
 //                            | |      

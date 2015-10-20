@@ -70,7 +70,7 @@ avatarsHelper.getAllAvatars = function (result) {
           avatars[avatar.id] = {
             avatarName: avatar.avatarName,
             imagePath: '../some/Image/Path.png',
-            aboutMe: avatar.aboutMe,
+            aboutMe: avatar.aboutMe
           };
         }
 
@@ -83,7 +83,7 @@ avatarsHelper.getAllAvatars = function (result) {
         // No avatars were found
         result.avatarsFound = false;
       }
-    })
+    });
   } else {
     // Username wasn't provided
     result.usernameProvided = false;
@@ -238,7 +238,7 @@ avatarsHelper.addAvatar = function (data) {
       // The userID wasn't found
       callback(result);
     }
-  })
+  });
 };
 
 // Avatars helper delete avatar
@@ -290,7 +290,7 @@ avatarsHelper.deleteAvatar = function (data) {
 
             // Invoke callback
             callback(result);
-          })
+          });
         } else {
           // No avatar was found
           result.avatarFound = false;
@@ -304,7 +304,7 @@ avatarsHelper.deleteAvatar = function (data) {
       // Invoke callback, user wasn't found
       callback(result);
     }
-  })
+  });
 };
 
 //                             _       
