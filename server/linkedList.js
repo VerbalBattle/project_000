@@ -87,6 +87,8 @@ LinkedList.prototype.addToFront = function (val) {
 
 // Linked list add to back
 LinkedList.prototype.addToBack = function (val) {
+  // Assume player wasn't added
+  var added = false;
   // Only continue if avatar isn't in queue
   if (!this.contains(val.avatarID)) {
     // Get pointer to current tail
@@ -106,7 +108,12 @@ LinkedList.prototype.addToBack = function (val) {
 
     // Add newTail to nodes
     this.nodes[newTail.val.avatarID] = newTail;
+
+    // Set added bool to true
+    added = true;
   }
+  // Return bool
+  return added;
 };
 
 // Linked list remove node

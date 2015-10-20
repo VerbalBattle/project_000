@@ -22,12 +22,13 @@ var roomsHelper = require('../db/roomsHelper');
 // | | | (_) | |_| | ||  __/\__ \
 // |_|  \___/ \__,_|\__\___||___/
 
-// POST to signup a new user
-router.post('/', function (req, res, next) {
+// POST to attempt to join a room
+router.post('/:roomID', function (req, res, next) {
   // Expected request body example
   // {
-  //     "username": "mike",
-  //     "password": "mike"
+  //     "userID": 17,
+  //     "avatarID": 23,
+  //     "message": "my message is here"
   // }
 
   // Data to pass avatar signup
@@ -36,17 +37,21 @@ router.post('/', function (req, res, next) {
     userID: req.body.userID,
     // Avatar id
     avatarID: req.body.avatarID,
-    // Avatar data
-    avatarStats: req.body.avatarStats
+    // Message
+    message: req.body.message,
+    // Room id
+    roomID: req.params.roomID,
     // Callback
-    // None
+    callback: function (result) {
+      res.send(result);
+    }
   };
 
   // Log
   console.log('\n\nATTEMPTING ADDING TO BACK OF LINE:',
     data.avatarID, '\n\n');
   // Attempt to add
-  roomsHelper.enqueueAvatar(data);
+  roomsHelper.sendMessageToRoom(data);
 
   // Expected result sent to client
   // None

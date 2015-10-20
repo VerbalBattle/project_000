@@ -43,6 +43,7 @@ var users = require('./routes/users');
 var login = require('./routes/login');
 var signup = require('./routes/signup');
 var avatars = require('./routes/avatars');
+var rooms = require('./routes/rooms');
 var matchmaking = require('./routes/matchmaking');
 
 // Specify routes
@@ -51,6 +52,7 @@ app.use('/users', users);
 app.use('/login', login);
 app.use('/signup', signup);
 app.use('/avatars', avatars);
+app.use('/rooms', rooms);
 app.use('/matchmaking', matchmaking);
 
 // catch 404 and forward to error handler

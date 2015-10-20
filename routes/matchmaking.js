@@ -35,9 +35,11 @@ router.post('/', function (req, res, next) {
     // Avatar id
     avatarID: req.body.avatarID,
     // Avatar data
-    avatarStats: req.body.avatarStats
+    avatarStats: req.body.avatarStats,
     // Callback
-    // None
+    callback: function (result) {
+      res.send(result);
+    }
   };
 
   // Log

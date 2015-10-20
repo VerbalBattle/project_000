@@ -19,9 +19,15 @@ var bcrypt = require('bcrypt');
 var roomsTable = require('./db_config.js').rooms;
 // Require avatars table
 var avatarsTable = require('./db_config.js').avatars;
+// Require messages table
+var messagesTable = require('./db_config.js').messages;
+
+// Require messages helper
+var messagesHelper = require('./messagesHelper');
 
 // Require player game room queue
 var waitingForGame = require('../server/data').waitingForGame;
+
 
 //                                _   _      _                 
 //  _ __ ___   ___  _ __ ___  ___| | | | ___| |_ __   ___ _ __ 
@@ -35,8 +41,11 @@ var roomsHelper = {};
 
 // Rooms helper method to add to end of queue
 roomsHelper.enqueueAvatar = function (data) {
+  // Get the callback
+  var callback = data.callback;
+  delete data.callback;
   // Add player to end of linked list
-  waitingForGame.addToBack(data);
+  var added = waitingForGame.addToBack(data);
   // Print the queue
   waitingForGame.print();
   // If there are 2 players in queue, pair them
@@ -48,6 +57,12 @@ roomsHelper.enqueueAvatar = function (data) {
       ]
     ]);
   }
+
+  // Invoke callback
+  var result = {
+    inRoomQueue: added
+  };
+  callback(result);
 };
 
 // Rooms helper method to remove tuples from queue
@@ -157,6 +172,111 @@ roomsHelper.getAllRooms = function (data) {
       data.avatars[currAvatarID].rooms[currRoom.id] = currRoom;
     }
   });
+};
+
+// Rooms helper send message to room
+roomsHelper.sendMessageToRoom = function (data) {
+  // Get data from route
+  var userID = data.userID;
+  var avatarID = data.avatarID;
+  var roomID = data.roomID;
+  var message = data.message;
+  // Get callback
+  var callback = data.callback;
+
+  // Result to return to client
+  var result = {};
+
+  // Check for room in database
+  return roomsTable.find({
+    where: {
+      id: roomID
+    }
+  }).then(function (roomFound) {
+    // Only continue if the rom was found
+    if (roomFound) {
+      // Only continue if room is open
+      if (roomFound.dataValues.isOpen) {
+        // Get avatar 1 or avatar 2
+        var avatarNum = 0;
+        // If avatar 1
+        if (roomFound.dataValues.avatar1_id === avatarID) {
+          avatarNum = 1;
+        } else if (roomFound.dataValues.avatar2_id === avatarID) {
+          // Else if avatar 2
+          avatarNum = 2;
+        } else {
+          // Inform client avatar id wasn't found
+          result.foundAvatarID = false;
+          callback(result);
+        }
+
+        // Check turn validity
+        var turnValid = roomsHelper.checkTurn(avatarNum,
+          roomFound.dataValues.turnCount);
+
+        // Continue if turn valid
+        if (turnValid) {
+
+          // Add message to database
+          return messagesHelper.addMessageToRoom({
+            roomID: roomID,
+            message: message
+          }).then(function (messageCreated) {
+            // If the message was created
+            if (messageCreated) {
+              result.messageData = messageCreated;
+
+              // Check if game needs to close
+              var isOpen = roomFound.dataValues.turnCount < 5;
+              // Update turn count
+              return roomFound.update({
+                turnCount: roomFound.dataValues.turnCount + 1,
+                isOpen: isOpen
+              }).then(function () {
+
+                // Update turn count and invoke callback
+                result.newTurnCount = roomFound.dataValues.turnCount;
+                callback(result);
+              });
+            } else {
+              // Message could not be created for some reason
+              result.messageCreationError = false;
+              callback(result);
+            }
+          });
+        } else {
+          // Turn is invalid
+          result.turnValid = false;
+          callback(result);
+        }
+      } else {
+        // The room is closed, invoke callback
+        result.roomOpen = false;
+        callback(result);
+      }
+    } else {
+      // Inform client room wasn't found
+      result.roomFound = false;
+      callback(result);
+    }
+  });
+};
+
+// Rooms helper check turn
+roomsHelper.checkTurn = function (avatarOneOrTwo, turnCount) {
+  // Assume turn is invalid
+  var turnValid = false;
+  // Check if turn is less than 6
+  if (turnCount < 6) {
+    // Check for valid turns
+    if (turnCount % 2 === 0 && avatarOneOrTwo === 1
+      || turnCount % 2 === 1 && avatarOneOrTwo === 2) {
+      turnValid = true;
+    }
+  }
+  // Return bool
+  return turnValid;
 };
 
 //                             _       

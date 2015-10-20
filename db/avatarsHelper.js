@@ -10,18 +10,13 @@
 //              | |                       
 //              |_|       
 
-// Require sequelize
-var Sequelize = require('sequelize');
-// Require bcrypt
-var bcrypt = require('bcrypt');
-
 // Require users table
-var usersTable = require('./db_config.js').users;
+var usersTable = require('./db_config').users;
 
 // Require avatars table
-var avatarsTable = require('./db_config.js').avatars;
+var avatarsTable = require('./db_config').avatars;
 // Require avatar stats table
-var avatarStatsTable = require('./db_config.js').avatarStats;
+var avatarStatsTable = require('./db_config').avatarStats;
 
 // Require avatarStatsHelper
 var avatarStatsHelper = require('./avatarStatsHelper');
