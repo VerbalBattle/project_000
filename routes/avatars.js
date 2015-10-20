@@ -26,9 +26,9 @@ var avatarsHelper = require('../db/avatarsHelper');
 router.post('/', function (req, res, next) {
   // Expected request body example
   // {
-  //     "userID": "joey",
+  //     "userID": "974",
   //     "avatarData": {
-  //         "avatarname": "joey's avatar",
+  //         "avatarName": "joey's avatar",
   //         "imagePath": "some/image/path.png",
   //         "aboutMe": "I'm joey and I play to win."
   //     }
@@ -53,20 +53,19 @@ router.post('/', function (req, res, next) {
   // Expected result sent to client
   // {
   //   "avatarCreated": true,
-  //   "avatarCount": 3,
-  //   "avatarAlreadyExists": false,
-  //   "avatarData": {
-  //     "avatarname": "laura's waffle",
-  //     "imagePath": "something/goes/here.png",
-  //     "aboutMe": "I'm laura and I play to win.",
-  //     "avatarID": 4
-  //   },
-  //   "avatarStats": {
-  //     "winLossRatio": 0,
-  //     "avatarType": "untyped",
-  //     "winVelocity": 0,
-  //     "rank": 0,
-  //     "winStreak": 0
+  //   "avatars": {
+  //     "6": {
+  //       "avatarName": "super laura",
+  //       "imagePath": "something/goes/here.png",
+  //       "aboutMe": "I'm laura and I play to win.",
+  //       "stats": {
+  //         "winLossRatio": 0,
+  //         "avatarType": "untyped",
+  //         "winVelocity": 0,
+  //         "rank": 0,
+  //         "winStreak": 0
+  //       }
+  //     }
   //   }
   // }
 });

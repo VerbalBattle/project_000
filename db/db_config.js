@@ -71,17 +71,15 @@ var users = sequelize.define('user', {
   }
 });
 
-//        _                           
-//       | |                          
-//  _ __ | | __ _ _   _  ___ _ __ ___ 
-// | '_ \| |/ _` | | | |/ _ \ '__/ __|
-// | |_) | | (_| | |_| |  __/ |  \__ \
-// | .__/|_|\__,_|\__, |\___|_|  |___/
-// | |             __/ |              
-// |_|            |___/               
+//                   _             
+//                  | |            
+//   __ ___   ____ _| |_ __ _ _ __ 
+//  / _` \ \ / / _` | __/ _` | '__|
+// | (_| |\ V / (_| | || (_| | |   
+//  \__,_| \_/ \__,_|\__\__,_|_|   
 
-// Define player model
-var players = sequelize.define('players', {
+// Define avatar model
+var avatars = sequelize.define('avatars', {
   // ID
   id: {
     primaryKey: true,
@@ -89,8 +87,8 @@ var players = sequelize.define('players', {
     allowNull: false,
     autoIncrement: true
   },
-  // Player name
-  playername: {
+  // avatar name
+  avatarName: {
     type: Sequelize.STRING(32),
     allowNull: false
   },
@@ -103,23 +101,23 @@ var players = sequelize.define('players', {
       key: 'id'
     }
   },
-  // Player image path
+  // avatar image path
   imagePath: {
     type: Sequelize.STRING(32),
     allowNull: false
   },
-  // Player about me
+  // avatar about me
   aboutMe: {
     type: Sequelize.STRING(255),
     allowNull: true
   },
-  // Player createdAt time
+  // avatar createdAt time
   createdAt: {
     type: Sequelize.DATE,
     allowNull: false,
     defaultValue: Sequelize.NOW
   },
-  // Player updatedAt time
+  // avatar updatedAt time
   updatedAt: {
     type: Sequelize.DATE,
     allowNull: false,
@@ -136,55 +134,55 @@ var players = sequelize.define('players', {
 // | |             __/ |                                 
 // |_|            |___/                                  
 
-// Define player stats model
-var playerStats = sequelize.define('playerStats', {
+// Define avatar stats model
+var avatarStats = sequelize.define('avatarStats', {
   // FOREIGN KEY / PRIMARY KEY
   id: {
     primaryKey: true,
     type: Sequelize.INTEGER,
     allowNull: false,
     references: {
-      model: 'players',
+      model: 'avatars',
       key: 'id'
     }
   },
-  // Player win loss ratio
+  // avatar win loss ratio
   winLossRatio: {
     type: Sequelize.FLOAT,
     allowNull: false,
     defaultValue: 0
   },
-  // Player type
-  playerType: {
+  // avatar type
+  avatarType: {
     type: Sequelize.STRING(32),
     allowNull: false,
     defaultValue: 'untyped'
   },
-  // Player win velocity
+  // avatar win velocity
   winVelocity: {
     type: Sequelize.FLOAT,
     allowNull: false,
     defaultValue: 0
   },
-  // Player rank
+  // avatar rank
   rank: {
     type: Sequelize.INTEGER,
     allowNull: false,
     defaultValue: 0
   },
-  // Player win streak
+  // avatar win streak
   winStreak: {
     type: Sequelize.INTEGER,
     allowNull: false,
     defaultValue: 0
   },
-  // Player stat createdAt time
+  // avatar stat createdAt time
   createdAt: {
     type: Sequelize.DATE,
     allowNull: false,
     defaultValue: Sequelize.NOW
   },
-  // Player stat updatedAt time
+  // avatar stat updatedAt time
   updatedAt: {
     type: Sequelize.DATE,
     allowNull: false,
@@ -199,21 +197,21 @@ var playerStats = sequelize.define('playerStats', {
 
 // Define rooms model
 var rooms = sequelize.define('rooms', {
-  // First player's ID
-  player1_id: {
+  // First avatar's ID
+  avatar1_id: {
     type: Sequelize.INTEGER,
     allowNull: false,
     references: {
-      model: 'players',
+      model: 'avatars',
       key: 'id'
     }
   },
-  // Second player's ID
-  player2_id: {
+  // Second avatar's ID
+  avatar2_id: {
     type: Sequelize.INTEGER,
     allowNull: false,
     references: {
-      model: 'players',
+      model: 'avatars',
       key: 'id'
     }
   },
@@ -264,25 +262,25 @@ users.sync().then(function () {
   console.log('Synced to User Table');
 })
 
-// Players table sync
+// avatars table sync
 .then(function () {
   // Sync to database
-  players.sync().then(function () {
+  avatars.sync().then(function () {
     // Table created
-    console.log('Synced to Player Table');
+    console.log('Synced to avatar Table');
   });
 })
 
-// Player stats table sync
+// avatar stats table sync
 .then(function () {
   // Sync to database
-  playerStats.sync().then(function () {
+  avatarStats.sync().then(function () {
     // Table created
-    console.log('Synced to Player Stats Table');
+    console.log('Synced to avatar Stats Table');
   });
 })
 
-// Player rooms table sync
+// avatar rooms table sync
 .then(function () {
   // Sync to database
   rooms.sync().then(function () {
@@ -302,9 +300,9 @@ users.sync().then(function () {
 
 // Export users
 module.exports.users = users;
-// Export players
-module.exports.players = players;
-// Export player stats
-module.exports.playerStats = playerStats;
+// Export avatars
+module.exports.avatars = avatars;
+// Export avatar stats
+module.exports.avatarStats = avatarStats;
 // Export rooms
 module.exports.rooms = rooms;
