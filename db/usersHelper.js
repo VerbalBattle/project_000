@@ -21,6 +21,9 @@ var usersTable = require('./db_config.js').users;
 // Require avatars helper
 var avatarsHelper = require('./avatarsHelper');
 
+// Require rooms helper
+var roomsHelper = require('./roomsHelper');
+
 //                           _   _      _                 
 //                          | | | |    | |                
 //  _   _ ___  ___ _ __ ___ | |_| | ___| |_ __   ___ _ __ 
@@ -194,16 +197,17 @@ usersHelper.passwordMatch = function (salt, givenPass, testPass) {
   return givenPass === testPass;
 };
 
-// Users helper get user stats
-usersHelper.getUserStats = function (data) {
-
-};
-
 // Users helper get all login data
 usersHelper.getAllLoginData = function (data, callback) {
+  // Add all avatar data and stats
   return avatarsHelper.getAllAvatars(data)
     .then(function () {
-      callback(data);
+      // Append all room information to any avatar in  room
+      return roomsHelper.getAllRooms(data)
+        .then(function () {
+          // Invoke callback on data
+          callback(data);
+        });
     });
 };
 

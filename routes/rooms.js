@@ -32,6 +32,8 @@ router.post('/', function (req, res, next) {
 
   // Data to pass avatar signup
   var data = {
+    // User id
+    userID: req.body.userID,
     // Avatar id
     avatarID: req.body.avatarID,
     // Avatar data
