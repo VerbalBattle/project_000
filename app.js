@@ -43,6 +43,7 @@ var users = require('./routes/users');
 var login = require('./routes/login');
 var signup = require('./routes/signup');
 var avatars = require('./routes/avatars');
+var matchmaking = require('./routes/matchmaking');
 
 // Specify routes
 app.use('/', routes);
@@ -50,6 +51,7 @@ app.use('/users', users);
 app.use('/login', login);
 app.use('/signup', signup);
 app.use('/avatars', avatars);
+app.use('/matchmaking', matchmaking);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

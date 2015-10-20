@@ -9,10 +9,10 @@
 // \_____/_|_| |_|_|\_\___|\__,_\_____/_|___/\__|
 
 /*
-var w = {playerID: 2};
-var x = {playerID: 3};
-var y = {playerID: 4};
-var z = {playerID: 5};
+var w = {avatarID: 2};
+var x = {avatarID: 3};
+var y = {avatarID: 4};
+var z = {avatarID: 5};
 */
 
 // Linked list implementation
@@ -21,8 +21,8 @@ var LinkedList = function () {
   this.head = null;
   // Back of list
   this.tail = null;
-  // List of nodes where key is player id,
-  // value is player data
+  // List of nodes where key is avatar id,
+  // value is avatar data
   this.nodes = {};
 };
 
@@ -45,7 +45,7 @@ LinkedList.prototype.print = function () {
   // Loop until current node is null
   while (currNode) {
     // Add the current node's value
-    str += currNode.val.playerID;
+    str += currNode.val.avatarID;
     // Update the current node to be the next
     currNode = currNode.next;
     // If the node isn't the tail, add a arrow
@@ -58,14 +58,14 @@ LinkedList.prototype.print = function () {
 };
 
 // Check if node exists in queue already
-LinkedList.prototype.contains = function (playerID) {
-  return playerID in this.nodes;
+LinkedList.prototype.contains = function (avatarID) {
+  return avatarID in this.nodes;
 };
 
 // Linked list add to front
 LinkedList.prototype.addToFront = function (val) {
-  // Only continue if player isn't in queue
-  if (!this.contains(val.playerID)) {
+  // Only continue if avatar isn't in queue
+  if (!this.contains(val.avatarID)) {
     // Get pointer to current head
     var currHead = this.head;
     // Make new node
@@ -81,14 +81,14 @@ LinkedList.prototype.addToFront = function (val) {
       this.tail = newHead;
     }
     // Add newHead to nodes
-    this.nodes[newHead.val.playerID] = newHead;
+    this.nodes[newHead.val.avatarID] = newHead;
   }
 };
 
 // Linked list add to back
 LinkedList.prototype.addToBack = function (val) {
-  // Only continue if player isn't in queue
-  if (!this.contains(val.playerID)) {
+  // Only continue if avatar isn't in queue
+  if (!this.contains(val.avatarID)) {
     // Get pointer to current tail
     var currTail = this.tail;
     // Make new node
@@ -105,16 +105,16 @@ LinkedList.prototype.addToBack = function (val) {
     this.tail = newTail;
 
     // Add newTail to nodes
-    this.nodes[newTail.val.playerID] = newTail;
+    this.nodes[newTail.val.avatarID] = newTail;
   }
 };
 
 // Linked list remove node
-LinkedList.prototype.removeByPlayerID = function (playerID) {
-  // Only continue if player id is in queue
-  if (this.contains(playerID)) {
+LinkedList.prototype.removeByAvatarID = function (avatarID) {
+  // Only continue if avatar id is in queue
+  if (this.contains(avatarID)) {
     // Get the associated node
-    var nodeToRemove = this.nodes[playerID];
+    var nodeToRemove = this.nodes[avatarID];
     // Get the associated node's prev and next
     var nodeToRemove_Prev = nodeToRemove.prev;
     var nodeToRemove_Next = nodeToRemove.next;
@@ -138,8 +138,11 @@ LinkedList.prototype.removeByPlayerID = function (playerID) {
       this.tail = nodeToRemove_Prev;
     }
 
-    // Delete key for playerID
-    delete this.nodes[playerID];
+    // Delete key for avatarID
+    delete this.nodes[avatarID];
+  } else {
+    // Log avatar removal attempt for avatar not in line
+    console.log('Avatar removal error')
   }
 };
 

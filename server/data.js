@@ -20,7 +20,7 @@ var LinkedList = require('./linkedList');
 //     | |                      
 //     |_|                      
 
-// Make a new linked list for players waiting for game
+// Make a new linked list for avatars waiting for game
 var waitingForGame = new LinkedList();
 
 //                             _       

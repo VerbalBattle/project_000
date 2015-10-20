@@ -125,7 +125,7 @@ avatarsHelper.addAvatar = function (data) {
           userID: userID
         }
       }).then(function (avatarsFound) {
-        console.log(avatarsFound);
+
         // Set the avatar count
         result.avatarCount = 0;
 

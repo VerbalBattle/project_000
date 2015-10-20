@@ -216,10 +216,11 @@ var rooms = sequelize.define('rooms', {
     }
   },
   // String to file path
-  filepath: {
-    type: Sequelize.STRING(64),
+  message: {
+    // 5 144 character messages + 5 \n
+    type: Sequelize.STRING(869),
     allowNull: false,
-    defaultValue: 'some/file/path/myFile.txt'
+    defaultValue: ''
   },
   // Boolean to decide if room is active or ready for judging
   isOpen: {
