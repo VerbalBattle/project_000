@@ -79,8 +79,19 @@ angular.module('VBattle.services', [])
 // Factory handling profile and avatar actions
 .factory('Profile', function ($http) {
   var getAvatars = function (userId) {
-
+    
+  }
+  
+  var addAvatar = function (avatar) {
+    console.log('hello')
+    return $http.post('/players', avatar)
+      .then(function (resp) {
+        return resp.data;
+      }, function (err) {
+        throw err;
+      });
   }
   return {
+    addAvatar: addAvatar
   };
 })
