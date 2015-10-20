@@ -12,13 +12,13 @@ angular.module('VBattle.profile', [])
         "imagePath": $scope.imagePath,
         "aboutMe": $scope.aboutMe
       }
-    }
+    };
 
     Profile.addAvatar(avatar)
     .then(function (data) {
-      for(avatarID in data.avatars) {
+      for (avatarID in data.avatars) {
         $scope.user.avatars[avatarID] = data.avatars[avatarID];
       }
-    })
-  }
+    });
+  };
 });

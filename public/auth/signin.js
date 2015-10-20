@@ -5,14 +5,14 @@ angular.module('VBattle.signin', [])
     var user = {
       username: $scope.username,
       password: $scope.password
-    }
+    };
     // Post username and password to verify log in; receives JSON object with loginSuccess and usernameFound as booleans upon failure, and data about user upon success
     Auth.signin(user)
     .then(function (data) {
-      console.log(data)
+      console.log(data);
       $scope.username = '';
       $scope.password = '';
-      if(data.loginSuccess) {
+      if (data.loginSuccess) {
         $rootScope.auth = true;
         $location.path('/');
       }

@@ -11,7 +11,7 @@
   "disallowTrailingWhitespace": false,
   "requireBlocksOnNewline": true,
   "requireCurlyBraces": true,
-  "requireObjectKeysOnNewLine": true,
+  "requireObjectKeysOnNewLine": false,
   "requireSemicolons": true,
   "requireSpaceAfterBinaryOperators": true,
   "requireSpaceAfterKeywords": true,
@@ -22,5 +22,6 @@
   "requireSpacesInForStatement": true,
   "requireSpacesInFunctionDeclaration": {"beforeOpeningCurlyBrace": true},
   "requireSpacesInFunctionExpression": {"beforeOpeningCurlyBrace": true},
-  "excludeFiles": ["node_modules/*"]
+  "excludeFiles": ["node_modules/*","public/libs/*","./Gruntfile.js"],
+  "maxErrors": -1
 }

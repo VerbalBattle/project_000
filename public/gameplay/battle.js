@@ -8,9 +8,9 @@ angular.module('VBattle.battle', [])
     .then(function (data) {
       console.log(data);
     });
-  }
+  };
 
   $scope.getPendingGames = function () {
     
-  }
+  };
 });

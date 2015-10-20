@@ -62,7 +62,7 @@ angular.module('VBattle.services', [])
   // Get room based on roomID
   var getMessages = function (roomID) {
 
-    return $http.get('/rooms/'+roomID)
+    return $http.get('/rooms/' + roomID)
       .then(function (resp) {
         return resp.data;
       }, function (err) {
@@ -80,7 +80,7 @@ angular.module('VBattle.services', [])
 .factory('Profile', function ($http) {
   var getAvatars = function (userId) {
     
-  }
+  };
   
   var addAvatar = function (avatar) {
     return $http.post('/avatars', avatar)
@@ -89,8 +89,8 @@ angular.module('VBattle.services', [])
       }, function (err) {
         throw err;
       });
-  }
+  };
   return {
     addAvatar: addAvatar
   };
-})
+});
