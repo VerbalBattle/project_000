@@ -1,5 +1,5 @@
 /* Wrapper function */
-module.exports = function(grunt){
+module.exports = function (grunt) {
 
   /* Initialize  grunt tasks */
   grunt.initConfig({

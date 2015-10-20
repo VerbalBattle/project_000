@@ -41,16 +41,16 @@ angular.module('VBattle.sideBar', [])
   // Change classname for tag with specific ID
   $scope.showText = function (index) {
     $scope.list[index].status = 'show';
-  }
+  };
 
   $scope.hideText = function (index) {
     $scope.list[index].status = '';
-  }
+  };
 })
 
 .directive('ngSidebar', function () {
   return {
     templateUrl: '/sidebar/sidebar.html',
     controller: 'SidebarCtrl'
-  }
+  };
 });

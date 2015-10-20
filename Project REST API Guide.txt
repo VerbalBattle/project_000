@@ -1,0 +1,22 @@
+­Project REST API Guide
+
+Auth
+POST /signup/ - sent signup data to user with new user profile params
+POST /login/ - send the server the auth data from login form
+
+­Game Play
+GET /rooms/ - send room data and user data that needs voting to client
+GET /rooms/id - send chat log and two users that are/ were battling
+POST /rooms/id – send message and room id to server, server stores message
+POST /matchmaking/ - redirect clients in matchmaking to /room/id of newly created room to hold both players
+- get games by avatar
+
+Profile
+/user=:id
+GET /users/user=id - get avatar and other stats by user ID
+PUT /users/user=id - change user data
+
+Avatar
+- add avatar
+- include delete avatar
+- change avatar
