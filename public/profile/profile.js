@@ -6,18 +6,19 @@ angular.module('VBattle.profile', [])
   $scope.addAvatar = function () {
     
     var avatar = {
-      userID: $scope.user.userID,
-      playerData: {
-        playername: $scope.playerName,
-        imagePath: $scope.imagePath,
-        aboutMe: $scope.aboutMe
+      "userID": 1,
+      "avatarData": {
+        "avatarName": $scope.avatarName,
+        "imagePath": $scope.imagePath,
+        "aboutMe": $scope.aboutMe
       }
     }
-    console.log(avatar)
+
     Profile.addAvatar(avatar)
     .then(function (data) {
-      var avatarID = data.playerData.playerID;
-      $scope.user.players[avatarID] = data.playerData;
+      for(avatarID in data.avatars) {
+        $scope.user.avatars[avatarID] = data.avatars[avatarID];
+      }
     })
   }
 });

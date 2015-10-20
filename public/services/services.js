@@ -83,8 +83,7 @@ angular.module('VBattle.services', [])
   }
   
   var addAvatar = function (avatar) {
-    console.log('hello')
-    return $http.post('/players', avatar)
+    return $http.post('/avatars', avatar)
       .then(function (resp) {
         return resp.data;
       }, function (err) {

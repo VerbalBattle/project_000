@@ -3,16 +3,16 @@
   <div ng-sidebar class="sidebar"></div>
   <div>Avatars</div>
   </div>
-  <div class="row avatars" ng-repeat="(key, value) in user.players">
+  <div class="row avatars" ng-repeat="(key, value) in user.avatars">
     <div class="col-md-4" ng-repeat="(key1, value1) in value">{{value1}}</div>
   </div>
   <button ng-click="addForm=!addForm">Add New Player</button>
   <form ng-show="addForm" ng-submit="addAvatar()">
     <label">Avatar Name</label>
-    <input type="text" ng-model="playerName">
+    <input type="text" ng-model="avatarName">
     <label">Image Path</label>
     <input type="text" ng-model="imagePath">
-    <label">About Me</label>
+    <label>About Me</label>
     <input type="text" ng-model="aboutMe">
     <input type="submit" value="Submit">
   </form>
