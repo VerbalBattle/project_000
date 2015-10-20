@@ -42,14 +42,14 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var login = require('./routes/login');
 var signup = require('./routes/signup');
-var players = require('./routes/players');
+var avatars = require('./routes/avatars');
 
 // Specify routes
 app.use('/', routes);
 app.use('/users', users);
 app.use('/login', login);
 app.use('/signup', signup);
-app.use('/players', players);
+app.use('/avatars', avatars);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next){

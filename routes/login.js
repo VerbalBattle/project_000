@@ -30,7 +30,7 @@ router.post('/', function (req, res, next) {
   //     "password": "mike"
   // }
 
-  // Data to pass player login
+  // Data to pass avatar login
   var data = {
     // Username
     username: req.body.username,
@@ -47,27 +47,40 @@ router.post('/', function (req, res, next) {
   usersHelper.login(data);
 
   // Expected result sent to client
-  // {
-  //   "loginSuccess": true,
-  //   "usernameFound": true,
-  //   "passwordSuccess": true,
-  //   "userID": 1,
-  //   "username": "laura",
-  //   "playersFound": true,
-  //   "players": {
-  //     "2": {
-  //       "playername": "laura's player",
-  //       "imagePath": "../some/Image/Path.png",
-  //       "aboutMe": "I'm laura and I play to win."
-  //     },
-  //     "4": {
-  //       "playername": "laura's waffle",
-  //       "imagePath": "../some/Image/Path.png",
-  //       "aboutMe": "I'm laura and I play to win."
-  //     }
-  //   },
-  //   "playerStatsFound": true
-  // }
+// {
+//   "loginSuccess": true,
+//   "usernameFound": true,
+//   "passwordSuccess": true,
+//   "userID": 1,
+//   "username": "laura",
+//   "avatarsFound": true,
+//   "avatars": {
+//     "1": {
+//       "avatarName": "joey's avatar",
+//       "imagePath": "../some/Image/Path.png",
+//       "aboutMe": "I'm joey and I play to win.",
+//       "stats": {
+//         "winLossRatio": 0,
+//         "avatarType": "untyped",
+//         "winVelocity": 0,
+//         "rank": 0,
+//         "winStreak": 0
+//       }
+//     "6": {
+//       "avatarName": "super laura",
+//       "imagePath": "../some/Image/Path.png",
+//       "aboutMe": "I'm laura and I play to win.",
+//       "stats": {
+//         "winLossRatio": 0,
+//         "avatarType": "untyped",
+//         "winVelocity": 0,
+//         "rank": 0,
+//         "winStreak": 0
+//       }
+//     }
+//   },
+//   "avatarStatsFound": true
+// }
 });
 
 module.exports = router;

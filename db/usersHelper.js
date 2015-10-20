@@ -18,8 +18,8 @@ var bcrypt = require('bcrypt');
 // Require users table
 var usersTable = require('./db_config.js').users;
 
-// Require players helper
-var playersHelper = require('./playersHelper');
+// Require avatars helper
+var avatarsHelper = require('./avatarsHelper');
 
 //                           _   _      _                 
 //                          | | | |    | |                
@@ -201,7 +201,7 @@ usersHelper.getUserStats = function (data) {
 
 // Users helper get all login data
 usersHelper.getAllLoginData = function (data, callback) {
-  return playersHelper.getAllPlayers(data)
+  return avatarsHelper.getAllAvatars(data)
     .then(function () {
       callback(data);
     });
