@@ -57,6 +57,9 @@ avatarsHelper.getAllAvatars = function (result) {
         result.avatars = {};
         var avatars = result.avatars;
 
+        // Set avatarLimit
+        result.avatarLimit = 3;
+
         // Iterate over all avatars
         for (var i = 0; i < avatarsFound.length; ++i) {
           // Get avatar reference
@@ -70,10 +73,8 @@ avatarsHelper.getAllAvatars = function (result) {
         }
 
         // Passoff result to avatar stats collector
-        return avatarStatsHelper.getAllStats(result)
-          .then(function () {
-            ;
-          });
+        return avatarStatsHelper.getAllStats(result);
+
       } else {
         // No avatars were found
         result.avatarsFound = false;
@@ -127,7 +128,9 @@ avatarsHelper.addAvatar = function (data) {
         // Set count if avatars found
         if (avatarsFound) {
           // Set avatars found to be what we need
+          console.log(result.avatarCount);
           result.avatarCount = avatarsFound.length;
+          console.log(result.avatarCount);
         }
 
         // Continue only if avatarCount is less than 3
@@ -163,21 +166,8 @@ avatarsHelper.addAvatar = function (data) {
 
             // Get reference to data we need
             avatarCreated = avatarCreated.dataValues;
-            // Set result data
-            // result.avatarData = {
-            //   // Avatar name
-            //   avatarName: avatarCreated.avatarName,
-            //   // Image path
-            //   imagePath: avatarCreated.imagePath,
-            //   // About me
-            //   aboutMe: avatarCreated.aboutMe,
-            //   // id
 
-            //   // ENCRYPT LATER
-            //   // ENCRYPT LATER
-            //   // ENCRYPT LATER
-            //   avatarID: avatarCreated.id
-            // };
+            // Add avatars object
             result.avatars = {};
             result.avatars[avatarCreated.id] = {
               // Avatar name
@@ -223,7 +213,7 @@ avatarsHelper.addAvatar = function (data) {
           });
         }
 
-        // Avatar count exceeded 9
+        // Avatar count exceeded 3
         result.tooManyAvatars = true;
         // Invoke callback
         callback(result);
