@@ -28,7 +28,7 @@ angular.module('VBattle.sideBar', [])
     status: '',
     filePath: '../assets/message.png',
     text: 'Start Chattin',
-    route: '#/messages'
+    route: '#/lobby'
   },
   {
     status: '',

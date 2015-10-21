@@ -31,6 +31,16 @@ angular.module('VBattle.gameplayServices', [])
         throw err;
       });
   };
+  // Post a message to a room by ID
+  var getMessages = function (roomID) {
+
+    return $http.get('/rooms/' + roomID)
+      .then(function (resp) {
+        return resp.data;
+      }, function (err) {
+        throw err;
+      });
+  };
 
   return {
     getGames: getGames,
