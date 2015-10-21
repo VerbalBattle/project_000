@@ -20,3 +20,6 @@ Avatar
 - add avatar
 - include delete avatar
 - change avatar
+
+Wiki
+GET /wiki/alias - responds with data object from wiki page of alias, if one exists
