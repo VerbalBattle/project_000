@@ -49,7 +49,7 @@ var users = sequelize.define('user', {
   },
   // User password
   password: {
-    type: Sequelize.STRING(32),
+    type: Sequelize.STRING(60),
     allowNull: false
   },
   // User salt for password hashing
@@ -215,13 +215,6 @@ var rooms = sequelize.define('rooms', {
       key: 'id'
     }
   },
-  // String to file path
-  message: {
-    // 5 144 character messages + 5 \n
-    type: Sequelize.STRING(869),
-    allowNull: false,
-    defaultValue: ''
-  },
   // Boolean to decide if room is active or ready for judging
   isOpen: {
     type: Sequelize.BOOLEAN(),
@@ -233,6 +226,43 @@ var rooms = sequelize.define('rooms', {
     type: Sequelize.INTEGER(),
     allowNull: false,
     defaultValue: 0
+  },
+  // Room createdAt time
+  createdAt: {
+    type: Sequelize.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.NOW
+  },
+  // Room updatedAt time
+  updatedAt: {
+    type: Sequelize.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.NOW
+  }
+});
+
+//  _ __ ___   ___  ___ ___  __ _  __ _  ___  ___ 
+// | '_ ` _ \ / _ \/ __/ __|/ _` |/ _` |/ _ \/ __|
+// | | | | | |  __/\__ \__ \ (_| | (_| |  __/\__ \
+// |_| |_| |_|\___||___/___/\__,_|\__, |\___||___/
+//                                 __/ |          
+//                                |___/           
+
+// Define messages model
+var messages = sequelize.define('messages', {
+  // Room id
+  roomID: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'rooms',
+      key: 'id'
+    }
+  },
+  // Message
+  message: {
+    type: Sequelize.STRING(144),
+    allowNull: false
   },
   // Room createdAt time
   createdAt: {
@@ -263,7 +293,7 @@ users.sync().then(function () {
   console.log('Synced to User Table');
 })
 
-// avatars table sync
+// Avatars table sync
 .then(function () {
   // Sync to database
   avatars.sync().then(function () {
@@ -272,7 +302,7 @@ users.sync().then(function () {
   });
 })
 
-// avatar stats table sync
+// Avatar stats table sync
 .then(function () {
   // Sync to database
   avatarStats.sync().then(function () {
@@ -281,12 +311,21 @@ users.sync().then(function () {
   });
 })
 
-// avatar rooms table sync
+// Rooms table sync
 .then(function () {
   // Sync to database
   rooms.sync().then(function () {
     // Table created
     console.log('Synced to Rooms Table');
+  });
+})
+
+// Messages table sync
+.then(function () {
+  // Sync to database
+  messages.sync().then(function () {
+    // Table created
+    console.log('Synced to Messages Table');
   });
 });
 
@@ -307,3 +346,5 @@ module.exports.avatars = avatars;
 module.exports.avatarStats = avatarStats;
 // Export rooms
 module.exports.rooms = rooms;
+// Export messages
+module.exports.messages = messages;
