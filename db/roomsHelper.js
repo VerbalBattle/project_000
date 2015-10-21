@@ -168,6 +168,10 @@ roomsHelper.getAllRooms = function (data) {
       }
       // Add key
       data.avatars[currAvatarID].rooms[currRoom.id] = currRoom;
+      // Rename id key to roomID
+      var avatarRoom = data.avatars[currAvatarID].rooms[currRoom.id];
+      avatarRoom.roomID = avatarRoom.id;
+      delete avatarRoom.id;
     }
 
     // Handoff to messagesHelper
