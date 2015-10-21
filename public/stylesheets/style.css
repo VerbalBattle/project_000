@@ -4,6 +4,13 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+/*Container div*/
+.container {
+  position: relative;
+  float: left;
+  left: 75px;
+}
+
 /*Sidebar overall space*/
 .sidebar {
   position : fixed;
