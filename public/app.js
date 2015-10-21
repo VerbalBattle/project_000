@@ -8,9 +8,9 @@ angular.module('VBattle', [
 'VBattle.profile',
 'VBattle.setting',
 'VBattle.battle',
+'VBattle.messages',
 'VBattle.sideBar',
 'VBattle.search',
-'VBattle.pending',
 'ngRoute'
 ])
 .config(function ($routeProvider, $httpProvider) {
@@ -46,6 +46,10 @@ angular.module('VBattle', [
     .when('/setting', {
       templateUrl: '/profile/setting.html',
       controller: 'SettingCtrl'
+    })
+    .when('/messages', {
+      templateUrl: '/gameplay/messages.html',
+      controller: 'MessageCtrl'
     })
     .otherwise('/');
 });

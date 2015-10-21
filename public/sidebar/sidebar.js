@@ -26,9 +26,9 @@ angular.module('VBattle.sideBar', [])
   },
   {
     status: '',
-    filePath: '../assets/setting.png',
-    text: 'Edit Settings',
-    route: '#/setting'
+    filePath: '../assets/message.png',
+    text: 'Start Chattin',
+    route: '#/messages'
   },
   {
     status: '',

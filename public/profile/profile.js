@@ -16,7 +16,6 @@ angular.module('VBattle.profile', [])
     };
     Profile.addAvatar(avatar)
     .then(function (data) {
-      console.log(data, $scope.user.avatars);
       for (avatarID in data.avatars) {
         $scope.user.avatars[avatarID] = data.avatars[avatarID];
       }
@@ -30,6 +29,9 @@ angular.module('VBattle.profile', [])
     Profile.removeAvatar(user)
     .then(function (data) {
       console.log(data);
+      if (data.removeSuccess) {
+        delete $scope.user.avatars[user.avatarID];
+      }
     });
   };
 });
