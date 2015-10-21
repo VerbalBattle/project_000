@@ -22,6 +22,22 @@ var roomsHelper = require('../db/roomsHelper');
 // | | | (_) | |_| | ||  __/\__ \
 // |_|  \___/ \__,_|\__\___||___/
 
+// GET to get room data about a specified room id
+router.get('/:roomID', function (req, res, next) {
+  // Data to pass to rooms helper
+  var data = {
+    // Room id
+    roomID: req.params.roomID,
+    // Callback to invoke when data is collected
+    callback: function (result) {
+      res.send(result);
+    }
+  };
+
+  // Attempt to get room data
+  roomsHelper.getRoomData(data);
+});
+
 // POST to attempt to join a room
 router.post('/:roomID', function (req, res, next) {
   // Expected request body example
@@ -31,7 +47,7 @@ router.post('/:roomID', function (req, res, next) {
   //     "message": "my message is here"
   // }
 
-  // Data to pass avatar signup
+  // Data rooms helper
   var data = {
     // User id
     userID: req.body.userID,
