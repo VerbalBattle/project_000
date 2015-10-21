@@ -4,7 +4,7 @@ angular.module('VBattle.profile', [])
   $scope.user = Auth.getUser();
 
   $scope.addAvatar = function () {
-    
+
     var avatar = {
       "userID": 1,
       "avatarData": {
@@ -17,7 +17,7 @@ angular.module('VBattle.profile', [])
     console.log($scope.user);
     Profile.addAvatar(avatar)
     .then(function (data) {
-      console.log('this worked', data)
+      console.log('this worked', data);
       for (avatarID in data.avatars) {
         $scope.user.avatars[avatarID] = data.avatars[avatarID];
       }
