@@ -5,12 +5,13 @@
   </div>
   <div class="row avatars" ng-repeat="(key, value) in user.avatars">
     <div class="col-md-4" ng-repeat="(key1, value1) in value">{{value1}}</div>
+    <button ng-click="removeAvatar()">Remove</button>
   </div>
   <button ng-click="addForm=!addForm">Add New Player</button>
   <form ng-show="addForm" ng-submit="addAvatar()">
-    <label">Avatar Name</label>
+    <label>Avatar Name</label>
     <input type="text" ng-model="avatarName">
-    <label">Image Path</label>
+    <label>Image Path</label>
     <input type="text" ng-model="imagePath">
     <label>About Me</label>
     <input type="text" ng-model="aboutMe">

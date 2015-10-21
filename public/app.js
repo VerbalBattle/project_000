@@ -8,11 +8,13 @@ angular.module('VBattle', [
 'VBattle.profile',
 'VBattle.setting',
 'VBattle.battle',
+'VBattle.lobby',
+'VBattle.room',
 'VBattle.sideBar',
 'VBattle.search',
-'VBattle.pending',
 'ngRoute'
 ])
+
 .config(function ($routeProvider, $httpProvider) {
   $routeProvider
     .when('/login', {
@@ -28,8 +30,8 @@ angular.module('VBattle', [
       controller: 'SignoutCtrl'
     })
     .when('/', {
-      templateUrl: '/gameplay/battle.html',
-      controller: 'BattleCtrl'
+      templateUrl: '/gameplay/lobby.html',
+      controller: 'LobbyCtrl'
     })
     .when('/battle', {
       templateUrl: '/gameplay/battle.html',
@@ -46,6 +48,14 @@ angular.module('VBattle', [
     .when('/setting', {
       templateUrl: '/profile/setting.html',
       controller: 'SettingCtrl'
+    })
+    .when('/rooms/:roomID', {
+      templateUrl: '/gameplay/room.html',
+      controller: 'RoomCtrl'
+    })
+    .when('/lobby', {
+      templateUrl: '/gameplay/lobby.html',
+      controller: 'LobbyCtrl'
     })
     .otherwise('/');
 });

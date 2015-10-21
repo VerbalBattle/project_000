@@ -24,6 +24,8 @@ angular.module('VBattle.authServices', [])
 
     return $http.post('/signup', user)
       .then(function (resp) {
+        // share userData between controllers
+        userData = resp.data;
         return resp.data;
       }, function (err) {
         throw err;
