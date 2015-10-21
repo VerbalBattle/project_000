@@ -45,6 +45,7 @@ var signup = require('./routes/signup');
 var avatars = require('./routes/avatars');
 var rooms = require('./routes/rooms');
 var matchmaking = require('./routes/matchmaking');
+var wiki = require('./routes/wiki');
 
 // Specify routes
 app.use('/', routes);
@@ -54,6 +55,7 @@ app.use('/signup', signup);
 app.use('/avatars', avatars);
 app.use('/rooms', rooms);
 app.use('/matchmaking', matchmaking);
+app.use('/wiki', wiki);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
