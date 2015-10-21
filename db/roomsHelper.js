@@ -171,7 +171,44 @@ roomsHelper.getAllRooms = function (data) {
     }
 
     // Handoff to messagesHelper
-    return messagesHelper.fetchMessagesForLogin(data);
+    // return messagesHelper.fetchMessagesForLogin(data);
+  });
+};
+
+// Rooms helper that gets data about one room
+roomsHelper.getRoomData = function (data) {
+  // Get data
+  var roomID = data.roomID;
+  var callback = data.callback;
+
+  // Result to send to client
+  var result = {};
+
+  // Get room by id
+  return roomsTable.find({
+    where: {
+      id: roomID
+    }
+  }).then(function (roomFound) {
+    // If the room was found
+    if (roomID) {
+      // Set the room
+      result.rooms = {};
+      result.rooms[roomID] = roomFound.dataValues;
+      
+      // Add messages to the room
+      return messagesHelper.fetchMessagesForRoom(roomID)
+        .then(function (messages) {
+          result.rooms[roomID].messages = messages;
+
+          // Invoke callback
+          callback(result);
+        });
+    } else {
+      // The room wasn't found, invoke callback
+      result.roomFound = false;
+      callback(result);
+    }
   });
 };
 

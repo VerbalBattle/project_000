@@ -34,13 +34,23 @@ messagesHelper.addMessageToRoom = function (data) {
 
 // Message helper fetch messages by roomID
 messagesHelper.fetchMessagesForRoom = function (roomID) {
+  // Messages object
+  var messages = {};
   // Get all messages associated with roomID
-  return messgesTable.findAll({
+  return messagesTable.findAll({
     where: {
       roomID: roomID
     }
   }).then(function (foundMessages) {
-    console.log(foundMessages);
+    // Iterate over messages
+    for (var i = 0; i < foundMessages.length; ++i) {
+      // Get message data
+      var messageData = foundMessages[i].dataValues;
+      // Add message data
+      messages[messageData.id] = messageData;
+    }
+    // Return messages
+    return messages;
   });
 };
 
