@@ -26,8 +26,14 @@ var roomsHelper = require('../db/roomsHelper');
 router.post('/', function (req, res, next) {
   // Expected request body example
   // {
-  //     "username": "mike",
-  //     "password": "mike"
+  //     "avatarID": 12,
+    // "avatarStats": {
+    //   "winLossRatio": 0,
+    //   "avatarType": "untyped",
+    //   "winVelocity": 0,
+    //   "rank": 0,
+    //   "winStreak": 0
+    // }
   // }
 
   // Data to pass avatar signup
