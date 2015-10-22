@@ -10,7 +10,11 @@ angular.module('VBattle.signup', [])
     // Post username and password to sign up; receives JSON object with signupSuccess and usernameAvailable as booleans upon failure, and data about user upon success 
     $auth.signup(user)
     .then(function (data) {
-      console.log(data);
+      Profile.getUserFromLogin()
+      .then(function () {
+        window.localStorage['user'] = JSON.stringify(Profile.getUser());
+        $location.path('/');
+      });
       $scope.username = '';
       $scope.password = '';
     });

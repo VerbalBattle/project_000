@@ -1,7 +1,7 @@
 angular.module('VBattle.profile', [])
 
 .controller('ProfileCtrl', function ($scope, $location, Profile) {
-  $scope.user = Profile.getUser();
+  $scope.user = JSON.parse(window.localStorage['user']);
   $scope.user.avatars = $scope.user.avatars || {};
   $scope.showadd = Object.keys($scope.user.avatars).length < $scope.user.avatarLimit;
 
