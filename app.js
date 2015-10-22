@@ -18,9 +18,18 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var db = require('./db/db_config');
+var serverConfig = require('./server/serverConfig');
 
 // Make express app
 var app = express();
+
+// Force HTTPS on Heroku
+if (app.get('env') === 'production') {
+  app.use(function(req, res, next) {
+    var protocol = req.get('x-forwarded-proto');
+    protocol == 'https' ? next() : res.redirect('https://' + req.hostname + req.url);
+  });
+}
 
 // Uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -40,8 +49,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Route reference controllers
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var login = require('./routes/login');
-var signup = require('./routes/signup');
+var auth = require('./routes/auth');
 var avatars = require('./routes/avatars');
 var rooms = require('./routes/rooms');
 var matchmaking = require('./routes/matchmaking');
@@ -50,12 +58,11 @@ var wiki = require('./routes/wiki');
 // Specify routes
 app.use('/', routes);
 app.use('/users', users);
-app.use('/login', login);
-app.use('/signup', signup);
 app.use('/avatars', avatars);
 app.use('/rooms', rooms);
 app.use('/matchmaking', matchmaking);
 app.use('/wiki', wiki);
+app.use('/auth', auth);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
