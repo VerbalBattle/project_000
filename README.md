@@ -1,2 +1,2 @@
 # project_000
-This is InsultPvP.
+A platform where you play against others anonymously
