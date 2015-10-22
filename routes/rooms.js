@@ -13,6 +13,11 @@
 // Requirements
 var express = require('express');
 var router = express.Router();
+
+// Require authneticator
+var authenticator = require('../server/authenticator');
+
+// Require rooms helper
 var roomsHelper = require('../db/roomsHelper');
 
 //                  _            
