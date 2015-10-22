@@ -1,7 +1,7 @@
 angular.module('VBattle.profile', [])
 
-.controller('ProfileCtrl', function ($scope, $rootScope, $location, Auth, Profile) {
-  $scope.user = Auth.getUser();
+.controller('ProfileCtrl', function ($scope, $location, Profile) {
+  $scope.user = Profile.getUser();
   $scope.user.avatars = $scope.user.avatars || {};
   $scope.showadd = Object.keys($scope.user.avatars).length < $scope.user.avatarLimit;
 

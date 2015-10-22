@@ -4,7 +4,7 @@ angular.module('VBattle.signout', [])
   // Clear the auth variable from root scope
   $scope.signout = function () {
     $auth.logout()
-      .then(function() {
+      .then(function () {
         // toastr.info('You have been logged out');
         $location.path('/');
       });
