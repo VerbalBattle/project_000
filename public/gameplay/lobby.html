@@ -1,9 +1,29 @@
 <div class="container">
   <h2 class="text-center">Lobby</h2>
   <div ng-sidebar class="sidebar"></div>
-  <form ng-submit="postMessages()">
-    <label>Avatar Name</label>
-    <input type="text" ng-model="avatarName">
+  <form ng-submit="postMessages()"> 
   </form>
-  <button href="#/rooms/{{  }}">join room</button>
+  
+  <div>Your Avatars:</div>
+
+  <div class="col-md-4" ng-repeat = "(key, avatar) in avatars">
+
+        <strong>{{avatar.avatarName}}</strong>
+       
+
+        <div>{{avatar.aboutMe}}</div>
+      
+       <div ng-repeat="room in avatar.rooms">
+      {{key}}
+       	<a href="#/rooms/{{room.roomID}}/{{key}}">Go to room: {{room.roomID}}</a>
+
+       	<button class="btn" ng-click="joinRoom(room.roomID, key, avatar.stats)">Make a new Game!</button>
+       </div>
+
+     </div>
+   
+
+  </div>
+
+ 
 </div>

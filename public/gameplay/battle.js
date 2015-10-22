@@ -10,7 +10,17 @@ angular.module('VBattle.battle', [])
     });
   };
 
+
+
   $scope.getPendingGames = function () {
     
   };
 });
+
+
+
+// render messages from that room 
+//maybe profile views with avatars and stats
+
+    
+
