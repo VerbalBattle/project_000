@@ -72,6 +72,13 @@ angular.module('VBattle', [
         loginRequired: loginRequired
       }
     })
+    .when('/voting', {
+      templateUrl:'/voting/voting.html',
+      controller: 'VotingCtrl',
+      resolve: {
+        loginRequired: loginRequired
+      }
+    })
     .when('/lobby', {
       templateUrl: '/gameplay/lobby.html',
       controller: 'LobbyCtrl',
