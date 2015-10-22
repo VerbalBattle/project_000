@@ -1,11 +1,16 @@
 language: node_js
 node_js:
-  - "0.12.7"
+- 0.12.7
 branches:
   only:
-    - angular
+  - angular
 before_script:
-  - npm install -g bower
-  - npm install -g grunt
-  - bower install
-  - grunt build
+- npm install -g bower
+- npm install -g grunt
+- bower install
+- grunt build
+deploy:
+  provider: heroku
+  api_key:
+    secure: l8JFIUOCED77Q28quZNr9qEnARbTdpkVJbBlC7pLxu10K7spUurPS23Dl0p11Rb3vs5pVVV4HpjUweK+3iFDkK8a6drEKLF0L79kHw0Usbq2PurCXK1cRViaWoNeQssWArqiS9cMUArBk9YvILhVeInWQyQSq14IJZ6svwe8jjUYnXdVJXVTACbV6mEO3k0DGQIkBxYb4Fv4a2mKFf6Jrb0VcosFVxPvCDUl4Mhoiq60Xjzgo6qAxZFAUOCYyACnExfpy/WA91sAsfKPvZhnnazjjWJh/WmD7yqsDeEbb3QuV0VY1OTmH6iGXfpsw8CAWXNtOR00HYdMOEjsfR54Ah6Z4gb0Gwt+iQVeCF8HIjIIEPNN1lsSSIC3BWcwrLXPXfnMmFn3giqCcHLEtK9dOSsSZGI70gf36EI1fcICayZMzbptHfFMWvc+aoIy3SKCAAKqD8SSc/Oh+2zZz8vPBqwHOg1l81rbDTdtIZ+7ZNZ64wieR3u/REpC4B8h//S84mlPxwyXFd2+5AP4By27vmTap2zP5RaKdzh2X4eNt8HnHJZV6vTP+EUltr9pWcjebphFUyYfDJF1XKSEEbEWhrWMtQNKxufKsZ+2HNAkxooZnUJIf/suxJd65Y3T1GB3ZJncD9ac6x3xWm8+xEmlsPcYdFA4zuF1+qKJ2Mwfnz8=
+  app: ohno
