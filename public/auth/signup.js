@@ -1,6 +1,6 @@
 angular.module('VBattle.signup', [])
 // Sign up controller
-.controller('SignupCtrl', function ($rootScope, $scope, $location, $auth) {
+.controller('SignupCtrl', function ($scope, $location, $auth) {
   $scope.signup = function () {
     var user = {
       username: $scope.username,
