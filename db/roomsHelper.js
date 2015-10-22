@@ -27,6 +27,8 @@ var messagesHelper = require('./messagesHelper');
 
 // Require player game room queue
 var waitingForGame = require('../server/data').waitingForGame;
+// Require voting queue
+var votingQueue = require('../server/data').votingQueue;
 
 
 //                                _   _      _                 
@@ -39,8 +41,35 @@ var waitingForGame = require('../server/data').waitingForGame;
 // Rooms helper master object
 var roomsHelper = {};
 
-// Rooms helper method to add to end of queue
-roomsHelper.enqueueAvatar = function (data) {
+// Rooms helper method to add to end of voting queue
+roomsHelper.enqueueToVote = function (data) {
+  // Get callback to send data to client
+  var callback = data.callback;
+  delete data.callback;
+  // Get userID
+  var userID = data.userID;
+
+  // Ensure user can join voting
+  var canJoin = this.canJoinVoting({
+    userID: userID
+  });
+
+  // Result to return to user
+  var result = {};
+
+  // Attempt to add player to voting queue
+  var added = votingQueue.addToBack(data);
+  // Display voting queue
+  votingQueue.print();
+
+
+};
+
+// Rooms helper can join voting
+
+
+// Rooms helper method to add to end of game queue
+roomsHelper.enqueueToPlay = function (data) {
   // Get the callback
   var callback = data.callback;
   delete data.callback;
@@ -123,7 +152,7 @@ roomsHelper.canJoinMatchmaking = function (data) {
       // Avatar doesn't exist, return false
       return false;
     }
-  })
+  });
 };
 
 // Rooms helper method to remove tuples from queue
@@ -261,12 +290,11 @@ roomsHelper.getRoomData = function (data) {
       // Set the room
       result.rooms = {};
       result.rooms[roomID] = roomFound.dataValues;
-      
+
       // Add messages to the room
       return messagesHelper.fetchMessagesForRoom(roomID)
         .then(function (messages) {
           result.rooms[roomID].messages = messages;
-
           // Invoke callback
           callback(result);
         });

@@ -23,6 +23,8 @@ var LinkedList = require('./linkedList');
 // Make a new linked list for avatars waiting for game
 var waitingForGame = new LinkedList();
 
+// Make a new linked list for voting on games
+var votingQueue = new LinkedList();
 //                             _       
 //                            | |      
 //   _____  ___ __   ___  _ __| |_ ___ 
@@ -34,3 +36,5 @@ var waitingForGame = new LinkedList();
 
 // Export waiting for game queue
 module.exports.waitingForGame = waitingForGame;
+// Export waiting for votes queue
+module.exports.votingQueue = votingQueue;

@@ -27,32 +27,19 @@ var roomsHelper = require('../db/roomsHelper');
 // | | | (_) | |_| | ||  __/\__ \
 // |_|  \___/ \__,_|\__\___||___/
 
-// POST to join matchmaking
+// POST to join voting queue
 router.post('/', authenticator.ensureAuthenticated,
   function (req, res, next) {
   // Expected request body example
-  // {
-    // "avatarID": 12,
-    // "avatarStats": {
-    //   "winLossRatio": 0,
-    //   "avatarType": "untyped",
-    //   "winVelocity": 0,
-    //   "rank": 0,
-    //   "winStreak": 0
-    // }
-  // }
+  // {}
 
   // Decrypt token
   var decrypted = req.body.decrypted;
 
-  // Data to pass matchmaking
+  // Data to pass to voting enqueue
   var data = {
     // UserID
     userID: decrypted.userID,
-    // AvatarID
-    avatarID: req.body.avatarID,
-    // Avatar data
-    avatarStats: req.body.avatarStats,
     // Callback
     callback: function (result) {
       res.send(result);
@@ -62,12 +49,12 @@ router.post('/', authenticator.ensureAuthenticated,
   // Log
   console.log('\n\nATTEMPTING ADDING TO BACK OF LINE:',
     data.avatarID, '\n\n');
-  // Attempt to add
-  roomsHelper.enqueueToPlay(data);
+  // Attempt to add to voting queue
+  roomsHelper.queueForVote(data);
 
   // Expected result sent to client
   // {
-  //   inRoomQueue: true
+  //   inVotingQueue: true
   // }
 });
 module.exports = router;
