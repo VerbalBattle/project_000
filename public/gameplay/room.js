@@ -4,10 +4,11 @@ angular.module('VBattle.room', [])
   
   var user = Auth.getUser();
   var userid = user.userID;
-  var avatarID;
+  var avatarID = Number($routeParams.playerID);
   $scope.messages;
   var room = $routeParams.roomID;
   $scope.shower = false;
+  $scope.enemy;
 
   
   
@@ -38,10 +39,14 @@ angular.module('VBattle.room', [])
     		$scope.shower = false;
     		console.log("setting to true");
     	}, 2000);
+
     	
-
-
     	}
+    	$timeout(function() {
+    		$scope.getMessages();
+    	}, 20)
+
+
     });
     $scope.input = "";
   };
@@ -53,13 +58,17 @@ angular.module('VBattle.room', [])
   //console.log(GamePlay.getMessages(1).rooms[1].messages, "heleelelellelel")
    GamePlay.getMessages(room)
    .then(function(result){
-   	console.log("messagesss", result.rooms);
 
-   	for(var key in result.rooms) {
-   	avatarID = result.rooms[key].avatar2_id;
-   	}
-   
-   	console.log("avatarID", avatarID)
+   	console.log("messagesssjijuhu", result.rooms);
+
+   	// for(var key in result.rooms) {
+   	// avatarID = result.rooms[key].avatar2_id;
+   	// console.log("fialure here")
+   	// }
+   	//getting playerID
+   $scope.enemy = result.rooms[room].avatar2_id;
+   console.log("attantion");
+   console.log($scope.enemy)
    	$scope.messages = result.rooms;
    }) 
 

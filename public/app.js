@@ -10,6 +10,8 @@ angular.module('VBattle', [
 'VBattle.room',
 'VBattle.sideBar',
 'VBattle.search',
+'VBattle.matchmakerServices',
+'VBattle.voting',
 'satellizer',
 'ngRoute'
 ])
@@ -62,7 +64,7 @@ angular.module('VBattle', [
         loginRequired: loginRequired
       }
     })
-    .when('/rooms/:roomID', {
+    .when('/rooms/:roomID/:playerID', {
       templateUrl: '/gameplay/room.html',
       controller: 'RoomCtrl',
       resolve: {
