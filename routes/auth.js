@@ -134,7 +134,7 @@ router.post('/login', function (req, res, next) {
  |--------------------------------------------------------------------------
  */
 
-router.post('/auth/twitter', function(req, res) {
+router.post('/auth/twitter', function (req, res) {
   var requestTokenUrl = 'https://api.twitter.com/oauth/request_token';
   var accessTokenUrl = 'https://api.twitter.com/oauth/access_token';
   var profileUrl = 'https://api.twitter.com/1.1/users/show.json?screen_name=';
@@ -148,7 +148,7 @@ router.post('/auth/twitter', function(req, res) {
     };
 
     // Step 1. Obtain request token for the authorization popup.
-    request.post({ url: requestTokenUrl, oauth: requestTokenOauth }, function(err, response, body) {
+    request.post({url: requestTokenUrl, oauth: requestTokenOauth}, function (err, response, body) {
       var oauthToken = qs.parse(body);
 
       // Step 2. Send OAuth token back to open the authorization screen.
@@ -164,7 +164,7 @@ router.post('/auth/twitter', function(req, res) {
     };
 
     // Step 3. Exchange oauth token and oauth verifier for access token.
-    request.post({ url: accessTokenUrl, oauth: accessTokenOauth }, function(err, response, accessToken) {
+    request.post({url: accessTokenUrl, oauth: accessTokenOauth}, function (err, response, accessToken) {
 
       accessToken = qs.parse(accessToken);
 
@@ -179,11 +179,11 @@ router.post('/auth/twitter', function(req, res) {
         url: profileUrl + accessToken.screen_name,
         oauth: profileOauth,
         json: true
-      }, function(err, response, profile) {
+      }, function (err, response, profile) {
 
         // Step 5a. Link user accounts.
         if (req.headers.authorization) {
-          User.findOne({ twitter: profile.id }, function(err, existingUser) {
+          User.findOne({twitter: profile.id}, function (err, existingUser) {
             if (existingUser) {
               return res.status(409).send({ message: 'There is already a Twitter account that belongs to you' });
             }
@@ -191,22 +191,22 @@ router.post('/auth/twitter', function(req, res) {
             var token = req.headers.authorization.split(' ')[1];
             var payload = jwt.decode(token, config.TOKEN_SECRET);
 
-            User.findById(payload.sub, function(err, user) {
+            User.findById(payload.sub, function (err, user) {
               if (!user) {
-                return res.status(400).send({ message: 'User not found' });
+                return res.status(400).send({message: 'User not found'});
               }
 
               user.twitter = profile.id;
               user.displayName = user.displayName || profile.name;
               user.picture = user.picture || profile.profile_image_url.replace('_normal', '');
-              user.save(function(err) {
-                res.send({ token: authenticator.createJWT(user) });
+              user.save(function (err) {
+                res.send({token: authenticator.createJWT(user)});
               });
             });
           });
         } else {
           // Step 5b. Create a new user account or return an existing one.
-          User.findOne({ twitter: profile.id }, function(err, existingUser) {
+          User.findOne({twitter: profile.id}, function (err, existingUser) {
             if (existingUser) {
               return res.send({ token: authenticator.createJWT(existingUser) });
             }
@@ -215,8 +215,8 @@ router.post('/auth/twitter', function(req, res) {
             user.twitter = profile.id;
             user.displayName = profile.name;
             user.picture = profile.profile_image_url.replace('_normal', '');
-            user.save(function() {
-              res.send({ token: authenticator.createJWT(user) });
+            user.save(function () {
+              res.send({token: authenticator.createJWT(user)});
             });
           });
         }
@@ -230,21 +230,21 @@ router.post('/auth/twitter', function(req, res) {
  | Unlink Provider
  |--------------------------------------------------------------------------
  */
-router.post('/auth/unlink', authenticator.ensureAuthenticated, function(req, res) {
+router.post('/auth/unlink', authenticator.ensureAuthenticated, function (req, res) {
   var provider = req.body.provider;
   var providers = ['facebook', 'foursquare', 'google', 'github', 'instagram',
     'linkedin', 'live', 'twitter', 'twitch', 'yahoo'];
 
   if (providers.indexOf(provider) === -1) {
-    return res.status(400).send({ message: 'Unknown OAuth Provider' });
+    return res.status(400).send({message: 'Unknown OAuth Provider'});
   }
 
-  User.findById(req.user, function(err, user) {
+  User.findById(req.user, function (err, user) {
     if (!user) {
-      return res.status(400).send({ message: 'User Not Found' });
+      return res.status(400).send({message: 'User Not Found'});
     }
     user[provider] = undefined;
-    user.save(function() {
+    user.save(function () {
       res.status(200).end();
     });
   });

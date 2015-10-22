@@ -25,7 +25,7 @@ var app = express();
 
 // Force HTTPS on Heroku
 if (app.get('env') === 'production') {
-  app.use(function(req, res, next) {
+  app.use(function (req, res, next) {
     var protocol = req.get('x-forwarded-proto');
     protocol == 'https' ? next() : res.redirect('https://' + req.hostname + req.url);
   });
