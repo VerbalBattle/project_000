@@ -32,12 +32,12 @@ router.get('/:avatarName', function (req, res, next) {
     // Callback
     callback: function (result) {
       // filter out profile snippets from result
-      var content = result.query.pages[0].revisions[0].content;
+      // var content = result.query.pages[0].revisions[0].content;
 
       // parse content from sent to us from wikipedia
-      wikiHelper.parseContent(content);
+      // wikiHelper.parseContent(content);
 
-      res.send(content);
+      res.send(result);
     }
   };
 
@@ -45,7 +45,7 @@ router.get('/:avatarName', function (req, res, next) {
   console.log('\n\nFETCHING FROM WIKI:',
     data.avatarName, '\n\n');
   // Attempt to get wiki
-  wikiHelper.getWiki(data);
+  wikiHelper.scrapeWiki(data);
 
   // Expected result sent to client
   // None
