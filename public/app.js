@@ -38,9 +38,9 @@ angular.module('VBattle', [
     .when('/', {
       templateUrl: '/gameplay/lobby.html',
       controller: 'LobbyCtrl',
-      // resolve: {
-      //   loginRequired: loginRequired
-      // }
+      resolve: {
+        loginRequired: loginRequired
+      }
     })
     .when('/search', {
       templateUrl: '/social/search.html',
