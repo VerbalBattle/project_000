@@ -1,6 +1,6 @@
 angular.module('VBattle.signin', [])
 // Sign in controller
-.controller('SigninCtrl', function ($scope, $rootScope, $location, Auth, $auth) {
+.controller('SigninCtrl', function ($scope, $rootScope, $location, Auth, $auth, $http) {
   $scope.signin = function () {
     var user = {
       username: $scope.username,
@@ -11,7 +11,11 @@ angular.module('VBattle.signin', [])
       .then(function() {
         console.log('success')
         // toastr.success('You have successfully signed in');
-        $location.path('/');
+        $http.get('/users/1')
+        .then(function (data) {
+          console.log('is this working');
+          $location.path('/');
+        });
       })
       .catch(function (response) {
         console.log('failed')

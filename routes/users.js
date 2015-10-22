@@ -18,13 +18,11 @@ var router = express.Router();
 var authenticator = require('../server/authenticator');
 
 // GET to signup a new user
-router.get('/:userID', function (req, res, next) {
+router.get('/:userID', authenticator.ensureAuthenticated, function (req, res, next) {
 
   // Decrypt userID
-  var decrypted
-    = authenticator.ensureAuthenticated(req.params.userID);
-  console.log(decrypted);
-  res.send(decrypted);
+  console.log('userID', req.user)
+  res.send({data: 'data'});
 
   // // Data to pass player signup
   // var data = {

@@ -45,37 +45,37 @@ angular.module('VBattle', [
     .when('/search', {
       templateUrl: '/social/search.html',
       controller: 'SearchCtrl',
-      // resolve: {
-      //   loginRequired: loginRequired
-      // }
+      resolve: {
+        loginRequired: loginRequired
+      }
     })
     .when('/profile', {
       templateUrl: '/profile/profile.html',
       controller: 'ProfileCtrl',
-      // resolve: {
-      //   loginRequired: loginRequired
-      // }
+      resolve: {
+        loginRequired: loginRequired
+      }
     })
     .when('/setting', {
       templateUrl: '/profile/setting.html',
       controller: 'SettingCtrl',
-      // resolve: {
-      //   loginRequired: loginRequired
-      // }
+      resolve: {
+        loginRequired: loginRequired
+      }
     })
     .when('/rooms/:roomID', {
       templateUrl: '/gameplay/room.html',
       controller: 'RoomCtrl',
-      // resolve: {
-      //   loginRequired: loginRequired
-      // }
+      resolve: {
+        loginRequired: loginRequired
+      }
     })
     .when('/lobby', {
       templateUrl: '/gameplay/lobby.html',
       controller: 'LobbyCtrl',
-      // resolve: {
-      //   loginRequired: loginRequired
-      // }
+      resolve: {
+        loginRequired: loginRequired
+      }
     })
     .otherwise('/');
 
