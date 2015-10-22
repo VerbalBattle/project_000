@@ -128,8 +128,6 @@ usersHelper.login = function (data) {
   // Result to return
   var result = {};
 
-  // Login successful bool
-  result.loginSuccess = false;
   // Username successful bool
   result.usernameFound = false;
 
@@ -147,7 +145,7 @@ usersHelper.login = function (data) {
         userFound = userFound.dataValues;
 
         // Set username to be found
-        result.usernameFound = true;
+        delete result.usernameFound;
 
         // Log
         console.log('\n\nLOGIN | USERNAME FOUND:', username);
@@ -163,14 +161,21 @@ usersHelper.login = function (data) {
           console.log('\n\nPassword correct');
 
           // Login successful
-          result.loginSuccess = true;
-          // User ID found
-          result.userID = userFound.id;
-          // Username found
-          result.username = userFound.username;
 
+          // Delete password success bool
+          delete result.passwordSuccess;
+
+          // Set userID
+          result.userID = userFound.id;
+
+          // Invoke callback
+          callback(result);
+          // Username found
+          // result.username = userFound.username;
+
+          // Invoke callback
           // Get the rest of the user's data
-          usersHelper.getAllLoginData(result, callback);
+          // usersHelper.getAllLoginData(result, callback);
         } else {
           // Password is not correct
           console.log('\n\nWrong password');
