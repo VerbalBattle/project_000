@@ -84,9 +84,14 @@ router.post('/login', function (req, res, next) {
         result = {
           token: authenticator.createJWT(result)
         };
+        // Send JWT
+        res.send(result);
+      } else {
+        // Send 404
+        res.status(401).send({
+          message: 'Wrong email and/or password'
+        });
       }
-      // Send JWT
-      res.send(result);
     }
   };
   // Log route called
