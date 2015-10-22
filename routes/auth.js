@@ -78,10 +78,13 @@ router.post('/login', function (req, res, next) {
     password: req.body.password,
     // Callback
     callback: function (result) {
-      // Encrypt result
-      result = {
-        token: authenticator.createJWT(result)
-      };
+      // Only encrypt if userID obtained
+      if (result.userID) {
+        // Encrypt result
+        result = {
+          token: authenticator.createJWT(result)
+        };
+      }
       // Send JWT
       res.send(result);
     }
