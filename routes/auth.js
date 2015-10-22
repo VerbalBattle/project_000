@@ -80,7 +80,7 @@ router.post('/login', function (req, res, next) {
     callback: function (result) {
       // Encrypt result
       result = {
-        jToken: authenticator.createJWT(result)
+        token: authenticator.createJWT(result)
       };
       // Send JWT
       res.send(result);
