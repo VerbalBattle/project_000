@@ -7,7 +7,6 @@ angular.module('VBattle', [
 'VBattle.signup',
 'VBattle.profile',
 'VBattle.setting',
-'VBattle.battle',
 'VBattle.lobby',
 'VBattle.room',
 'VBattle.sideBar',
@@ -39,13 +38,6 @@ angular.module('VBattle', [
     .when('/', {
       templateUrl: '/gameplay/lobby.html',
       controller: 'LobbyCtrl',
-      // resolve: {
-      //   loginRequired: loginRequired
-      // }
-    })
-    .when('/battle', {
-      templateUrl: '/gameplay/battle.html',
-      controller: 'BattleCtrl',
       // resolve: {
       //   loginRequired: loginRequired
       // }
