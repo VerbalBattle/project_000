@@ -13,12 +13,15 @@
 // Requirements
 var express = require('express');
 var router = express.Router();
-// Inclue users helper
-var usersHelper = require('../db/usersHelper');
-// Include config vars
-var config = require('../server/serverConfig.js');
+
 // Include authneticator
 var authenticator = require('../server/authenticator');
+// Include config vars
+var config = require('../server/serverConfig.js');
+
+// Inclue users helper
+var usersHelper = require('../db/usersHelper');
+
 
 //                  _            
 //                 | |           
@@ -29,37 +32,45 @@ var authenticator = require('../server/authenticator');
 
 // POST to signup a new user
 router.post('/signup', function (req, res, next) {
-  // Expected request body example
+// Expected request body example
   // {
   //     "username": "mike",
   //     "password": "mike"
   // }
 
-  // Data to pass player signup
+  // Data to pass avatar login
   var data = {
     // Username
     username: req.body.username,
     // Password
-    password: req.body.password,
-    // Callback
-    callback: function (result) {
-      // Send result to user
-      res.send(result.encryptedStuff);
+    password: req.body.password
+  };
+
+  // Callback
+  var callback = function (result) {
+    // Only encrypt if userID obtained
+    if (result.userID) {
+      // Encrypt result
+      result = {
+        token: authenticator.createJWT(result)
+      };
+      console.log(result);
+      // Send JWT
+      res.send(result);
+    } else {
+      // Send 404
+      res.status(401).send({
+        message: 'Wrong email and/or password'
+      });
     }
   };
+
   // Log route called
-  console.log('\n\nSIGNUP\n\n');
-  // Attempt signup
-  usersHelper.signup(data);
+  console.log('\n\nLOGIN\n\n');
+  // Attempt login
+  usersHelper.signup(data, callback);
 
   // Expected result sent to client
-  // {
-  //   "signupSuccess": true,
-  //   "usernameAvailable": true,
-  //   "userID": 2,
-  //   "username": "mike",
-  //   "playersFound": false
-  // }
 });
 
 // POST to login an existing user
@@ -75,29 +86,31 @@ router.post('/login', function (req, res, next) {
     // Username
     username: req.body.username,
     // Password
-    password: req.body.password,
-    // Callback
-    callback: function (result) {
-      // Only encrypt if userID obtained
-      if (result.userID) {
-        // Encrypt result
-        result = {
-          token: authenticator.createJWT(result)
-        };
-        // Send JWT
-        res.send(result);
-      } else {
-        // Send 404
-        res.status(401).send({
-          message: 'Wrong email and/or password'
-        });
-      }
+    password: req.body.password
+  };
+
+  // Callback
+  var callback = function (result) {
+    // Only encrypt if userID obtained
+    if (result.userID) {
+      // Encrypt result
+      result = {
+        token: authenticator.createJWT(result)
+      };
+      // Send JWT
+      res.send(result);
+    } else {
+      // Send 404
+      res.status(401).send({
+        message: 'Wrong email and/or password'
+      });
     }
   };
+
   // Log route called
   console.log('\n\nLOGIN\n\n');
   // Attempt login
-  usersHelper.login(data);
+  usersHelper.login(data, callback);
 
   // Expected result sent to client
 // {

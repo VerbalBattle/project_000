@@ -23,7 +23,8 @@ var wikiHelper = require('../lib/wikiHelper');
 // |_|  \___/ \__,_|\__\___||___/
 
 // GET to signup a new user
-router.get('/:avatarName', function (req, res, next) {
+router.get('/:avatarName', authenticator.ensureAuthenticated,
+  function (req, res, next) {
 
   // Data to pass avatar signup
   var data = {

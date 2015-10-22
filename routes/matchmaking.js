@@ -23,10 +23,11 @@ var roomsHelper = require('../db/roomsHelper');
 // |_|  \___/ \__,_|\__\___||___/
 
 // POST to signup a new user
-router.post('/', function (req, res, next) {
+router.post('/', authenticator.ensureAuthenticated,
+  function (req, res, next) {
   // Expected request body example
   // {
-  //     "avatarID": 12,
+    // "avatarID": 12,
     // "avatarStats": {
     //   "winLossRatio": 0,
     //   "avatarType": "untyped",
@@ -36,9 +37,14 @@ router.post('/', function (req, res, next) {
     // }
   // }
 
+  // Decrypt token
+  var decrypted = req.body.decrypted;
+
   // Data to pass avatar signup
   var data = {
-    // Avatar id
+    // UserID
+    userID: decrypted.userID,
+    // AvatarID
     avatarID: req.body.avatarID,
     // Avatar data
     avatarStats: req.body.avatarStats,
@@ -55,6 +61,8 @@ router.post('/', function (req, res, next) {
   roomsHelper.enqueueAvatar(data);
 
   // Expected result sent to client
-  // None
+  // {
+  //   inRoomQueue: true
+  // }
 });
 module.exports = router;

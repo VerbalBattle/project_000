@@ -17,36 +17,58 @@ var router = express.Router();
 // Require authneticator
 var authenticator = require('../server/authenticator');
 
+// Require users helper
+var usersHelper = require('../db/usersHelper');
+
 // GET to signup a new user
-router.get('/:userID', authenticator.ensureAuthenticated, function (req, res, next) {
+router.get('/', authenticator.ensureAuthenticated,
+  function (req, res, next) {
+  // Expected request body example
+  // {}
+  
+  // Decrypt token
+  var decrypted = req.body.decrypted;
 
-  // Decrypt userID
-  console.log('userID', req.user)
-  res.send({data: 'data'});
+  // Data to pass player signup
+  var data = {
+    // UserID
+    userID: decrypted.userID,
+    // Username
+    username: decrypted.username
+  };
 
-  // // Data to pass player signup
-  // var data = {
-  //   // Username
-  //   username: req.body.username,
-  //   // Password
-  //   password: req.body.password,
-  //   // Callback
-  //   callback: function (result) {
-  //     res.send(result);
-  //   }
-  // };
-  // // Log route called
-  // console.log('\n\nSIGNUP\n\n');
-  // // Attempt signup
-  // usersHelper.signup(data);
+  // Callback
+  var callback = function (result) {
+    console.log(result);
+    res.send(result);
+  };
+
+  // Log route called
+  console.log('\n\nALL USER DATA\n\n');
+  // Attempt signup
+  usersHelper.getAllUserData(data, callback);
 
   // Expected result sent to client
-  // {
-  //   "signupSuccess": true,
-  //   "usernameAvailable": true,
-  //   "userID": 2,
-  //   "username": "mike",
-  //   "playersFound": false
-  // }
+  // { username: 'bowen',
+  // avatarsFound: true,
+  // avatars: 
+  //  { '7': 
+  //     { avatarName: 'Bowen',
+  //       imagePath: '../some/Image/Path.png',
+  //       aboutMe: 'blah',
+  //       stats: [Object],
+  //       rooms: [Object] },
+  //    '11': 
+  //     { avatarName: 'Blaine3',
+  //       imagePath: '../some/Image/Path.png',
+  //       aboutMe: 'blah',
+  //       stats: [Object] },
+  //    '12': 
+  //     { avatarName: 'Blaine2',
+  //       imagePath: '../some/Image/Path.png',
+  //       aboutMe: 'blah',
+  //       stats: [Object] } },
+  // avatarLimit: 3,
+  // avatarStatsFound: true }
 });
 module.exports = router;

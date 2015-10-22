@@ -42,8 +42,7 @@ usersHelper.makeUser = function (username, password) {
   var salt = bcrypt.genSaltSync(10);
   // Encrypted pasword
   var encryptedPassword = bcrypt.hashSync(password, salt);
-  console.log(encryptedPassword);
-  console.log(encryptedPassword.length);
+
   // Find one user with username
   return usersTable.create({
     username: username,
@@ -55,13 +54,12 @@ usersHelper.makeUser = function (username, password) {
 };
 
 // Users helper signup
-usersHelper.signup = function (data) {
+usersHelper.signup = function (data, callback) {
   // Get username
   var username = data.username;
   // Get password
   var password = data.password;
-  // Get callback
-  var callback = data.callback;
+
   // Result to return
   var result = {};
   
@@ -87,23 +85,24 @@ usersHelper.signup = function (data) {
         // Invoke callback
         callback(result);
       } else {
-        // Set username available bool
-        result.usernameAvailable = true;
+        // Delete username available bool
+        delete result.usernameAvailable;
         // Make user
         return usersHelper.makeUser(username, password)
           .then(function (userCreated) {
-            console.log('\n\nUSER CREATED:\n',
-              userCreated, 'added');
-            // Set signup success to be true
-            result.signupSuccess = true;
+            console.log('\n\nUSER CREATED:\n\n');
+            // Delete signup success to be true
+            delete result.signupSuccess;
 
             // Set user id
             result.userID = userCreated.id;
             // Set username
             result.username = userCreated.username;
+            // Set twitter
+            result.twitter = userCreated.twitter;
 
             // Get the rest of the user's data
-            usersHelper.getAllLoginData(result, callback);
+            usersHelper.getAllUserData(result, callback);
           });
       }
     });
@@ -118,13 +117,12 @@ usersHelper.signup = function (data) {
 };
 
 // Users helper login
-usersHelper.login = function (data) {
+usersHelper.login = function (data, callback) {
   // Get username
   var username = data.username;
   // Get password
   var password = data.password;
-  // Get callback
-  var callback = data.callback;
+
   // Result to return
   var result = {};
 
@@ -147,9 +145,6 @@ usersHelper.login = function (data) {
         // Set username to be found
         delete result.usernameFound;
 
-        // Log
-        console.log('\n\nLOGIN | USERNAME FOUND:', username);
-
         // Try to match username and password
         result.passwordSuccess
           = usersHelper.passwordMatch(userFound.salt,
@@ -158,7 +153,6 @@ usersHelper.login = function (data) {
 
         // Check if password correct
         if (result.passwordSuccess) {
-          console.log('\n\nPassword correct');
 
           // Login successful
 
@@ -167,6 +161,10 @@ usersHelper.login = function (data) {
 
           // Set userID
           result.userID = userFound.id;
+          // Set username
+          result.username = userFound.username;
+          // Set twitter
+          result.twitter = userFound.twitter;
 
           // Invoke callback
           callback(result);
@@ -175,7 +173,7 @@ usersHelper.login = function (data) {
 
           // Invoke callback
           // Get the rest of the user's data
-          // usersHelper.getAllLoginData(result, callback);
+          // usersHelper.getAllUserData(result, callback);
         } else {
           // Password is not correct
           console.log('\n\nWrong password');
@@ -202,16 +200,13 @@ usersHelper.login = function (data) {
 usersHelper.passwordMatch = function (salt, givenPass, testPass) {
   // Generate hash
   var hash = bcrypt.hashSync(givenPass, salt);
-  console.log(salt);
-  console.log(givenPass);
-  console.log(testPass);
-  console.log(hash);
+
   // Return if passwords match
   return hash === testPass;
 };
 
 // Users helper get all login data
-usersHelper.getAllLoginData = function (data, callback) {
+usersHelper.getAllUserData = function (data, callback) {
   // Add all avatar data and stats
   return avatarsHelper.getAllAvatars(data)
     .then(function () {
@@ -219,6 +214,8 @@ usersHelper.getAllLoginData = function (data, callback) {
       if (data.avatarsFound) {
         return roomsHelper.getAllRooms(data)
           .then(function () {
+            // Delete userID
+            delete data.userID;
             // Invoke callback on data
             callback(data);
           });

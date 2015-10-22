@@ -23,7 +23,9 @@ var roomsHelper = require('../db/roomsHelper');
 // |_|  \___/ \__,_|\__\___||___/
 
 // GET to get room data about a specified room id
-router.get('/:roomID', function (req, res, next) {
+router.get('/:roomID', authenticator.ensureAuthenticated,
+  function (req, res, next) {
+
   // Data to pass to rooms helper
   var data = {
     // Room id
@@ -39,18 +41,21 @@ router.get('/:roomID', function (req, res, next) {
 });
 
 // POST to attempt to join a room
-router.post('/:roomID', function (req, res, next) {
+router.post('/:roomID', authenticator.ensureAuthenticated,
+  function (req, res, next) {
   // Expected request body example
   // {
-  //     "userID": 17,
   //     "avatarID": 23,
   //     "message": "my message is here"
   // }
 
+  // Decrypt token
+  var decrypted = req.body.decrypted;
+
   // Data rooms helper
   var data = {
     // User id
-    userID: req.body.userID,
+    userID: decrypted.userID,
     // Avatar id
     avatarID: req.body.avatarID,
     // Message
