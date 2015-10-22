@@ -12,18 +12,25 @@ angular.module('VBattle', [
 'VBattle.room',
 'VBattle.sideBar',
 'VBattle.search',
+'satellizer',
 'ngRoute'
 ])
 
-.config(function ($routeProvider, $httpProvider) {
+.config(function ($routeProvider, $httpProvider, $authProvider) {
   $routeProvider
     .when('/login', {
       templateUrl: '/auth/signin.html',
-      controller: 'SigninCtrl'
+      controller: 'SigninCtrl',
+      resolve: {
+        skipIfLoggedIn: skipIfLoggedIn
+      }
     })
     .when('/signup', {
       templateUrl: '/auth/signup.html',
-      controller: 'SignupCtrl'
+      controller: 'SignupCtrl',
+      resolve: {
+        skipIfLoggedIn: skipIfLoggedIn
+      }
     })
     .when('/logout', {
       template: null,
@@ -31,31 +38,77 @@ angular.module('VBattle', [
     })
     .when('/', {
       templateUrl: '/gameplay/lobby.html',
-      controller: 'LobbyCtrl'
+      controller: 'LobbyCtrl',
+      // resolve: {
+      //   loginRequired: loginRequired
+      // }
     })
     .when('/battle', {
       templateUrl: '/gameplay/battle.html',
-      controller: 'BattleCtrl'
+      controller: 'BattleCtrl',
+      // resolve: {
+      //   loginRequired: loginRequired
+      // }
     })
     .when('/search', {
       templateUrl: '/social/search.html',
-      controller: 'SearchCtrl'
+      controller: 'SearchCtrl',
+      // resolve: {
+      //   loginRequired: loginRequired
+      // }
     })
     .when('/profile', {
       templateUrl: '/profile/profile.html',
-      controller: 'ProfileCtrl'
+      controller: 'ProfileCtrl',
+      // resolve: {
+      //   loginRequired: loginRequired
+      // }
     })
     .when('/setting', {
       templateUrl: '/profile/setting.html',
-      controller: 'SettingCtrl'
+      controller: 'SettingCtrl',
+      // resolve: {
+      //   loginRequired: loginRequired
+      // }
     })
     .when('/rooms/:roomID', {
       templateUrl: '/gameplay/room.html',
-      controller: 'RoomCtrl'
+      controller: 'RoomCtrl',
+      // resolve: {
+      //   loginRequired: loginRequired
+      // }
     })
     .when('/lobby', {
       templateUrl: '/gameplay/lobby.html',
-      controller: 'LobbyCtrl'
+      controller: 'LobbyCtrl',
+      // resolve: {
+      //   loginRequired: loginRequired
+      // }
     })
     .otherwise('/');
+
+  $authProvider.twitter({
+    url: '/auth/twitter'
+  });
+
+  function skipIfLoggedIn ($q, $auth) {
+    var deferred = $q.defer();
+    if ($auth.isAuthenticated()) {
+      deferred.reject();
+    } else {
+      deferred.resolve();
+    }
+    return deferred.promise;
+  }
+
+  function loginRequired ($q, $location, $auth) {
+    var deferred = $q.defer();
+    if ($auth.isAuthenticated()) {
+      deferred.resolve();
+    } else {
+      $location.path('/login');
+    }
+    return deferred.promise;
+  }
+
 });

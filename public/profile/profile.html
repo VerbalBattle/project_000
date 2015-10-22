@@ -2,8 +2,8 @@
   <h2 class="text-center">{{ user.username }}</h2>
   <div ng-sidebar class="sidebar"></div>
   <div class="row">Avatars</div>
-  </div>
   <div class="col-md-4 avatars" ng-repeat="(key, value) in user.avatars">
+    <button ng-click="editAvatar()">Edit</button>
     <div>{{ value.avatarName }}</div>
     <div>{{ value.imagePath }}</div>
     <div>{{ value.aboutMe }}</div>
