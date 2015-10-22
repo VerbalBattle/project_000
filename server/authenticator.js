@@ -36,7 +36,9 @@ authenticator.ensureAuthenticated = function (req, res, next) {
   if (payload.exp <= moment().unix()) {
     return res.status(401).send({ message: 'Token has expired' });
   }
-  req.user = payload.sub;
+  // req.user = payload.sub;
+  console.log(payload.sub);
+  req.body.decrypted = payload.sub;
   next();
 };
 
@@ -44,7 +46,7 @@ authenticator.ensureAuthenticated = function (req, res, next) {
 authenticator.createJWT = function (data) {
   var payload = {
     // sub: user._id,
-    sub: data.userID,
+    sub: data,
     iat: moment().unix(),
     exp: moment().add(14, 'days').unix()
   };

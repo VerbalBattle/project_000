@@ -13,6 +13,11 @@
 // Requirements
 var express = require('express');
 var router = express.Router();
+
+// Require authneticator
+var authenticator = require('../server/authenticator');
+
+// Require avatarsHelper
 var avatarsHelper = require('../db/avatarsHelper');
 
 //                  _            
@@ -23,10 +28,10 @@ var avatarsHelper = require('../db/avatarsHelper');
 // |_|  \___/ \__,_|\__\___||___/
 
 // POST to create a avatar
-router.post('/', function (req, res, next) {
+router.post('/', authenticator.ensureAuthenticated,
+  function (req, res, next) {
   // Expected request body example
   // {
-  //     "userID": "974",
   //     "avatarData": {
   //         "avatarName": "joey's avatar",
   //         "imagePath": "some/image/path.png",
@@ -34,10 +39,13 @@ router.post('/', function (req, res, next) {
   //     }
   // }
 
+  // Decrypt token
+  var decrypted = req.body.decrypted;
+
   // Data to pass to addAvatar
   var data = {
     // Username
-    userID: req.body.userID,
+    userID: decrypted.userID,
     // Avatar data
     avatarData: req.body.avatarData,
     // Callback
@@ -71,12 +79,16 @@ router.post('/', function (req, res, next) {
 });
 
 // DELETE to delete a avatar
-router.delete('/:userID/:avatarID', function (req, res, next) {
+router.delete('/:avatarID', authenticator.ensureAuthenticated,
+  function (req, res, next) {
+
+  // Decrypt token
+  var decrypted = req.body.decrypted;
 
   // Data to pass to deleteAvatar
   var data = {
     // Username
-    userID: req.params.userID,
+    userID: decrypted.userID,
     // Avatarname
     avatarID: req.params.avatarID,
     // Callback
@@ -84,6 +96,7 @@ router.delete('/:userID/:avatarID', function (req, res, next) {
       res.send(result);
     }
   };
+  
   // Log route called
   console.log('\n\nDELETE AVATAR\n\n', data);
   // Handoff to avatars helper

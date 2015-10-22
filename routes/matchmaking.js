@@ -23,7 +23,8 @@ var roomsHelper = require('../db/roomsHelper');
 // |_|  \___/ \__,_|\__\___||___/
 
 // POST to signup a new user
-router.post('/', function (req, res, next) {
+router.post('/', authenticator.ensureAuthenticated,
+  function (req, res, next) {
   // Expected request body example
   // {
   //     "avatarID": 12,
