@@ -2,7 +2,24 @@
   <h2 class="text-center">Pending fights</h2>
   <div ng-sidebar class="sidebar"></div>
   <form ng-submit="">
-    <label>Avatar Name</label>
-    <input type="text" ng-model="avatarName">
+    <label>Send Message</label>
+    <input type="text" ng-model="input">
+    <button ng-click="postMessage(input)">Send</button>
   </form>
+ 
+  	<div ng-show = "shower" class="alert alert-danger" role="alert">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  <span class="sr-only">Error:</span>
+  Its not you turn
+</div>
+
+
+
+  <div>Messages:</div> 
+  <div ng-repeat="message in messages">
+  	<div ng-repeat = "mess in message.messages">
+  			{{mess.message}} 
+  	</div>
+  	
+  </div>
 </div>

@@ -26,25 +26,29 @@ angular.module('VBattle.gameplayServices', [])
 
     return $http.get('/rooms/' + roomID)
       .then(function (resp) {
+        //console.log("messages received", resp.data.rooms[1].messages);
         return resp.data;
       }, function (err) {
         throw err;
       });
   };
-  // Post a message to a room by ID
-  var getMessages = function (roomID) {
 
-    return $http.get('/rooms/' + roomID)
-      .then(function (resp) {
-        return resp.data;
-      }, function (err) {
-        throw err;
-      });
-  };
+  // Post a message to a room by ID
+  var postMessage = function(messageData) {
+    var roomID = messageData.roomID;
+    //will work when room exists
+    return $http.post('/rooms/'+roomID, messageData)
+     .then(function(resp) {
+       return resp.data;
+    }, function(err) {
+       throw err;
+    });
+ };
 
   return {
     getGames: getGames,
     startGame: startGame,
-    getMessages: getMessages
+    getMessages: getMessages,
+    postMessage: postMessage
   };
 });
