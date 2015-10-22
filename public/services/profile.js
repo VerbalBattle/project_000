@@ -7,17 +7,19 @@ angular.module('VBattle.profileServices', [])
     
   };
 
-  var getUser = function () {
-    return userData;
-  };
 
   var getUserFromLogin = function () {
     return $http.get('/users')
     .then(function (resp) {
+      console.log('getUserLogin',userData)
       userData = resp.data;
     }, function (err) {
       throw err;
     });    
+  };
+
+  var getUser = function () {
+    return userData;
   };
 
   var addAvatar = function (avatar) {

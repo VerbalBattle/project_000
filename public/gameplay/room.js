@@ -1,8 +1,8 @@
 angular.module('VBattle.room', [])
 
-.controller('RoomCtrl', function ($timeout, $scope, $location, $routeParams, GamePlay, Auth) {
+.controller('RoomCtrl', function ($timeout, $scope, $location, $routeParams, GamePlay) {
   
-  var user = Auth.getUser();
+  var user = JSON.parse(window.localStorage['user']);
   var userid = user.userID;
   var avatarID = Number($routeParams.playerID);
   $scope.messages;

@@ -1,8 +1,8 @@
 angular.module('VBattle.lobby', [])
 
-.controller('LobbyCtrl', function ($scope, $location, GamePlay, Auth, Match) {
-  
-  var user = Auth.getUser();
+.controller('LobbyCtrl', function ($scope, $location, GamePlay, Match) {
+  var user = JSON.parse(window.localStorage['user']);
+
 
   $scope.roomsIDs = {};
 

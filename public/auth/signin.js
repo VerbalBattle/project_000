@@ -1,6 +1,7 @@
 angular.module('VBattle.signin', [])
 // Sign in controller
 .controller('SigninCtrl', function ($scope, $location, $auth, $http, Profile) {
+
   $scope.signin = function () {
     var user = {
       username: $scope.username,
@@ -12,7 +13,7 @@ angular.module('VBattle.signin', [])
         // toastr.success('You have successfully signed in');
         Profile.getUserFromLogin()
         .then(function () {
-          console.log(Profile.getUser());
+          window.localStorage['user'] = JSON.stringify(Profile.getUser());
           $location.path('/');
         });
       })

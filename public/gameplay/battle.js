@@ -1,9 +1,9 @@
 angular.module('VBattle.battle', [])
 
-.controller('BattleCtrl', function ($scope, $location, Auth, GamePlay) {
+.controller('BattleCtrl', function ($scope, $location, Profile, GamePlay) {
   
   $scope.startGame = function () {
-    $scope.user = Auth.getUser();
+    $scope.user = JSON.parse(window.localStorage['user']);
     GamePlay.startGame($scope.user.userID)
     .then(function (data) {
       console.log(data);
