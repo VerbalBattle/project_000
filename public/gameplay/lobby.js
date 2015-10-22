@@ -7,7 +7,6 @@ angular.module('VBattle.lobby', [])
 
   var user = JSON.parse(window.localStorage['user']);
 
-
   $scope.roomsIDs = {};
 
   $scope.avatars = user.avatars;

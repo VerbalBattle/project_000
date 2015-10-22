@@ -1,5 +1,7 @@
 angular.module('VBattle.voting', [])
 
-.controller('VotingCtrl', function ($scope, $rootScope, $location, Auth, Profile) {
-  $scope.hi = "hello world";
+.controller('VotingCtrl', function ($scope, $rootScope, $location, Profile) {
+  
+
+
 });
