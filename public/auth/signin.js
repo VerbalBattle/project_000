@@ -37,7 +37,6 @@ angular.module('VBattle.signin', [])
     });
   };
 
-  
   $scope.authenticate = function(provider) {
     $auth.authenticate(provider)
       .then(function() {
