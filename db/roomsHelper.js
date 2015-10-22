@@ -109,7 +109,7 @@ roomsHelper.canJoinMatchmaking = function (data) {
               avatar2_id: avatarID,
               isOpen: false
             }
-          ]
+          ]}
       }).then(function (roomsFound) {
         // If there were less than 3 rooms found
         if (roomsFound.length < 3) {
