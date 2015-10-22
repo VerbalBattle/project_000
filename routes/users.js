@@ -23,7 +23,9 @@ var usersHelper = require('../db/usersHelper');
 // GET to signup a new user
 router.get('/', authenticator.ensureAuthenticated,
   function (req, res, next) {
-
+  // Expected request body example
+  // {}
+  
   // Decrypt token
   var decrypted = req.body.decrypted;
 

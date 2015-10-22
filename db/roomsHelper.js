@@ -44,25 +44,86 @@ roomsHelper.enqueueAvatar = function (data) {
   // Get the callback
   var callback = data.callback;
   delete data.callback;
-  // Add player to end of linked list
-  var added = waitingForGame.addToBack(data);
-  // Print the queue
-  waitingForGame.print();
-  // If there are 2 players in queue, pair them
-  if (Object.keys(waitingForGame.nodes).length === 2) {
-    this.pairPlayers([
-      [
-        waitingForGame.head.val.avatarID,
-        waitingForGame.tail.val.avatarID
-      ]
-    ]);
+
+  // Ensure userID/playerID can join
+  var canJoin = this.canJoinMatchmaking({
+    userID: data.userID,
+    avatarID: data.avatarID
+  });
+
+  // Result to return to player
+  var result = {};
+
+  // If the avatar can join, continue to add
+  if (canJoin) {
+    // Add player to end of linked list
+    var added = waitingForGame.addToBack(data);
+    // Print the queue
+    waitingForGame.print();
+    // If there are 2 players in queue, pair them
+    if (Object.keys(waitingForGame.nodes).length === 2) {
+      this.pairPlayers([
+        [
+          waitingForGame.head.val.avatarID,
+          waitingForGame.tail.val.avatarID
+        ]
+      ]);
+    }
+
+    // Add added-to-room bool
+    result.inRoomQueue = added;
+  } else {
+    // Could not join matchmaking
+    result.tooManyGames = true;
   }
 
   // Invoke callback
-  var result = {
-    inRoomQueue: added
-  };
   callback(result);
+};
+
+// Rooms helper check if a avatarID/userID combo can
+// join join matchmaking
+roomsHelper.canJoinMatchmaking = function (data) {
+  // Get userID and avatarID
+  var userID = data.userID;
+  var avatarID = data.avatarID;
+
+  // Lookup avatar/userID combo
+  return avatarsTable.find({
+    where: {
+      userID: userID,
+      id: avatarID
+    }
+  }).then(function (avatarFound) {
+    // If avatar was found
+    if (avatarFound) {
+      // Ensure avatar is in at most 3 rooms
+      return roomsTable.findAll({
+        where: {
+          $or: [
+            {
+              avatar1_id: avatarID,
+              isOpen: true
+            },
+            {
+              avatar2_id: avatarID,
+              isOpen: false
+            }
+          ]
+      }).then(function (roomsFound) {
+        // If there were less than 3 rooms found
+        if (roomsFound.length < 3) {
+          // Avatar can join matchmaking
+          return true;
+        }
+        // The player is in 3 rooms
+        return false;
+      });
+    } else {
+      // Avatar doesn't exist, return false
+      return false;
+    }
+  })
 };
 
 // Rooms helper method to remove tuples from queue
@@ -140,7 +201,8 @@ roomsHelper.getAllRooms = function (data) {
   // Get all rooms associated with avatars
   return roomsTable.findAll({
     where: {
-      $or: [{
+      $or: [
+        {
           avatar1_id: {
             $in: avatarIDs
           }
@@ -250,7 +312,7 @@ roomsHelper.sendMessageToRoom = function (data) {
         } else {
           // Inform client avatar id wasn't found
           result.foundAvatarID = false;
-          callback(result);
+          return callback(result);
         }
 
         // Check turn validity

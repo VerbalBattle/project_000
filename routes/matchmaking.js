@@ -27,7 +27,7 @@ router.post('/', authenticator.ensureAuthenticated,
   function (req, res, next) {
   // Expected request body example
   // {
-  //     "avatarID": 12,
+    // "avatarID": 12,
     // "avatarStats": {
     //   "winLossRatio": 0,
     //   "avatarType": "untyped",
@@ -37,9 +37,14 @@ router.post('/', authenticator.ensureAuthenticated,
     // }
   // }
 
+  // Decrypt token
+  var decrypted = req.body.decrypted;
+
   // Data to pass avatar signup
   var data = {
-    // Avatar id
+    // UserID
+    userID: decrypted.userID,
+    // AvatarID
     avatarID: req.body.avatarID,
     // Avatar data
     avatarStats: req.body.avatarStats,
@@ -56,6 +61,8 @@ router.post('/', authenticator.ensureAuthenticated,
   roomsHelper.enqueueAvatar(data);
 
   // Expected result sent to client
-  // None
+  // {
+  //   inRoomQueue: true
+  // }
 });
 module.exports = router;
