@@ -11,7 +11,7 @@ angular.module('VBattle.profileServices', [])
       userData = resp.data;
     }, function (err) {
       throw err;
-    });    
+    });
   };
 
   var getUser = function () {
@@ -30,7 +30,7 @@ angular.module('VBattle.profileServices', [])
   var editAvatar = function (avatarID, avatar) {
     return $http.put('/avatars/' + avatarID, avatar)
       .then(function (resp) {
-        return resp.data
+        return resp.data;
       }, function (err) {
         throw err;
       });

@@ -324,7 +324,7 @@ users.sync().then(function () {
       });
     });
   });
-})
+});
 
 // // Avatars table sync
 // .then(function () {
