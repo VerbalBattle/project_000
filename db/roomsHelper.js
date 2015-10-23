@@ -290,14 +290,70 @@ roomsHelper.getRoomData = function (data) {
       // Set the room
       result.rooms = {};
       result.rooms[roomID] = roomFound.dataValues;
+      var room = result.rooms[roomID];
 
-      // Add messages to the room
-      return messagesHelper.fetchMessagesForRoom(roomID)
-        .then(function (messages) {
-          result.rooms[roomID].messages = messages;
-          // Invoke callback
+      // Get avatarIDs
+      var avatar1_id = room.avatar1_id;
+      var avatar2_id = room.avatar2_id;
+      delete room.avatar1_id;
+      delete room.avatar2_id;
+
+      // Give avatar1 and avatar2 data to room
+      room.avatar1 = {
+        avatarID: avatar1_id
+      };
+      room.avatar2 = {
+        avatarID: avatar2_id
+      };
+
+      // Get names for avatar IDs
+      return avatarsTable.findAll({
+        where: {
+          id: {
+            $in: [avatar1_id, avatar2_id]
+          }
+        }
+      }).then(function (avatarsFound) {
+        // If exactly 2 avatars were found
+        if (avatarsFound.length === 2) {
+          // Associate avatar names with ids
+          var avatarA = avatarsFound[0].dataValues;
+          var avatarB = avatarsFound[1].dataValues;
+
+          // If avatarA is avatar1
+          if (avatarA.id === avatar1_id
+            && avatarB.id === avatar2_id) {
+            // Set names
+            room.avatar1.avatarName = avatarA.avatarName;
+            room.avatar2.avatarName = avatarB.avatarName;
+          } else if (avatarA.id === avatar2_id
+            && avatarB.id === avatar1_id) {
+            // avatarB is avatar1
+            room.avatar1.avatarName = avatarB.avatarName;
+            room.avatar2.avatarName = avatarA.avatarName;
+          } else {
+            // Avatar names are unknown (you messed up breh)
+            room.avatar1.avatarName = 'Unknown';
+            room.avatar2.avatarName = 'Unknown';
+          }
+
+          // Add messages to the room
+          return messagesHelper.fetchMessagesForRoom(roomID)
+            .then(function (messages) {
+              // Set messages
+              result.rooms[roomID].messages = messages;
+
+              // Invoke callback
+              callback(result);
+            });
+
+        } else {
+          // The avatarIDs weren't found, invoke callback
+          result.avatarNamesFound = false;
           callback(result);
-        });
+        }
+      });
+
     } else {
       // The room wasn't found, invoke callback
       result.roomFound = false;
@@ -353,6 +409,7 @@ roomsHelper.sendMessageToRoom = function (data) {
           // Add message to database
           return messagesHelper.addMessageToRoom({
             roomID: roomID,
+            avatarID: avatarID,
             message: message
           }).then(function (messageCreated) {
             // If the message was created

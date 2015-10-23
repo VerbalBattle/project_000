@@ -20,10 +20,12 @@ var messagesHelper = {};
 messagesHelper.addMessageToRoom = function (data) {
   // Get data
   var roomID = data.roomID;
+  var avatarID = data.avatarID;
   var message = data.message;
   // Create a message
   return messagesTable.create({
     roomID: roomID,
+    avatarID: avatarID,
     message: message
   }).then(function (messageCreated) {
     // Return the message created
