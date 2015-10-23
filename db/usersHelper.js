@@ -207,6 +207,8 @@ usersHelper.passwordMatch = function (salt, givenPass, testPass) {
 
 // Users helper get all login data
 usersHelper.getAllUserData = function (data, callback) {
+  // Set avatarLimit
+  data.avatarLimit = 3;
   // Add all avatar data and stats
   return avatarsHelper.getAllAvatars(data)
     .then(function () {

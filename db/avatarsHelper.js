@@ -57,9 +57,6 @@ avatarsHelper.getAllAvatars = function (result) {
         result.avatars = {};
         var avatars = result.avatars;
 
-        // Set avatarLimit
-        result.avatarLimit = 3;
-
         // Iterate over all avatars
         for (var i = 0; i < avatarsFound.length; ++i) {
           // Get avatar reference
