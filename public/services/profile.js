@@ -3,9 +3,6 @@ angular.module('VBattle.profileServices', [])
 .factory('Profile', function ($http) {
   var userData;
 
-  var getAvatars = function (userId) {
-    
-  };
 
 
   var getUserFromLogin = function () {
@@ -30,6 +27,16 @@ angular.module('VBattle.profileServices', [])
       });
   };
 
+  var editAvatar = function (avatarID, avatar) {
+
+    return $http.put('/avatars/' + avatarID, avatar)
+      .then(function (resp) {
+        return resp.data
+      }, function (err) {
+        throw err;
+      });
+  };
+
   var removeAvatar = function (avatar) {
     var url = '/avatars/' + avatar.avatarID;
     return $http.delete(url, avatar)
@@ -41,6 +48,7 @@ angular.module('VBattle.profileServices', [])
   };
   return {
     addAvatar: addAvatar,
+    editAvatar: editAvatar,
     removeAvatar: removeAvatar,
     getUser: getUser,
     getUserFromLogin: getUserFromLogin
