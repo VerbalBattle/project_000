@@ -91,7 +91,6 @@ avatarsHelper.addAvatar = function (data) {
   var callback = data.callback;
   // Get avatardata
   var avatarData = data.avatarData;
-  console.log('\n\n', data, '\n\n');
 
   // Result to store avatar data in
   var result = {};
@@ -218,6 +217,56 @@ avatarsHelper.addAvatar = function (data) {
       
     } else {
       // The userID wasn't found
+      callback(result);
+    }
+  });
+};
+
+// Avatars helper edit avatar
+avatarsHelper.editAvatar = function (data) {
+  // Get username
+  var userID = data.userID;
+  // Get avatarName
+  var avatarID = data.avatarID;
+  // Get callback
+  var callback = data.callback;
+  // Get avatarData
+  var avatarData = data.avatarData;
+  
+  // Result to send to client
+  var result = {};
+  // Assume update fails
+  result.updateSuccess = false;
+
+  // Attempt update on userID avatarID combo
+  return avatarsTable.find({
+    where: {
+      userID: userID,
+      id: avatarID
+    }
+  }).then(function (avatarFound) {
+    // If the avatar was found
+    if (avatarFound) {
+      // Get update parameters
+      var newImagePath = avatarData.imagePath
+        || avatarFound.dataValues.imagePath;
+      var newAboutMe = avatarData.aboutMe
+        || avatarFound.dataValues.aboutMe;
+      // Make update
+      return avatarFound.update({
+        imagePath: newImagePath,
+        aboutMe: newAboutMe
+      }).then(function () {
+
+        // Set update success to true
+        result.updateSuccess = true;
+        // Invoke callback
+        callback(result);
+      });
+    } else {
+      // Avatar/user combo wasn't found
+      result.avatarFound = false;
+      // Invoke callback
       callback(result);
     }
   });
