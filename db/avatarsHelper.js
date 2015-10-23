@@ -232,7 +232,7 @@ avatarsHelper.editAvatar = function (data) {
   var callback = data.callback;
   // Get avatarData
   var avatarData = data.avatarData;
-
+  
   // Result to send to client
   var result = {};
   // Assume update fails

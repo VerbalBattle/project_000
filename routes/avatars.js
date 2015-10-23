@@ -95,7 +95,7 @@ router.put('/:avatarID', authenticator.ensureAuthenticated,
     avatarData: req.body.avatarData,
     // Callback
     callback: function (result) {
-      result.send(result);
+      res.send(result);
     }
   };
 
@@ -103,7 +103,7 @@ router.put('/:avatarID', authenticator.ensureAuthenticated,
   console.log('\n\nEDIT AVATAR\n\n', data);
   // Handoff to avatars helper
   avatarsHelper.editAvatar(data);
-}
+});
 
 // DELETE to delete a avatar
 router.delete('/:avatarID', authenticator.ensureAuthenticated,
