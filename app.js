@@ -29,11 +29,15 @@ var app = express();
 // var io = socket_io();
 // app.io = io;
 
-// io.on("connection", function (socket) {
-//   console.log("\n" + socket.id, "connected.\n");
-//   socket.emit('hello', 'hey world');
-// });
 app.io = require('./server/sockets');
+
+io.on("connection", function (socket) {
+  console.log("\n" + socket.id, "connected.\n");
+  socket.on("client:linkUser", function (data) {
+    console.log(data)
+  })
+  socket.emit('hello', 'hey world');
+})
 
 // Force HTTPS on Heroku
 if (app.get('env') === 'production') {
