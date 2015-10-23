@@ -7,7 +7,6 @@ angular.module('VBattle.profile', [])
   $scope.addAvatar = function () {
 
     var avatar = {
-      "userID": $scope.user.userID,
       "avatarData": {
         "avatarName": $scope.avatarName,
         "imagePath": $scope.imagePath,
@@ -28,6 +27,27 @@ angular.module('VBattle.profile', [])
       $scope.imagePath = "";
       $scope.aboutMe = "";
       $scope.addForm = false;
+    });
+  };
+  
+  $scope.editAvatar = function () {
+
+    var avatar = {
+      "avatarData": {
+        "imagePath": $scope.imagePath,
+        "aboutMe": $scope.aboutMe
+      }
+    };
+
+    Profile.editAvatar(this.key, avatar)
+    .then(function (data) {
+      console.log("added avatar", data);
+      if (data.updateSuccess) {
+        $scope.user.avatars[avatarID] = avatar.avatarData;
+        $scope.user.avatars[avatarID].avatarName = $scope.avatarName;
+        window.localStorage['user'] = JSON.stringify($scope.user);
+      }
+      $scope.showEdit = false;
     });
   };
   $scope.removeAvatar = function () {
