@@ -58,9 +58,6 @@ angular.module('VBattle.room', [])
   //console.log(GamePlay.getMessages(1).rooms[1].messages, "heleelelellelel")
    GamePlay.getMessages(room)
    .then(function(result){
-
-   	console.log("messagesssjijuhu", result.rooms);
-
    	// for(var key in result.rooms) {
    	// avatarID = result.rooms[key].avatar2_id;
    	// console.log("fialure here")
