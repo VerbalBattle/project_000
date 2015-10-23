@@ -13,6 +13,7 @@ angular.module('VBattle', [
 'VBattle.search',
 'VBattle.matchmakerServices',
 'VBattle.voting',
+'VBattle.votingServices',
 'satellizer',
 'ngRoute'
 ])

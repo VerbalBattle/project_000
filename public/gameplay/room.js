@@ -45,6 +45,7 @@ angular.module('VBattle.room', [])
     $scope.input = "";
   };
 
+
   $scope.getMessages = function () {
     // $scope.messages.push(GamePlay.getMessages(1).rooms[1].messages);
     console.log("getting messages");
@@ -52,12 +53,6 @@ angular.module('VBattle.room', [])
     GamePlay.getMessages(room)
     .then( function (result) {
       console.log("messagesssjijuhu", result.rooms);
-
-      // for(var key in result.rooms) {
-      // avatarID = result.rooms[key].avatar2_id;
-      // console.log("fialure here")
-      // }
-      //getting playerID
       $scope.enemy = result.rooms[room].avatar2_id;
       console.log("attantion");
       console.log($scope.enemy);
