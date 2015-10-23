@@ -5,6 +5,7 @@ node_js:
 branches:
   only:
   - master
+before_install: npm install -g grunt-cli
 before_script:
 - npm install -g bower
 - npm install -g grunt
