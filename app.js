@@ -20,8 +20,19 @@ var bodyParser = require('body-parser');
 var db = require('./db/db_config');
 var serverConfig = require('./server/serverConfig');
 
+// socket
+var socket_io = require('socket.io');
 // Make express app
 var app = express();
+
+// socket
+var io = socket_io();
+app.io = io;
+
+io.on("connection", function (socket) {
+  console.log("\n" + socket.id, "connected.\n");
+  socket.emit('hello', 'hey world');
+})
 
 // Force HTTPS on Heroku
 if (app.get('env') === 'production') {

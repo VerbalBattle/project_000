@@ -37,16 +37,17 @@ angular.module('VBattle.profile', [])
         "aboutMe": this.value.aboutMe
       }
     };
+    var avatarID = this.key;
+    var avatarName = this.value.avatarName;
 
-    Profile.editAvatar(this.key, avatar)
+    Profile.editAvatar(avatarID, avatar)
     .then(function (data) {
       console.log("added avatar", data);
       if (data.updateSuccess) {
-        $scope.user.avatars[this.key] = avatar.avatarData;
-        $scope.user.avatars[this.key].avatarName = $scope.avatarName;
+        $scope.user.avatars[avatarID] = avatar.avatarData;
+        $scope.user.avatars[avatarID].avatarName = avatarName;
         window.localStorage['user'] = JSON.stringify($scope.user);
       }
-      $scope.showEdit = false;
     });
   };
   $scope.removeAvatar = function () {

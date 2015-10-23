@@ -1,6 +1,11 @@
 angular.module('VBattle.lobby', [])
 
-.controller('LobbyCtrl', function ($scope, $location, GamePlay, Match) {
+.controller('LobbyCtrl', function ($scope, $location, GamePlay, Match, mySocket) {
+  
+  mySocket.on('hello', function (data) {
+    console.log(data);
+  });
+
   var user = JSON.parse(window.localStorage['user']);
 
 

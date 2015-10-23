@@ -1,4 +1,5 @@
 angular.module('VBattle', [
+'btford.socket-io',
 'VBattle.profileServices',
 'VBattle.gameplayServices',
 'VBattle.signin',
@@ -104,4 +105,12 @@ angular.module('VBattle', [
     return deferred.promise;
   }
 
+})
+
+.factory('mySocket', function (socketFactory) {
+  var myIoSocket = io.connect();
+
+  return socketFactory({
+    ioSocket: myIoSocket
+  });
 });

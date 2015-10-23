@@ -11,7 +11,7 @@
       <button ng-click="removeAvatar()">Remove</button>
     </div>
     <div ng-show="showEdit" class="editAvatar">
-      <form class="col-md-4" ng-submit="editAvatar()">
+      <form class="col-md-4" ng-submit="editAvatar();showEdit=!showEdit;display=!display">
         <label>Avatar Name</label>
         <div>{{ value.avatarName }}</div>
         <label>Image Path</label>
