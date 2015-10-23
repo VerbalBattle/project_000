@@ -9,26 +9,26 @@ angular.module('VBattle.sideBar', [])
   {
     status: '',
     filePath: '../assets/battle.png',
-    text: 'Find Battle',
+    text: 'Lobby',
     route: '#/battle'
   },
   {
     status: '',
-    filePath: '../assets/magnify.png',
-    text: 'Search User',
-    route: '#/search'
+    filePath: '../assets/message.png',
+    text: 'Vote',
+    route: '#/voting'
   },
   {
     status: '',
     filePath: '../assets/profile.png',
-    text: 'Edit Profile',
+    text: 'Profile',
     route: '#/profile'
   },
   {
     status: '',
-    filePath: '../assets/message.png',
-    text: 'Start Chattin',
-    route: '#/lobby'
+    filePath: '../assets/setting.png',
+    text: 'Settings',
+    route: '#/setting'
   },
   {
     status: '',

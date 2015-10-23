@@ -32,7 +32,7 @@ angular.module('VBattle.profileServices', [])
   };
 
   var removeAvatar = function (avatar) {
-    var url = '/avatars/' + avatar.userID + '/' + avatar.avatarID;
+    var url = '/avatars/' + avatar.avatarID;
     return $http.delete(url, avatar)
       .then(function (resp) {
         return resp.data;
