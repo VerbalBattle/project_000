@@ -25,7 +25,12 @@ ul {
 
 /*room styling*/
 .message{
-  background-color: blue;
+  background-color: green;
+  height: 30px;
+  width: 300px;
+}
+.sender{
+  color: red;
 }
 
 .roomHref{
