@@ -13,7 +13,6 @@ angular.module('VBattle.profile', [])
         "aboutMe": $scope.aboutMe
       }
     };
-
     Profile.addAvatar(avatar)
     .then(function (data) {
       console.log("added avatar", data);
