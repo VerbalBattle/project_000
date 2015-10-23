@@ -22,6 +22,7 @@ angular.module('VBattle.profile', [])
       for (avatarID in data.avatars) {
         $scope.user.avatars[avatarID] = data.avatars[avatarID];
       }
+      window.localStorage['user'] = JSON.stringify($scope.user);
       $scope.showadd = Object.keys($scope.user.avatars).length < $scope.user.avatarLimit;
       // clear form
       $scope.avatarName = "";
@@ -32,8 +33,7 @@ angular.module('VBattle.profile', [])
   };
   $scope.removeAvatar = function () {
     var user = {
-      userID: $scope.user.userID,
-      avatarID: +this.key
+      avatarID: this.key
     };
 
     Profile.removeAvatar(user)
@@ -41,6 +41,7 @@ angular.module('VBattle.profile', [])
       console.log(data);
       if (data.removeSuccess) {
         delete $scope.user.avatars[user.avatarID];
+        window.localStorage['user'] = JSON.stringify($scope.user);
         $scope.showadd = true;
       }
     });
