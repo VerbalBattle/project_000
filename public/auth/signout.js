@@ -6,6 +6,7 @@ angular.module('VBattle.signout', [])
     $auth.logout()
       .then(function () {
         // toastr.info('You have been logged out');
+        window.localStorage.removeItem(['user']);
         $location.path('/');
       });
   }();
