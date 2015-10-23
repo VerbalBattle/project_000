@@ -108,9 +108,5 @@ angular.module('VBattle', [
 })
 
 .factory('mySocket', function (socketFactory) {
-  var myIoSocket = io.connect();
-
-  return socketFactory({
-    ioSocket: myIoSocket
-  });
+  return socketFactory();
 });
