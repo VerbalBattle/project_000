@@ -50,6 +50,8 @@ angular.module('VBattle.lobby', [])
   //  }
 
 
+
+
   //  console.log($scope.roomsIDs);
 
   //  for(var id in $scope.roomsIDs){
