@@ -8,13 +8,13 @@ angular.module('VBattle.sideBar', [])
   $scope.list = [
   {
     status: '',
-    filePath: '../assets/battle.png',
+    filePath: '../assets/lobby.png',
     text: 'Lobby',
-    route: '#/battle'
+    route: '#/lobby'
   },
   {
     status: '',
-    filePath: '../assets/message.png',
+    filePath: '../assets/vote.png',
     text: 'Vote',
     route: '#/voting'
   },
