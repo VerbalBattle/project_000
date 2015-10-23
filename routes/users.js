@@ -28,6 +28,7 @@ router.get('/', authenticator.ensureAuthenticated,
   
   // Decrypt token
   var decrypted = req.body.decrypted;
+  console.log('DECRYPTED: ', decrypted);
 
   // Data to pass player signup
   var data = {
