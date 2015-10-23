@@ -10,17 +10,14 @@
 // //              | |                       
 // //              |_|                         
 
-// // Requirements
-// var app = require('../app.js');
-// var io = require('socket.io')(http);
+// Requirements
+var socket_io = require('socket.io');
+var io = socket_io();
 
-// // On connection
-// io.sockets.on('connection', function (socket) {
+// Require online user data
 
-//   // Log for servr debugging which socket connected
-//   console.log("\n" + socket.id, "connected.\n");
-//   // Tell the socket hello
-//   socket.emit('hello', 'hey world');
-// });
-
-// module.exports = io;
+io.on("connection", function (socket) {
+  console.log("\n" + socket.id, "connected.\n");
+  socket.emit('hello', 'hey world');
+});
+module.exports = io;
