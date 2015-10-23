@@ -259,6 +259,15 @@ var messages = sequelize.define('messages', {
       key: 'id'
     }
   },
+  // Avatar id
+  avatarID: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'avatars',
+      key: 'id'
+    }
+  },
   // Message
   message: {
     type: Sequelize.STRING(144),
