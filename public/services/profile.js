@@ -28,7 +28,6 @@ angular.module('VBattle.profileServices', [])
   };
 
   var editAvatar = function (avatarID, avatar) {
-
     return $http.put('/avatars/' + avatarID, avatar)
       .then(function (resp) {
         return resp.data

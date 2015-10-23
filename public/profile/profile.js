@@ -31,11 +31,10 @@ angular.module('VBattle.profile', [])
   };
   
   $scope.editAvatar = function () {
-
     var avatar = {
       "avatarData": {
-        "imagePath": $scope.imagePath,
-        "aboutMe": $scope.aboutMe
+        "imagePath": this.value.imagePath,
+        "aboutMe": this.value.aboutMe
       }
     };
 
