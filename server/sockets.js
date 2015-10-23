@@ -39,7 +39,7 @@ var helper = {};
 
 // Helper send socketID to client
 helper.giveSocketID = function (data) {
-  // Send data to 
+  // Send data to
   io.sockets.connected[data.socketID].emit('server:socketID',
     data);
 };
