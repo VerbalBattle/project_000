@@ -7,6 +7,7 @@ angular.module('VBattle.voting', [])
   //
   localStorage.setItem("itworks", true);
   
+  
 
 
 

@@ -18,6 +18,7 @@ angular.module('VBattle.lobby', [])
     //getting stats and making post request to the server
     //make post request to get into game queue
   };
+  console.log("zacks users", user);
 
   //make get request get messages fro all rooms right here
   // console.log("these are all rooms!!", user);
