@@ -50,3 +50,5 @@ var online = {};
 module.exports.waitingForGame = waitingForGame;
 // Export waiting for votes queue
 module.exports.votingQueue = votingQueue;
+// Export online object
+module.exports.online = online;
