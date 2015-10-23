@@ -11,7 +11,6 @@ angular.module('VBattle.profileServices', [])
   var getUserFromLogin = function () {
     return $http.get('/users')
     .then(function (resp) {
-      console.log('getUserLogin',userData)
       userData = resp.data;
     }, function (err) {
       throw err;
