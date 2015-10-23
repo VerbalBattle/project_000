@@ -23,5 +23,5 @@
   "requireSpacesInFunctionDeclaration": {"beforeOpeningCurlyBrace": true},
   "requireSpacesInFunctionExpression": {"beforeOpeningCurlyBrace": true},
   "excludeFiles": ["node_modules/*","public/libs/*","./Gruntfile.js"],
-  "maxErrors": -1
+  "maxErrors": 20
 }

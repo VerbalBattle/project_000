@@ -23,6 +23,22 @@ ul {
   list-style-type: none;
 }
 
+/*room styling*/
+.message{
+  background-color: green;
+  height: 30px;
+  width: 300px;
+}
+.sender{
+  color: red;
+}
+
+.roomHref{
+  color: green;
+  height: 30px;
+  background-color: grey;
+}
+
 /*circular anchor tags with pictures; used to navigate the app*/
 .navigation-items a{
   display: block;
@@ -59,4 +75,11 @@ ul {
   left: 110px;
   transition: all .5s ease-out; 
   -webkit-transition: all .5s ease-out;
+}
+
+
+.upvote{
+  padding: 20px;
+  border-radius: 15px;
+  color: green;
 }

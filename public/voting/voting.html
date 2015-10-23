@@ -1,3 +1,17 @@
-<div class="container">
- this is the voting view{{hello}}
+<div ng-show="{{showMessages}}" class="container">
+   <h1>Hey, are you ready to vote!</h1>
+    <div ng-sidebar class="sidebar"></div>
+    <div>Vote!</div>
+ 
+    <div>Chat</div>
+    <div  class="con">
+    <div ng-repeat="mess in messages">
+    	<div class="message"> <strong>{{mess.sender}}</strong>: {{mess.message}}</div>
+    	<br>
+    </div>
+
+    <button class="upvote" ng-click="upvote(users[0])">Upvote for {{users[0]}}!</button>
+    <button class="upvote" ng-click="upvote(users[1])">Upvote for {{users[1]}}!</button>
+</div>
+
 </div>
