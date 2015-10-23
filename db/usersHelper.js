@@ -212,6 +212,11 @@ usersHelper.getAllUserData = function (data, callback) {
     .then(function () {
       // Append all room information to any avatar in  room
       if (data.avatarsFound) {
+
+        // Delete avatarsFound
+        delete data.avatarsFound;
+
+        // Append room data
         return roomsHelper.getAllRooms(data)
           .then(function () {
             // Delete userID
@@ -220,6 +225,9 @@ usersHelper.getAllUserData = function (data, callback) {
             callback(data);
           });
       } else {
+        // Delete avatarsFound
+        delete data.avatarsFound;
+
         // No avatars found
         callback(data);
       }

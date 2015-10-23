@@ -54,7 +54,6 @@ router.post('/signup', function (req, res, next) {
       result = {
         token: authenticator.createJWT(result)
       };
-      console.log(result);
       // Send JWT
       res.send(result);
     } else {
