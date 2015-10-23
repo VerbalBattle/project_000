@@ -15,10 +15,39 @@ var socket_io = require('socket.io');
 var io = socket_io();
 
 // Require online user data
-var online = require('')
+var online = require('./data.js').online;
 
+// On socket connection
 io.on("connection", function (socket) {
+
+  // Log connection for debugging
   console.log("\n" + socket.id, "connected.\n");
+
+  // Check client connection
   socket.emit('hello', 'hey world');
+
+  // Give client their socketID for token
+  helper.giveSocketID({socketID: socket.id});
 });
+
+// Helper
+var helper = {};
+
+// Helper send socketID to client
+helper.giveSocketID = function (data) {
+  // Send data to 
+  io.sockets.connected[data.socketID].emit('server:socketID',
+    data);
+};
+
+//                             _       
+//                            | |      
+//   _____  ___ __   ___  _ __| |_ ___ 
+//  / _ \ \/ / '_ \ / _ \| '__| __/ __|
+// |  __/>  <| |_) | (_) | |  | |_\__ \
+//  \___/_/\_\ .__/ \___/|_|   \__|___/
+//           | |                       
+//           |_|    
+
+// Exports listener
 module.exports = io;
