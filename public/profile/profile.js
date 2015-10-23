@@ -1,6 +1,6 @@
 angular.module('VBattle.profile', [])
 
-.controller('ProfileCtrl', function ($scope, $location, Profile) {
+.controller('ProfileCtrl', function ($scope, $location, Profile, mySocket) {
   $scope.user = JSON.parse(window.localStorage['user']);
   $scope.user.avatars = $scope.user.avatars || {};
   $scope.showadd = Object.keys($scope.user.avatars).length < $scope.user.avatarLimit;
@@ -13,7 +13,6 @@ angular.module('VBattle.profile', [])
         "aboutMe": $scope.aboutMe
       }
     };
-
     Profile.addAvatar(avatar)
     .then(function (data) {
       console.log("added avatar", data);

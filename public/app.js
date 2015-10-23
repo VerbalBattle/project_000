@@ -108,5 +108,7 @@ angular.module('VBattle', [
 })
 
 .factory('mySocket', function (socketFactory) {
-  return socketFactory();
+  var socket = socketFactory();
+  socket.emit('client:linkUser', {token: window.localStorage['satellizer_token']})
+  return socket;
 });
