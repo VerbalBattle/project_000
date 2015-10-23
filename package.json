@@ -23,6 +23,7 @@
     "morgan": "~1.6.1",
     "mysql": "^2.9.0",
     "natural": "^0.2.1",
+    "nodemon": "^1.7.3",
     "pre-commit": "^1.1.1",
     "request": "^2.65.0",
     "satellizer": "^0.12.5",
