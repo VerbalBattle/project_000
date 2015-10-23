@@ -300,44 +300,63 @@ var messages = sequelize.define('messages', {
 users.sync().then(function () {
   // Users table created
   console.log('Synced to User Table');
-})
 
-// Avatars table sync
-.then(function () {
-  // Sync to database
+  // Sync to avatars table
   avatars.sync().then(function () {
     // Table created
     console.log('Synced to avatar Table');
+
+    // Sync to avatarStats table
+    avatarStats.sync().then(function () {
+      // Table created
+      console.log('Synced to avatar Stats Table');
+
+      // Sync to rooms table
+      rooms.sync().then(function () {
+        // Table created
+        console.log('Synced to Rooms Table');
+
+        // Sync to messages
+        messages.sync().then(function () {
+          // Table created
+          console.log('Synced to Messages Table');
+        });
+      });
+    });
   });
 })
 
-// Avatar stats table sync
-.then(function () {
-  // Sync to database
-  avatarStats.sync().then(function () {
-    // Table created
-    console.log('Synced to avatar Stats Table');
-  });
-})
+// // Avatars table sync
+// .then(function () {
+//   // Sync to database
+//   avatars.sync().then(function () {
+//     // Table created
+//     console.log('Synced to avatar Table');
+//   });
+// })
 
-// Rooms table sync
-.then(function () {
-  // Sync to database
-  rooms.sync().then(function () {
-    // Table created
-    console.log('Synced to Rooms Table');
-  });
-})
+// // Avatar stats table sync
+// .then(function () {
+//   // Sync to database
+//   avatarStats.sync().then(function () {
+//     // Table created
+//     console.log('Synced to avatar Stats Table');
+//   });
+// })
 
-// Messages table sync
-.then(function () {
-  // Sync to database
-  messages.sync().then(function () {
-    // Table created
-    console.log('Synced to Messages Table');
-  });
-});
-
+// // Rooms table sync
+// .then(function () {
+//   // Sync to database
+//   rooms.sync().then(function () {
+//     // Table created
+//     console.log('Synced to Rooms Table');
+//     // Sync to database
+//     messages.sync().then(function () {
+//       // Table created
+//       console.log('Synced to Messages Table');
+//     });
+//   });
+// })
 //                             _       
 //                            | |      
 //   _____  ___ __   ___  _ __| |_ ___ 
