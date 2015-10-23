@@ -23,6 +23,10 @@ io.on("connection", function (socket) {
   // Log connection for debugging
   console.log("\n" + socket.id, "connected.\n");
 
+  socket.on("client:linkUser", function (data) {
+    console.log(data)
+  })
+
   // Check client connection
   socket.emit('hello', 'hey world');
 
