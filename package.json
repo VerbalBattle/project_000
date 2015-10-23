@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "start": "nodemon ./bin/www",
+    "test": "grunt test",
     "lint": "jscs ./"
   },
   "pre-commit": "lint",
