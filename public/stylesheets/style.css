@@ -76,3 +76,10 @@ ul {
   transition: all .5s ease-out; 
   -webkit-transition: all .5s ease-out;
 }
+
+
+.upvote{
+  padding: 20px;
+  border-radius: 15px;
+  color: green;
+}

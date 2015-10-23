@@ -1,7 +1,7 @@
 angular.module('VBattle.votingServices', [])
 .factory('Voter', function ($http) {
 
- var getRoom = function () {
+ var vote = function (roomsID, avatarID) {
   //this gets back rooms for voting
   // return $http.get('/')
   //   .then(function (resp) {
@@ -10,10 +10,17 @@ angular.module('VBattle.votingServices', [])
   //   }, function (err) {
   //     throw err;
   //   });   
+  //sending and upvote to the server with the from the user selected winner
+return $http.put('/voting/'+roomsID, {winner: avatarID})
+.then(function (result) {
+	return result.data;
+ }, function(err) {
+	throw err;
+})
  }
 
 return {
-  getRoom:getRoom
+  vote:vote
 };
 
 });
