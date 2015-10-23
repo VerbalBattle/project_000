@@ -34,15 +34,15 @@ angular.module('VBattle.gameplayServices', [])
   };
 
   // Post a message to a room by ID
-  var postMessage = function(messageData) {
+  var postMessage = function (messageData) {
     var roomID = messageData.roomID;
     //will work when room exists
-    console.log("posting too rooms",roomID, messageData)
-    return $http.post('/rooms/'+roomID, messageData)
-     .then(function(resp) {
+    console.log("posting too rooms", roomID, messageData);
+    return $http.post('/rooms/' + roomID, messageData)
+     .then(function (resp) {
       console.log("response", resp);
        return resp.data;
-    }, function(err) {
+    }, function (err) {
        throw err;
     });
  };
