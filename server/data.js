@@ -25,6 +25,18 @@ var waitingForGame = new LinkedList();
 
 // Make a new linked list for voting on games
 var votingQueue = new LinkedList();
+
+//              _ _            
+//             | (_)           
+//   ___  _ __ | |_ _ __   ___ 
+//  / _ \| '_ \| | | '_ \ / _ \
+// | (_) | | | | | | | | |  __/
+//  \___/|_| |_|_|_|_| |_|\___|
+
+// A data object holding all data about online sockets
+var online = {};
+// Example entry type
+
 //                             _       
 //                            | |      
 //   _____  ___ __   ___  _ __| |_ ___ 
