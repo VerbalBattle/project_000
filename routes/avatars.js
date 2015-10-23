@@ -78,6 +78,33 @@ router.post('/', authenticator.ensureAuthenticated,
   // }
 });
 
+// PUT to change an avatar
+router.put('/:avatarID', authenticator.ensureAuthenticated,
+  function (req, res, next) {
+
+  // Decrypt token
+  var decrypted = req.body.decrypted;
+
+  // Data to pass to edit avatar
+  var data = {
+    // User ID
+    userID: decrypted.userID,
+    // Avatar ID
+    avatarID: req.params.avatarID,
+    // Avatar data
+    avatarData: req.body.avatarData,
+    // Callback
+    callback: function (result) {
+      result.send(result);
+    }
+  };
+
+  // Log route called
+  console.log('\n\nEDIT AVATAR\n\n', data);
+  // Handoff to avatars helper
+  avatarsHelper.editAvatar(data);
+}
+
 // DELETE to delete a avatar
 router.delete('/:avatarID', authenticator.ensureAuthenticated,
   function (req, res, next) {
@@ -87,7 +114,7 @@ router.delete('/:avatarID', authenticator.ensureAuthenticated,
 
   // Data to pass to deleteAvatar
   var data = {
-    // Username
+    // User ID
     userID: decrypted.userID,
     // Avatarname
     avatarID: req.params.avatarID,
