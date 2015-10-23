@@ -4,7 +4,6 @@ angular.module('VBattle.profile', [])
   $scope.user = JSON.parse(window.localStorage['user']);
   $scope.user.avatars = $scope.user.avatars || {};
   $scope.showadd = Object.keys($scope.user.avatars).length < $scope.user.avatarLimit;
-
   $scope.addAvatar = function () {
 
     var avatar = {
