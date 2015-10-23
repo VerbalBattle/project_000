@@ -42,6 +42,7 @@ angular.module('VBattle.profile', [])
     .then(function (data) {
       console.log("added avatar", data);
       if (data.updateSuccess) {
+        console.log($scope.user.avatars, this.key)
         $scope.user.avatars[this.key] = avatar.avatarData;
         $scope.user.avatars[this.key].avatarName = $scope.avatarName;
         window.localStorage['user'] = JSON.stringify($scope.user);
