@@ -1,9 +1,9 @@
 angular.module('VBattle.gameplayServices', [])
 // Factory handling game play, including room creation and post/get messages
 .factory('GamePlay', function ($http) {
-  // Get all rooms that are completed and ready for voting, expects result to be the oldest room
+  // Get all rooms that are completed and ready for voting, expects result to be the oldest Room
   var getGames = function () {
-
+    
     return $http.get('/rooms')
       .then(function (resp) {
         return resp.data;
