@@ -3,7 +3,7 @@ angular.module('VBattle.matchmakerServices', [])
 .factory('Match', function ($http) {
   // Get all rooms that are completed and ready for voting, expects result to be the oldest room
 
-   var makeGame = function (roomID, avID, avatarStats) {
+   var makeGame = function (avID, avatarStats) {
 
     var match = {avatarID: avID, avatarStats: avatarStats};
 
