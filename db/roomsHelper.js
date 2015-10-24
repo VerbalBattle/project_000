@@ -462,6 +462,34 @@ roomsHelper.sendMessageToRoom = function (data) {
                 // Update turn count and invoke callback
                 result.newTurnCount = roomFound.dataValues.turnCount;
                 callback(result);
+
+
+                // The code below is used for live socket updates
+
+
+                // Find which avatar in the room is the opponent's
+                var opponentUserID = -1;
+                // If the sender is avatar1
+                if (roomFound.dataValues.avatar1_userID === userID) {
+                  opponentUserID
+                    = roomFound.dataValues.avatar2_userID;
+                } else if (roomFound.dataValues.avatar2_userID
+                  === userID) {
+                  // If the sender is avatar2
+                  opponentUserID
+                    = roomFound.dataValues.avatar1_userID;
+                }
+
+                // Get data to handoff to socket helper for
+                // live update
+                var socketData = {
+                  opponentUserID: opponentUserID,
+                  roomID: roomID
+                };
+
+                // Handoff to socket helper
+                socketHelper.clientTurnUpdate(socketData, 
+                  roomsHelper.getRoomData);
               });
             } else {
               // Message could not be created for some reason

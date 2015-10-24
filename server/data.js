@@ -37,8 +37,6 @@ var votingQueue = new LinkedList();
 var onlineUsers = {};
 // Socket to user map for connected sockets
 var onlineSocketUserMap = {};
-// Data object mapping playerIDs to userIDs
-var onlineAvatars = {};
 
 // Example entry type
 
