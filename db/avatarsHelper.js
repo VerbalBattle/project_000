@@ -157,7 +157,7 @@ avatarsHelper.addAvatar = function (data) {
             // Image path
             imagePath: 'something/goes/here.png',
             // About me
-            aboutMe: avatarData.aboutMe
+            aboutMe: avatarData.aboutMe.substr(0, 255)
           }).then(function (avatarCreated) {
 
             // Get reference to data we need
@@ -250,7 +250,7 @@ avatarsHelper.editAvatar = function (data) {
       // Get update parameters
       var newImagePath = avatarData.imagePath
         || avatarFound.dataValues.imagePath;
-      var newAboutMe = avatarData.aboutMe
+      var newAboutMe = avatarData.aboutMe.substr(0, 255)
         || avatarFound.dataValues.aboutMe;
       // Make update
       return avatarFound.update({
