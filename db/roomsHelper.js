@@ -30,6 +30,8 @@ var waitingForGame = require('../server/data').waitingForGame;
 // Require voting queue
 var votingQueue = require('../server/data').votingQueue;
 
+// Require socket helper
+var socketHelper = require('../server/sockets').helper;
 
 //                                _   _      _                 
 //  _ __ ___   ___  _ __ ___  ___| | | | ___| |_ __   ___ _ __ 
@@ -48,7 +50,7 @@ roomsHelper.enqueueToVote = function (data) {
   delete data.callback;
   // Get userID
   var userID = data.userID;
-
+  console.log('userID is hereeeeeeeeee', userID);
   // Ensure user can join voting
   var canJoin = this.canJoinVoting({
     userID: userID
@@ -93,8 +95,8 @@ roomsHelper.enqueueToPlay = function (data) {
     if (Object.keys(waitingForGame.nodes).length === 2) {
       this.pairPlayers([
         [
-          waitingForGame.head.val.avatarID,
-          waitingForGame.tail.val.avatarID
+          waitingForGame.head.val,
+          waitingForGame.tail.val
         ]
       ]);
     }
@@ -159,11 +161,23 @@ roomsHelper.canJoinMatchmaking = function (data) {
 roomsHelper.pairPlayers = function (pairs) {
   // Iterate over all pairs
   for (var i = 0; i < pairs.length; ++i) {
+    // Get pair
+    var pair = pairs[i];
     // Get avatar 1 and avatar 2 IDs
-    var avatar1_id = pairs[i][0];
-    var avatar2_id = pairs[i][1];
+    var avatar1_id = pair[0].avatarID;
+    var avatar2_id = pair[1].avatarID;
     // Create room for both avatars
-    this.addRoom(avatar1_id, avatar2_id);
+    this.addRoom(avatar1_id, avatar2_id).then(function (roomID) {
+      // Set socket data
+      var socketData = {
+        userIDs: [pair[0].userID, pair[1].userID],
+        avatarIDs: [pair[0].avatarID, pair[1].avatarID],
+        roomID: roomID
+      };
+      // Handoff to socket helper
+      socketHelper.clientJoinRoom(socketData, 
+        roomsHelper.getRoomData);
+    });
   }
 };
 
@@ -208,6 +222,9 @@ roomsHelper.addRoom = function (avatar1_id, avatar2_id) {
               // Remove both players from queue
               waitingForGame.removeByAvatarID(avatar1_id);
               waitingForGame.removeByAvatarID(avatar2_id);
+
+              // Return roomCreated id
+              return roomCreated.dataValues.id;
             }
           });
         } else {
@@ -274,7 +291,7 @@ roomsHelper.getAllRooms = function (data) {
 roomsHelper.getRoomData = function (data) {
   // Get data
   var roomID = data.roomID;
-  var callback = data.callback;
+  var callback = data.callback || null;
 
   // Result to send to client
   var result = {};
@@ -343,21 +360,30 @@ roomsHelper.getRoomData = function (data) {
               // Set messages
               result.rooms[roomID].messages = messages;
 
-              // Invoke callback
-              callback(result);
+              // Invoke callback if provided
+              if (callback) {
+                callback(result);
+              } else {
+                // Other wise return result
+                return result;
+              }
             });
 
         } else {
           // The avatarIDs weren't found, invoke callback
           result.avatarNamesFound = false;
-          callback(result);
+          if (callback) {
+            callback(result);
+          }
         }
       });
 
     } else {
       // The room wasn't found, invoke callback
       result.roomFound = false;
-      callback(result);
+      if (callback) {
+        callback(result);
+      }
     }
   });
 };

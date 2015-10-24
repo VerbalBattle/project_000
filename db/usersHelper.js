@@ -236,6 +236,23 @@ usersHelper.getAllUserData = function (data, callback) {
     });
 };
 
+// Users helper username to userID
+usersHelper.usernameToUserID = function (username) {
+  // Perform look for username
+  return usersTable.find({
+    where: {
+      username: username
+    }
+  }).then(function (userFound) {
+    // If user found
+    var userID = null;
+    if (userFound) {
+      userID = userFound.dataValues.id;
+    }
+    return userID;
+  });
+};
+
 
 //                             _       
 //                            | |      
