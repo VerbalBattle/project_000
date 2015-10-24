@@ -6,10 +6,8 @@ angular.module('VBattle.profile', [])
   $scope.user = JSON.parse(window.localStorage['user']);
   $scope.user.avatars = $scope.user.avatars || {};
   $scope.showadd = Object.keys($scope.user.avatars).length < $scope.user.avatarLimit;
-  $scope.img;
+  $scope.image = "";
   $scope.addAvatar = function () {
-
-    
     var avatar = {
       "avatarData": {
         "avatarName": $scope.avatarName,
@@ -58,25 +56,31 @@ angular.module('VBattle.profile', [])
 
   $scope.uploadFile = function (files) {
     //Take the first selected file
-    
     var reader = new FileReader();
-   
+
     reader.onload = function (e) {
       var res = e.target.result;
       var src = btoa(res);
-      $scope.image = src;
-      $scope.imagesource = 'data:image/jpeg;base64,' + src;
+      $scope.image = 'data:image/jpeg;base64,' + src;
       $scope.$apply();
       var canvas = $document.find("#canvas")[0];
 
-      var myImage = new Image(100, 200);
-      myImage.src = $scope.imagesource;
+      var myImage = new Image();
+      myImage.src = $scope.image;
+
+      var newHeight, newWidth;
+      if (myImage.height < myImage.width) {
+        newWidth = 150;
+        newHeight = myImage.width / myImage.height * 150;
+      } else {
+        newHeight = 150;
+        newWidth = myImage.height / myImage.width * 150;
+      }
       var ctx = canvas.getContext("2d");
-      ctx.drawImage(myImage, 33, 71);
-      // var ctx = $scope.canvas.getContext("2d");
+      ctx.drawImage(myImage, 0, 0, newWidth, newHeight);
+      $scope.image = canvas.toDataURL();
     };
     reader.readAsBinaryString(files[0]);
-    //readAsDataURL()
   };
 
   $scope.removeAvatar = function () {
