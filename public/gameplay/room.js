@@ -55,13 +55,11 @@ angular.module('VBattle.room', [])
    .then(function(result){ 
     $scope.users = result.rooms[room];
 
-    console.log("zac new result", $scope.users.avatar2.avatarName);
     $scope.userIDmap = {  
      };
 
-     $scope.userIDmap[$scope.users.avatar1.avatarID] = $scope.users.avatar1.avatarName;
-     $scope.userIDmap[ $scope.users.avatar2.avatarID] = $scope.users.avatar2.avatarName;
-     console.log($scope.userIDmap)
+    $scope.userIDmap[$scope.users.avatar1.avatarID] = $scope.users.avatar1.avatarName;
+    $scope.userIDmap[ $scope.users.avatar2.avatarID] = $scope.users.avatar2.avatarName;
     //  $scope.users.avatar1.avatarID : $scope.users.avatar1.avatarName,
     //   $scope.users.avatar2.avatarID : $scope.users.avatar2.avatarName
     // console.log("usermap", $scope.userIDmap);
@@ -71,11 +69,10 @@ angular.module('VBattle.room', [])
    	// console.log("fialure here")
    	// }
    	//getting playerID
-   $scope.enemy = result.rooms[room].avatar2_id;
-   console.log("attantion");
-   console.log($scope.enemy)
+    $scope.enemy = result.rooms[room].avatar2_id;
    	$scope.messages = result.rooms;
-   }) 
+    
+   }); 
 
   };
 
