@@ -16,9 +16,9 @@ angular.module('VBattle', [
 'VBattle.voting',
 'VBattle.votingServices',
 'satellizer',
+'pw.canvas-painter',
 'ngRoute'
 ])
-
 .config(function ($routeProvider, $httpProvider, $authProvider) {
   $routeProvider
     .when('/login', {
