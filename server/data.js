@@ -33,8 +33,11 @@ var votingQueue = new LinkedList();
 // | (_) | | | | | | | | |  __/
 //  \___/|_| |_|_|_|_| |_|\___|
 
-// A data object holding all data about online sockets
-var online = {};
+// A data object holding all data about online users
+var onlineUsers = {};
+// Socket to user map for connected sockets
+var onlineSocketUserMap = {};
+
 // Example entry type
 
 //                             _       
@@ -51,4 +54,5 @@ module.exports.waitingForGame = waitingForGame;
 // Export waiting for votes queue
 module.exports.votingQueue = votingQueue;
 // Export online object
-module.exports.online = online;
+module.exports.onlineUsers = onlineUsers;
+module.exports.onlineSocketUserMap = onlineSocketUserMap;
