@@ -56,14 +56,14 @@ angular.module('VBattle.profile', [])
   };
 
 
-  $scope.uploadFile = function(files) {
+  $scope.uploadFile = function (files) {
     //Take the first selected file
     
     var reader = new FileReader();
    
     reader.onload = function (e) {
       var res = e.target.result;
-      var src =  btoa(res);
+      var src = btoa(res);
       $scope.image = src;
       $scope.imagesource = 'data:image/jpeg;base64,' + src;
       $scope.$apply();
@@ -71,20 +71,11 @@ angular.module('VBattle.profile', [])
 
       var myImage = new Image(100, 200);
       myImage.src = $scope.imagesource;
-      console.log("myimage", myImage);
-
-
       var ctx = canvas.getContext("2d");
-     
       ctx.drawImage(myImage, 33, 71);
-      
-    
       // var ctx = $scope.canvas.getContext("2d");
-
-     
-
-    }
-    reader.readAsBinaryString(files[0])
+    };
+    reader.readAsBinaryString(files[0]);
     //readAsDataURL()
   };
 
