@@ -15,10 +15,16 @@
 
 
 
-  <div>Messages:</div> 
+  <div >Messages:</div> 
   <div ng-repeat="message in messages">
   	<div ng-repeat = "mess in message.messages">
-  			{{mess.message}} 
+      <br>
+  			<div class="message" >{{mess.message}} sent from <strong>
+          {{userIDmap[mess.avatarID]}} 
+        </strong</>
+
+        </div>
+       
   	</div>
   	
   </div>

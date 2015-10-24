@@ -13,6 +13,7 @@ angular.module('VBattle', [
 'VBattle.search',
 'VBattle.matchmakerServices',
 'VBattle.voting',
+'VBattle.votingServices',
 'satellizer',
 'ngRoute'
 ])
@@ -68,6 +69,13 @@ angular.module('VBattle', [
     .when('/rooms/:roomID/:playerID', {
       templateUrl: '/gameplay/room.html',
       controller: 'RoomCtrl',
+      resolve: {
+        loginRequired: loginRequired
+      }
+    })
+    .when('/voting', {
+      templateUrl:'/voting/voting.html',
+      controller: 'VotingCtrl',
       resolve: {
         loginRequired: loginRequired
       }

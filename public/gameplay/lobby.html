@@ -5,9 +5,9 @@
   </form>
   
   <div>Your Avatars:</div>
-
+ 
   <div class="col-md-4" ng-repeat = "(key, avatar) in avatars">
-
+        <button ng-click="room(avatar)">Make game</button>  
         <strong>{{avatar.avatarName}}</strong>
        
 
@@ -15,9 +15,10 @@
       
        <div ng-repeat="room in avatar.rooms">
       {{key}}
+      <div class="roomHref" >
        	<a href="#/rooms/{{room.roomID}}/{{key}}">Go to room: {{room.roomID}}</a>
-
-       	<button class="btn" ng-click="joinRoom(room.roomID, key, avatar.stats)">Make a new Game!</button>
+      </div>
+       
        </div>
 
      </div>
