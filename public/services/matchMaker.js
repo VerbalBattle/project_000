@@ -2,11 +2,6 @@ angular.module('VBattle.matchmakerServices', [])
 // Factory handling game play, including room creation and post/get messages
 .factory('Match', function ($http) {
   // Get all rooms that are completed and ready for voting, expects result to be the oldest room
-<<<<<<< HEAD
-=======
-   
-   var makeGame = function (avID, avatarStats) {
->>>>>>> changed room functionality please enter the commit message for your changes. Lines startingu
 
    var makeGame = function (roomID, avID, avatarStats) {
 

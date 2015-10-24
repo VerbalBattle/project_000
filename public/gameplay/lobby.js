@@ -10,18 +10,12 @@ angular.module('VBattle.lobby', [])
   $scope.roomsIDs = {};
 
   $scope.avatars = user.avatars;
-<<<<<<< HEAD
 
-  $scope.joinRoom = function (id, avID, stats) {
-    //make post request to get into game with current avatar
-     console.log("staaats", stats);
-=======
   $scope.userIDs = {};
   
   $scope.joinRoom = function (id, avID, stats) {
   	//make post request to get into game with current avatar
      console.log("staaats", stats)
->>>>>>> changed room functionality please enter the commit message for your changes. Lines startingu
      Match.makeGame(id, avID, stats);
     //getting stats and making post request to the server
     //make post request to get into game queue
