@@ -39,8 +39,8 @@ angular.module('VBattle', [
       controller: 'SignoutCtrl'
     })
     .when('/', {
-      templateUrl: '/gameplay/lobby.html',
-      controller: 'LobbyCtrl',
+      templateUrl: '/gameplay/home.html',
+      controller: null,
       resolve: {
         loginRequired: loginRequired
       }
@@ -74,7 +74,7 @@ angular.module('VBattle', [
       }
     })
     .when('/voting', {
-      templateUrl:'/voting/voting.html',
+      templateUrl: '/voting/voting.html',
       controller: 'VotingCtrl',
       resolve: {
         loginRequired: loginRequired
@@ -117,6 +117,6 @@ angular.module('VBattle', [
 
 .factory('mySocket', function (socketFactory) {
   var socket = socketFactory();
-  socket.emit('client:linkUser', {token: window.localStorage['satellizer_token']})
+  socket.emit('client:linkUser', {token: window.localStorage['satellizer_token']});
   return socket;
 });
