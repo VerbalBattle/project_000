@@ -29,6 +29,7 @@ var app = express();
 // var io = socket_io();
 // app.io = io;
 
+// Set app socket variables
 app.io = require('./server/sockets').io;
 
 // Force HTTPS on Heroku

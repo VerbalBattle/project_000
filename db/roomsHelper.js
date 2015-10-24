@@ -175,7 +175,8 @@ roomsHelper.pairPlayers = function (pairs) {
         roomID: roomID
       };
       // Handoff to socket helper
-      socketHelper.clientJoinRoom(socketData);
+      socketHelper.clientJoinRoom(socketData, 
+        roomsHelper.getRoomData);
     });
   }
 };
