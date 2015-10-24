@@ -14,6 +14,9 @@
 var socket_io = require('socket.io');
 var io = socket_io();
 
+// Require rooms helper
+var roomsHelper = require('../db/roomsHelper');
+
 // Require online user and socket data
 var onlineUsers = require('./data.js').onlineUsers;
 var onlineSocketUserMap = require('./data.js').onlineSocketUserMap;
@@ -91,6 +94,33 @@ helper.deleteUserSocketMap = function (data) {
   // Log
   console.log('ONLINE USERS\n', onlineUsers);
   console.log('ONLINE SOCKETS\n', onlineSocketUserMap);
+};
+
+// Helper send live udpate to client
+helper.clientJoinRoom = function (data) {
+  // Get userIDs
+  var userID_1 = data.userIDs[0];
+  var userID_2 = data.userIDs[1];
+  // Get avatarIDs
+  var avatarID_1 = data.avatarIDs[0];
+  var avatarID_2 = data.avatarIDs[1];
+  // Get roomdID
+  var roomID = data.roomID;
+  // Get room data
+  roomsHelper.getRoomData({
+    roomID: roomID
+  }).then(function (result) {
+    // Get sockets
+    var socket_1 = onlineUsers[userID_1];
+    var socket_2 = onlineUsers[userID_2];
+    // Emit to sockets if online
+    if (socket_1) {
+      io.to(socket_1).emit('client:joinRoom', result);
+    }
+    if (socket_2) {
+      io.to(socket_2).emit('client:joinRoom', result);
+    }
+  });
 };
 
 //                             _       
