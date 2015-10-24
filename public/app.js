@@ -16,6 +16,7 @@ angular.module('VBattle', [
 'VBattle.voting',
 'VBattle.votingServices',
 'satellizer',
+'pw.canvas-painter',
 'ngRoute'
 ])
 

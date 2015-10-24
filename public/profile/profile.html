@@ -6,7 +6,8 @@
     <button ng-click="showEdit=!showEdit;display=!display">Edit</button>
     <div ng-show="!display" class="avatarValues">
       <div>{{ value.avatarName }}</div>
-      <div>{{ value.imagePath }}</div>
+      <div>{{ value.imagePath }}</div> 
+  
       <div>{{ value.aboutMe }}</div>
       <button ng-click="removeAvatar()">Remove</button>
     </div>
@@ -14,7 +15,8 @@
       <form class="col-md-4" ng-submit="editAvatar();showEdit=!showEdit;display=!display">
         <label>Avatar Name</label>
         <div>{{ value.avatarName }}</div>
-        <label>Image Path</label>
+        <label>Image</label> 
+        <button ng-click="uploadImage()">Upload Image</button>
         <input type="text" ng-model="value.imagePath">
         <label>About Me</label>
         <input type="text" ng-model="value.aboutMe">
@@ -26,10 +28,14 @@
   <form class="col-md-4" ng-show="addForm" ng-submit="addAvatar()">
     <label>Avatar Name</label>
     <input type="text" ng-model="avatarName">
-    <label>Image Path</label>
-    <input type="text" ng-model="imagePath">
+    <label>Image</label>
+    <input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files)"/>
+    <img ng-model="img" height="42" width="42" ng-src="{{imagesource}}">
+    <canvas id="canvas"></canvas>
     <label>About Me</label>
     <input type="text" ng-model="aboutMe">
     <input type="submit" value="Submit">
   </form>
+
+        
 </div>

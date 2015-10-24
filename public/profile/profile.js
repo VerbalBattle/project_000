@@ -1,18 +1,23 @@
 angular.module('VBattle.profile', [])
 
-.controller('ProfileCtrl', function ($scope, $location, Profile) {
+
+.controller('ProfileCtrl', function ($scope, $location, Profile, mySocket, $document) {
+
   $scope.user = JSON.parse(window.localStorage['user']);
   $scope.user.avatars = $scope.user.avatars || {};
   $scope.showadd = Object.keys($scope.user.avatars).length < $scope.user.avatarLimit;
+  $scope.img;
   $scope.addAvatar = function () {
 
+    
     var avatar = {
       "avatarData": {
         "avatarName": $scope.avatarName,
-        "imagePath": $scope.imagePath,
+        "imagePath": $scope.image,
         "aboutMe": $scope.aboutMe
       }
     };
+
     Profile.addAvatar(avatar)
     .then(function (data) {
       console.log("added avatar", data);
@@ -49,6 +54,40 @@ angular.module('VBattle.profile', [])
       }
     });
   };
+
+
+  $scope.uploadFile = function(files) {
+    //Take the first selected file
+    
+    var reader = new FileReader();
+   
+    reader.onload = function (e) {
+      var res = e.target.result;
+      var src =  btoa(res);
+      $scope.image = src;
+      $scope.imagesource = 'data:image/jpeg;base64,' + src;
+      $scope.$apply();
+      var canvas = $document.find("#canvas")[0];
+
+      var myImage = new Image(100, 200);
+      myImage.src = $scope.imagesource;
+      console.log("myimage", myImage);
+
+
+      var ctx = canvas.getContext("2d");
+     
+      ctx.drawImage(myImage, 33, 71);
+      
+    
+      // var ctx = $scope.canvas.getContext("2d");
+
+     
+
+    }
+    reader.readAsBinaryString(files[0])
+    //readAsDataURL()
+  };
+
   $scope.removeAvatar = function () {
     var user = {
       avatarID: this.key
@@ -65,3 +104,5 @@ angular.module('VBattle.profile', [])
     });
   };
 });
+
+
