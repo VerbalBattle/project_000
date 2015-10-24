@@ -30,6 +30,8 @@ var waitingForGame = require('../server/data').waitingForGame;
 // Require voting queue
 var votingQueue = require('../server/data').votingQueue;
 
+// Require socket helper
+var socketHelper = require('../server/sockets').helper;
 
 //                                _   _      _                 
 //  _ __ ___   ___  _ __ ___  ___| | | | ___| |_ __   ___ _ __ 
@@ -48,7 +50,7 @@ roomsHelper.enqueueToVote = function (data) {
   delete data.callback;
   // Get userID
   var userID = data.userID;
-
+  console.log('userID is hereeeeeeeeee', userID);
   // Ensure user can join voting
   var canJoin = this.canJoinVoting({
     userID: userID

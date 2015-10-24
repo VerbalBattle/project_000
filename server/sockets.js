@@ -103,4 +103,7 @@ helper.deleteUserSocketMap = function (data) {
 //           |_|    
 
 // Exports listener
-module.exports = io;
+module.exports.io = io;
+
+// Export socket helper
+module.exports.helper = helper;
