@@ -56,7 +56,7 @@ angular.module('VBattle.room', [])
     $scope.users = result.rooms[room];
 
     $scope.userIDmap = {  
-     };
+    };
 
     $scope.userIDmap[$scope.users.avatar1.avatarID] = $scope.users.avatar1.avatarName;
     $scope.userIDmap[ $scope.users.avatar2.avatarID] = $scope.users.avatar2.avatarName;
@@ -64,14 +64,13 @@ angular.module('VBattle.room', [])
     //   $scope.users.avatar2.avatarID : $scope.users.avatar2.avatarName
     // console.log("usermap", $scope.userIDmap);
 
-   	// for(var key in result.rooms) {
-   	// avatarID = result.rooms[key].avatar2_id;
-   	// console.log("fialure here")
-   	// }
-   	//getting playerID
+     // for(var key in result.rooms) {
+     // avatarID = result.rooms[key].avatar2_id;
+     // console.log("fialure here")
+     // }
+     //getting playerID
     $scope.enemy = result.rooms[room].avatar2_id;
-   	$scope.messages = result.rooms;
-
+     $scope.messages = result.rooms;
    }); 
 
   };

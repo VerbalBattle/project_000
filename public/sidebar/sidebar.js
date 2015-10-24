@@ -1,6 +1,6 @@
 angular.module('VBattle.sideBar', [])
 
-.controller('SidebarCtrl', function ($scope, $element) {
+.controller('SidebarCtrl', function ($scope, $element, mySocket) {
   // indicate whether sidebar is visible or not
   $scope.state = false;
 

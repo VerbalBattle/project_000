@@ -7,8 +7,8 @@ angular.module('VBattle.voting', [])
   //
  $scope.showMessages = 1; 
 
- $scope.messages = [{sender:"simon", message:"why dont you bowen install?"}, {sender:"bowen", message:"get back eating your cake"}];
- $scope.newMessages = [{sender:"peter", message:"fuck it"}];
+ $scope.messages = [{sender: "simon", message: "why dont you bowen install?"}, {sender: "bowen", message: "get back eating your cake"}];
+ $scope.newMessages = [{sender: "peter", message: "fuck it"}];
 
  $scope.users = ["simon", "bowen"];
   
@@ -17,15 +17,10 @@ angular.module('VBattle.voting', [])
   // and getting rid of them after user voted
   //zack
   $scope.upvote = function (input) {
-  	console.log("upvoting for", input);
-  	//getting next messages object from local storage and removing the old one
-  	$scope.messages = $scope.newMessages;
-  	
-  	$scope.users = ["peter"];
-
+    console.log("upvoting for", input);
+    //getting next messages object from local storage and removing the old one
+    $scope.messages = $scope.newMessages;
+    
+    $scope.users = ["peter"];
   };
-
-
-
-
 });

@@ -11,16 +11,15 @@ angular.module('VBattle.votingServices', [])
   //     throw err;
   //   });   
   //sending and upvote to the server with the from the user selected winner
-return $http.put('/voting/'+roomsID, {winner: avatarID})
-.then(function (result) {
-	return result.data;
- }, function(err) {
-	throw err;
-})
- }
+  return $http.put('/voting/' + roomsID, {winner: avatarID})
+    .then(function (result) {
+      return result.data;
+    }, function (err) {
+      throw err;
+    });
+  };
 
-return {
-  vote:vote
-};
-
+  return {
+    vote: vote
+  };
 });
