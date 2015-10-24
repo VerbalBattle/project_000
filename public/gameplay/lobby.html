@@ -5,15 +5,18 @@
   </form>
   
   <div>Your Avatars:</div>
+  <br>
+  <br>
  
-  <div class="col-md-4" ng-repeat = "(key, avatar) in avatars">
-        <button ng-click="room(avatar)">Make game</button>  
-        <strong>{{avatar.avatarName}}</strong>
+  <div  class="col-md-4" ng-repeat = "(key, avatar) in avatars">
+        <button class="avatar" ng-click="room(avatar)">Make game</button>  
+        <strong class="nameDiv">{{avatar.avatarName}}</strong>
        
-
-        <div>{{avatar.aboutMe}}</div>
+        <br>
+        <br>
+        <div class="nameDiv">{{avatar.aboutMe}}</div>
       
-       <div ng-repeat="room in avatar.rooms">
+       <div  ng-repeat="room in avatar.rooms">
       {{key}}
       <div class="roomHref" >
        	<a href="#/rooms/{{room.roomID}}/{{key}}">Go to room: {{room.roomID}}</a>

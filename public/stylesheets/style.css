@@ -28,9 +28,21 @@ ul {
   background-color: green;
   height: 30px;
   width: 300px;
+  white-space: pre;
+}
+.nameDiv{
+  height: 350px;
+  background-color: grey;
+  border-radius: 20px;
+  padding: 10px;
+  white-space: pre;
 }
 .sender{
   color: red;
+}
+
+.avatar{
+  color: green;
 }
 
 .roomHref{

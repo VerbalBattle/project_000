@@ -31,12 +31,12 @@ angular.module('VBattle.room', [])
     .then( function (result) {
       console.log("message sent", result.turnValid);
 
-    if (result.turnValid === false) {
-      $scope.shower = true;
-      $timeout( function () {
-        $scope.shower = false;
-        console.log("setting to true");
-      }, 2000);
+      if (result.turnValid === false) {
+        $scope.shower = true;
+        $timeout( function () {
+          $scope.shower = false;
+          console.log("setting to true");
+        }, 2000);
     }
     $timeout( function () {
       $scope.getMessages();
@@ -46,13 +46,13 @@ angular.module('VBattle.room', [])
   };
 
 
-  $scope.getMessages = function() {
+  $scope.getMessages = function () {
 
   // $scope.messages.push(GamePlay.getMessages(1).rooms[1].messages);
-  console.log("getting messages")
   //console.log(GamePlay.getMessages(1).rooms[1].messages, "heleelelellelel")
    GamePlay.getMessages(room)
-   .then(function(result){ 
+   .then(function (result) { 
+
     $scope.users = result.rooms[room];
 
     $scope.userIDmap = {  
@@ -71,7 +71,7 @@ angular.module('VBattle.room', [])
    	//getting playerID
     $scope.enemy = result.rooms[room].avatar2_id;
    	$scope.messages = result.rooms;
-    
+
    }); 
 
   };
