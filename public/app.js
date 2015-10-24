@@ -19,7 +19,6 @@ angular.module('VBattle', [
 'pw.canvas-painter',
 'ngRoute'
 ])
-
 .config(function ($routeProvider, $httpProvider, $authProvider) {
   $routeProvider
     .when('/login', {
