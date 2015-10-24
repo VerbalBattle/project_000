@@ -96,7 +96,7 @@ helper.deleteUserSocketMap = function (data) {
   console.log('ONLINE SOCKETS\n', onlineSocketUserMap);
 };
 
-// Helper send live udpate to client
+// Helper send live join room udpate to client
 helper.clientJoinRoom = function (data, callback) {
   // Get userIDs
   var userID_1 = data.userIDs[0];
@@ -122,6 +122,11 @@ helper.clientJoinRoom = function (data, callback) {
       io.to(socket_2).emit('client:joinRoom', result);
     }
   });
+};
+
+// Helper send live message update to client
+helper.clientTurnUpdate = function (data, callback) {
+  
 };
 
 //                             _       

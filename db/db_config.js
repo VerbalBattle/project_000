@@ -217,6 +217,24 @@ var rooms = sequelize.define('rooms', {
       key: 'id'
     }
   },
+  // First avatar's userID
+  avatar1_userID: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'users',
+      key: 'id'
+    }
+  },
+  // Second avatar's userID
+  avatar2_userID: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'users',
+      key: 'id'
+    }
+  },
   // Boolean to decide if room is active or ready for judging
   isOpen: {
     type: Sequelize.BOOLEAN(),
