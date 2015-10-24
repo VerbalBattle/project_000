@@ -2,6 +2,7 @@ angular.module('VBattle', [
 'btford.socket-io',
 'VBattle.profileServices',
 'VBattle.gameplayServices',
+'VBattle.home',
 'VBattle.signin',
 'VBattle.signout',
 'VBattle.signup',
@@ -40,7 +41,7 @@ angular.module('VBattle', [
     })
     .when('/', {
       templateUrl: '/gameplay/home.html',
-      controller: null,
+      controller: 'HomeCtrl',
       resolve: {
         loginRequired: loginRequired
       }
@@ -117,6 +118,7 @@ angular.module('VBattle', [
 
 .factory('mySocket', function (socketFactory) {
   var socket = socketFactory();
+  socket.alreadyCreated = true;
   socket.emit('client:linkUser', {token: window.localStorage['satellizer_token']});
   return socket;
 });
