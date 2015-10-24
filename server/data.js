@@ -33,7 +33,7 @@ var votingQueue = new LinkedList();
 // | (_) | | | | | | | | |  __/
 //  \___/|_| |_|_|_|_| |_|\___|
 
-// A data object holding all data about online users
+// Data object holding all data about online users
 var onlineUsers = {};
 // Socket to user map for connected sockets
 var onlineSocketUserMap = {};

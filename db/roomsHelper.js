@@ -164,10 +164,10 @@ roomsHelper.pairPlayers = function (pairs) {
     // Get pair
     var pair = pairs[i];
     // Get avatar 1 and avatar 2 IDs
-    var avatar1_id = pair[0].avatarID;
-    var avatar2_id = pair[1].avatarID;
+    // var avatar1_id = pair[0].avatarID;
+    // var avatar2_id = pair[1].avatarID;
     // Create room for both avatars
-    this.addRoom(avatar1_id, avatar2_id).then(function (roomID) {
+    this.addRoom(pair[0], pair[1]).then(function (roomID) {
       // Set socket data
       var socketData = {
         userIDs: [pair[0].userID, pair[1].userID],
@@ -182,7 +182,12 @@ roomsHelper.pairPlayers = function (pairs) {
 };
 
 // Rooms helper method to create a room between 2 avatars
-roomsHelper.addRoom = function (avatar1_id, avatar2_id) {
+roomsHelper.addRoom = function (player1, player2) {
+  // Get player data
+  var avatar1_id = player1.avatarID;
+  var avatar2_id = player2.avatarID;
+  var avatar1_userID = player1.userID;
+  var avatar2_userID = player2.userID;
 
   // Expect that both avatar IDs exist
   return avatarsTable.findAll({
@@ -212,10 +217,14 @@ roomsHelper.addRoom = function (avatar1_id, avatar2_id) {
         if (rooms.length === 0) {
           // Make room
           return roomsTable.create({
-            // Avatar 1 (first turn)
+            // Avatar 1 ID(first turn)
             avatar1_id: avatar1_id,
             // Avatar 2 (second turn)
-            avatar2_id: avatar2_id
+            avatar2_id: avatar2_id,
+            // Avatar 1 userID
+            avatar1_userID: avatar1_userID,
+            // Avatar 2 userID
+            avatar2_userID: avatar2_userID
           }).then(function (roomCreated) {
             // If the room was created successfully
             if (roomCreated) {
@@ -453,6 +462,34 @@ roomsHelper.sendMessageToRoom = function (data) {
                 // Update turn count and invoke callback
                 result.newTurnCount = roomFound.dataValues.turnCount;
                 callback(result);
+
+
+                // The code below is used for live socket updates
+
+
+                // Find which avatar in the room is the opponent's
+                var opponentUserID = -1;
+                // If the sender is avatar1
+                if (roomFound.dataValues.avatar1_userID === userID) {
+                  opponentUserID
+                    = roomFound.dataValues.avatar2_userID;
+                } else if (roomFound.dataValues.avatar2_userID
+                  === userID) {
+                  // If the sender is avatar2
+                  opponentUserID
+                    = roomFound.dataValues.avatar1_userID;
+                }
+
+                // Get data to handoff to socket helper for
+                // live update
+                var socketData = {
+                  opponentUserID: opponentUserID,
+                  roomID: roomID
+                };
+
+                // Handoff to socket helper
+                socketHelper.clientTurnUpdate(socketData, 
+                  roomsHelper.getRoomData);
               });
             } else {
               // Message could not be created for some reason
