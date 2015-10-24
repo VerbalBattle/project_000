@@ -25,7 +25,9 @@ var Sequelize = require('sequelize');
 // with root user and empty password
 var sequelize = new Sequelize('InsultPvP', 'root', '', {
   host: 'localhost',
-  dialect: 'mysql'
+  dialect: 'mysql',
+  // disable logging; default: console.log
+  logging: false
 });
                
 //  _   _ ___  ___ _ __ ___ 

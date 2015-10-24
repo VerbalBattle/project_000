@@ -37,9 +37,16 @@ authenticator.ensureAuthenticated = function (req, res, next) {
     return res.status(401).send({ message: 'Token has expired' });
   }
   // req.user = payload.sub;
-  console.log(payload.sub);
+  // console.log(payload.sub);
   req.body.decrypted = payload.sub;
   next();
+};
+
+// Authenticator method to decode token without body
+// NOTE (only called AFTER a user is authenticated)
+authenticator.decodeToken = function (token) {
+  var result = jwt.decode(token, config.TOKEN_SECRET).sub;
+  return result;
 };
 
 // Authenticator JWT token generator

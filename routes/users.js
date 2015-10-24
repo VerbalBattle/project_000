@@ -40,7 +40,6 @@ router.get('/', authenticator.ensureAuthenticated,
 
   // Callback
   var callback = function (result) {
-    console.log(result);
     res.send(result);
   };
 
