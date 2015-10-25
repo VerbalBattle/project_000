@@ -1,6 +1,6 @@
 angular.module('VBattle.sideBar', [])
 
-.controller('SidebarCtrl', function ($scope, $element, mySocket) {
+.controller('SidebarCtrl', function ($scope, $location, $element, mySocket) {
 
   if (!mySocket.alreadyCreated) {
     mySocket.connect();
@@ -14,7 +14,6 @@ angular.module('VBattle.sideBar', [])
     mySocket.alreadyCreated = true;
   }
 
-
   // indicate whether sidebar is visible or not
   $scope.state = false;
 
@@ -22,33 +21,38 @@ angular.module('VBattle.sideBar', [])
   $scope.list = [
   {
     status: '',
+    clicked: '',
     filePath: '../assets/lobby.png',
     text: 'Lobby',
-    route: '#/lobby'
+    route: '/lobby'
   },
   {
     status: '',
+    clicked: '',
     filePath: '../assets/vote.png',
     text: 'Vote',
-    route: '#/voting'
+    route: '/voting'
   },
   {
     status: '',
+    clicked: '',
     filePath: '../assets/profile.png',
     text: 'Profile',
-    route: '#/profile'
+    route: '/profile'
   },
   {
     status: '',
+    clicked: '',
     filePath: '../assets/setting.png',
     text: 'Settings',
-    route: '#/setting'
+    route: '/setting'
   },
   {
     status: '',
+    clicked: '',
     filePath: '../assets/logout.png',
     text: 'Logout',
-    route: '#/logout'
+    route: '/logout'
   }
   ];
 
@@ -59,6 +63,15 @@ angular.module('VBattle.sideBar', [])
 
   $scope.hideText = function (index) {
     $scope.list[index].status = '';
+  };
+  $scope.clickButton = function (index) {
+    for (var i = 0; i < $scope.list.length; i++) {
+      $scope.list[i].clicked = '';
+    }
+    if (index !== $scope.list.length - 1) {
+      $scope.list[index].clicked = 'selected';
+    }
+    $location.path($scope.list[index].route);
   };
 })
 
