@@ -29,7 +29,6 @@
     "request": "^2.65.0",
     "satellizer": "^0.12.5",
     "sequelize": "^3.12.0",
-    "sequelize-heroku": "^1.0.0",
     "serve-favicon": "~2.3.0",
     "socket.io": "^1.3.7"
   }
