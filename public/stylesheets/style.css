@@ -16,6 +16,16 @@ body {
   position : fixed;
   left:-30px;
   top: 0;
+  transition: all .5s ease-out; 
+  -webkit-transition: all .5s ease-out;
+}
+
+.sidebar.slide{
+  position : fixed;
+  left:-300px;
+  top: 0;
+  transition: all .5s ease-out; 
+  -webkit-transition: all .5s ease-out;
 }
 
 /*unordered list, which is how the sidebar elements are built*/
@@ -69,6 +79,11 @@ ul {
   box-shadow: 0px 0px 20px #000000, inset 0px 0px 10px #fff;
 }
 
+/*selected button will stay shadowed*/
+.navigation-items a.selected {
+  box-shadow: 0px 0px 20px #000000, inset 0px 0px 10px #fff;
+}
+
 /*information divs regarding the anchor pictures*/
 .navigation-items div {
   z-index: initial;
@@ -85,10 +100,7 @@ ul {
 .navigation-items div.show {
   font-size: 26px;
   left: 110px;
-  transition: all .5s ease-out; 
-  -webkit-transition: all .5s ease-out;
 }
-
 
 .upvote{
   padding: 20px;

@@ -24,7 +24,8 @@ angular.module('VBattle', [
       templateUrl: '/auth/signin.html',
       controller: 'SigninCtrl',
       resolve: {
-        skipIfLoggedIn: skipIfLoggedIn
+        skipIfLoggedIn: skipIfLoggedIn,
+        sidebarStatus: sidebarStatus
       }
     })
     .when('/signup', {
@@ -101,17 +102,27 @@ angular.module('VBattle', [
       deferred.resolve();
     }
     return deferred.promise;
-  }
+  };
 
-  function loginRequired ($q, $location, $auth) {
+  function loginRequired ($q, $location, $auth, $rootScope) {
     var deferred = $q.defer();
     if ($auth.isAuthenticated()) {
+      $rootScope.status = "";
       deferred.resolve();
     } else {
+      $rootScope.status = "slide";
       $location.path('/login');
     }
     return deferred.promise;
-  }
+  };
+
+  function sidebarStatus ($auth, $rootScope) {
+    if ($auth.isAuthenticated()) {
+      $rootScope.status = "";
+    } else {
+      $rootScope.status = "slide";
+    }
+  };
 
 })
 
