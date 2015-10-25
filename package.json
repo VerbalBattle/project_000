@@ -23,6 +23,7 @@
     "jwt-simple": "^0.3.1",
     "moment": "^2.10.6",
     "morgan": "~1.6.1",
+    "mysql": "^2.9.0",
     "natural": "^0.2.1",
     "nodemon": "^1.7.3",
     "pre-commit": "^1.1.1",
