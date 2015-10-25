@@ -8,6 +8,9 @@ angular.module('VBattle.sideBar', [])
     mySocket.on('client:joinRoom', function (data) {
       console.log(data);
     });
+    mySocket.on('client:turnUpdate', function (data) {
+      console.log(data);
+    });
     mySocket.alreadyCreated = true;
   }
 
