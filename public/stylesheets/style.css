@@ -9,6 +9,7 @@ body {
   position: relative;
   float: left;
   left: 20vh;
+  width: 80vw;
 }
 
 /*Sidebar overall space*/
@@ -34,35 +35,45 @@ ul {
 }
 
 /*room styling*/
-.message{
+.message {
   background-color: green;
   height: 30px;
   width: 300px;
   white-space: pre;
 }
-.nameDiv{
+.nameDiv {
   height: 350px;
   background-color: grey;
   border-radius: 20px;
   padding: 10px;
   white-space: pre;
 }
-.sender{
+.sender {
   color: red;
 }
 
-.avatar{
+.avatar {
   color: green;
 }
 
-.roomHref{
+.avatars  {
+  margin-right: 10px;
+  padding: 10px;
+  background-color: #95a5a6;
+  height: 75vh;
+}
+
+.col-md-4 {
+  padding: 0px;
+}
+.roomHref {
   color: green;
   height: 30px;
   background-color: grey;
 }
 
 /*circular anchor tags with pictures; used to navigate the app*/
-.navigation-items a{
+.navigation-items a {
   position: relative;
   display: block;
   background-color: #f7f7f7;

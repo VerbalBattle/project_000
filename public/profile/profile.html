@@ -1,46 +1,49 @@
 <div class="container">
-  <h2 class="text-center">{{ user.username }}</h2>
+  <h2 class="text-center">{{ user.username }}'s avatars</h2>
   
   <!-- display avatars -->
-  <div class="row">Avatars</div>
-  <div class="col-md-4 avatars" ng-repeat="(key, value) in user.avatars">
-    <!-- display avatar data -->
-    <button ng-click="showEdit=!showEdit;display=!display">Edit</button>
-    <div ng-show="!display" class="avatarValues">
-      <div>{{ value.avatarName }}</div>
-      <div>{{ value.aboutMe }}</div>
-      <img src="">
-      <button ng-click="removeAvatar()">Remove</button>
-    </div>
-
-    <!-- edit avatar data -->
-    <div ng-show="showEdit" class="editAvatar">
-      <form class="col-md-4" ng-submit="editAvatar();showEdit=!showEdit;display=!display">
-        <label>Avatar Name</label>
+  <div class="col-md-4" ng-repeat="(key, value) in user.avatars">
+    <div class="avatars">
+      <!-- display avatar data -->
+      <button ng-click="showEdit=!showEdit;display=!display">Edit</button>
+      <div ng-show="!display" class="avatarValues">
         <div>{{ value.avatarName }}</div>
-        <label>Image</label> 
-        <input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files)"/>
-        <canvas style="width:150px;height:150px" id="canvas"></canvas>
-        <input type="text" ng-model="value.imagePath">
-        <label>About Me</label>
-        <input type="text" ng-model="value.aboutMe">
-        <input type="submit" value="Submit">
-      </form>
+        <div>{{ value.aboutMe }}</div>
+        <img src="">
+        <button ng-click="removeAvatar()">Remove</button>
+      </div>
+
+      <!-- edit avatar data -->
+      <div ng-show="showEdit" class="editAvatar">
+        <form ng-submit="editAvatar();showEdit=!showEdit;display=!display">
+          <label>Avatar Name</label>
+          <div>{{ value.avatarName }}</div>
+          <label>Image</label> 
+          <input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files)"/>
+          <canvas style="width:150px;height:150px" id="canvas"></canvas>
+          <input type="text" ng-model="value.imagePath">
+          <label>About Me</label>
+          <input type="text" ng-model="value.aboutMe">
+          <input type="submit" value="Submit">
+        </form>
+      </div>
     </div>
   </div>
 
   <!-- add avatar data -->
-  <button class="col-md-4" ng-show="showadd" ng-click="addForm=!addForm">Add New Player</button>
-  <form class="col-md-4" ng-show="addForm" ng-submit="addAvatar()">
-    <label>Avatar Name</label>
-    <input type="text" ng-model="avatarName">
-    <label>Image</label>
-    <input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files)"/>
-    <canvas style="width:150px;height:150px" id="canvas"></canvas>
-    <label>About Me</label>
-    <input type="text" ng-model="aboutMe">
-    <input type="submit" value="Submit">
-  </form>
-
-        
+  <div class="col-md-4" ng-show="showadd">
+    <div class="avatars">
+      <button ng-click="addForm=!addForm">Add New Player</button>
+      <form ng-show="addForm" ng-submit="addAvatar()">
+        <label>Avatar Name</label>
+        <input type="text" ng-model="avatarName">
+        <label>Image</label>
+        <input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files)"/>
+        <canvas style="width:150px;height:150px" id="canvas"></canvas>
+        <label>About Me</label>
+        <input type="text" ng-model="aboutMe">
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+  </div>
 </div>

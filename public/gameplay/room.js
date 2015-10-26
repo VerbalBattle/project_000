@@ -46,8 +46,8 @@ angular.module('VBattle.room', [])
   };
 
   mySocket.on('client:turnUpdate', function (data) {
-    console.log("message", data.rooms)
-    console.log($scope.messages)
+    console.log("message", data.rooms);
+    console.log($scope.messages);
       $scope.messages = data.rooms;
     });
 
