@@ -6,8 +6,10 @@ angular.module('VBattle.profile', [])
   $scope.user = JSON.parse(window.localStorage['user']);
   $scope.user.avatars = $scope.user.avatars || {};
   $scope.showadd = Object.keys($scope.user.avatars).length < $scope.user.avatarLimit;
+  $scope.lengthBox = 12 / (Object.keys($scope.user.avatars).length + $scope.showadd);
   $scope.image = "";
   $scope.imageSource = window.localStorage["image"];
+
   $scope.addAvatar = function () {
     var avatar = {
       "avatarData": {
@@ -25,6 +27,7 @@ angular.module('VBattle.profile', [])
       }
       window.localStorage['user'] = JSON.stringify($scope.user);
       $scope.showadd = Object.keys($scope.user.avatars).length < $scope.user.avatarLimit;
+      $scope.lengthBox = 12 / (Object.keys($scope.user.avatars).length + $scope.showadd);
       // clear form
       $scope.avatarName = "";
       $scope.imagePath = "";
@@ -69,7 +72,7 @@ angular.module('VBattle.profile', [])
 
       var myImage = new Image();
       myImage.src = $scope.image;
-      window.localStorage["image"] = myImage.src
+      window.localStorage["image"] = myImage.src;
 
       var newHeight, newWidth;
       if (myImage.height < myImage.width) {
@@ -99,6 +102,7 @@ angular.module('VBattle.profile', [])
         delete $scope.user.avatars[user.avatarID];
         window.localStorage['user'] = JSON.stringify($scope.user);
         $scope.showadd = true;
+        $scope.lengthBox = 12 / (Object.keys($scope.user.avatars).length + $scope.showadd);
       }
     });
   };
