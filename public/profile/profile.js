@@ -91,6 +91,7 @@ angular.module('VBattle.profile', [])
     Profile.removeAvatar(user)
     .then(function (data) {
       console.log(data);
+     
       if (data.removeSuccess) {
         delete $scope.user.avatars[user.avatarID];
         window.localStorage['user'] = JSON.stringify($scope.user);
