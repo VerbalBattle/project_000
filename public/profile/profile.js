@@ -7,6 +7,7 @@ angular.module('VBattle.profile', [])
   $scope.user.avatars = $scope.user.avatars || {};
   $scope.showadd = Object.keys($scope.user.avatars).length < $scope.user.avatarLimit;
   $scope.image = "";
+  $scope.imageSource = window.localStorage["image"];
   $scope.addAvatar = function () {
     var avatar = {
       "avatarData": {
@@ -29,6 +30,7 @@ angular.module('VBattle.profile', [])
       $scope.imagePath = "";
       $scope.aboutMe = "";
       $scope.addForm = false;
+
     });
   };
   
@@ -67,6 +69,7 @@ angular.module('VBattle.profile', [])
 
       var myImage = new Image();
       myImage.src = $scope.image;
+      window.localStorage["image"] = myImage.src
 
       var newHeight, newWidth;
       if (myImage.height < myImage.width) {
@@ -91,7 +94,7 @@ angular.module('VBattle.profile', [])
     Profile.removeAvatar(user)
     .then(function (data) {
       console.log(data);
-     
+
       if (data.removeSuccess) {
         delete $scope.user.avatars[user.avatarID];
         window.localStorage['user'] = JSON.stringify($scope.user);
