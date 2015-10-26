@@ -25,7 +25,11 @@ angular.module('VBattle.lobby', [])
 
 
   var user = JSON.parse(window.localStorage['user']);
+<<<<<<< HEAD
   console.log("user", user)
+=======
+  console.log("user!!!", user)
+>>>>>>> completed avatar picture functionality
   $scope.roomsIDs = {};
 
   $scope.avatars = user.avatars;
