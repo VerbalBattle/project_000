@@ -8,7 +8,8 @@ body {
 .container {
   position: relative;
   float: left;
-  left: 75px;
+  left: 20vh;
+  width: 80vw;
 }
 
 /*Sidebar overall space*/
@@ -34,43 +35,53 @@ ul {
 }
 
 /*room styling*/
-.message{
+.message {
   background-color: green;
   height: 30px;
   width: 300px;
   white-space: pre;
 }
-.nameDiv{
+.nameDiv {
   height: 350px;
   background-color: grey;
   border-radius: 20px;
   padding: 10px;
   white-space: pre;
 }
-.sender{
+.sender {
   color: red;
 }
 
-.avatar{
+.avatar {
   color: green;
 }
 
-.roomHref{
+.avatars  {
+  margin-right: 10px;
+  padding: 10px;
+  background-color: #95a5a6;
+  height: 75vh;
+}
+
+.col-md-4 {
+  padding: 0px;
+}
+.roomHref {
   color: green;
   height: 30px;
   background-color: grey;
 }
 
 /*circular anchor tags with pictures; used to navigate the app*/
-.navigation-items a{
+.navigation-items a {
+  position: relative;
   display: block;
   background-color: #f7f7f7;
   opacity: 0.7;
   color: #a7a7a7;
-  width: 100px;
-  height: 100px;
-  margin-top: 25px;
-  position: relative;
+  width: 10vh;
+  height: 10vh;
+  margin-top: 3vh;
   border-radius: 50%;
 }
 
@@ -85,21 +96,24 @@ ul {
 }
 
 /*information divs regarding the anchor pictures*/
-.navigation-items div {
-  z-index: initial;
+.navigation-text {
   position: relative;
+  left: 11vh;
+  top: 6.8vh;
+  height: 0vh;
+  width: 0vw;
+}
+
+.navigation-items div {
   transition: all .5s ease-out; 
   -webkit-transition: all .5s ease-out; 
-  left: 85px;
-  top: 85px;
   font-family: "Courier New";
-  font-size: 0px;
+  font-size: 0vh;
 }
 
 /*popup abilities to the info divs*/
 .navigation-items div.show {
-  font-size: 26px;
-  left: 110px;
+  font-size: 2.5vh;
 }
 
 .upvote{
