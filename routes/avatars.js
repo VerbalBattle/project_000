@@ -34,7 +34,7 @@ router.post('/', authenticator.ensureAuthenticated,
   // {
   //     "avatarData": {
   //         "avatarName": "joey's avatar",
-  //         "imagePath": "some/image/path.png",
+  //         "image": binary_stuff_here,
   //         "aboutMe": "I'm joey and I play to win."
   //     }
   // }
@@ -64,7 +64,7 @@ router.post('/', authenticator.ensureAuthenticated,
   //   "avatars": {
   //     "6": {
   //       "avatarName": "super laura",
-  //       "imagePath": "something/goes/here.png",
+  //       image: binary_stuff_here,
   //       "aboutMe": "I'm laura and I play to win.",
   //       "stats": {
   //         "winLossRatio": 0,

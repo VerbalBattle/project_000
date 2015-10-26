@@ -103,9 +103,9 @@ var avatars = sequelize.define('avatars', {
       key: 'id'
     }
   },
-  // avatar image path
-  imagePath: {
-    type: Sequelize.STRING(32),
+  // avatar image
+  image: {
+    type: Sequelize.BLOB('medium'),
     allowNull: false
   },
   // avatar about me
