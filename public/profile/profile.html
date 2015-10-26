@@ -7,9 +7,10 @@
     <!-- display avatar data -->
     <button ng-click="showEdit=!showEdit;display=!display">Edit</button>
     <div ng-show="!display" class="avatarValues">
+
+      <img class="avImg" height="60px" width="60px" src="{{imageSource}}">
       <div>{{ value.avatarName }}</div>
       <div>{{ value.aboutMe }}</div>
-      <img class="avImg" height="50px" width="50px" src="{{imageSource}}">
       <button ng-click="removeAvatar()">Remove</button>
     </div>
 
