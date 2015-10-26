@@ -14,7 +14,7 @@ body {
 /*Sidebar overall space*/
 .sidebar {
   position : fixed;
-  left:-30px;
+  left:-300px;
   top: 0;
   transition: all .5s ease-out; 
   -webkit-transition: all .5s ease-out;
@@ -22,7 +22,7 @@ body {
 
 .sidebar.slide{
   position : fixed;
-  left:-300px;
+  left:-30px;
   top: 0;
   transition: all .5s ease-out; 
   -webkit-transition: all .5s ease-out;

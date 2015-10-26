@@ -32,7 +32,8 @@ angular.module('VBattle', [
       templateUrl: '/auth/signup.html',
       controller: 'SignupCtrl',
       resolve: {
-        skipIfLoggedIn: skipIfLoggedIn
+        skipIfLoggedIn: skipIfLoggedIn,
+        sidebarStatus: sidebarStatus
       }
     })
     .when('/logout', {
@@ -107,10 +108,10 @@ angular.module('VBattle', [
   function loginRequired ($q, $location, $auth, $rootScope) {
     var deferred = $q.defer();
     if ($auth.isAuthenticated()) {
-      $rootScope.status = "";
+      $rootScope.status = "slide";
       deferred.resolve();
     } else {
-      $rootScope.status = "slide";
+      $rootScope.status = "";
       $location.path('/login');
     }
     return deferred.promise;
@@ -118,9 +119,11 @@ angular.module('VBattle', [
 
   function sidebarStatus ($auth, $rootScope) {
     if ($auth.isAuthenticated()) {
-      $rootScope.status = "";
-    } else {
       $rootScope.status = "slide";
+      // $rootScope.status2 = "";
+    } else {
+      $rootScope.status = "";
+      // $rootScope.status2 = "hide";
     }
   };
 
