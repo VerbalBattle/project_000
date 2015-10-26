@@ -106,7 +106,7 @@ var avatars = sequelize.define('avatars', {
   // avatar image
   image: {
     type: Sequelize.BLOB('medium'),
-    allowNull: false
+    allowNull: true
   },
   // avatar about me
   aboutMe: {
