@@ -63,7 +63,8 @@ ul {
 .avatars  {
   margin-right: 10px;
   padding: 10px;
-  background-color: #95a5a6;
+  border-style: solid;
+  border-color: #95a5a6;
   height: 75vh;
 }
 
