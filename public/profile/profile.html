@@ -7,12 +7,11 @@
       <!-- display avatar data -->
       <button ng-click="showEdit=!showEdit;display=!display">Edit</button>
       <div ng-show="!display" class="avatarValues">
+        <img class="avImg" height="50px" width="50px" src="{{imageSource}}">
         <div>{{ value.avatarName }}</div>
         <div>{{ value.aboutMe }}</div>
-        <img src="">
         <button ng-click="removeAvatar()">Remove</button>
       </div>
-
       <!-- edit avatar data -->
       <div ng-show="showEdit" class="editAvatar">
         <form ng-submit="editAvatar();showEdit=!showEdit;display=!display">
@@ -29,16 +28,15 @@
       </div>
     </div>
   </div>
-
   <!-- add avatar data -->
   <div class="col-md-4" ng-show="showadd">
     <div class="avatars">
       <button ng-click="addForm=!addForm">Add New Player</button>
       <form ng-show="addForm" ng-submit="addAvatar()">
         <label>Avatar Name</label>
-        <input type="text" ng-model="avatarName">
-        <label>Image</label>
-        <input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files)"/>
+        <input ng-model="avatarName">
+        <label>Image</label> 
+        <input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files)" value = ""/>
         <canvas style="width:150px;height:150px" id="canvas"></canvas>
         <label>About Me</label>
         <input type="text" ng-model="aboutMe">
