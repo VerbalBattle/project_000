@@ -120,10 +120,8 @@ angular.module('VBattle', [
   function sidebarStatus ($auth, $rootScope) {
     if ($auth.isAuthenticated()) {
       $rootScope.status = "slide";
-      // $rootScope.status2 = "";
     } else {
       $rootScope.status = "";
-      // $rootScope.status2 = "hide";
     }
   };
 
