@@ -23,9 +23,6 @@ var LinkedList = require('./linkedList');
 // Make a new linked list for avatars waiting for game
 var waitingForGame = new LinkedList();
 
-// Make a new linked list for voting on games
-var votingQueue = new LinkedList();
-
 //              _ _            
 //             | (_)           
 //   ___  _ __ | |_ _ __   ___ 
@@ -38,7 +35,17 @@ var onlineUsers = {};
 // Socket to user map for connected sockets
 var onlineSocketUserMap = {};
 
-// Example entry type
+//    _           _       _             
+//   (_)         | |     (_)            
+//    _ _   _  __| | __ _ _ _ __   __ _ 
+//   | | | | |/ _` |/ _` | | '_ \ / _` |
+//   | | |_| | (_| | (_| | | | | | (_| |
+//   | |\__,_|\__,_|\__, |_|_| |_|\__, |
+//  _/ |             __/ |         __/ |
+// |__/             |___/         |___/ 
+
+// Array to hold all rooms open for judging
+var judging = {};
 
 //                             _       
 //                            | |      
@@ -51,8 +58,7 @@ var onlineSocketUserMap = {};
 
 // Export waiting for game queue
 module.exports.waitingForGame = waitingForGame;
-// Export waiting for votes queue
-module.exports.votingQueue = votingQueue;
+
 // Export online object
 module.exports.onlineUsers = onlineUsers;
 module.exports.onlineSocketUserMap = onlineSocketUserMap;

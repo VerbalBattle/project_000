@@ -27,8 +27,6 @@ var messagesHelper = require('./messagesHelper');
 
 // Require player game room queue
 var waitingForGame = require('../server/data').waitingForGame;
-// Require voting queue
-var votingQueue = require('../server/data').votingQueue;
 
 // Require socket helper
 var socketHelper = require('../server/sockets').helper;
@@ -43,32 +41,24 @@ var socketHelper = require('../server/sockets').helper;
 // Rooms helper master object
 var roomsHelper = {};
 
-// Rooms helper method to add to end of voting queue
-roomsHelper.enqueueToVote = function (data) {
-  // Get callback to send data to client
+// Rooms helper to get n rooms that need to be judged
+roomsHelper.getRoomsToJudge = function (data) {
+  // Get callback
   var callback = data.callback;
-  delete data.callback;
-  // Get userID
-  var userID = data.userID;
-  console.log('userID is hereeeeeeeeee', userID);
-  // Ensure user can join voting
-  var canJoin = this.canJoinVoting({
-    userID: userID
+
+  // Room count limit
+  var roomLimit = data.roomLimit || 10;
+
+  // Get roomLimit rooms to judge
+  return roomsTable.findAll({
+    where: {
+      isOpen: false
+    },
+    limit: roomLimit
+  }).then(function (roomsFound) {
+    
   });
-
-  // Result to return to user
-  var result = {};
-
-  // Attempt to add player to voting queue
-  var added = votingQueue.addToBack(data);
-  // Display voting queue
-  votingQueue.print();
-
-
 };
-
-// Rooms helper can join voting
-
 
 // Rooms helper method to add to end of game queue
 roomsHelper.enqueueToPlay = function (data) {
