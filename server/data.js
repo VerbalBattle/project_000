@@ -139,7 +139,7 @@ judging.updateRooms = function () {
   this.lastTime = currTime;
 
   // Print the rooms
-  this.print();
+  // this.print();
 };
 
 // Set interval for room updates
@@ -162,3 +162,6 @@ module.exports.waitingForGame = waitingForGame;
 // Export online object
 module.exports.onlineUsers = onlineUsers;
 module.exports.onlineSocketUserMap = onlineSocketUserMap;
+
+// Export judging
+module.exports.judging = judging;

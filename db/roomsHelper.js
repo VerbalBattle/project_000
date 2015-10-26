@@ -27,6 +27,8 @@ var messagesHelper = require('./messagesHelper');
 
 // Require player game room queue
 var waitingForGame = require('../server/data').waitingForGame;
+// Require judging
+var judging = require('../server/data').judging;
 
 // Require socket helper
 var socketHelper = require('../server/sockets').helper;
@@ -488,10 +490,11 @@ roomsHelper.sendMessageToRoom = function (data) {
                 // The code below is used to add a room to the
                 // rooms to be judged data
 
+
                 // If the game is over
                 if (!isOpen) {
                   // Add the room to judging
-                  // zebra
+                  judging.addRoom(roomID, roomsHelper.getRoomData);
                 }
               });
             } else {
