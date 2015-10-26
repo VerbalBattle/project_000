@@ -46,6 +46,9 @@ roomsHelper.getRoomsToJudge = function (data) {
   // Get callback
   var callback = data.callback;
 
+  // Get userID
+  var callback = data.callback;
+
   // Room count limit
   var roomLimit = data.roomLimit || 10;
 
@@ -406,7 +409,7 @@ roomsHelper.sendMessageToRoom = function (data) {
       id: roomID
     }
   }).then(function (roomFound) {
-    // Only continue if the rom was found
+    // Only continue if the room was found
     if (roomFound) {
       // Only continue if room is open
       if (roomFound.dataValues.isOpen) {
@@ -480,6 +483,16 @@ roomsHelper.sendMessageToRoom = function (data) {
                 // Handoff to socket helper
                 socketHelper.clientTurnUpdate(socketData, 
                   roomsHelper.getRoomData);
+
+
+                // The code below is used to add a room to the
+                // rooms to be judged data
+
+                // If the game is over
+                if (!isOpen) {
+                  // Add the room to judging
+                  // zebra
+                }
               });
             } else {
               // Message could not be created for some reason
