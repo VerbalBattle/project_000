@@ -56,7 +56,7 @@ angular.module('VBattle.profile', [])
         $scope.user.avatars[avatarID].avatarName = avatarName;
       }
     });
-  };   
+  };       
 
 
   $scope.uploadFile = function (files) {
