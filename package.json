@@ -27,6 +27,7 @@
     "natural": "^0.2.1",
     "nodemon": "^1.7.3",
     "pre-commit": "^1.1.1",
+    "opencv": "^3.0.0",
     "request": "^2.65.0",
     "satellizer": "^0.12.5",
     "sequelize": "^3.12.0",

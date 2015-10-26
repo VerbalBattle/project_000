@@ -17,6 +17,11 @@ Icon
 .Spotlight-V100
 .Trashes
 node_modules/
+
+# npm install opencv errors due to not finding itself in
+# the node_modules folder. Exluding it from gitignore
+# so everyone can get the library.
+!node_modules/opencv
 public/libs/
 
 # Floobits
