@@ -21,6 +21,10 @@ body {
   -webkit-transition: all .5s ease-out;
 }
 
+.avImg{
+  border-radius: 30px;
+}
+
 .sidebar.slide{
   position : fixed;
   left:-30px;
