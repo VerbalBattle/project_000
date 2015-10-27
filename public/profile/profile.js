@@ -67,7 +67,7 @@ angular.module('VBattle.profile', [])
       var res = e.target.result;
       var src = btoa(res);
       $scope.image = 'data:image/jpeg;base64,' + src;
-      console.log("scope image is now", $scope.image)
+      console.log("scope image is now", $scope.image);
       $scope.$apply();
       var canvas = $document.find("#canvas")[0];
 
@@ -83,7 +83,6 @@ angular.module('VBattle.profile', [])
         canvas.style.height = myImage.height / myImage.width * 70 + 'px';
       }
       var ctx = canvas.getContext("2d");
-      console.log(canvas.width, canvas.height)
       ctx.drawImage(myImage, 0, 0, 70, 70);
       $scope.image = canvas.toDataURL();
       console.log($scope.image);

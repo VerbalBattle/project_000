@@ -14,7 +14,7 @@ angular.module('VBattle.voting', [])
   
   //socket.emit() when need for new chats
   //socket.on() for getting latest chats -> storing them in the localstorage
-  // and getting rid of them after user voted
+  //and getting rid of them after user voted
   //zack
   $scope.upvote = function (input) {
     console.log("upvoting for", input);
@@ -22,5 +22,16 @@ angular.module('VBattle.voting', [])
     $scope.messages = $scope.newMessages;
     
     $scope.users = ["peter"];
+  };
+
+  $scope.getVotes = function () {
+    //judging route
+    Voter.getRooms().then(function (result) {
+      console.log(result);
+    }) 
+    .catch(function (err) {
+      console.log("zacks an idiot");
+    })
+
   };
 });
