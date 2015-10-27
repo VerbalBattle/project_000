@@ -4,7 +4,9 @@ angular.module('VBattle.sideBar', [])
 
   if (!mySocket.alreadyCreated) {
     mySocket.connect();
-    mySocket.emit('client:linkUser', {token: window.localStorage['satellizer_token']});
+    if (window.localStorage['satellizer_token']) {
+      mySocket.emit('client:linkUser', {token: window.localStorage['satellizer_token']});
+    }
     mySocket.on('client:joinRoom', function (data) {
       console.log("join-room update", data);
     });

@@ -32,8 +32,7 @@ angular.module('VBattle.profile', [])
       $scope.avatarName = "";
       $scope.imagePath = "";
       $scope.aboutMe = "";
-      $scope.addForm = false;
-
+      $document.find('#editAvatar').modal('hide');
     });
   };
   
@@ -49,7 +48,7 @@ angular.module('VBattle.profile', [])
 
     Profile.editAvatar(avatarID, avatar)
     .then(function (data) {
-      console.log("added avatar", data);
+      console.log("Edited avatar", data);
       if (data.updateSuccess) {
         $scope.user.avatars[avatarID] = avatar.avatarData;
         $scope.user.avatars[avatarID].avatarName = avatarName;
