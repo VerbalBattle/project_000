@@ -82,6 +82,11 @@ judging.addRoom = function (roomID, roomDataFinder) {
       // Votes for avatar2
       avatar2Votes: 0
     };
+    // Users who played cannot vote on the room
+    judging.roomDataForServer[roomID]
+      .usersWhoVoted[roomData.avatar1_userID] = true;
+    judging.roomDataForServer[roomID]
+      .usersWhoVoted[roomData.avatar2_userID] = true;
     // Add keysByExpiration entry to the end
     judging.roomIDsByExpiration.push(roomID);
   });
@@ -90,28 +95,30 @@ judging.addRoom = function (roomID, roomDataFinder) {
 // Judging function to print out rooms
 judging.print = function () {
   // String to return
-  var str = 'Rooms for judging:\n[';
+  var str = 'Rooms for judging:\n';
   // All room IDs
   var roomIDs = this.roomIDsByExpiration;
   // Loop over every element
   for (var i = 0; i < roomIDs.length; ++i) {
     // Add room tuple
-    str += '[';
+    str += 'roomID: ';
     // Add roomID
     str += roomIDs[i];
     // Add TTE
-    str += ', TTE:' + this.roomDataForServer[roomIDs[i]].timeToExpire;
-    // Close room tuple
-    str += ']';
+    str += ', TTE: ' +
+      this.roomDataForServer[roomIDs[i]].timeToExpire + ' ms';
+    // Add users who can no longer vote
+    str += ', Voters: ' +
+      Object.keys(this.roomDataForServer[roomIDs[i]].usersWhoVoted);
 
     // Check for another element
     if (i !== roomIDs.length - 1) {
-      str += ',';
+      str += '\n------------\n';
     }
   }
 
   // Close string
-  str += ']\n';
+  str += '\n';
 
   // Print the string
   console.log(str);
@@ -128,7 +135,7 @@ judging.updateRooms = function () {
   var currTime = Date.now();
   // Delta time between last judging
   var deltaTime = currTime - this.lastTime;
-  console.log('∆t:', deltaTime + ' ms');
+  // console.log('∆t:', deltaTime + ' ms');
   // Iterate over rooms from newest to oldest
   for (var i = roomIDs.length - 1; -1 < i; --i) {
     // Subtract from the time to expire for the room
@@ -152,7 +159,7 @@ judging.updateRooms = function () {
   this.lastTime = currTime;
 
   // Print the rooms
-  this.print();
+  // this.print();
 };
 
 // Judging archive room
