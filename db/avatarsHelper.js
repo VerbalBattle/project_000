@@ -233,7 +233,7 @@ avatarsHelper.addAvatar = function (data) {
                 // Invoke callback
                 callback(result);
               });
-            })
+            });
           });
         }
 
