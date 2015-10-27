@@ -26,7 +26,7 @@ var Sequelize = require('sequelize');
 var sequelize = new Sequelize('InsultPvP', 'root', '', {
   host: 'localhost',
   // Conditional dialect
-  dialect: 'mysql' | 'postgres',
+  dialect: 'mysql',
   // disable logging; default: console.log
   logging: false
 });
@@ -128,14 +128,38 @@ var avatars = sequelize.define('avatars', {
   }
 });
 
-//        _                       _____ _        _       
-//       | |                     /  ___| |      | |      
-//  _ __ | | __ _ _   _  ___ _ __\ `--.| |_ __ _| |_ ___ 
-// | '_ \| |/ _` | | | |/ _ \ '__|`--. \ __/ _` | __/ __|
-// | |_) | | (_| | |_| |  __/ |  /\__/ / || (_| | |_\__ \
-// | .__/|_|\__,_|\__, |\___|_|  \____/ \__\__,_|\__|___/
-// | |             __/ |                                 
-// |_|            |___/                                  
+//                   _           _____                                
+//                  | |         |_   _|                               
+//   __ ___   ____ _| |_ __ _ _ __| | _ __ ___   __ _  __ _  ___  ___ 
+//  / _` \ \ / / _` | __/ _` | '__| || '_ ` _ \ / _` |/ _` |/ _ \/ __|
+// | (_| |\ V / (_| | || (_| | | _| || | | | | | (_| | (_| |  __/\__ \
+//  \__,_| \_/ \__,_|\__\__,_|_| \___/_| |_| |_|\__,_|\__, |\___||___/
+//                                                     __/ |          
+//                                                    |___/           
+
+// Define avatar images model
+var avatarImages = sequelize.define('avatarImages', {
+  // ID
+  id: {
+    primaryKey: true,
+    type: Sequelize.INTEGER,
+    allowNull: false
+  },
+  // Avatar image binary
+  imageSource: {
+    type: Sequelize.BLOB('medium'),
+    allowNull: true
+  }
+});
+
+//                   _             _____ _        _       
+//                  | |           /  ___| |      | |      
+//   __ ___   ____ _| |_ __ _ _ __\ `--.| |_ __ _| |_ ___ 
+//  / _` \ \ / / _` | __/ _` | '__|`--. \ __/ _` | __/ __|
+// | (_| |\ V / (_| | || (_| | |  /\__/ / || (_| | |_\__ \
+//  \__,_| \_/ \__,_|\__\__,_|_|  \____/ \__\__,_|\__|___/
+                                                       
+                                                       
 
 // Define avatar stats model
 var avatarStats = sequelize.define('avatarStats', {
@@ -149,43 +173,43 @@ var avatarStats = sequelize.define('avatarStats', {
       key: 'id'
     }
   },
-  // avatar win loss ratio
+  // Avatar win loss ratio
   winLossRatio: {
     type: Sequelize.FLOAT,
     allowNull: false,
     defaultValue: 0
   },
-  // avatar type
+  // Avatar type
   avatarType: {
     type: Sequelize.STRING(32),
     allowNull: false,
     defaultValue: 'untyped'
   },
-  // avatar win velocity
+  // Avatar win velocity
   winVelocity: {
     type: Sequelize.FLOAT,
     allowNull: false,
     defaultValue: 0
   },
-  // avatar rank
+  // Avatar rank
   rank: {
     type: Sequelize.INTEGER,
     allowNull: false,
     defaultValue: 0
   },
-  // avatar win streak
+  // Avatar win streak
   winStreak: {
     type: Sequelize.INTEGER,
     allowNull: false,
     defaultValue: 0
   },
-  // avatar stat createdAt time
+  // Avatar stat createdAt time
   createdAt: {
     type: Sequelize.DATE,
     allowNull: false,
     defaultValue: Sequelize.NOW
   },
-  // avatar stat updatedAt time
+  // Avatar stat updatedAt time
   updatedAt: {
     type: Sequelize.DATE,
     allowNull: false,
@@ -342,25 +366,31 @@ users.sync().then(function () {
   // Users table created
   console.log('Synced to User Table');
 
-  // Sync to avatars table
-  avatars.sync().then(function () {
-    // Table created
-    console.log('Synced to Avatar Table');
+  // Sync to avatar images table
+  avatarImages.sync().then(function () {
+    // Avatar images table created
+    console.log('Synced to Avatar Images Table');
 
-    // Sync to avatarStats table
-    avatarStats.sync().then(function () {
+    // Sync to avatars table
+    avatars.sync().then(function () {
       // Table created
-      console.log('Synced to Avatar Stats Table');
+      console.log('Synced to Avatar Table');
 
-      // Sync to rooms table
-      rooms.sync().then(function () {
+      // Sync to avatarStats table
+      avatarStats.sync().then(function () {
         // Table created
-        console.log('Synced to Rooms Table');
+        console.log('Synced to Avatar Stats Table');
 
-        // Sync to messages
-        messages.sync().then(function () {
+        // Sync to rooms table
+        rooms.sync().then(function () {
           // Table created
-          console.log('Synced to Messages Table');
+          console.log('Synced to Rooms Table');
+
+          // Sync to messages
+          messages.sync().then(function () {
+            // Table created
+            console.log('Synced to Messages Table');
+          });
         });
       });
     });
@@ -411,6 +441,8 @@ users.sync().then(function () {
 module.exports.users = users;
 // Export avatars
 module.exports.avatars = avatars;
+// Export avatar images
+module.exports.avatarImages = avatarImages;
 // Export avatar stats
 module.exports.avatarStats = avatarStats;
 // Export rooms
