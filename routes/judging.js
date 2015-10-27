@@ -27,7 +27,7 @@ var judging = require('../server/data').judging;
 // | | | (_) | |_| | ||  __/\__ \
 // |_|  \___/ \__,_|\__\___||___/
 
-// POST to join voting queue
+// GET route to receive rooms to judge for a client
 router.get('/', authenticator.ensureAuthenticated,
   function (req, res, next) {
   // Expected request body example
@@ -52,4 +52,35 @@ router.get('/', authenticator.ensureAuthenticated,
   // Expected result sent to client
   // [roomObj1, roomObj2, ...]
 });
+
+// PUT route to cast a vote for a specified roomID
+router.put('/:roomID', authenticator.ensureAuthenticated,
+  function (req, res, next) {
+  // Expected request body example
+  // {}
+
+  // Decrypt token
+  var decrypted = req.body.decrypted;
+
+  // Data to pass to judging
+  var data = {
+    // User ID
+    userID: decrypted.userID,
+    // Room ID
+    roomID: req.params.roomID,
+    // Up vote ID (1 or 2 for avatar1 or avatar2)
+    upVoteID: req.body.upVoteID,
+  };
+  // Callback
+  var callback = function (result) {
+    res.send(result);
+  };
+
+  // Log
+  console.log('\n\nATTEMPTING TO CAST VOTE ON ROOM',
+    data.roomID, 'FOR AVATAR', upVoteID);
+  // Handoff to judging
+  judging.judgeOneRoom(data, callback);
+});
+
 module.exports = router;

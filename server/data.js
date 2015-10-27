@@ -208,7 +208,7 @@ judging.getRoomsToJudge = function (userID, callback) {
   // Time to expire cutoff
   var cutoffTTE = Math.round(this.initialTTE/2);
 
-  // iterte over all possible rooms to judge
+  // Iterate over all possible rooms to judge
   for (var i = 0; i < roomIDs.length; ++i) {
     // If the TTE isn't high enough, skip
     if (this.roomDataForServer[roomIDs[i]].timeToExpire
@@ -216,7 +216,7 @@ judging.getRoomsToJudge = function (userID, callback) {
       // If the user hasn't judged this room yet
       if (!(userIDin 
         in this.roomDataForServer[roomIDs[i]].usersWhoVoted)) {
-        
+
         // Add to rooms to judge
         roomsToJudge.push(this.roomDataForClient[i]);
 
@@ -255,6 +255,9 @@ judging.judgeOneRoom = function (data, callback) {
     this.roomDataForServer[roomID].usersWhoVoted[userID] = true;
     // Set cast vote to true
     result.voteCast = true;
+  } else {
+    // Room ID wasn't found
+    result.badRoomID = true;
   }
 
   // Invoke callback
