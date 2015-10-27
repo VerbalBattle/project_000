@@ -18,7 +18,7 @@ var router = express.Router();
 var authenticator = require('../server/authenticator');
 
 // Require rooms helper
-var roomsHelper = require('../db/roomsHelper');
+var judging = require('../server/data').judging;
 
 //                  _            
 //                 | |           
@@ -28,7 +28,7 @@ var roomsHelper = require('../db/roomsHelper');
 // |_|  \___/ \__,_|\__\___||___/
 
 // POST to join voting queue
-router.post('/', authenticator.ensureAuthenticated,
+router.get('/', authenticator.ensureAuthenticated,
   function (req, res, next) {
   // Expected request body example
   // {}
@@ -36,25 +36,20 @@ router.post('/', authenticator.ensureAuthenticated,
   // Decrypt token
   var decrypted = req.body.decrypted;
 
-  // Data to pass to voting enqueue
-  var data = {
-    // UserID
-    userID: decrypted.userID,
-    // Callback
-    callback: function (result) {
-      res.send(result);
-    }
+  // User ID
+  var userID = decrypted.userID;
+  // Callback
+  var callback = function (result) {
+    res.send(result);
   };
 
   // Log
-  console.log('\n\nATTEMPTING ADDING TO BACK OF LINE:',
-    data.avatarID, '\n\n');
+  console.log('\n\nATTEMPTING TO GET ROOMS TO JUDGE FOR',
+    userID, '\n\n');
   // Attempt to add to voting queue
-  roomsHelper.queueForVote(data);
+  judging.getRoomsToJudge(userID, callback);
 
   // Expected result sent to client
-  // {
-  //   inVotingQueue: true
-  // }
+  // [roomObj1, roomObj2, ...]
 });
 module.exports = router;

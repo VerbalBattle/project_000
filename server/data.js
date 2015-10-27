@@ -216,13 +216,15 @@ judging.getRoomsToJudge = function (userID, callback) {
       // If the user hasn't judged this room yet
       if (!(userIDin 
         in this.roomDataForServer[roomIDs[i]].usersWhoVoted)) {
+        
         // Add to rooms to judge
         roomsToJudge.push(this.roomDataForClient[i]);
+
+        // If the roomsToJudge count is exceeds the max, break
+        if (judging.judgeRequestRoomMax <= roomsToJudge.length) {
+          break;
+        }
       }
-    }
-    // If the roomsToJudge count is exceeds the max, break
-    if (judging.judgeRequestRoomMax <= roomsToJudge.length) {
-      break;
     }
   }
 
