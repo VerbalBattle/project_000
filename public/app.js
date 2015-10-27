@@ -124,11 +124,12 @@ angular.module('VBattle', [
       $rootScope.status = "";
     }
   };
-
 })
 
-.factory('mySocket', function (socketFactory) {
-  var socket = socketFactory();
-  socket.alreadyCreated = false;
-  return socket;
+.factory('mySocket', function ($auth, socketFactory) {
+  if ($auth.isAuthenticated()) {
+    var socket = socketFactory();
+    return socket;
+  }
+  return null;
 });
