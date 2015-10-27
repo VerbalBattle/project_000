@@ -181,10 +181,13 @@ judging.archiveRoom = function (roomID) {
         winnerAvatarID = roomFound.dataValues.avatar1_id;
       }
 
-      // Set it's roomState to 2 (archived) and the winnerAvatarID
+      // Set it's roomState to 2 (archived) and the winnerAvatarID,
+      // in addition to the vote counts
       roomFound.update({
         roomState: 2,
-        winnerAvatarID: winnerAvatarID
+        winnerAvatarID: winnerAvatarID,
+        avatar1_votes: avatar1Votes,
+        avatar2_votes: avatar2Votes
       });
     }
 
