@@ -6,6 +6,8 @@ angular.module('VBattle.voting', [])
   //makes get request to next rooms of queue and store them in the storage
   //
  $scope.showMessages = 1; 
+ $scope.avatarOne; 
+ $scope.avatarTwo;
 
   
   //socket.emit() when need for new chats
@@ -16,17 +18,16 @@ angular.module('VBattle.voting', [])
     console.log("upvoting for", input);
     //getting next messages object from local storage and removing the old one
     $scope.messages = $scope.newMessages;
-    
-    $scope.users = ["peter"];
   };
 
   $scope.getVotes = function () {
     //judging route
     var rooms = window.localStorage["voteRooms"] || {};
     Voter.getRooms().then( function (result) {
-    console.log(result.data, "resultObj")
+    console.log(result.data, "resultObj");
     window.localStorage["voteRooms"] = JSON.stringify(result.data);  
-      
+    $scope.getNext();
+
     }) 
     .catch(function (err) {
       console.error(err);
@@ -34,33 +35,36 @@ angular.module('VBattle.voting', [])
 
   };
 
-  // var renderRooms = function () {
-  //   var rooms = window.localStorage["voteRooms"];
-  //   for (var i = 0; i<rooms.length; i++) {
-  //     console.log(rooms[i].id);
-  //   }
-
-  // };
-
-  // renderRooms();
-   
-  var getNext = function () {
+  $scope.getNext = function (userID) {
     //getting first room
+    //make post request to room update -> userId as an put request body
+    if (window.localStorage["voteRooms"] !== "[]") {
     var rooms = JSON.parse(window.localStorage["voteRooms"]);
     console.log("parsed rooms", rooms);
     var room = rooms[Object.keys(rooms)[0]];
+    $scope.avatarOne = room.avatar2.avatarID;
+    $scope.avatarTwo = room.avatar1.avatarID;
     console.log("next room", room);
 
     if (room) {
+      console.log(rooms, "out of local storage");
       $scope.messages = room.messages;
-      console.log($scope.messages);
+
+      //deleting the first room object so when another interval gets run the
+      //user will receive the next chatroom
+      
       delete rooms[Object.keys(rooms)[0]];
+      console.log(rooms, "back to local storage");
       window.localStorage["voteRooms"] = rooms;
+    } else {
+      $scope.messages = [];
     }
+  }
 
   };
+
+  $scope.getVotes();
   
-  setInterval (function () {
-    getNext();
-  }, 3000);
+
+  
 });

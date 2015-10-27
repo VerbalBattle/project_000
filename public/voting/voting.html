@@ -5,12 +5,13 @@
     <div>Chat</div>
 
     <div  class="con">
-        <div ng-repeat="mess in messages">    
-        {{mess.message}}: sent from: <strong>{{mess.avatarID}}</strong>
+    <div ng-repeat="mess in messages">    
+        <div class ="message">{{mess.message}}: sent from: <strong>{{mess.avatarID}}</strong>
+    </div>
         <br>
         </div>
-        <button class="upvote" ng-click="upvote(users[0])">Upvote for {{users[0]}}!</button>
-        <button class="upvote" ng-click="upvote(users[1])">Upvote for {{users[1]}}!</button>
+        <button class="upvote" ng-click="getNext({{avatarOne}})">Upvote for {{avatarOne}}!</button>
+        <button class="upvote" ng-click="getNext({{avatarTwo}})">Upvote for {{avatarTwo}}!</button>
     </div>
 <button ng-click="getVotes()">f</button>
 
