@@ -48,9 +48,6 @@ io.on("connection", function (socket) {
     });
   });
 
-  // Check client connection
-  socket.emit('hello', 'hey world');
-
   // Give client their socketID for token
   helper.giveSocketID({socketID: socket.id});
 });
@@ -143,7 +140,7 @@ helper.clientTurnUpdate = function (data, callback) {
   var opponentUserID = data.opponentUserID;
   // Get roomID
   var roomID = data.roomID;
-  console.log('opponent:', opponentUserID);
+
   // Get opponent socket
   var opponentSocket = onlineUsers[opponentUserID];
 

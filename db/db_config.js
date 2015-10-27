@@ -235,17 +235,37 @@ var rooms = sequelize.define('rooms', {
       key: 'id'
     }
   },
-  // Boolean to decide if room is active or ready for judging
-  isOpen: {
-    type: Sequelize.BOOLEAN(),
+  // First avatar's votes
+  avatar1_votes: {
+    type: Sequelize.INTEGER,
     allowNull: false,
-    defaultValue: true
+    defaultValue: 0
+  },
+  // Second avatar's votes
+  avatar2_votes: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    defaultValue: 0
+  },
+  // Number to decide roomstate
+  // 0 is active (users are playing)
+  // 1 is in voting (game complete and winner is being decided)
+  // 2 is closed (game completed and winner decided)
+  roomState: {
+    type: Sequelize.INTEGER(4),
+    allowNull: false,
+    defaultValue: 0
   },
   // The number of turns that have passed
   turnCount: {
-    type: Sequelize.INTEGER(),
+    type: Sequelize.INTEGER,
     allowNull: false,
     defaultValue: 0
+  },
+  // The avatarID of the winner
+  winnerAvatarID: {
+    type: Sequelize.INTEGER,
+    allowNull: true
   },
   // Room createdAt time
   createdAt: {
@@ -324,12 +344,12 @@ users.sync().then(function () {
   // Sync to avatars table
   avatars.sync().then(function () {
     // Table created
-    console.log('Synced to avatar Table');
+    console.log('Synced to Avatar Table');
 
     // Sync to avatarStats table
     avatarStats.sync().then(function () {
       // Table created
-      console.log('Synced to avatar Stats Table');
+      console.log('Synced to Avatar Stats Table');
 
       // Sync to rooms table
       rooms.sync().then(function () {

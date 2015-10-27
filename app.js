@@ -63,15 +63,17 @@ var avatars = require('./routes/avatars');
 var rooms = require('./routes/rooms');
 var matchmaking = require('./routes/matchmaking');
 var wiki = require('./routes/wiki');
+var judging = require('./routes/judging');
 
 // Specify routes
 app.use('/', routes);
+app.use('/auth', auth);
 app.use('/users', users);
 app.use('/avatars', avatars);
 app.use('/rooms', rooms);
 app.use('/matchmaking', matchmaking);
 app.use('/wiki', wiki);
-app.use('/auth', auth);
+app.use('/judging', judging);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
