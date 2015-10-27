@@ -58,6 +58,9 @@ judging.roomDataForServer = {};
 // to be judged by expiration date
 judging.roomIDsByExpiration = [];
 
+// Judging initial time to expire
+judging.initialTTE = 120000;
+
 // Judging function to add a new room to be judged
 judging.addRoom = function (roomID, roomDataFinder) {
   // Get the room data
@@ -71,7 +74,7 @@ judging.addRoom = function (roomID, roomDataFinder) {
     // Push key to back of the line
     judging.roomDataForServer[roomID] = {
       // Time to stop voting in ms
-      timeToExpire: 10000,
+      timeToExpire: judging.initialTTE,
       // Object to contain userIDs for users who've voted
       usersWhoVoted: {},
       // Votes for avatar1
@@ -170,7 +173,70 @@ judging.archiveRoom = function (roomID) {
   });
 };
 
-// Set interval for room updates
+// Judging max rooms per judge request
+judging.judgeRequestRoomMax = 3;
+
+// Judging get rooms to judge
+judging.getRoomsToJudge = function (userID, callback) {
+  // All rooms for judging
+  var roomIDs = this.roomIDsByExpiration;
+  // Judging rooms to send to client
+  var roomsToJudge = [];
+  // Time to expire cutoff
+  var cutoffTTE = Math.round(this.initialTTE/2);
+
+  // iterte over all possible rooms to judge
+  for (var i = 0; i < roomIDs.length; ++i) {
+    // If the TTE isn't high enough, skip
+    if (this.roomDataForServer[roomIDs[i]].timeToExpire
+      < cutoffTTE) {
+      // If the user hasn't judged this room yet
+      if (!(userIDin 
+        in this.roomDataForServer[roomIDs[i]].usersWhoVoted)) {
+        // Add to rooms to judge
+        roomsToJudge.push(this.roomDataForClient[i]);
+      }
+    }
+    // If the roomsToJudge count is exceeds the max, break
+    if (judging.judgeRequestRoomMax <= roomsToJudge.length) {
+      break;
+    }
+  }
+
+  // Invoke callback on rooms to judge
+  callback(roomsToJudge);
+};
+
+// Judging judge individual room
+judging.judgeOneRoom = function (data, callback) {
+  // Get data for judging
+  var roomID = data.roomID;
+  var userID = data.userID;
+  var upVoteID = data.upVoteID;
+
+  // Result to send to client
+  var result = {
+    voteCast: false
+  };
+  // Check if roomID exists
+  if (roomID in this.roomDataForServer) {
+    // Add the upvote
+    if (upVoteID === 1) {
+      this.roomDataForServer[roomID].avatar1Votes++;
+    } else if (upVoteID === 2) {
+      this.roomDataForServer[roomID].avatar2Votes++;
+    }
+    // Add userID to voted for this roomID
+    this.roomDataForServer[roomID].usersWhoVoted[userID] = true;
+    // Set cast vote to true
+    result.voteCast = true;
+  }
+
+  // Invoke callback
+  callback(result);
+};
+
+// Set interval for judging room updates
 setInterval(function () {
   judging.updateRooms();
 }, 1000);
