@@ -2,11 +2,9 @@
   <h2 class="text-center">Lobby</h2>
   <form ng-submit="postMessages()"> 
   </form>
-  
   <div>Your Avatars:</div>
   <br>
   <br>
- 
   <div  class="col-md-4" ng-repeat = "(key, avatar) in avatars">
         <button class="avatar" ng-click="room(avatar)">Make game</button>  
         <img src="{{avatar.image}}">
