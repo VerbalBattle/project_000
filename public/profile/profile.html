@@ -9,14 +9,10 @@
     <div class="avatars">
       <!-- display avatar data -->
       <div class="avatarValues">
-        <div class="avImg"><img src="{{image}}"></div>
-        <button ng-click="showEdit=!showEdit;display=!display">Edit</button>
-        <div ng-show="!display" class="avatarValues">
-          <img class="avImg" height="60px" width="70px" src="{{value.image}}">
+           <div class="avImg"><img class="key"></div>
           <div>{{ value.avatarName }}</div>
-          <div>{{ value.aboutMe }}</div>
-          <button class="btn btn-primary" ng-click="removeAvatar()">Remove</button>
-        </div>
+        <div>{{ value.aboutMe }}</div>
+        <button class="btn btn-primary" ng-click="removeAvatar()">Remove</button>
       </div>
       <button class="btn btn-primary" data-toggle="modal" data-target="#editAvatar">Edit</button>
       <!-- edit avatar data -->
@@ -37,7 +33,7 @@
                 <fieldset class="form-group">
                   <label>Image</label>
                   <input type="file" class="form-control" name="file" onchange="angular.element(this).scope().uploadFile(this.files)"/>
-                  <canvas class="" style="width:150px;height:150px" id="canvas"></canvas>
+                  <canvas class="" id="edit"></canvas>
                 </fieldset>
                 <button type="submit" class="btn btn-primary">Submit</button>
               </form>
@@ -71,7 +67,7 @@
             <fieldset class="form-group">
               <label for="exampleInputFile">Add picture</label>
               <input type="file" class="form-control" name="file" onchange="angular.element(this).scope().uploadFile(this.files)"/>
-              <canvas class="" style="width:150px;height:150px" id="canvas"></canvas>
+              <canvas class="" id="add"></canvas>
             </fieldset>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>

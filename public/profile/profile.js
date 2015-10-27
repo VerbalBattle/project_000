@@ -2,23 +2,23 @@ angular.module('VBattle.profile', [])
 
 
 .controller('ProfileCtrl', function ($scope, $location, Profile, mySocket, $document) {
-
+  // Gets current user from localStorage
   $scope.user = JSON.parse(window.localStorage['user']);
+  // Gets user avatars
   $scope.user.avatars = $scope.user.avatars || {};
+  // Whether avatar limit is reached
   $scope.showadd = Object.keys($scope.user.avatars).length < $scope.user.avatarLimit;
-  $scope.lengthBox = 12 / Object.keys($scope.user.avatars).length;
-  $scope.image = "";
-  $scope.imageSource = window.localStorage["image"];
+  // Image source compressed
+  $scope.imageSrcComp = "";
 
   $scope.addAvatar = function () {
     var avatar = {
       "avatarData": {
         "avatarName": $scope.avatarName,
-        "image": $scope.image,
+        "imageSource": $scope.imageSrcComp,
         "aboutMe": $scope.aboutMe
       }
     };
-
 
     Profile.addAvatar(avatar)
     .then(function (data) {
@@ -29,9 +29,9 @@ angular.module('VBattle.profile', [])
       window.localStorage['user'] = JSON.stringify($scope.user);
       $scope.showadd = Object.keys($scope.user.avatars).length < $scope.user.avatarLimit;
       $scope.lengthBox = 12 / Object.keys($scope.user.avatars).length;
+
       // clear form
       $scope.avatarName = "";
-      $scope.image = "";
       $scope.aboutMe = "";
       $document.find('#addAvatar').modal('hide');
     });
@@ -40,7 +40,7 @@ angular.module('VBattle.profile', [])
   $scope.editAvatar = function () {
     var avatar = {
       "avatarData": {
-        "image": this.value.image,
+        "imageSource": this.value.imageSource,
         "aboutMe": this.value.aboutMe
       }
     };
@@ -54,10 +54,10 @@ angular.module('VBattle.profile', [])
       if (data.updateSuccess) {
         $scope.user.avatars[avatarID] = avatar.avatarData;
         $scope.user.avatars[avatarID].avatarName = avatarName;
+        window.localStorage['user'] = JSON.stringify($scope.user);
       }
     });
-  };       
-
+  };
 
   $scope.uploadFile = function (files) {
     //Take the first selected file
@@ -66,26 +66,24 @@ angular.module('VBattle.profile', [])
     reader.onload = function (e) {
       var res = e.target.result;
       var src = btoa(res);
-      $scope.image = 'data:image/jpeg;base64,' + src;
-      console.log("scope image is now", $scope.image);
+      var myImage = new Image({
+        src: 'data:image/jpeg;base64,' + src
+      });
+
       $scope.$apply();
-      var canvas = $document.find("#canvas")[0];
+      var canvas = $document.find("canvas");
+      console.log(canvas)
 
-      var myImage = new Image();
-      myImage.src = $scope.image;
-
-      var newHeight, newWidth;
       if (myImage.height < myImage.width) {
-        canvas.style.height = 70 + 'px';
-        canvas.style.width = myImage.width / myImage.height * 70 + 'px';
+        canvas.height = 150;
+        canvas.width = myImage.width / myImage.height * 150;
       } else {
-        canvas.style.width = 70 + 'px';
-        canvas.style.height = myImage.height / myImage.width * 70 + 'px';
+        canvas.width = 150;
+        canvas.height = myImage.height / myImage.width * 150;
       }
       var ctx = canvas.getContext("2d");
-      ctx.drawImage(myImage, 0, 0, 70, 70);
-      $scope.image = canvas.toDataURL();
-      console.log($scope.image);
+      ctx.drawImage(myImage, 0, 0, myImage.width, myImage.height);
+      $scope.imageSrcComp = canvas.toDataURL();
     };
     reader.readAsBinaryString(files[0]);
   };
