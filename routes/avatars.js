@@ -54,7 +54,7 @@ router.post('/', authenticator.ensureAuthenticated,
     }
   };
   // Log route called
-  console.log('\n\nNEW AVATAR\n\n');
+  console.log('\n\nNEW AVATAR\n\n', data);
   // Handoff to avatars helper
   avatarsHelper.addAvatar(data);
 

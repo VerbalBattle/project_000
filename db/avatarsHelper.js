@@ -110,6 +110,7 @@ avatarsHelper.addAvatar = function (data) {
   var callback = data.callback;
   // Get avatardata
   var avatarData = data.avatarData;
+  console.log(avatarData);
 
   // Result to store avatar data in
   var result = {};
@@ -196,7 +197,7 @@ avatarsHelper.addAvatar = function (data) {
               // ID
               id: avatarCreated.id,
               // Image source in binary
-              imageSource: avatarData.imageSource || null
+              imageSource: avatarData.imageSource
             }).then(function () {
               // Initialize stats for the avatar created
               return avatarStatsTable.create({
