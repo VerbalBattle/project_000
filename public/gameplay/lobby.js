@@ -9,14 +9,13 @@ angular.module('VBattle.lobby', [])
       var myAvatarID;
       if (rooms[roomID].avatar1.avatarID in user.avatars) {
         myAvatarID = rooms[roomID].avatar1.avatarID;
-      }
-      else if (rooms[roomID].avatar2.avatarID in user.avatars) {
+      } else if (rooms[roomID].avatar2.avatarID in user.avatars) {
         myAvatarID = rooms[roomID].avatar2.avatarID;
       }
       console.log(myAvatarID);
-      if (!$scope.avatars[myAvatarID].rooms){
+      if (!$scope.avatars[myAvatarID].rooms) {
       $scope.avatars[myAvatarID].rooms = {};
-      console.log(Object.keys(rooms)[0], "object.keys(rooms)[0] is")
+      console.log(Object.keys(rooms)[0], "object.keys(rooms)[0] is");
       $scope.avatars[myAvatarID].rooms[Object.keys(rooms)[0]] = data.rooms[Object.keys(data.rooms)[0]];
     }
 
@@ -24,7 +23,6 @@ angular.module('VBattle.lobby', [])
 
 
   var user = JSON.parse(window.localStorage['user']);
-  console.log("user", user)
   $scope.roomsIDs = {};
 
   $scope.avatars = user.avatars;
