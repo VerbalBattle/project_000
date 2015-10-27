@@ -13,6 +13,9 @@
 // Get linked list class
 var LinkedList = require('./linkedList');
 
+// Require rooms table
+var roomsTable = require('../db/db_config').rooms;
+
 //   __ _ _   _  ___ _   _  ___ 
 //  / _` | | | |/ _ \ | | |/ _ \
 // | (_| | |_| |  __/ |_| |  __/
@@ -64,23 +67,27 @@ judging.addRoom = function (roomID, roomDataFinder) {
     // Get the room
     var roomData = result.rooms[roomID];
     // Add a key value pair to judging
-    this.roomDataForClient[roomID] = roomData;
+    judging.roomDataForClient[roomID] = roomData;
     // Push key to back of the line
-    this.roomDataForServer[roomID] = {
+    judging.roomDataForServer[roomID] = {
       // Time to stop voting in ms
-      timeToExpire: 60000,
+      timeToExpire: 10000,
       // Object to contain userIDs for users who've voted
-      usersWhoVoted: {}
+      usersWhoVoted: {},
+      // Votes for avatar1
+      avatar1Votes: 0,
+      // Votes for avatar2
+      avatar2Votes: 0
     };
     // Add keysByExpiration entry to the end
-    this.roomIDsByExpiration.push(roomID);
+    judging.roomIDsByExpiration.push(roomID);
   });
 };
 
 // Judging function to print out rooms
 judging.print = function () {
   // String to return
-  var str = '[';
+  var str = 'Rooms for judging:\n[';
   // All room IDs
   var roomIDs = this.roomIDsByExpiration;
   // Loop over every element
@@ -101,7 +108,7 @@ judging.print = function () {
   }
 
   // Close string
-  str += ']';
+  str += ']\n';
 
   // Print the string
   console.log(str);
@@ -118,13 +125,13 @@ judging.updateRooms = function () {
   var currTime = Date.now();
   // Delta time between last judging
   var deltaTime = currTime - this.lastTime;
-
+  console.log('Time since judging update:', deltaTime + 'ms');
   // Iterate over rooms from newest to oldest
   for (var i = roomIDs.length - 1; -1 < i; --i) {
     // Subtract from the time to expire for the room
-    this.roomDataForClient[roomIDs[i]].timeToExpire -= deltaTime;
+    this.roomDataForServer[roomIDs[i]].timeToExpire -= deltaTime;
     // If TTE is less than 0
-    if (this.roomDataForClient[roomIDs[i]].timeToExpire <= 0) {
+    if (this.roomDataForServer[roomIDs[i]].timeToExpire <= 0) {
       // Remove this room and all avatars before this from judging
       for (var j = 0; j <= i; ++j) {
         // Get roomID and remove from IDs by expiration
@@ -132,6 +139,9 @@ judging.updateRooms = function () {
         // Delete room data for client and server
         delete this.roomDataForClient[tmpRoomID];
         delete this.roomDataForServer[tmpRoomID];
+        // Archive room
+        judging.archiveRoom(tmpRoomID);
+        // Emit winner to sockets online
       }
     }
   }
@@ -139,7 +149,25 @@ judging.updateRooms = function () {
   this.lastTime = currTime;
 
   // Print the rooms
-  // this.print();
+  this.print();
+};
+
+// Judging archive room
+judging.archiveRoom = function (roomID) {
+  // Lookup room in table
+  roomsTable.find({
+    where: {
+      id: roomID
+    }
+  }).then(function (roomFound) {
+    // If the room was found
+    if (roomFound) {
+      // Set it's roomState to 2 (archived)
+      roomFound.update({
+        roomState: 2
+      });
+    }
+  });
 };
 
 // Set interval for room updates

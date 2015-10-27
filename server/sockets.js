@@ -48,9 +48,6 @@ io.on("connection", function (socket) {
     });
   });
 
-  // Check client connection
-  socket.emit('hello', 'hey world');
-
   // Give client their socketID for token
   helper.giveSocketID({socketID: socket.id});
 });
@@ -114,6 +111,11 @@ helper.clientJoinRoom = function (data, callback) {
   var socket_1 = onlineUsers[userID_1];
   var socket_2 = onlineUsers[userID_2];
 
+  console.log(onlineUsers);
+  console.log('SOCKET1:', socket_1);
+  console.log('SOCKET2:', socket_2);
+  console.log('USER1:', userID_1);
+  console.log('USER2:', userID_2);
   // Only emit live update if either user is online
   if (socket_1 || socket_2) {
     // Get room data by callback

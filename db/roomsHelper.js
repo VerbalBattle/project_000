@@ -44,26 +44,26 @@ var socketHelper = require('../server/sockets').helper;
 var roomsHelper = {};
 
 // Rooms helper to get n rooms that need to be judged
-roomsHelper.getRoomsToJudge = function (data) {
-  // Get callback
-  var callback = data.callback;
+// roomsHelper.getRoomsToJudge = function (data) {
+//   // Get callback
+//   var callback = data.callback;
 
-  // Get userID
-  var callback = data.callback;
+//   // Get userID
+//   var callback = data.callback;
 
-  // Room count limit
-  var roomLimit = data.roomLimit || 10;
+//   // Room count limit
+//   var roomLimit = data.roomLimit || 10;
 
-  // Get roomLimit rooms to judge
-  return roomsTable.findAll({
-    where: {
-      isOpen: false
-    },
-    limit: roomLimit
-  }).then(function (roomsFound) {
+//   // Get roomLimit rooms to judge
+//   return roomsTable.findAll({
+//     where: {
+//       roomState: false
+//     },
+//     limit: roomLimit
+//   }).then(function (roomsFound) {
     
-  });
-};
+//   });
+// };
 
 // Rooms helper method to add to end of game queue
 roomsHelper.enqueueToPlay = function (data) {
@@ -129,11 +129,11 @@ roomsHelper.canJoinMatchmaking = function (data) {
           $or: [
             {
               avatar1_id: avatarID,
-              isOpen: true
+              roomState: 0
             },
             {
               avatar2_id: avatarID,
-              isOpen: false
+              roomState: 0
             }
           ]}
       }).then(function (roomsFound) {
@@ -413,8 +413,8 @@ roomsHelper.sendMessageToRoom = function (data) {
   }).then(function (roomFound) {
     // Only continue if the room was found
     if (roomFound) {
-      // Only continue if room is open
-      if (roomFound.dataValues.isOpen) {
+      // Only continue if room is open/active
+      if (roomFound.dataValues.roomState === 0) {
         // Get avatar 1 or avatar 2
         var avatarNum = 0;
         // If avatar 1
@@ -447,11 +447,12 @@ roomsHelper.sendMessageToRoom = function (data) {
               result.messageData = messageCreated;
 
               // Check if game needs to close
-              var isOpen = roomFound.dataValues.turnCount < 5;
+              var roomState
+                = (roomFound.dataValues.turnCount < 5 ? 0 : 1);
               // Update turn count
               return roomFound.update({
                 turnCount: roomFound.dataValues.turnCount + 1,
-                isOpen: isOpen
+                roomState: roomState
               }).then(function () {
 
                 // Update turn count and invoke callback
@@ -492,7 +493,7 @@ roomsHelper.sendMessageToRoom = function (data) {
 
 
                 // If the game is over
-                if (!isOpen) {
+                if (roomState === 1) {
                   // Add the room to judging
                   judging.addRoom(roomID, roomsHelper.getRoomData);
                 }
