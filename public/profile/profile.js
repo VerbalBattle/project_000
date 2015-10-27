@@ -6,7 +6,7 @@ angular.module('VBattle.profile', [])
   $scope.user = JSON.parse(window.localStorage['user']);
   $scope.user.avatars = $scope.user.avatars || {};
   $scope.showadd = Object.keys($scope.user.avatars).length < $scope.user.avatarLimit;
-  $scope.lengthBox = 12 / (Object.keys($scope.user.avatars).length + $scope.showadd);
+  $scope.lengthBox = 12 / Object.keys($scope.user.avatars).length;
   $scope.image = "";
   $scope.imageSource = window.localStorage["image"];
 
@@ -27,12 +27,12 @@ angular.module('VBattle.profile', [])
       }
       window.localStorage['user'] = JSON.stringify($scope.user);
       $scope.showadd = Object.keys($scope.user.avatars).length < $scope.user.avatarLimit;
-      $scope.lengthBox = 12 / (Object.keys($scope.user.avatars).length + $scope.showadd);
+      $scope.lengthBox = 12 / Object.keys($scope.user.avatars).length;
       // clear form
       $scope.avatarName = "";
       $scope.imagePath = "";
       $scope.aboutMe = "";
-      $document.find('#editAvatar').modal('hide');
+      $document.find('#addAvatar').modal('hide');
     });
   };
   
@@ -49,6 +49,7 @@ angular.module('VBattle.profile', [])
     Profile.editAvatar(avatarID, avatar)
     .then(function (data) {
       console.log("Edited avatar", data);
+      $document.find('#editAvatar').modal('hide');
       if (data.updateSuccess) {
         $scope.user.avatars[avatarID] = avatar.avatarData;
         $scope.user.avatars[avatarID].avatarName = avatarName;
@@ -75,14 +76,14 @@ angular.module('VBattle.profile', [])
 
       var newHeight, newWidth;
       if (myImage.height < myImage.width) {
-        newWidth = 150;
-        newHeight = myImage.width / myImage.height * 150;
+        canvas.style.height = 150 + 'px';
+        canvas.style.width = myImage.width / myImage.height * 150 + 'px';
       } else {
-        newHeight = 150;
-        newWidth = myImage.height / myImage.width * 150;
+        canvas.style.width = 150 + 'px';
+        canvas.style.height = myImage.height / myImage.width * 150 + 'px';
       }
       var ctx = canvas.getContext("2d");
-      ctx.drawImage(myImage, 0, 0, newWidth, newHeight);
+      ctx.drawImage(myImage, 0, 0, canvas.width, canvas.height);
       $scope.image = canvas.toDataURL();
     };
     reader.readAsBinaryString(files[0]);
@@ -101,7 +102,7 @@ angular.module('VBattle.profile', [])
         delete $scope.user.avatars[user.avatarID];
         window.localStorage['user'] = JSON.stringify($scope.user);
         $scope.showadd = true;
-        $scope.lengthBox = 12 / (Object.keys($scope.user.avatars).length + $scope.showadd);
+        $scope.lengthBox = 12 / Object.keys($scope.user.avatars).length;
       }
     });
   };

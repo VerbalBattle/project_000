@@ -22,7 +22,12 @@ body {
 }
 
 .avImg{
-  border-radius: 30px;
+  display: block;
+  border-radius: 50%;
+  height: 15vh;
+  width: 15vh;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .sidebar.slide{
