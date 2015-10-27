@@ -25,6 +25,7 @@ var Sequelize = require('sequelize');
 // with root user and empty password
 var sequelize = new Sequelize('InsultPvP', 'root', '', {
   host: 'localhost',
+  // Conditional dialect
   dialect: 'mysql' | 'postgres',
   // disable logging; default: console.log
   logging: false
