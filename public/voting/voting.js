@@ -7,10 +7,6 @@ angular.module('VBattle.voting', [])
   //
  $scope.showMessages = 1; 
 
- $scope.messages = [{sender: "simon", message: "why dont you bowen install?"}, {sender: "bowen", message: "get back eating your cake"}];
- $scope.newMessages = [{sender: "peter", message: "fuck it"}];
-
- $scope.users = ["simon", "bowen"];
   
   //socket.emit() when need for new chats
   //socket.on() for getting latest chats -> storing them in the localstorage
@@ -26,12 +22,45 @@ angular.module('VBattle.voting', [])
 
   $scope.getVotes = function () {
     //judging route
-    Voter.getRooms().then(function (result) {
-      console.log(result);
+    var rooms = window.localStorage["voteRooms"] || {};
+    Voter.getRooms().then( function (result) {
+    console.log(result.data, "resultObj")
+    window.localStorage["voteRooms"] = JSON.stringify(result.data);  
+      
     }) 
     .catch(function (err) {
-      console.log("zacks an idiot");
+      console.error(err);
     })
 
   };
+
+  // var renderRooms = function () {
+  //   var rooms = window.localStorage["voteRooms"];
+  //   for (var i = 0; i<rooms.length; i++) {
+  //     console.log(rooms[i].id);
+  //   }
+
+  // };
+
+  // renderRooms();
+   
+  var getNext = function () {
+    //getting first room
+    var rooms = JSON.parse(window.localStorage["voteRooms"]);
+    console.log("parsed rooms", rooms);
+    var room = rooms[Object.keys(rooms)[0]];
+    console.log("next room", room);
+
+    if (room) {
+      $scope.messages = room.messages;
+      console.log($scope.messages);
+      delete rooms[Object.keys(rooms)[0]];
+      window.localStorage["voteRooms"] = rooms;
+    }
+
+  };
+  
+  setInterval (function () {
+    getNext();
+  }, 3000);
 });
