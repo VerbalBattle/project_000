@@ -15,6 +15,8 @@ var usersTable = require('./db_config').users;
 
 // Require avatars table
 var avatarsTable = require('./db_config').avatars;
+// Require avatar images table
+var avatarImagesTable = require('./db_config').avatarImages;
 // Require avatar stats table
 var avatarStatsTable = require('./db_config').avatarStats;
 
@@ -64,13 +66,30 @@ avatarsHelper.getAllAvatars = function (result) {
           // Add avatar information for client
           avatars[avatar.id] = {
             avatarName: avatar.avatarName,
-            imageSource: avatar.imageSource,
+            // imageSource: avatar.imageSource,
             aboutMe: avatar.aboutMe
           };
         }
 
-        // Passoff result to avatar stats collector
-        return avatarStatsHelper.getAllStats(result);
+        // Get all images for each avatar
+        return avatarImagesTable.findAll({
+          where: {
+            id: {
+              $in: Object.keys(avatars)
+            }
+          }
+        }).then(function (avatarImagesFound) {
+          // Iterate over all avatars
+          for (var avatarID in avatarImagesFound) {
+            // Get avatar reference
+            avatars[avatarID]
+              = avatarImagesFound[avatarID].dataValues.imageSource;
+          }
+        }).then(function () {
+          // Passoff result to avatar stats collector
+          return avatarStatsHelper.getAllStats(result);
+        });
+
 
       } else {
         // No avatars were found
@@ -124,9 +143,7 @@ avatarsHelper.addAvatar = function (data) {
         // Set count if avatars found
         if (avatarsFound) {
           // Set avatars found to be what we need
-          console.log(result.avatarCount);
           result.avatarCount = avatarsFound.length;
-          console.log(result.avatarCount);
         }
 
         // Continue only if avatarCount is less than 3
@@ -155,7 +172,7 @@ avatarsHelper.addAvatar = function (data) {
             // Avatar name
             avatarName: avatarData.avatarName,
             // Image
-            imageSource: avatarData.imageSource,
+            // imageSource: avatarData.imageSource,
             // About me
             aboutMe: avatarData.aboutMe.substr(0, 255)
           }).then(function (avatarCreated) {
@@ -169,43 +186,51 @@ avatarsHelper.addAvatar = function (data) {
               // Avatar name
               avatarName: avatarCreated.avatarName,
               // Image path
-              imageSource: avatarCreated.imageSource,
+              // imageSource: avatarCreated.imageSource,
               // About me
               aboutMe: avatarCreated.aboutMe
             };
 
-            // Initialize stats for the avatar created
-            return avatarStatsTable.create({
-              id: avatarCreated.id
-            }).then(function (statsCreated) {
+            // Set avatar image
+            return avatarImagesTable.create({
+              // ID
+              id: avatarCreated.id,
+              // Image source in binary
+              imageSource: avatarData.imageSource || null
+            }).then(function () {
+              // Initialize stats for the avatar created
+              return avatarStatsTable.create({
+                id: avatarCreated.id
+              }).then(function (statsCreated) {
 
-              // Get reference to data we need
-              statsCreated = statsCreated.dataValues;
+                // Get reference to data we need
+                statsCreated = statsCreated.dataValues;
 
-              // Set stats data
-              result.avatars[avatarCreated.id].stats = {
-                // Win loss ratio
-                winLossRatio: statsCreated.winLossRatio,
-                // Avatar type
-                avatarType: statsCreated.avatarType,
-                // Win velocity
-                winVelocity: statsCreated.winVelocity,
-                // Rank
-                rank: statsCreated.rank,
-                // Win streak
-                winStreak: statsCreated.winStreak
-              };
+                // Set stats data
+                result.avatars[avatarCreated.id].stats = {
+                  // Win loss ratio
+                  winLossRatio: statsCreated.winLossRatio,
+                  // Avatar type
+                  avatarType: statsCreated.avatarType,
+                  // Win velocity
+                  winVelocity: statsCreated.winVelocity,
+                  // Rank
+                  rank: statsCreated.rank,
+                  // Win streak
+                  winStreak: statsCreated.winStreak
+                };
 
-              // Set result's avatar created bool
-              result.avatarCreated = true;
+                // Set result's avatar created bool
+                result.avatarCreated = true;
 
-              // Delete avatar count
-              delete result.avatarCount;
-              // Delete avatar already exists
-              delete result.avatarAlreadyExists;
-              // Invoke callback
-              callback(result);
-            });
+                // Delete avatar count
+                delete result.avatarCount;
+                // Delete avatar already exists
+                delete result.avatarAlreadyExists;
+                // Invoke callback
+                callback(result);
+              });
+            })
           });
         }
 
@@ -245,23 +270,34 @@ avatarsHelper.editAvatar = function (data) {
       id: avatarID
     }
   }).then(function (avatarFound) {
+    
     // If the avatar was found
     if (avatarFound) {
       // Get update parameters
-      var newImagePath = avatarData.imageSource
+      var newImageSource = avatarData.imageSource
         || avatarFound.dataValues.imageSource;
       var newAboutMe = avatarData.aboutMe.substr(0, 255)
         || avatarFound.dataValues.aboutMe;
-      // Make update
+      
+      // Make update avatarsTable
       return avatarFound.update({
-        imageSource: newImagePath,
+        // imageSource: newImagePath,
         aboutMe: newAboutMe
       }).then(function () {
-
-        // Set update success to true
-        result.updateSuccess = true;
-        // Invoke callback
-        callback(result);
+        
+        // Update avatarImagesTable
+        return avatarImagesTable.update({
+          imageSource: newImageSource
+        }, {
+          where: {
+            id: avatarID
+          }
+        }).then(function () {
+          // Set update success to true
+          result.updateSuccess = true;
+          // Invoke callback
+          callback(result);
+        });
       });
     } else {
       // Avatar/user combo wasn't found

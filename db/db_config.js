@@ -105,10 +105,10 @@ var avatars = sequelize.define('avatars', {
     }
   },
   // avatar image binary
-  imageSource: {
-    type: Sequelize.BLOB('medium'),
-    allowNull: true
-  },
+  // imageSource: {
+  //   type: Sequelize.BLOB('medium'),
+  //   allowNull: true
+  // },
   // avatar about me
   aboutMe: {
     type: Sequelize.STRING(255),
