@@ -258,9 +258,14 @@ var rooms = sequelize.define('rooms', {
   },
   // The number of turns that have passed
   turnCount: {
-    type: Sequelize.INTEGER(),
+    type: Sequelize.INTEGER,
     allowNull: false,
     defaultValue: 0
+  },
+  // The avatarID of the winner
+  winnerAvatarID: {
+    type: Sequelize.INTEGER,
+    allowNull: true
   },
   // Room createdAt time
   createdAt: {
@@ -339,12 +344,12 @@ users.sync().then(function () {
   // Sync to avatars table
   avatars.sync().then(function () {
     // Table created
-    console.log('Synced to avatar Table');
+    console.log('Synced to Avatar Table');
 
     // Sync to avatarStats table
     avatarStats.sync().then(function () {
       // Table created
-      console.log('Synced to avatar Stats Table');
+      console.log('Synced to Avatar Stats Table');
 
       // Sync to rooms table
       rooms.sync().then(function () {
