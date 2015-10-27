@@ -64,7 +64,7 @@ avatarsHelper.getAllAvatars = function (result) {
           // Add avatar information for client
           avatars[avatar.id] = {
             avatarName: avatar.avatarName,
-            image: avatar.image,
+            imageSource: avatar.imageSource,
             aboutMe: avatar.aboutMe
           };
         }
@@ -154,8 +154,8 @@ avatarsHelper.addAvatar = function (data) {
             userID: userID,
             // Avatar name
             avatarName: avatarData.avatarName,
-            // Image path
-            image: avatarData.image,
+            // Image
+            imageSource: avatarData.imageSource,
             // About me
             aboutMe: avatarData.aboutMe.substr(0, 255)
           }).then(function (avatarCreated) {
@@ -169,7 +169,7 @@ avatarsHelper.addAvatar = function (data) {
               // Avatar name
               avatarName: avatarCreated.avatarName,
               // Image path
-              image: avatarCreated.image,
+              imageSource: avatarCreated.imageSource,
               // About me
               aboutMe: avatarCreated.aboutMe
             };
@@ -248,13 +248,13 @@ avatarsHelper.editAvatar = function (data) {
     // If the avatar was found
     if (avatarFound) {
       // Get update parameters
-      var newImagePath = avatarData.image
-        || avatarFound.dataValues.image;
+      var newImagePath = avatarData.imageSource
+        || avatarFound.dataValues.imageSource;
       var newAboutMe = avatarData.aboutMe.substr(0, 255)
         || avatarFound.dataValues.aboutMe;
       // Make update
       return avatarFound.update({
-        image: newImagePath,
+        imageSource: newImagePath,
         aboutMe: newAboutMe
       }).then(function () {
 

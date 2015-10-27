@@ -103,8 +103,8 @@ var avatars = sequelize.define('avatars', {
       key: 'id'
     }
   },
-  // avatar image
-  image: {
+  // avatar image binary
+  imageSource: {
     type: Sequelize.BLOB('medium'),
     allowNull: true
   },

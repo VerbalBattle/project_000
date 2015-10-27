@@ -69,7 +69,7 @@ router.put('/:roomID', authenticator.ensureAuthenticated,
     // Room ID
     roomID: req.params.roomID,
     // Up vote ID (1 or 2 for avatar1 or avatar2)
-    upVoteID: req.body.upVoteID,
+    upVoteID: req.body.upVoteID
   };
   // Callback
   var callback = function (result) {
