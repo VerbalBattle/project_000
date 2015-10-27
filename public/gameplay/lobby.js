@@ -18,11 +18,6 @@ angular.module('VBattle.lobby', [])
       $scope.avatars[myAvatarID].rooms = {};
       console.log(Object.keys(rooms)[0], "object.keys(rooms)[0] is")
       $scope.avatars[myAvatarID].rooms[Object.keys(rooms)[0]] = data.rooms[Object.keys(data.rooms)[0]];
-<<<<<<< HEAD
-  
-=======
-   
->>>>>>> added funcitononality to get pictures back from the server, finished socket room notification
     }
 
     });

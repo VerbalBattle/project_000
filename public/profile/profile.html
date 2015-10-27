@@ -9,15 +9,14 @@
     <div class="avatars">
       <!-- display avatar data -->
       <div class="avatarValues">
-      <div class="avImg">
-        <img src="{{image}}"></div>
-
-      <button ng-click="showEdit=!showEdit;display=!display">Edit</button>
-      <div ng-show="!display" class="avatarValues">
-        <img class="avImg" height="60px" width="70px" src="{{value.image}}">
-        <div>{{ value.avatarName }}</div>
-        <div>{{ value.aboutMe }}</div>
-        <button class="btn btn-primary" ng-click="removeAvatar()">Remove</button>
+        <div class="avImg"><img src="{{image}}"></div>
+        <button ng-click="showEdit=!showEdit;display=!display">Edit</button>
+        <div ng-show="!display" class="avatarValues">
+          <img class="avImg" height="60px" width="70px" src="{{value.image}}">
+          <div>{{ value.avatarName }}</div>
+          <div>{{ value.aboutMe }}</div>
+          <button class="btn btn-primary" ng-click="removeAvatar()">Remove</button>
+        </div>
       </div>
       <button class="btn btn-primary" data-toggle="modal" data-target="#editAvatar">Edit</button>
       <!-- edit avatar data -->
@@ -49,6 +48,7 @@
           </div>
         </div>
       </div>
+
     </div>
   </div>
 
