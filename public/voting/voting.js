@@ -43,19 +43,19 @@ angular.module('VBattle.voting', [])
   // };
 
   // renderRooms();
-
-  var getNext = function () {
    
+  var getNext = function () {
     //getting first room
     var rooms = JSON.parse(window.localStorage["voteRooms"]);
     console.log("parsed rooms", rooms);
     var room = rooms[Object.keys(rooms)[0]];
     console.log("next room", room);
+
     if (room) {
-    $scope.messages = room.messages;
-    console.log($scope.messages);
-    delete rooms[Object.keys(rooms)[0]];
-    window.localStorage["voteRooms"] = rooms;
+      $scope.messages = room.messages;
+      console.log($scope.messages);
+      delete rooms[Object.keys(rooms)[0]];
+      window.localStorage["voteRooms"] = rooms;
     }
 
   };
