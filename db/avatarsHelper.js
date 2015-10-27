@@ -82,8 +82,8 @@ avatarsHelper.getAllAvatars = function (result) {
           // Iterate over all avatars
           for (var avatarID in avatarImagesFound) {
             // Get avatar reference
-            avatars[avatarID]
-              = avatarImagesFound[avatarID].dataValues.imageSource;
+            avatars[avatarID] =
+              avatarImagesFound[avatarID].dataValues.imageSource;
           }
         }).then(function () {
           // Passoff result to avatar stats collector
@@ -153,9 +153,11 @@ avatarsHelper.addAvatar = function (data) {
           // Check to make sure avatar hasn't already been created
           result.avatarAlreadyExists = true;
           for (var i = 0; i < avatarsFound.length; ++i) {
+            // Get avatar found
+            var avatarFound = avatarsFound[i].dataValues;
             // Check avatarName
-            if (avatarsFound[i].dataValues.avatarName.toUpperCase()
-              === avatarData.avatarName.toUpperCase()) {
+            if (avatarFound.avatarName.toUpperCase() ===
+              avatarData.avatarName.toUpperCase()) {
               // Invoke callback
               callback(result);
               // Return
@@ -275,10 +277,10 @@ avatarsHelper.editAvatar = function (data) {
     // If the avatar was found
     if (avatarFound) {
       // Get update parameters
-      var newImageSource = avatarData.imageSource
-        || avatarFound.dataValues.imageSource;
-      var newAboutMe = avatarData.aboutMe.substr(0, 255)
-        || avatarFound.dataValues.aboutMe;
+      var newImageSource = avatarData.imageSource ||
+        avatarFound.dataValues.imageSource;
+      var newAboutMe = avatarData.aboutMe.substr(0, 255) ||
+        avatarFound.dataValues.aboutMe;
       
       // Make update avatarsTable
       return avatarFound.update({
@@ -351,7 +353,8 @@ avatarsHelper.deleteAvatar = function (data) {
             limit: 1
           }).then(function (affectedInfoRow) {
             // If avatar info was found
-            console.log('\n\naffectedInfoRow:', affectedInfoRow, '\n\n');
+            console.log('\n\naffectedInfoRow:',
+              affectedInfoRow, '\n\n');
 
             // Avatar removed successfully
             result.removeSuccess = true;

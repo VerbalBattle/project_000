@@ -211,11 +211,11 @@ judging.getRoomsToJudge = function (userID, callback) {
   // Iterate over all possible rooms to judge
   for (var i = 0; i < roomIDs.length; ++i) {
     // If the TTE isn't high enough, skip
-    if (cutoffTTE
-      <= this.roomDataForServer[roomIDs[i]].timeToExpire) {
+    if (cutoffTTE <=
+      this.roomDataForServer[roomIDs[i]].timeToExpire) {
       // If the user hasn't judged this room yet
-      if (!(userID
-        in this.roomDataForServer[roomIDs[i]].usersWhoVoted)) {
+      if (!(userID in
+        this.roomDataForServer[roomIDs[i]].usersWhoVoted)) {
 
         // Add to rooms to judge
         roomsToJudge.push(this.roomDataForClient[roomIDs[i]]);

@@ -75,11 +75,6 @@ avatarStatsHelper.getAllStats = function (result) {
           // Win streak
           winStreak: stats_i.winStreak
         };
-
-        // Swap stats key for avatarName key
-        // var avatarName = avatarData[avatarID].avatarName;
-        // avatarData[avatarName] = avatarData[avatarID];
-        // delete avatarData[avatarID];
       }
     }
     // Otherwise, avatar stats weren't found
