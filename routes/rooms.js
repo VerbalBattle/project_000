@@ -73,7 +73,6 @@ router.post('/:roomID', authenticator.ensureAuthenticated,
     }
   };
 
-  console.log(data);
   // Log
   console.log('\n\nATTEMPTING ADDING TO BACK OF LINE:',
     data.avatarID, '\n\n');

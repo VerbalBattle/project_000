@@ -128,7 +128,7 @@ judging.updateRooms = function () {
   var currTime = Date.now();
   // Delta time between last judging
   var deltaTime = currTime - this.lastTime;
-  console.log('Time since judging update:', deltaTime + 'ms');
+  console.log('Time since judging update:', deltaTime + ' ms');
   // Iterate over rooms from newest to oldest
   for (var i = roomIDs.length - 1; -1 < i; --i) {
     // Subtract from the time to expire for the room
@@ -211,14 +211,14 @@ judging.getRoomsToJudge = function (userID, callback) {
   // Iterate over all possible rooms to judge
   for (var i = 0; i < roomIDs.length; ++i) {
     // If the TTE isn't high enough, skip
-    if (this.roomDataForServer[roomIDs[i]].timeToExpire
-      < cutoffTTE) {
+    if (cutoffTTE
+      <= this.roomDataForServer[roomIDs[i]].timeToExpire) {
       // If the user hasn't judged this room yet
-      if (!(userIDin 
+      if (!(userID
         in this.roomDataForServer[roomIDs[i]].usersWhoVoted)) {
 
         // Add to rooms to judge
-        roomsToJudge.push(this.roomDataForClient[i]);
+        roomsToJudge.push(this.roomDataForClient[roomIDs[i]]);
 
         // If the roomsToJudge count is exceeds the max, break
         if (judging.judgeRequestRoomMax <= roomsToJudge.length) {
