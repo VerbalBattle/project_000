@@ -165,11 +165,31 @@ judging.archiveRoom = function (roomID) {
   }).then(function (roomFound) {
     // If the room was found
     if (roomFound) {
-      // Set it's roomState to 2 (archived)
+      // Get winner for room
+
+      // Assume tie
+      var winnerAvatarID = -1;
+      // Get vote counts
+      var avatar1Votes
+        = judging.roomDataForServer[roomID].avatar1Votes;
+      var avatar1Votes
+        = judging.roomDataForServer[roomID].avatar1Votes;
+      // If either avatar 1 or 2 won, reset winnerAvatarID
+      if (avatar1Votes < avatar2Votes) {
+        winnerAvatarID = roomFound.dataValues.avatar2_id;
+      } else if (avatar2Votes < avatar1Votes) {
+        winnerAvatarID = roomFound.dataValues.avatar1_id;
+      }
+
+      // Set it's roomState to 2 (archived) and the winnerAvatarID
       roomFound.update({
-        roomState: 2
+        roomState: 2,
+        winnerAvatarID: winnerAvatarID
       });
     }
+
+    // Send live update if possible, or store notifications
+    // for next time users log in
   });
 };
 
