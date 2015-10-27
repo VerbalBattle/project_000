@@ -14,10 +14,11 @@ angular.module('VBattle.profile', [])
     var avatar = {
       "avatarData": {
         "avatarName": $scope.avatarName,
-        "imagePath": $scope.image,
+        "image": $scope.image,
         "aboutMe": $scope.aboutMe
       }
     };
+
 
     Profile.addAvatar(avatar)
     .then(function (data) {
@@ -30,7 +31,7 @@ angular.module('VBattle.profile', [])
       $scope.lengthBox = 12 / Object.keys($scope.user.avatars).length;
       // clear form
       $scope.avatarName = "";
-      $scope.imagePath = "";
+      $scope.image = "";
       $scope.aboutMe = "";
       $document.find('#addAvatar').modal('hide');
     });
@@ -39,7 +40,7 @@ angular.module('VBattle.profile', [])
   $scope.editAvatar = function () {
     var avatar = {
       "avatarData": {
-        "imagePath": this.value.imagePath,
+        "image": this.value.image,
         "aboutMe": this.value.aboutMe
       }
     };
@@ -53,10 +54,9 @@ angular.module('VBattle.profile', [])
       if (data.updateSuccess) {
         $scope.user.avatars[avatarID] = avatar.avatarData;
         $scope.user.avatars[avatarID].avatarName = avatarName;
-        window.localStorage['user'] = JSON.stringify($scope.user);
       }
     });
-  };
+  };       
 
 
   $scope.uploadFile = function (files) {
@@ -67,24 +67,26 @@ angular.module('VBattle.profile', [])
       var res = e.target.result;
       var src = btoa(res);
       $scope.image = 'data:image/jpeg;base64,' + src;
+      console.log("scope image is now", $scope.image)
       $scope.$apply();
       var canvas = $document.find("#canvas")[0];
 
       var myImage = new Image();
       myImage.src = $scope.image;
-      window.localStorage["image"] = myImage.src;
 
       var newHeight, newWidth;
       if (myImage.height < myImage.width) {
-        canvas.style.height = 150 + 'px';
-        canvas.style.width = myImage.width / myImage.height * 150 + 'px';
+        canvas.style.height = 70 + 'px';
+        canvas.style.width = myImage.width / myImage.height * 70 + 'px';
       } else {
-        canvas.style.width = 150 + 'px';
-        canvas.style.height = myImage.height / myImage.width * 150 + 'px';
+        canvas.style.width = 70 + 'px';
+        canvas.style.height = myImage.height / myImage.width * 70 + 'px';
       }
       var ctx = canvas.getContext("2d");
-      ctx.drawImage(myImage, 0, 0, canvas.width, canvas.height);
+      console.log(canvas.width, canvas.height)
+      ctx.drawImage(myImage, 0, 0, 70, 70);
       $scope.image = canvas.toDataURL();
+      console.log($scope.image);
     };
     reader.readAsBinaryString(files[0]);
   };

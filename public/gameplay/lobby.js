@@ -1,12 +1,30 @@
 angular.module('VBattle.lobby', [])
 
 .controller('LobbyCtrl', function ($scope, $location, GamePlay, Match, mySocket) {
-  mySocket.on('hello', function (data) {
-    console.log(data);
-  });
+  mySocket.on('client:joinRoom', function (data) {
+      console.log("join-room update", data);
+      var rooms = data[Object.keys(data)[0]];
+      var roomID = Object.keys(rooms)[0];
+
+      var myAvatarID;
+      if (rooms[roomID].avatar1.avatarID in user.avatars) {
+        myAvatarID = rooms[roomID].avatar1.avatarID;
+      }
+      else if (rooms[roomID].avatar2.avatarID in user.avatars) {
+        myAvatarID = rooms[roomID].avatar2.avatarID;
+      }
+      console.log(myAvatarID);
+      if (!$scope.avatars[myAvatarID].rooms){
+      $scope.avatars[myAvatarID].rooms = {};
+      console.log(Object.keys(rooms)[0], "object.keys(rooms)[0] is")
+      $scope.avatars[myAvatarID].rooms[Object.keys(rooms)[0]] = data.rooms[Object.keys(data.rooms)[0]];
+    }
+
+    });
+
 
   var user = JSON.parse(window.localStorage['user']);
-  
+  console.log("user", user)
   $scope.roomsIDs = {};
 
   $scope.avatars = user.avatars;
@@ -20,7 +38,6 @@ angular.module('VBattle.lobby', [])
     //getting stats and making post request to the server
     //make post request to get into game queue
   };
-  console.log("zacks users", user);
   $scope.IDs = {};
 
   for (var key in user.avatars) {
