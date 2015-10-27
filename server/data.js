@@ -114,7 +114,7 @@ judging.print = function () {
   str += ']\n';
 
   // Print the string
-  console.log(str);
+  // console.log(str);
 };
 
 // Judging starting time
@@ -128,7 +128,7 @@ judging.updateRooms = function () {
   var currTime = Date.now();
   // Delta time between last judging
   var deltaTime = currTime - this.lastTime;
-  console.log('Time since judging update:', deltaTime + 'ms');
+  // console.log('Time since judging update:', deltaTime + 'ms');
   // Iterate over rooms from newest to oldest
   for (var i = roomIDs.length - 1; -1 < i; --i) {
     // Subtract from the time to expire for the room
