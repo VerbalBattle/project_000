@@ -21,7 +21,7 @@ body {
   -webkit-transition: all .5s ease-out;
 }
 
-.avImg{
+.avImg {
   display: block;
   border-radius: 50%;
   height: 15vh;
@@ -76,6 +76,7 @@ ul {
 .col-md-4 {
   padding: 0px;
 }
+
 .roomHref {
   color: green;
   height: 30px;
