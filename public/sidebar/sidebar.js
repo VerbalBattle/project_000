@@ -13,6 +13,7 @@ angular.module('VBattle.sideBar', [])
     mySocket.on('client:turnUpdate', function (data) {
       console.log("new message update", data);
     });
+
     mySocket.alreadyCreated = true;
   }
 

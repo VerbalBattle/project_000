@@ -18,18 +18,14 @@ angular.module('VBattle.lobby', [])
       $scope.avatars[myAvatarID].rooms = {};
       console.log(Object.keys(rooms)[0], "object.keys(rooms)[0] is")
       $scope.avatars[myAvatarID].rooms[Object.keys(rooms)[0]] = data.rooms[Object.keys(data.rooms)[0]];
-   
+  
     }
 
     });
 
 
   var user = JSON.parse(window.localStorage['user']);
-<<<<<<< HEAD
   console.log("user", user)
-=======
-  console.log("user!!!", user)
->>>>>>> completed avatar picture functionality
   $scope.roomsIDs = {};
 
   $scope.avatars = user.avatars;
@@ -43,7 +39,6 @@ angular.module('VBattle.lobby', [])
     //getting stats and making post request to the server
     //make post request to get into game queue
   };
-  console.log("zacks users", user);
   $scope.IDs = {};
 
   for (var key in user.avatars) {
