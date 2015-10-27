@@ -77,13 +77,11 @@ angular.module('VBattle.profile', [])
       } else {
         canvas.width = 100;
         canvas.height = myImage.height / myImage.width * 100;
-        console.log(canvas.height)
       }
       var ctx = canvas.getContext("2d");
 
       ctx.drawImage(myImage, 0, 0, canvas.width, canvas.height);
       $scope.imageSrcComp = canvas.toDataURL();
-
     };
     reader.readAsBinaryString(files[0]);
   };
