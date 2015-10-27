@@ -69,8 +69,8 @@ usersHelper.signup = function (data, callback) {
   result.usernameAvailable = false;
 
   // If username or password is not provided
-  if (username && username !== ''
-    && password && password !== '') {
+  if (username && username !== '' &&
+    password && password !== '') {
     // Look for one user with username
     return usersTable.find({
       where: {
@@ -130,8 +130,8 @@ usersHelper.login = function (data, callback) {
   result.usernameFound = false;
 
   // If username or password is not provided
-  if (username && username !== ''
-    && password && password !== '') {
+  if (username && username !== '' &&
+    password && password !== '') {
     // Look for one user with username
     return usersTable.find({
       where: {username: username},
@@ -146,10 +146,10 @@ usersHelper.login = function (data, callback) {
         delete result.usernameFound;
 
         // Try to match username and password
-        result.passwordSuccess
-          = usersHelper.passwordMatch(userFound.salt,
-              password,
-              userFound.password);
+        result.passwordSuccess =
+          usersHelper.passwordMatch(userFound.salt,
+            password,
+            userFound.password);
 
         // Check if password correct
         if (result.passwordSuccess) {

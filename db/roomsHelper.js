@@ -194,9 +194,9 @@ roomsHelper.addRoom = function (player1, player2) {
   }).then(function (avatarIDs) {
     // If there are exactly 2 avatarIDs and their userIDs
     // aren't equal
-    if (avatarIDs.length === 2
-      && (avatarIDs[0].dataValues.userID
-        !== avatarIDs[1].dataValues.userID)) {
+    if (avatarIDs.length === 2 &&
+      (avatarIDs[0].dataValues.userID !==
+        avatarIDs[1].dataValues.userID)) {
       // Check if the pair already exists
       return roomsTable.findAll({
         where: {
@@ -342,13 +342,13 @@ roomsHelper.getRoomData = function (data) {
           var avatarB = avatarsFound[1].dataValues;
 
           // If avatarA is avatar1
-          if (avatarA.id === avatar1_id
-            && avatarB.id === avatar2_id) {
+          if (avatarA.id === avatar1_id &&
+            avatarB.id === avatar2_id) {
             // Set names
             room.avatar1.avatarName = avatarA.avatarName;
             room.avatar2.avatarName = avatarB.avatarName;
-          } else if (avatarA.id === avatar2_id
-            && avatarB.id === avatar1_id) {
+          } else if (avatarA.id === avatar2_id &&
+            avatarB.id === avatar1_id) {
             // avatarB is avatar1
             room.avatar1.avatarName = avatarB.avatarName;
             room.avatar2.avatarName = avatarA.avatarName;
@@ -447,8 +447,8 @@ roomsHelper.sendMessageToRoom = function (data) {
               result.messageData = messageCreated;
 
               // Check if game needs to close
-              var roomState
-                = (roomFound.dataValues.turnCount < 5 ? 0 : 1);
+              var roomState =
+                (roomFound.dataValues.turnCount < 5 ? 0 : 1);
               // Update turn count
               return roomFound.update({
                 turnCount: roomFound.dataValues.turnCount + 1,
@@ -467,10 +467,10 @@ roomsHelper.sendMessageToRoom = function (data) {
                 var opponentUserID = -1;
                 // If the sender is avatar1
                 if (roomFound.dataValues.avatar1_userID === userID) {
-                  opponentUserID
-                    = roomFound.dataValues.avatar2_userID;
-                } else if (roomFound.dataValues.avatar2_userID
-                  === userID) {
+                  opponentUserID =
+                    roomFound.dataValues.avatar2_userID;
+                } else if (roomFound.dataValues.avatar2_userID ===
+                  userID) {
                   // If the sender is avatar2
                   opponentUserID
                     = roomFound.dataValues.avatar1_userID;
