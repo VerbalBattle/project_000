@@ -3,8 +3,6 @@ angular.module('VBattle.profileServices', [])
 .factory('Profile', function ($http) {
   var userData;
 
-
-
   var getUserFromLogin = function () {
     return $http.get('/users')
     .then(function (resp) {
@@ -45,6 +43,7 @@ angular.module('VBattle.profileServices', [])
         throw err;
       });
   };
+
   return {
     addAvatar: addAvatar,
     editAvatar: editAvatar,
