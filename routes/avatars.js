@@ -38,6 +38,7 @@ router.post('/', authenticator.ensureAuthenticated,
   //         "aboutMe": "I'm joey and I play to win."
   //     }
   // }
+  console.log(req.body)
 
   // Decrypt token
   var decrypted = req.body.decrypted;
