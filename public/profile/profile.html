@@ -9,7 +9,7 @@
     <div class="avatars">
       <!-- display avatar data -->
       <div class="avatarValues">
-           <div class="avImg"><img class="key"></div>
+           <div class="avImg" style="background: url({{ value.imageSource }});background-size: cover;background-repeat: no-repeat;background-position: top;"></div>
           <div>{{ value.avatarName }}</div>
         <div>{{ value.aboutMe }}</div>
         <button class="btn btn-primary" ng-click="removeAvatar()">Remove</button>
@@ -32,7 +32,7 @@
                 </fieldset>
                 <fieldset class="form-group">
                   <label>Image</label>
-                  <input type="file" class="form-control" name="file" onchange="angular.element(this).scope().uploadFile(this.files)"/>
+                  <input type="file" class="form-control" name="file" onchange="angular.element(this).scope().uploadFile(this.files, 'canvas#edit')"/>
                   <canvas class="" id="edit"></canvas>
                 </fieldset>
                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -66,7 +66,7 @@
             </fieldset>
             <fieldset class="form-group">
               <label for="exampleInputFile">Add picture</label>
-              <input type="file" class="form-control" name="file" onchange="angular.element(this).scope().uploadFile(this.files)"/>
+              <input type="file" class="form-control" name="file" onchange="angular.element(this).scope().uploadFile(this.files, 'canvas#add')"/>
               <canvas class="" id="add"></canvas>
             </fieldset>
             <button type="submit" class="btn btn-primary">Submit</button>

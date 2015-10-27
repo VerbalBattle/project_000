@@ -59,30 +59,29 @@ angular.module('VBattle.profile', [])
     });
   };
 
-  $scope.uploadFile = function (files) {
+  $scope.uploadFile = function (files, canvasChoice) {
     //Take the first selected file
     var reader = new FileReader();
 
     reader.onload = function (e) {
       var res = e.target.result;
       var src = btoa(res);
-      var myImage = new Image({
-        src: 'data:image/jpeg;base64,' + src
-      });
+      var myImage = new Image();
+      myImage.src = 'data:image/jpeg;base64,' + src;
 
-      $scope.$apply();
-      var canvas = $document.find("canvas");
-      console.log(canvas)
-
+      // $scope.$apply();
+      var canvas = $document.find(canvasChoice)[0];
       if (myImage.height < myImage.width) {
-        canvas.height = 150;
-        canvas.width = myImage.width / myImage.height * 150;
+        canvas.height = 100;
+        canvas.width = myImage.width / myImage.height * 100;
       } else {
-        canvas.width = 150;
-        canvas.height = myImage.height / myImage.width * 150;
+        canvas.width = 100;
+        canvas.height = myImage.height / myImage.width * 100;
+        console.log(canvas.height)
       }
       var ctx = canvas.getContext("2d");
-      ctx.drawImage(myImage, 0, 0, myImage.width, myImage.height);
+
+      ctx.drawImage(myImage, 0, 0, canvas.width, canvas.height);
       $scope.imageSrcComp = canvas.toDataURL();
 
     };
