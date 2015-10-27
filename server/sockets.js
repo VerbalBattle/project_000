@@ -111,11 +111,6 @@ helper.clientJoinRoom = function (data, callback) {
   var socket_1 = onlineUsers[userID_1];
   var socket_2 = onlineUsers[userID_2];
 
-  console.log(onlineUsers);
-  console.log('SOCKET1:', socket_1);
-  console.log('SOCKET2:', socket_2);
-  console.log('USER1:', userID_1);
-  console.log('USER2:', userID_2);
   // Only emit live update if either user is online
   if (socket_1 || socket_2) {
     // Get room data by callback
@@ -145,7 +140,7 @@ helper.clientTurnUpdate = function (data, callback) {
   var opponentUserID = data.opponentUserID;
   // Get roomID
   var roomID = data.roomID;
-  console.log('opponent:', opponentUserID);
+
   // Get opponent socket
   var opponentSocket = onlineUsers[opponentUserID];
 
