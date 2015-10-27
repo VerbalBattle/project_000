@@ -84,6 +84,7 @@ angular.module('VBattle.profile', [])
       var ctx = canvas.getContext("2d");
       ctx.drawImage(myImage, 0, 0, myImage.width, myImage.height);
       $scope.imageSrcComp = canvas.toDataURL();
+
     };
     reader.readAsBinaryString(files[0]);
   };
