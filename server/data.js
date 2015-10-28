@@ -15,6 +15,8 @@ var LinkedList = require('./linkedList');
 
 // Require rooms table
 var roomsTable = require('../db/db_config').rooms;
+// Require avatar stats table
+var avatarStatsTable = require('../db/db_config').avatarStats;
 
 //   __ _ _   _  ___ _   _  ___ 
 //  / _` | | | |/ _ \ | | |/ _ \
@@ -195,6 +197,62 @@ judging.archiveRoom = function (roomID) {
         winnerAvatarID: winnerAvatarID,
         avatar1_votes: avatar1Votes,
         avatar2_votes: avatar2Votes
+      });
+
+      // Update avatarStats
+
+      // Add game results
+      avatarStatsTable.findAll({
+        where: {
+          id: {
+            $in: [
+              roomFound.dataValues.avatar1_id,
+              roomFound.dataValues.avatar2_id
+            ]
+          }
+        }
+      }).then(function (avatarStatsFound) {
+        // Iterate over stats
+        for (var i = 0; i < avatarStatsFound.length; ++i) {
+          // Get the avatarStats
+          var avatarStats = avatarStatsFound[i];
+
+          // Result to hold updated stats
+          var result = {};
+          // Update gameCount
+          result.gameCount = avatarStats.dataValues.gameCount + 1;
+          // Get current winCount
+          result.winCount = avatarStats.dataValues.winCount;
+
+          // Check if the avatarID belongs to the winner
+          // or the loser
+
+          // Winner
+          if (avatarStats.dataValues.id === winnerAvatarID) {
+
+            // Increment winCount
+            ++result.winCount;
+            // Increment winStreak
+            result.winStreak = avatarStats.dataValues.winStreak + 1;
+          } else {
+
+            // Reset winStreak
+            result.winStreak = 0;
+          }
+
+          // Update winLossRatio
+          result.winLossRatio = result.winCount / result.gameCount;
+
+          // Update stats
+          avatarStats.update({
+            winCount: result.winCount,
+            gameCount: result.gameCount,
+            winLossRatio: result.winLossRatio,
+            winStreak: result.winStreak
+          });
+
+          // Send live update here to user
+        }
       });
     }
 
