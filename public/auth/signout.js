@@ -8,7 +8,6 @@ angular.module('VBattle.signout', [])
         // toastr.info('You have been logged out');
         window.localStorage.removeItem(['user']);
         mySocket.disconnect();
-        mySocket.alreadyCreated = false;
         $location.path('/');
       });
   }();

@@ -16,6 +16,7 @@ angular.module('VBattle', [
 'VBattle.voting',
 'VBattle.votingServices',
 'satellizer',
+'ui.bootstrap',
 'ngRoute'
 ])
 .config(function ($routeProvider, $httpProvider, $authProvider) {
@@ -127,9 +128,6 @@ angular.module('VBattle', [
 })
 
 .factory('mySocket', function ($auth, socketFactory) {
-  if ($auth.isAuthenticated()) {
-    var socket = socketFactory();
-    return socket;
-  }
-  return null;
+  var socket = socketFactory();
+  return socket;
 });

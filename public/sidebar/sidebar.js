@@ -1,19 +1,26 @@
 angular.module('VBattle.sideBar', [])
 
-.controller('SidebarCtrl', function ($scope, $location, $element, mySocket) {
-  if(mySocket) {
-    mySocket.emit('client:linkUser', {
-      token: window.localStorage['satellizer_token']
-    });
+.controller('SidebarCtrl', function ($auth, $scope, $location, $element, socketFactory) {
+  // socketFactory();
+  // if ($auth.isAuthenticated()) {
+  //   mySocket.connect();
+  //   mySocket.emit('client:linkUser', {
+  //     token: window.localStorage['satellizer_token']
+  //   });
     
-    mySocket.on('client:joinRoom', function (data) {
-      console.log("join-room update", data);
-    });
+  //   mySocket.on('client:joinRoom', function (data) {
+  //     console.log("join-room update", data);
+  //   });
     
-    mySocket.on('client:turnUpdate', function (data) {
-      console.log("new message update", data);
-    });
-  }
+  //   mySocket.on('client:turnUpdate', function (data) {
+  //     console.log("new message update", data);
+  //   });
+  // }
+  
+  // if (!$auth.isAuthenticated()) {
+  //   mySocket.disconnect();
+  // }
+
   // indicate whether sidebar is visible or not
   $scope.state = false;
 
