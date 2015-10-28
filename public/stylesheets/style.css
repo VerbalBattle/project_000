@@ -8,9 +8,7 @@ body {
 
 /*Container div*/
 .container {
-  position: relative;
-  float: left;
-  left: 20vh;
+  position: block;
   width: 80vw;
   
 }
