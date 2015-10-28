@@ -238,8 +238,8 @@ roomsHelper.addRoom = function (player1, player2) {
       });
     } else {
       // Both IDs weren't found
-      console.log('\n\nPAIRING ERROR: BOTH IDs NOT FOUND\n\n\tOR'
-        + '\n\nPlAYERS ARE THE SAME\n\n');
+      console.log('\n\nPAIRING ERROR: BOTH IDs NOT FOUND\n\n\tOR' +
+        '\n\nPlAYERS ARE THE SAME\n\n');
     }
   });
 };
@@ -472,8 +472,8 @@ roomsHelper.sendMessageToRoom = function (data) {
                 } else if (roomFound.dataValues.avatar2_userID ===
                   userID) {
                   // If the sender is avatar2
-                  opponentUserID
-                    = roomFound.dataValues.avatar1_userID;
+                  opponentUserID =
+                    roomFound.dataValues.avatar1_userID;
                 }
 
                 // Get data to handoff to socket helper for

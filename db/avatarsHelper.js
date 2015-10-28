@@ -80,10 +80,12 @@ avatarsHelper.getAllAvatars = function (result) {
           }
         }).then(function (avatarImagesFound) {
           // Iterate over all avatars
-          for (var avatarID in avatarImagesFound) {
+          for (var i = 0; i < avatarImagesFound.length; ++i) {
+            // Get avatar image data
+            var data = avatarImagesFound[i].dataValues;
             // Get avatar reference
-            avatars[avatarID] =
-              avatarImagesFound[avatarID].dataValues.imageSource;
+            avatars[data.id].imageSource =
+              data.imageSource.toString('utf-8');
           }
         }).then(function () {
           // Passoff result to avatar stats collector
@@ -110,7 +112,6 @@ avatarsHelper.addAvatar = function (data) {
   var callback = data.callback;
   // Get avatardata
   var avatarData = data.avatarData;
-  console.log(avatarData);
 
   // Result to store avatar data in
   var result = {};
@@ -200,7 +201,11 @@ avatarsHelper.addAvatar = function (data) {
               id: avatarCreated.id,
               // Image source in binary
               imageSource: avatarData.imageSource
-            }).then(function () {
+            }).then(function (avatarImageCreated) {
+
+              // Send image back to client
+              result.avatars[avatarImageCreated.id].imageSource =
+                avatarImageCreated.dataValues.imageSource;
               // Initialize stats for the avatar created
               return avatarStatsTable.create({
                 id: avatarCreated.id
@@ -260,7 +265,7 @@ avatarsHelper.editAvatar = function (data) {
   var callback = data.callback;
   // Get avatarData
   var avatarData = data.avatarData;
-  
+
   // Result to send to client
   var result = {};
   // Assume update fails
@@ -298,6 +303,7 @@ avatarsHelper.editAvatar = function (data) {
         }).then(function () {
           // Set update success to true
           result.updateSuccess = true;
+          console.log('updated avatar profile');
           // Invoke callback
           callback(result);
         });

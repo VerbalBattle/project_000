@@ -54,7 +54,7 @@ router.post('/', authenticator.ensureAuthenticated,
     }
   };
   // Log route called
-  console.log('\n\nNEW AVATAR\n\n', data);
+  console.log('\n\nNEW AVATAR\n\n');
   // Handoff to avatars helper
   avatarsHelper.addAvatar(data);
 
@@ -100,7 +100,7 @@ router.put('/:avatarID', authenticator.ensureAuthenticated,
   };
 
   // Log route called
-  console.log('\n\nEDIT AVATAR\n\n', data);
+  console.log('\n\nEDIT AVATAR\n\n');
   // Handoff to avatars helper
   avatarsHelper.editAvatar(data);
 });
@@ -125,7 +125,7 @@ router.delete('/:avatarID', authenticator.ensureAuthenticated,
   };
   
   // Log route called
-  console.log('\n\nDELETE AVATAR\n\n', data);
+  console.log('\n\nDELETE AVATAR\n\n');
   // Handoff to avatars helper
   avatarsHelper.deleteAvatar(data);
 
