@@ -258,9 +258,17 @@ roomsHelper.addRoom = function (player1, player2) {
 };
 
 // Rooms helper that gets rooms to every avatar in a room
-roomsHelper.getAllRooms = function (data) {
+roomsHelper.getAllRooms = function (data, findFinishedRooms) {
   // Get array of all avatars
   var avatarIDs = Object.keys(data.avatars);
+  // Assume we only want rooms that are in pla
+  var roomStates = [0];
+  // If findCompletedRooms bool supplied
+  if (findFinishedRooms) {
+    // Add rooms in voting and archived rooms
+    roomStates.push(1);
+    roomStates.push(2);
+  }
   // Get all rooms associated with avatars
   return roomsTable.findAll({
     where: {
@@ -268,11 +276,17 @@ roomsHelper.getAllRooms = function (data) {
         {
           avatar1_id: {
             $in: avatarIDs
+          },
+          roomState: {
+            $in: roomStates
           }
         },
         {
           avatar2_id: {
             $in: avatarIDs
+          },
+          roomState: {
+            $in: roomStates
           }
         }
       ]
