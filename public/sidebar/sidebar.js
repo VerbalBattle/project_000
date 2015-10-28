@@ -10,7 +10,6 @@ angular.module('VBattle.sideBar', [])
     mySocket.on('client:joinRoom', function (data) {
       console.log("join-room update", data);
     });
-  
     mySocket.on('client:turnUpdate', function (data) {
       console.log("new message update", data);
     });

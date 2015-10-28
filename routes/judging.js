@@ -72,6 +72,8 @@ router.put('/:roomID', authenticator.ensureAuthenticated,
     // Up vote ID (1 or 2 for avatar1 or avatar2)
     upVoteID: req.body.upVoteID
   };
+
+  console.log("hlllo bowen",data);
   // Callback
   var callback = function (result) {
     res.send(result);
