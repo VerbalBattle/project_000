@@ -1,16 +1,16 @@
-.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
 /*Styles Body*/
 body {
-  padding: 50px;
+  padding: 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 /*Container div*/
 .container {
+  padding: 50px;
   position: block;
   width: 80vw;
-  
+  min-height: 80vh;
 }
 
 /*Sidebar overall space*/
