@@ -26,7 +26,7 @@ angular.module('VBattle.voting', [])
     Voter.getRooms().then( function (result) {
     console.log(result.data, "resultObj");
     window.localStorage["voteRooms"] = JSON.stringify(result.data);  
-    $scope.getNext();
+    //$scope.getNext();
 
     }) 
     .catch(function (err) {
@@ -37,7 +37,12 @@ angular.module('VBattle.voting', [])
 
   $scope.getNext = function (userID) {
     //getting first room
+    console.log(userID, "userID");
+    var obj = {};
+    obj.avatarID = userID;
+    obj.roomID = 10;
     console.log(userID, "voted for user");
+    Voter.updateStats(obj);
     //make post request to room update -> userId as an put request body
     if (window.localStorage["voteRooms"] !== "[]") {
     var rooms = JSON.parse(window.localStorage["voteRooms"]);

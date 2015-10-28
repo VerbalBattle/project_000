@@ -61,7 +61,6 @@ router.put('/:roomID', authenticator.ensureAuthenticated,
 
   // Decrypt token
   var decrypted = req.body.decrypted;
-
   // Data to pass to judging
   var data = {
     // User ID
@@ -78,7 +77,7 @@ router.put('/:roomID', authenticator.ensureAuthenticated,
 
   // Log
   console.log('\n\nATTEMPTING TO CAST VOTE ON ROOM',
-    data.roomID, 'FOR AVATAR', upVoteID);
+    data.roomID, 'FOR AVATAR', data.upVoteID);
   // Handoff to judging
   judging.judgeOneRoom(data, callback);
 });
