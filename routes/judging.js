@@ -68,7 +68,7 @@ router.put('/:roomID', authenticator.ensureAuthenticated,
     userID: decrypted.userID,
     // Room ID
     roomID: req.params.roomID,
-    // Avatar ID for who the user expects the winner to be
+    // Up vote ID (1 or 2 for avatar1 or avatar2)
     upVoteID: req.body.upVoteID
   };
   // Callback

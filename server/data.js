@@ -310,16 +310,12 @@ judging.judgeOneRoom = function (data, callback) {
   };
   // Check if roomID exists
   if (roomID in this.roomDataForServer) {
-    // If vote to win is for avatar1
-    if (upVoteID ===
-      this.roomDataForServer[roomID].avatar1_id) {
+    // Add the upvote
+    if (upVoteID === 1) {
       this.roomDataForServer[roomID].avatar1Votes++;
-    } else if (upVoteID ===
-      this.roomDataForServer[roomID].avatar2_id) {
-      // If vote to win is for avatar2
+    } else if (upVoteID === 2) {
       this.roomDataForServer[roomID].avatar2Votes++;
     }
-    
     // Add userID to voted for this roomID
     this.roomDataForServer[roomID].usersWhoVoted[userID] = true;
     // Set cast vote to true
