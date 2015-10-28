@@ -37,6 +37,7 @@ angular.module('VBattle.voting', [])
 
   $scope.getNext = function (userID) {
     //getting first room
+    console.log(userID, "voted for user");
     //make post request to room update -> userId as an put request body
     if (window.localStorage["voteRooms"] !== "[]") {
     var rooms = JSON.parse(window.localStorage["voteRooms"]);
