@@ -106,10 +106,15 @@ angular.module('VBattle', [
     return deferred.promise;
   };
 
-  function loginRequired ($q, $location, $auth, $rootScope) {
+  function loginRequired ($q, $location, $auth, $rootScope, socketFactory) {
     var deferred = $q.defer();
     if ($auth.isAuthenticated()) {
       $rootScope.status = "slide";
+      var mySocket = socketFactory();
+      mySocket.connect();
+      mySocket.emit('client:linkUser', {
+        token: window.localStorage['satellizer_token']
+      });
       deferred.resolve();
     } else {
       $rootScope.status = "";
