@@ -98,11 +98,7 @@ var avatars = sequelize.define('avatars', {
   // Username foreign key
   userID: {
     type: Sequelize.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'users',
-      key: 'id'
-    }
+    allowNull: false
   },
   // avatar image binary
   // imageSource: {
@@ -167,11 +163,19 @@ var avatarStats = sequelize.define('avatarStats', {
   id: {
     primaryKey: true,
     type: Sequelize.INTEGER,
+    allowNull: false
+  },
+  // Avatar winCount
+  winCount: {
+    type: Sequelize.INTEGER,
     allowNull: false,
-    references: {
-      model: 'avatars',
-      key: 'id'
-    }
+    defaultValue: 0
+  },
+  // Avatar gamesCount
+  gameCount: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    defaultValue: 0
   },
   // Avatar win loss ratio
   winLossRatio: {
@@ -227,38 +231,22 @@ var rooms = sequelize.define('rooms', {
   // First avatar's ID
   avatar1_id: {
     type: Sequelize.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'avatars',
-      key: 'id'
-    }
+    allowNull: false
   },
   // Second avatar's ID
   avatar2_id: {
     type: Sequelize.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'avatars',
-      key: 'id'
-    }
+    allowNull: false
   },
   // First avatar's userID
   avatar1_userID: {
     type: Sequelize.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'users',
-      key: 'id'
-    }
+    allowNull: false
   },
   // Second avatar's userID
   avatar2_userID: {
     type: Sequelize.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'users',
-      key: 'id'
-    }
+    allowNull: false
   },
   // First avatar's votes
   avatar1_votes: {
@@ -318,20 +306,12 @@ var messages = sequelize.define('messages', {
   // Room id
   roomID: {
     type: Sequelize.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'rooms',
-      key: 'id'
-    }
+    allowNull: false
   },
   // Avatar id
   avatarID: {
     type: Sequelize.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'avatars',
-      key: 'id'
-    }
+    allowNull: false
   },
   // Message
   message: {
