@@ -208,8 +208,21 @@ roomsHelper.addRoom = function (player1, player2) {
           }
         }
       }).then(function (rooms) {
+        // Check if players can pair
+        var canPair = true;
+        // Iterate over all rooms
+        for (var i = 0; i < rooms.length; ++i) {
+          // If any room has not been completed
+          // (roomState !== 2), it's currently in
+          // play or being voted on, so canPair
+          // is false
+          if (rooms[i].dataValues.roomState !== 2) {
+            canPair = false;
+            break;
+          }
+        }
         // If no rooms were found
-        if (rooms.length === 0) {
+        if (canPair) {
           // Make room
           return roomsTable.create({
             // Avatar 1 ID(first turn)
@@ -307,7 +320,7 @@ roomsHelper.getRoomData = function (data) {
     }
   }).then(function (roomFound) {
     // If the room was found
-    if (roomID) {
+    if (roomFound) {
       // Set the room
       result.rooms = {};
       result.rooms[roomID] = roomFound.dataValues;
@@ -479,6 +492,7 @@ roomsHelper.sendMessageToRoom = function (data) {
                 // Get data to handoff to socket helper for
                 // live update
                 var socketData = {
+                  senderUserID: userID,
                   opponentUserID: opponentUserID,
                   roomID: roomID
                 };

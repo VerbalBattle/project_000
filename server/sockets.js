@@ -67,8 +67,14 @@ helper.mapUserToSocket = function (data) {
   // Get key
   var userID = data.decrypted.userID;
   var socketID = data.socketID;
+
+  // Create object for all sockets is user
+  // is online
+  if (onlineUsers[userID] === undefined) {
+    onlineUsers[userID] = {};
+  }
   // Add new key value pair to onlineUsers
-  onlineUsers[userID] = socketID;
+  onlineUsers[userID][socketID] = true;
   // Add a new socket to user mapping
   onlineSocketUserMap[socketID] = userID;
 
@@ -87,7 +93,16 @@ helper.deleteUserSocketMap = function (data) {
   var userID = onlineSocketUserMap[socketID];
   // Delete mapping
   delete onlineSocketUserMap[socketID];
-  delete onlineUsers[userID];
+  // If user is online
+  if (onlineUsers[userID]) {
+    delete onlineUsers[userID][socketID];
+
+    // Check if keys are empty for the userID, and if so, delete it
+    if (Object.keys(onlineUsers[userID]).length === 0) {
+      delete onlineUsers[userID];
+    }
+  }
+
   // Log
   console.log('ONLINE USERS\n', onlineUsers);
   console.log('ONLINE SOCKETS\n', onlineSocketUserMap);
@@ -108,24 +123,31 @@ helper.clientJoinRoom = function (data, callback) {
   var roomID = data.roomID;
 
   // Get sockets
-  var socket_1 = onlineUsers[userID_1];
-  var socket_2 = onlineUsers[userID_2];
+  var sockets_1 = onlineUsers[userID_1];
+  var sockets_2 = onlineUsers[userID_2];
 
   // Only emit live update if either user is online
-  if (socket_1 || socket_2) {
+  if (sockets_1 || sockets_2) {
     // Get room data by callback
     callback({
       roomID: roomID
     }).then(function (result) {
       // Log
       console.log('EMITTING LIVE UPDATE FOR ROOM JOIN to',
-        socket_1, 'and/or', socket_2);
+        Object.keys(sockets_1), 'and/or',
+        Object.keys(sockets_2));
       // Emit to sockets if online
-      if (socket_1) {
-        io.to(socket_1).emit('client:joinRoom', result);
+      if (sockets_1) {
+        // Iterate over all sockets
+        for (var socket in sockets_1) {
+          io.to(socket).emit('client:joinRoom', result);
+        }
       }
-      if (socket_2) {
-        io.to(socket_2).emit('client:joinRoom', result);
+      if (sockets_2) {
+        // Iterate over all sockets
+        for (var socket in sockets_2) {
+          io.to(socket).emit('client:joinRoom', result);
+        }
       }
     });
   }
@@ -135,26 +157,33 @@ helper.clientJoinRoom = function (data, callback) {
 helper.clientTurnUpdate = function (data, callback) {
   // Log
   console.log('ATTEMPTING LIVE UPDATE FOR TURN');
-
-  // Get userIDs
+  // Get sender userID and socket
+  var senderUserID = data.senderUserID;
+  var senderSockets = onlineUsers[senderUserID];
+  // Get opponent userID and socket
   var opponentUserID = data.opponentUserID;
+  var opponentSockets = onlineUsers[opponentUserID];
   // Get roomID
   var roomID = data.roomID;
 
-  // Get opponent socket
-  var opponentSocket = onlineUsers[opponentUserID];
-
   // Only emit live update if opponent is online
-  if (opponentSocket) {
+  if (opponentSockets) {
     // Get room data by callback
     callback({
       roomID: roomID
     }).then(function (result) {
       // Log
       console.log('EMITTING LIVE ROOM MESSAGE UPDATE to', 
-        opponentSocket);
-      // Emit live update
-      io.to(opponentSocket).emit('client:turnUpdate', result);
+        Object.keys(opponentSockets), 'and',
+        Object.keys(senderSockets));
+      // Emit live update to opponent sockets
+      for (var socket in opponentSockets) {
+        io.to(socket).emit('client:turnUpdate', result);
+      }
+      // Emit live update to sender sockets
+      for (var socket in senderSockets) {
+        io.to(socket).emit('client:turnUpdate', result);
+      }
     });
   }
 };
