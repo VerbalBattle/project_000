@@ -1,29 +1,20 @@
-<div class="container">
-  <h2 class="text-center">Pending fights</h2>
-  <div ng-sidebar class="sidebar"></div>
-  <form ng-submit="">
-    <label>Send Message</label>
-    <input type="text" ng-model="input">
-    <button class="btn" ng-click="postMessage(input)">Send</button>
-  </form>
- <p>Chat with Avatar with ID: {{enemy}}</p>
-  	<div ng-show = "shower" class="alert alert-danger" role="alert">
+<h2 class="text-center">Pending fights</h2>
+<div ng-sidebar class="sidebar"></div>
+<form ng-submit="">
+  <label>Send Message</label>
+  <input type="text" ng-model="input">
+  <button class="btn" ng-click="postMessage(input)">Send</button>
+</form>
+<p>Chat with Avatar with ID: {{enemy}}</p>
+<div ng-show = "shower" class="alert alert-danger" role="alert">
   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
   <span class="sr-only">Error:</span>
   Its not you turn
 </div>
-
-  <div >Messages:</div> 
-  <div ng-repeat="message in messages">
-  	<div ng-repeat = "mess in message.messages">
-      <br>
-  			<div class="message" >{{mess.message}} sent from <strong>
-          {{userIDmap[mess.avatarID]}} 
-        </strong</>
-
-        </div>
-       
-  	</div>
-  	
+<div>Messages:</div> 
+<div ng-repeat="message in messages">
+  <div ng-repeat = "mess in message.messages"><br>
+    <div class="message" >{{mess.message}} sent from <strong>{{ userIDmap[mess.avatarID] }}</strong>
+    </div>
   </div>
 </div>

@@ -1,18 +1,14 @@
-<div ng-show="{{showMessages}}" class="container">
-   <h1>Hey, are you ready to vote!</h1>
-    <div>Vote!</div>
- 
-    <div>Chat</div>
-
-    <div  class="con">
-    <div ng-repeat="mess in messages">    
-        <div class ="message">{{mess.message}}: sent from: <strong>{{mess.avatarID}}</strong>
-    </div>
-        <br>
-        </div>
-        <button class="upvote" ng-click="getNext(1)">Upvote for {{avatarOne}}!</button>
-        <button class="upvote" ng-click="getNext(2)">Upvote for {{avatarTwo}}!</button>
-    </div>
-<button ng-click="getVotes()">f</button>
-
+<div ng-show="showMessages">
+ <h1>Hey, are you ready to vote!</h1>
+  <div>Vote!</div>
+  <div>Chat</div>
+  <div class="con">
+  <div ng-repeat="mess in messages">    
+    <div class ="message">{{ mess.message }}: sent from: <strong>{{ mess.avatarID }}</strong>
+    </div><br>
+  </div>
+    <button class="upvote" ng-click="getNext(1)">Upvote for {{ avatarOne }}!</button>
+    <button class="upvote" ng-click="getNext(2)">Upvote for {{ avatarTwo }}!</button>
+  </div>
+  <button ng-click="getVotes()">f</button>
 </div>

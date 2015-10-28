@@ -1,19 +1,17 @@
-<div class="container">
-  <h2 class="text-center">Lobby</h2>
-  <form ng-submit="postMessages()"> 
-  </form>
-  <div>Your Avatars:</div>
-  <br>
-  <br>
-  <div class="col-md-4" ng-repeat = "(key, value) in avatars">
-    <button class="avatar" ng-click="room(value)">Make game</button>
-    <div class="avImg" style="background: url({{ value.imageSource }});background-size: cover;background-repeat: no-repeat;background-position: top;"></div>
-    <strong class="nameDiv">{{value.avatarName}}</strong>
-    <div class="nameDiv">{{ value.aboutMe }}</div>
-    <div ng-repeat="room in value.rooms"> {{ key }}
-      <div class="roomHref" > room id{{ room.roomID }}
-       	<a href="#/rooms/{{ room.id || room.roomID }}/{{ key }}">Go to room: {{ room.id || room.roomID }}</a>
-      </div>
+<h2 class="text-center">Lobby</h2>
+<form ng-submit="postMessages()"> 
+</form>
+<div>Your Avatars:</div>
+<br>
+<br>
+<div class="col-md-4" ng-repeat = "(key, value) in avatars">
+  <button class="avatar" ng-click="room(value)">Make game</button>
+  <div class="avImg" style="background: url({{ value.imageSource }});background-size: cover;background-repeat: no-repeat;background-position: top;"></div>
+  <strong class="nameDiv">{{value.avatarName}}</strong>
+  <div class="nameDiv">{{ value.aboutMe }}</div>
+  <div ng-repeat="room in value.rooms"> {{ key }}
+    <div class="roomHref" > room id{{ room.roomID }}
+     	<a href="#/rooms/{{ room.id || room.roomID }}/{{ key }}">Go to room: {{ room.id || room.roomID }}</a>
     </div>
   </div>
 </div>
