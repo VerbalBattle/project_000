@@ -40,17 +40,18 @@ angular.module('VBattle.profile', [])
   $scope.editAvatar = function () {
     var avatar = {
       "avatarData": {
-        "imageSource": this.value.imageSource,
-        "aboutMe": this.value.aboutMe
+        "imageSource": $scope.imageSrcComp,
+        "aboutMe": this.value.aboutMeChanged
       }
     };
+    console.log(avatar.avatarData.imageSource);
     var avatarID = this.key;
     var avatarName = this.value.avatarName;
 
     Profile.editAvatar(avatarID, avatar)
     .then(function (data) {
       console.log("Edited avatar", data);
-      $document.find('#editAvatar').modal('hide');
+      $document.find('#editAvatar' + avatarID).modal('hide');
       if (data.updateSuccess) {
         $scope.user.avatars[avatarID] = avatar.avatarData;
         $scope.user.avatars[avatarID].avatarName = avatarName;
@@ -69,7 +70,7 @@ angular.module('VBattle.profile', [])
       var myImage = new Image();
       myImage.src = 'data:image/jpeg;base64,' + src;
 
-      // $scope.$apply();
+      $scope.$apply();
       var canvas = $document.find(canvasChoice)[0];
       if (myImage.height < myImage.width) {
         canvas.height = 100;

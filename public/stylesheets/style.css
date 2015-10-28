@@ -28,9 +28,6 @@ body {
   width: 15vh;
   margin-left: auto;
   margin-right: auto;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: top;
 }
 
 .sidebar.slide{
