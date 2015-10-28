@@ -195,11 +195,11 @@ var avatarStats = sequelize.define('avatarStats', {
     allowNull: false,
     defaultValue: 0
   },
-  // Avatar rank
-  rank: {
+  // Avatar elo (ranking score)
+  elo: {
     type: Sequelize.INTEGER,
     allowNull: false,
-    defaultValue: 0
+    defaultValue: 1000
   },
   // Avatar win streak
   winStreak: {
