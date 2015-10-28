@@ -168,12 +168,6 @@ usersHelper.login = function (data, callback) {
 
           // Invoke callback
           callback(result);
-          // Username found
-          // result.username = userFound.username;
-
-          // Invoke callback
-          // Get the rest of the user's data
-          // usersHelper.getAllUserData(result, callback);
         } else {
           // Password is not correct
           console.log('\n\nWrong password');
@@ -229,6 +223,9 @@ usersHelper.getAllUserData = function (data, callback) {
       } else {
         // Delete avatarsFound
         delete data.avatarsFound;
+
+        // Delete userID
+        delete data.userID;
 
         // No avatars found
         callback(data);

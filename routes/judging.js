@@ -57,7 +57,9 @@ router.get('/', authenticator.ensureAuthenticated,
 router.put('/:roomID', authenticator.ensureAuthenticated,
   function (req, res, next) {
   // Expected request body example
-  // {}
+  // {
+  //   upVoteID: (1 or 2)
+  // }
 
   // Decrypt token
   var decrypted = req.body.decrypted;
