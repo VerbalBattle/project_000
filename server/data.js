@@ -61,7 +61,7 @@ judging.roomDataForServer = {};
 judging.roomIDsByExpiration = [];
 
 // Judging initial time to expire
-judging.initialTTE = 300000;
+judging.initialTTE = 30000;
 
 // Judging function to add a new room to be judged
 judging.addRoom = function (roomID, roomDataFinder) {
@@ -84,6 +84,7 @@ judging.addRoom = function (roomID, roomDataFinder) {
       // Votes for avatar2
       avatar2Votes: 0
     };
+
     // Users who played cannot vote on the room
     judging.roomDataForServer[roomID]
       .usersWhoVoted[roomData.avatar1_userID] = true;
@@ -108,7 +109,8 @@ judging.print = function () {
     str += roomIDs[i];
     // Add TTE
     str += ', TTE: ' +
-      this.roomDataForServer[roomIDs[i]].timeToExpire + ' ms';
+      Math.floor(this.roomDataForServer[roomIDs[i]]
+        .timeToExpire / 1000) + ' sec';
     // Add users who can no longer vote
     str += ', Voters: ' +
       Object.keys(this.roomDataForServer[roomIDs[i]].usersWhoVoted);
@@ -137,7 +139,7 @@ judging.updateRooms = function () {
   var currTime = Date.now();
   // Delta time between last judging
   var deltaTime = currTime - this.lastTime;
-  // console.log('∆t:', deltaTime + ' ms');
+  console.log('∆t:', Math.floor(deltaTime / 1000) + ' sec');
   // Iterate over rooms from newest to oldest
   for (var i = roomIDs.length - 1; -1 < i; --i) {
     // Subtract from the time to expire for the room
@@ -148,9 +150,6 @@ judging.updateRooms = function () {
       for (var j = 0; j <= i; ++j) {
         // Get roomID and remove from IDs by expiration
         var tmpRoomID = this.roomIDsByExpiration.shift();
-        // Delete room data for client and server
-        delete this.roomDataForClient[tmpRoomID];
-        delete this.roomDataForServer[tmpRoomID];
         // Archive room
         judging.archiveRoom(tmpRoomID);
         // Emit winner to sockets online
@@ -161,7 +160,7 @@ judging.updateRooms = function () {
   this.lastTime = currTime;
 
   // Print the rooms
-  // this.print();
+  this.print();
 };
 
 // Judging archive room
@@ -189,6 +188,10 @@ judging.archiveRoom = function (roomID) {
       } else if (avatar2Votes < avatar1Votes) {
         winnerAvatarID = roomFound.dataValues.avatar1_id;
       }
+
+      // Delete room data for client and server from judging
+      delete judging.roomDataForClient[roomID];
+      delete judging.roomDataForServer[roomID];
 
       // Set it's roomState to 2 (archived) and the winnerAvatarID,
       // in addition to the vote counts
@@ -228,7 +231,8 @@ judging.archiveRoom = function (roomID) {
           // or the loser
 
           // Winner
-          if (avatarStats.dataValues.id === winnerAvatarID) {
+          if (avatarStats.dataValues.id === winnerAvatarID || 
+            winnerAvatarID === -1) {
 
             // Increment winCount
             ++result.winCount;
