@@ -95,7 +95,7 @@ usersHelper.signup = function (data, callback) {
             delete result.signupSuccess;
 
             // Set user id
-            result.userID = userCreated.id;
+            // result.userID = userCreated.id;
             // Set username
             result.username = userCreated.username;
             // Set twitter
@@ -160,7 +160,7 @@ usersHelper.login = function (data, callback) {
           delete result.passwordSuccess;
 
           // Set userID
-          result.userID = userFound.id;
+          // result.userID = userFound.id;
           // Set username
           result.username = userFound.username;
           // Set twitter
