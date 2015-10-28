@@ -5,29 +5,15 @@
   <div>Your Avatars:</div>
   <br>
   <br>
-  <div  class="col-md-4" ng-repeat = "(key, avatar) in avatars">
-        <button class="avatar" ng-click="room(avatar)">Make game</button>  
-        <img src="{{avatar.image}}">
-        <strong class="nameDiv">{{avatar.avatarName}}</strong>
-
-        <img class="avImg" heigth="60px" width="70px" src="{{avatar.image}}">
-       
-
-        <br>
-        <br>
-        <div class="nameDiv">{{avatar.aboutMe}}</div>
-       <div  ng-repeat="room in avatar.rooms">
-      {{key}}
-      <div class="roomHref" > room id{{room.roomID}}
-       	<a href="#/rooms/{{room.id || room.roomID }}/{{key}}">Go to room: {{room.id || room.roomID}}</a>
+  <div class="col-md-4" ng-repeat = "(key, value) in avatars">
+    <button class="avatar" ng-click="room(value)">Make game</button>
+    <div class="avImg" style="background: url({{ value.imageSource }});"></div>
+    <strong class="nameDiv">{{value.avatarName}}</strong>
+    <div class="nameDiv">{{ value.aboutMe }}</div>
+    <div ng-repeat="room in value.rooms"> {{ key }}
+      <div class="roomHref" > room id{{ room.roomID }}
+       	<a href="#/rooms/{{ room.id || room.roomID }}/{{ key }}">Go to room: {{ room.id || room.roomID }}</a>
       </div>
-       
-       </div>
-
-     </div>
-   
-
+    </div>
   </div>
-
- 
 </div>
