@@ -57,7 +57,7 @@
           <form ng-submit="addAvatar()">
             <fieldset class="form-group">
               <label>Avatar Name</label>
-              <input type="text" class="form-control" placeholder="Name" ng-model="avatarName" required="required">
+              <input type="text" class="form-control" placeholder="Name" ng-model="avatarName" required="required" ng-init="element.focus()">
             </fieldset>
             <fieldset class="form-group">
               <label>About me</label>

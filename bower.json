@@ -19,6 +19,7 @@
     "bootstrap": "~3.3.5",
     "satellizer": "~0.12.5",
     "angular-socket-io": "~0.7.0",
-    "flat-ui": "~2.2.2"
+    "flat-ui": "~2.2.2",
+    "angular-bootstrap": "~0.14.3"
   }
 }
