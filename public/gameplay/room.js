@@ -1,6 +1,6 @@
 angular.module('VBattle.room', [])
 
-.controller('RoomCtrl', function ($timeout, $scope, $location, $routeParams, GamePlay, mySocket) {
+.controller('RoomCtrl', function ($timeout, $scope, $location, $routeParams, GamePlay, socketFactory) {
   
   var user = JSON.parse(window.localStorage['user']);
   var userid = user.userID;
@@ -45,6 +45,7 @@ angular.module('VBattle.room', [])
     $scope.input = "";
   };
 
+  var mySocket = socketFactory();
   mySocket.on('client:turnUpdate', function (data) {
     console.log("message", data.rooms);
     console.log($scope.messages);
