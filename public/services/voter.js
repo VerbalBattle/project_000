@@ -16,14 +16,24 @@ var getRooms = function () {
 
 };
 
-var updateStats = function () {
-  return $http.put("/updatingStats", obj);
+var updateStats = function (obj) {
+
+  return $http.put("/judging/"+obj.roomID, {upVoteID: obj.avatarID})
+  .then( function (result) {
+    console.log("updated room");
+
+  })
+  .catch( function (err) {
+    console.error("error happened", err);
+  })
+
 
 };
 
 
  return {
   vote: vote,
-  getRooms: getRooms
+  getRooms: getRooms,
+  updateStats: updateStats
     };
 });
