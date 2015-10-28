@@ -296,7 +296,7 @@ judging.getRoomsToJudge = function (userID, callback) {
       }
     }
   }
-
+  
   // Invoke callback on rooms to judge
   callback(roomsToJudge);
 };
