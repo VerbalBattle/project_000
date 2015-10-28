@@ -48,7 +48,7 @@ angular.module('VBattle.room', [])
   var mySocket = socketFactory();
   mySocket.on('client:turnUpdate', function (data) {
     console.log("message", data.rooms);
-    console.log($scope.messages);
+    console.log($scope.messages[Object.keys($scope.messages)[0]].messages);
       $scope.messages = data.rooms;
     });
 

@@ -3,8 +3,11 @@ angular.module('VBattle.lobby', [])
 .controller('LobbyCtrl', function ($scope, $location, GamePlay, Match, socketFactory) {
 
   var mySocket = socketFactory();
+  var user = JSON.parse(window.localStorage['user']);
   mySocket.on('client:joinRoom', function (data) {
     console.log("join-room update", data);
+    //storing this data in the local storage -> 
+    console.log("localStorage", window.localStorage);
     var rooms = data[Object.keys(data)[0]];
     var roomID = Object.keys(rooms)[0];
 
@@ -15,6 +18,16 @@ angular.module('VBattle.lobby', [])
       myAvatarID = rooms[roomID].avatar2.avatarID;
     }
     console.log(myAvatarID);
+    console.log("user first", user);
+    if (user.avatars[myAvatarID].rooms) {
+      user.avatars[myAvatarID][roomID] = data.rooms;
+      window.localStorage['user'] = JSON.stringify(user);
+    } else {
+      user.avatars[myAvatarID].rooms = {};
+      user.avatars[myAvatarID].rooms[roomID] = data.rooms[roomID];
+      console.log("put in user, user last", user);
+      window.localStorage['user'] = JSON.stringify(user);
+    }
     if (!$scope.avatars[myAvatarID].rooms) {
       $scope.avatars[myAvatarID].rooms = {};
       console.log(Object.keys(rooms)[0], "object.keys(rooms)[0] is");
@@ -22,7 +35,9 @@ angular.module('VBattle.lobby', [])
     }
   });
 
-  var user = JSON.parse(window.localStorage['user']);
+  
+  console.log("current user!!!", user);
+  //user.avatars at current avatarID -> rooms: add new rooms
   $scope.roomsIDs = {};
 
   $scope.avatars = user.avatars;
