@@ -18,10 +18,13 @@ angular.module('VBattle.voting', [])
     //judging route
     var rooms = window.localStorage["voteRooms"] || {};
     Voter.getRooms().then( function (result) {
-      console.log(result.data, "resultObj");
-      window.localStorage["voteRooms"] = JSON.stringify(result.data);  
-      //$scope.getNext();
-    })
+
+    console.log(result.data, "resultObj");
+    $scope.messsages = result.data[0].messages;
+    window.localStorage["voteRooms"] = JSON.stringify(result.data);  
+    //$scope.getNext();
+
+    }) 
     .catch(function (err) {
       console.error(err);
     });
