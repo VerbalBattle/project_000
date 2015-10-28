@@ -1,7 +1,7 @@
 angular.module('VBattle.profile', [])
 
 
-.controller('ProfileCtrl', function ($scope, $location, Profile, mySocket, $document) {
+.controller('ProfileCtrl', function ($scope, $location, Profile, $document) {
   // Gets current user from localStorage
   $scope.user = JSON.parse(window.localStorage['user']);
   // Gets user avatars
