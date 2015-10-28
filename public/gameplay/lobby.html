@@ -7,7 +7,7 @@
   <br>
   <div class="col-md-4" ng-repeat = "(key, value) in avatars">
     <button class="avatar" ng-click="room(value)">Make game</button>
-    <div class="avImg" style="background: url({{ value.imageSource }});"></div>
+    <div class="avImg" style="background: url({{ value.imageSource }});background-size: cover;background-repeat: no-repeat;background-position: top;"></div>
     <strong class="nameDiv">{{value.avatarName}}</strong>
     <div class="nameDiv">{{ value.aboutMe }}</div>
     <div ng-repeat="room in value.rooms"> {{ key }}
