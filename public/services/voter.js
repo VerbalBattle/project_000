@@ -16,6 +16,11 @@ var getRooms = function () {
 
 };
 
+var updateStats = function () {
+  return $http.put("/updatingStats", obj);
+
+};
+
 
  return {
   vote: vote,
