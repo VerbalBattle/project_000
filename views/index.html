@@ -8,8 +8,9 @@
 <!-- Angular app initialized -->
 <body ng-app="VBattle">
   <div ng-sidebar class="sidebar {{ status }}"></div>
-  <div ng-view></div>
-
+  <div class="container bs-docs-container">
+    <div ng-view></div>
+  </div>
   <!-- Libraries: installed via Bower -->
   <script src="/libs/jquery/dist/jquery.js"></script>
   <script src="/libs/bootstrap/dist/js/bootstrap.js"></script>

@@ -1,79 +1,76 @@
-<div class="container">
-  
-  <button ng-show="showadd" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addAvatar">Add New Player</button>
-  
-  <h2 class="text-center">{{ user.username }}'s avatars</h2>
-  
-  <!-- display avatars -->
-  <div class="col-md-4" ng-repeat="(key, value) in user.avatars">
-    <div class="avatars">
-      <!-- display avatar data -->
-      <div class="avatarValues">
-           <div class="avImg" style="background: url({{ value.imageSource }});background-size: cover;background-repeat: no-repeat;background-position: top;"></div>
-          <div>{{ value.avatarName }}</div>
-        <div>{{ value.aboutMe }}</div>
-        <button class="btn btn-primary" ng-click="removeAvatar()">Remove</button>
-      </div>
-      <button class="btn btn-primary" data-toggle="modal" data-target="#editAvatar{{ key }}">Edit</button>
-      <!-- edit avatar data -->
-      <div id="editAvatar{{ key }}" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-          <!-- Modal content-->
-          <div class="modal-content">      
-            <div class="modal-body">
-              <form ng-submit="editAvatar()">
-                <fieldset class="form-group">
-                  <label>Avatar Name</label>
-                  <div>{{ value.avatarName }}</div>
-                </fieldset>
-                <fieldset class="form-group">
-                  <label>About me</label>
-                  <textarea class="form-control" ng-model="value.aboutMeChanged" rows="3" required="required"></textarea>
-                </fieldset>
-                <fieldset class="form-group">
-                  <label>Image</label>
-                  <input type="file" class="form-control" name="file" onchange="angular.element(this).scope().uploadFile(this.files, 'canvas#edit')"/>
-                  <canvas class="" id="edit"></canvas>
-                </fieldset>
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            </div>
+<button ng-show="showadd" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addAvatar">Add New Player</button>
+
+<h2 class="text-center">{{ user.username }}'s avatars</h2>
+
+<!-- display avatars -->
+<div class="col-md-4" ng-repeat="(key, value) in user.avatars">
+  <div class="avatars">
+    <!-- display avatar data -->
+    <div class="avatarValues">
+         <div class="avImg" style="background: url({{ value.imageSource }});background-size: cover;background-repeat: no-repeat;background-position: top;"></div>
+        <div>{{ value.avatarName }}</div>
+      <div>{{ value.aboutMe }}</div>
+      <button class="btn btn-primary" ng-click="removeAvatar()">Remove</button>
+    </div>
+    <button class="btn btn-primary" data-toggle="modal" data-target="#editAvatar{{ key }}">Edit</button>
+    <!-- edit avatar data -->
+    <div id="editAvatar{{ key }}" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">      
+          <div class="modal-body">
+            <form ng-submit="editAvatar()">
+              <fieldset class="form-group">
+                <label>Avatar Name</label>
+                <div>{{ value.avatarName }}</div>
+              </fieldset>
+              <fieldset class="form-group">
+                <label>About me</label>
+                <textarea class="form-control" ng-model="value.aboutMeChanged" rows="3" required="required"></textarea>
+              </fieldset>
+              <fieldset class="form-group">
+                <label>Image</label>
+                <input type="file" class="form-control" name="file" onchange="angular.element(this).scope().uploadFile(this.files, 'canvas#edit')"/>
+                <canvas class="" id="edit"></canvas>
+              </fieldset>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- add avatar data -->
-  <div id="addAvatar" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+<!-- add avatar data -->
+<div id="addAvatar" class="modal fade" role="dialog">
+  <div class="modal-dialog">
 
-      <!-- Modal content-->
-      <div class="modal-content">      
-        <div class="modal-body">
-          <form ng-submit="addAvatar()">
-            <fieldset class="form-group">
-              <label>Avatar Name</label>
-              <input type="text" class="form-control" placeholder="Name" ng-model="avatarName" required="required" ng-init="element.focus()">
-            </fieldset>
-            <fieldset class="form-group">
-              <label>About me</label>
-              <textarea class="form-control" ng-model="aboutMe" rows="3" required="required"></textarea>
-            </fieldset>
-            <fieldset class="form-group">
-              <label for="exampleInputFile">Add picture</label>
-              <input type="file" class="form-control" name="file" onchange="angular.element(this).scope().uploadFile(this.files, 'canvas#add')"/>
-              <canvas class="" id="add"></canvas>
-            </fieldset>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        </div>
+    <!-- Modal content-->
+    <div class="modal-content">      
+      <div class="modal-body">
+        <form ng-submit="addAvatar()">
+          <fieldset class="form-group">
+            <label>Avatar Name</label>
+            <input type="text" class="form-control" placeholder="Name" ng-model="avatarName" required="required" ng-init="element.focus()">
+          </fieldset>
+          <fieldset class="form-group">
+            <label>About me</label>
+            <textarea class="form-control" ng-model="aboutMe" rows="3" required="required"></textarea>
+          </fieldset>
+          <fieldset class="form-group">
+            <label for="exampleInputFile">Add picture</label>
+            <input type="file" class="form-control" name="file" onchange="angular.element(this).scope().uploadFile(this.files, 'canvas#add')"/>
+            <canvas class="" id="add"></canvas>
+          </fieldset>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>
