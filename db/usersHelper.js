@@ -216,7 +216,8 @@ usersHelper.getAllUserData = function (data, callback) {
         return roomsHelper.getAllRooms(data)
           .then(function () {
             // Delete userID
-            delete data.userID;
+
+            // delete data.userID;
             // Invoke callback on data
             callback(data);
           });
@@ -225,7 +226,7 @@ usersHelper.getAllUserData = function (data, callback) {
         delete data.avatarsFound;
 
         // Delete userID
-        delete data.userID;
+        // delete data.userID;
 
         // No avatars found
         callback(data);
