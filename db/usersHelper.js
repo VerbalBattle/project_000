@@ -215,17 +215,13 @@ usersHelper.getAllUserData = function (data, callback) {
         // Append room data
         return roomsHelper.getAllRooms(data)
           .then(function () {
-            // Delete userID
-            delete data.userID;
+
             // Invoke callback on data
             callback(data);
           });
       } else {
         // Delete avatarsFound
         delete data.avatarsFound;
-
-        // Delete userID
-        delete data.userID;
 
         // No avatars found
         callback(data);

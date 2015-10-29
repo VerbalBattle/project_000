@@ -40,6 +40,9 @@ router.get('/', authenticator.ensureAuthenticated,
 
   // Callback
   var callback = function (result) {
+    // Delete userID
+    delete result.userID;
+
     res.send(result);
   };
 
