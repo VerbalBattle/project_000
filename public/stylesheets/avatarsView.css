@@ -1,0 +1,19 @@
+/*Avatar Name*/
+.avatarsView_avatarName {
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+/*Avatar About*/
+.avatarsView_avatarAbout {
+  width: 90%;
+  margin-left: 5%;
+}
+
+/*Avatar About Title*/
+.avatarsView_avatarAbout_title {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-bottom: 5px;
+}

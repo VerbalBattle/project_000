@@ -2,14 +2,26 @@
 
 <h2 class="text-center">{{ user.username }}'s avatars</h2>
 
-<!-- display avatars -->
+<!-- Avatar List Display -->
 <div class="col-md-4" ng-repeat="(key, value) in user.avatars">
   <div class="avatars">
-    <!-- display avatar data -->
+    <!-- Avatar Data -->
     <div class="avatarValues">
-         <div class="avImg" style="background: url({{ value.imageSource }});background-size: cover;background-repeat: no-repeat;background-position: top;"></div>
-        <div>{{ value.avatarName }}</div>
-      <div>{{ value.aboutMe }}</div>
+      <!-- Image -->
+      <div class="avImg" style="background: url({{ value.imageSource }});background-size: cover;background-repeat: no-repeat;background-position: top;"></div>
+      <!-- Avatar name -->
+      <div class='avatarsView_avatarName'>
+        {{ value.avatarName }}
+      </div>
+      <div class='avatarsView_avatarAbout'>
+        <div class='avatarsView_avatarAbout_title'>
+          About
+        </div>
+        {{ value.aboutMe }}
+      </div>
+      <div>
+        {{ value.stats }}
+      </div>
       <button class="btn btn-primary" ng-click="removeAvatar()">Remove</button>
     </div>
     <button class="btn btn-primary" data-toggle="modal" data-target="#editAvatar{{ key }}">Edit</button>

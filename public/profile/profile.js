@@ -1,13 +1,15 @@
 angular.module('VBattle.profile', [])
 
 
-.controller('ProfileCtrl', function ($scope, $location, Profile, $document) {
+.controller('ProfileCtrl',
+  function ($scope, $location, Profile, $document) {
   // Gets current user from localStorage
   $scope.user = JSON.parse(window.localStorage['user']);
   // Gets user avatars
   $scope.user.avatars = $scope.user.avatars || {};
   // Whether avatar limit is reached
-  $scope.showadd = Object.keys($scope.user.avatars).length < $scope.user.avatarLimit;
+  $scope.showadd = Object.keys($scope.user.avatars).length <
+    $scope.user.avatarLimit;
   // Image source compressed
   $scope.imageSrcComp = "";
 
@@ -37,6 +39,7 @@ angular.module('VBattle.profile', [])
     });
   };
   
+  // Edit an existing avatar
   $scope.editAvatar = function () {
     var avatar = {
       "avatarData": {
@@ -48,13 +51,23 @@ angular.module('VBattle.profile', [])
     var avatarID = this.key;
     var avatarName = this.value.avatarName;
 
+    // Request change from server
     Profile.editAvatar(avatarID, avatar)
     .then(function (data) {
       console.log("Edited avatar", data);
       $document.find('#editAvatar' + avatarID).modal('hide');
       if (data.updateSuccess) {
-        $scope.user.avatars[avatarID] = avatar.avatarData;
-        $scope.user.avatars[avatarID].avatarName = avatarName;
+        // $scope.user.avatars[avatarID] = avatar.avatarData;
+
+        // Set about me
+        console.log(avatar.avatarData);
+        $scope.user.avatars[avatarID].aboutMe =
+          avatar.avatarData.aboutMe;
+        // Set image if changed
+        $scope.user.avatars[avatarID].imageSource =
+          avatar.avatarData.imageSource ||
+            $scope.user.avatars[avatarID].imageSource;
+        // $scope.user.avatars[avatarID].avatarName = avatarName;
         window.localStorage['user'] = JSON.stringify($scope.user);
       }
     });
