@@ -25,8 +25,8 @@ body {
 .avImg {
   display: block;
   border-radius: 50%;
-  height: 15vh;
-  width: 15vh;
+  height: 20vh;
+  width: 20vh;
   margin-left: auto;
   margin-right: auto;
 }
@@ -60,10 +60,6 @@ ul {
 }
 .sender {
   color: red;
-}
-
-.avatar {
-  color: green;
 }
 
 .avatars  {

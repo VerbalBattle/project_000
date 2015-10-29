@@ -1,0 +1,20 @@
+/*Avatars View Profile Container*/
+.lobbyView_profileContiner {
+  border: 3px solid #cccccc;
+  border-radius: 3%;
+  height: 75vh;
+  padding: 0% 5%;
+  overflow-y: scroll;
+  margin: 0 0 1% 1%;
+}
+
+/*Avatar Top Container*/
+.lobbyView_topContainer {
+  margin-top: 5%;
+}
+
+/*Avatar Bottom Container*/
+.lobbyView_bottomContainer {
+  /*overflow-y: scroll;*/
+  word-wrap: break-word;
+}

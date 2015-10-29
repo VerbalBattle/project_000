@@ -1,0 +1,4 @@
+/*btn:active, .btn:focus override*/
+.btn:active, .btn:focus {
+  outline: none;
+}

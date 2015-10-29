@@ -86,11 +86,11 @@ angular.module('VBattle.profile', [])
       $scope.$apply();
       var canvas = $document.find(canvasChoice)[0];
       if (myImage.height < myImage.width) {
-        canvas.height = 100;
-        canvas.width = myImage.width / myImage.height * 100;
+        canvas.height = 150;
+        canvas.width = myImage.width / myImage.height * 150;
       } else {
-        canvas.width = 100;
-        canvas.height = myImage.height / myImage.width * 100;
+        canvas.width = 150;
+        canvas.height = myImage.height / myImage.width * 150;
       }
       var ctx = canvas.getContext("2d");
 

@@ -4,14 +4,39 @@
 <div>Your Avatars:</div>
 <br>
 <br>
+
+<!-- Avatar List Display -->
 <div class="col-md-4" ng-repeat = "(key, value) in avatars">
-  <button class="avatar" ng-click="room(value)">Make game</button>
-  <div class="avImg" style="background: url({{ value.imageSource }});background-size: cover;background-repeat: no-repeat;background-position: top;"></div>
-  <strong class="nameDiv">{{value.avatarName}}</strong>
-  <div class="nameDiv">{{ value.aboutMe }}</div>
-  <div ng-repeat="room in value.rooms"> {{ key }}
-    <div class="roomHref" > room id{{ room.roomID }}
-     	<a href="#/rooms/{{ room.id || room.roomID }}/{{ key }}">Go to room: {{ room.id || room.roomID }}</a>
+
+  <button ng-click="room(value)">Make game</button>
+  <!-- Avatar Profile Container -->
+  <div class='lobbyView_profileContainer'>
+
+    <!-- Avatar Top Container (non scrollable) -->
+    <div class='lobbyView_topContainer'>
+
+      <!-- Image -->
+      <div class='avatarsView_avatarImage'
+      style="background: url({{ value.imageSource }});background-size: cover;background-repeat: no-repeat;background-position: top;"></div>
+
+      <!-- Avatar name -->
+      <div class='avatarsView_avatarName'>
+        {{ value.avatarName }}
+      </div>
+    </div>
+
+    <!-- Avatar Bottom Container (scrollable) -->
+    <div class='lobbyView_bottomContainer'>
+
+      <!-- Rooms List Display -->
+      <div ng-repeat="room in value.rooms"> {{ key }}
+        <div class="roomHref" > room id{{ room.roomID }}
+         	<a href="#/rooms/{{ room.id || room.roomID }}/{{ key }}">Go to room: {{ room.id || room.roomID }}</a>
+        </div>
+      </div>
     </div>
   </div>
+
+  <!-- <strong class="nameDiv">{{value.avatarName}}</strong> -->
+  <!-- <div class="nameDiv">{{ value.aboutMe }}</div> -->
 </div>
