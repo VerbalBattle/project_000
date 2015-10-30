@@ -61,7 +61,7 @@ judging.roomDataForServer = {};
 judging.roomIDsByExpiration = [];
 
 // Judging initial time to expire
-judging.initialTTE = 300000;
+judging.initialTTE = 30000;
 
 // Judging function to add a new room to be judged
 judging.addRoom = function (roomID, roomDataFinder) {

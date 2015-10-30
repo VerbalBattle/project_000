@@ -32,6 +32,7 @@
       <div ng-repeat="room in value.rooms"> {{ key }}
         <div class="roomHref" > room id{{ room.roomID }}
          	<a href="#/rooms/{{ room.id || room.roomID }}/{{ key }}">Go to room: {{ room.id || room.roomID }}</a>
+          {{ room.myAvatar }}
         </div>
       </div>
     </div>

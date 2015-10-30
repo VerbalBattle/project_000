@@ -121,8 +121,10 @@ roomsHelper.canJoinMatchmaking = function (data) {
       id: avatarID
     }
   }).then(function (avatarFound) {
+
     // If avatar was found
     if (avatarFound) {
+
       // Ensure avatar is in at most 3 rooms
       return roomsTable.findAll({
         where: {
@@ -257,6 +259,67 @@ roomsHelper.addRoom = function (player1, player2) {
   });
 };
 
+// // Rooms helper that gets rooms to every avatar in a room
+// roomsHelper.getAllRooms = function (data, findFinishedRooms) {
+//   // Get array of all avatars
+//   var avatarIDs = Object.keys(data.avatars);
+//   // Assume we only want rooms that are in pla
+//   var roomStates = [0];
+//   // If findCompletedRooms bool supplied
+//   if (findFinishedRooms) {
+//     // Add rooms in voting and archived rooms
+//     roomStates.push(1);
+//     roomStates.push(2);
+//   }
+//   // Get all rooms associated with avatars
+//   return roomsTable.findAll({
+//     where: {
+//       $or: [
+//         {
+//           avatar1_id: {
+//             $in: avatarIDs
+//           },
+//           roomState: {
+//             $in: roomStates
+//           }
+//         },
+//         {
+//           avatar2_id: {
+//             $in: avatarIDs
+//           },
+//           roomState: {
+//             $in: roomStates
+//           }
+//         }
+//       ]
+//     }
+//   }).then(function (roomsFound) {
+//     // Iterate over all rooms found
+//     for (var i = 0; i < roomsFound.length; ++i) {
+//       // Get current room
+//       var currRoom = roomsFound[i].dataValues;
+//       // Get client avatar id
+//       var currAvatarID = currRoom.avatar1_id;
+//       if (currRoom.avatar2_id in data.avatars) {
+//         currAvatarID = currRoom.avatar2_id;
+//       }
+//       // Add room data
+//       if (data.avatars[currAvatarID].rooms === undefined) {
+//         data.avatars[currAvatarID].rooms = {};
+//       }
+//       // Add key
+//       data.avatars[currAvatarID].rooms[currRoom.id] = currRoom;
+//       // Rename id key to roomID
+//       var avatarRoom = data.avatars[currAvatarID].rooms[currRoom.id];
+//       avatarRoom.roomID = avatarRoom.id;
+//       delete avatarRoom.id;
+//     }
+
+//     // Handoff to messagesHelper
+//     // return messagesHelper.fetchMessagesForLogin(data);
+//   });
+// };
+
 // Rooms helper that gets rooms to every avatar in a room
 roomsHelper.getAllRooms = function (data, findFinishedRooms) {
   // Get array of all avatars
@@ -296,10 +359,16 @@ roomsHelper.getAllRooms = function (data, findFinishedRooms) {
     for (var i = 0; i < roomsFound.length; ++i) {
       // Get current room
       var currRoom = roomsFound[i].dataValues;
-      // Get avatar id that we need
+      // Get client avatarID and opponent avatar
       var currAvatarID = currRoom.avatar1_id;
+      var currAvatar = 'avatar1';
+      var opponentAvatarID = currRoom.avatar2_id;
+      var opponentAvatar = 'avatar2';
       if (currRoom.avatar2_id in data.avatars) {
         currAvatarID = currRoom.avatar2_id;
+        currAvatar = 'avatar2';
+        opponentAvatarID = currRoom.avatar1_id;
+        opponentAvatar = 'avatar1';
       }
       // Add room data
       if (data.avatars[currAvatarID].rooms === undefined) {
@@ -310,7 +379,34 @@ roomsHelper.getAllRooms = function (data, findFinishedRooms) {
       // Rename id key to roomID
       var avatarRoom = data.avatars[currAvatarID].rooms[currRoom.id];
       avatarRoom.roomID = avatarRoom.id;
+
+      // Add boolean for is turn
+      avatarRoom.canTakeTurn = false;
+      if ((avatarRoom.turnCount % 2 === 0 &&
+        currAvatar === 'avatar1') ||
+        (avatarRoom.turnCount % 2 === 1 &&
+          currAvatar === 'avatar2')) {
+        avatarRoom.canTakeTurn = true;
+      }
+
+      // Delete unnecessary data for client
       delete avatarRoom.id;
+      delete avatarRoom.roomState;
+      delete avatarRoom.turnCount;
+      delete avatarRoom.winnerAvatarID;
+      delete avatarRoom[currAvatar + '_id'];
+      delete avatarRoom[currAvatar + '_userID'];
+      delete avatarRoom[currAvatar + '_votes'];
+
+      // Rename opponent data for client
+      avatarRoom.opponentAvatarID =
+        avatarRoom[opponentAvatar + '_id'];
+      delete avatarRoom[opponentAvatar + '_id'];
+      avatarRoom.opponentUserID =
+        avatarRoom[opponentAvatar + '_userID'];
+      delete avatarRoom[opponentAvatar + '_userID'];
+      delete avatarRoom[opponentAvatar + '_votes'];
+
     }
 
     // Handoff to messagesHelper
