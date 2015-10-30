@@ -359,29 +359,55 @@ roomsHelper.getAllRooms = function (data, findFinishedRooms) {
       delete avatarRoom[opponentAvatar + '_votes'];
     }
 
-    // Get opponent images
-    return avatarImagesTable.findAll({
+    // Get opponent name
+    return avatarsTable.findAll({
       where: {
         id: {
           $in: Object.keys(opponentAvatarKeys)
         }
       }
-    }).then(function (imagesFound) {
-      // Iterate over imagesFound
-      for (var i = 0; i < imagesFound.length; ++i) {
-        // Get current image
-        var currImage = imagesFound[i].dataValues;
+    }).then(function (avatarsFound) {
 
-        // Get local avatar ID
+      // Iterate over avatarsFound
+      for (var i = 0; i < avatarsFound.length; ++i) {
+        // Get current avatar
+        var currAvatar = avatarsFound[i].dataValues;
+
+        // Get local avatarID
         var localAvatarID =
-          opponentAvatarKeys[currImage.id].avatarID;
+          opponentAvatarKeys[currAvatar.id].avatarID;
         // Get local roomID
         var localRoomID =
-          opponentAvatarKeys[currImage.id].roomID;
-        // Set image for room
+          opponentAvatarKeys[currAvatar.id].roomID;
+        // Set opponent name for room
         data.avatars[localAvatarID].rooms[localRoomID]
-          .opponentImage = currImage.imageSource.toString('utf-8');
+          .opponentName = currAvatar.avatarName;
       }
+
+      // Get opponent images
+      return avatarImagesTable.findAll({
+        where: {
+          id: {
+            $in: Object.keys(opponentAvatarKeys)
+          }
+        }
+      }).then(function (imagesFound) {
+        // Iterate over imagesFound
+        for (var i = 0; i < imagesFound.length; ++i) {
+          // Get current image
+          var currImage = imagesFound[i].dataValues;
+
+          // Get local avatar ID
+          var localAvatarID =
+            opponentAvatarKeys[currImage.id].avatarID;
+          // Get local roomID
+          var localRoomID =
+            opponentAvatarKeys[currImage.id].roomID;
+          // Set image for room
+          data.avatars[localAvatarID].rooms[localRoomID]
+            .opponentImage = currImage.imageSource.toString('utf-8');
+        }
+      });
     });
   });
 };
