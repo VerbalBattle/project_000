@@ -16,11 +16,13 @@ var Sequelize = require('sequelize');
 var bcrypt = require('bcrypt');
 
 // Require rooms table
-var roomsTable = require('./db_config.js').rooms;
+var roomsTable = require('./db_config').rooms;
 // Require avatars table
-var avatarsTable = require('./db_config.js').avatars;
+var avatarsTable = require('./db_config').avatars;
+// Require avatar images table
+var avatarImagesTable = require('./db_config').avatarImages;
 // Require messages table
-var messagesTable = require('./db_config.js').messages;
+var messagesTable = require('./db_config').messages;
 
 // Require messages helper
 var messagesHelper = require('./messagesHelper');
@@ -259,67 +261,6 @@ roomsHelper.addRoom = function (player1, player2) {
   });
 };
 
-// // Rooms helper that gets rooms to every avatar in a room
-// roomsHelper.getAllRooms = function (data, findFinishedRooms) {
-//   // Get array of all avatars
-//   var avatarIDs = Object.keys(data.avatars);
-//   // Assume we only want rooms that are in pla
-//   var roomStates = [0];
-//   // If findCompletedRooms bool supplied
-//   if (findFinishedRooms) {
-//     // Add rooms in voting and archived rooms
-//     roomStates.push(1);
-//     roomStates.push(2);
-//   }
-//   // Get all rooms associated with avatars
-//   return roomsTable.findAll({
-//     where: {
-//       $or: [
-//         {
-//           avatar1_id: {
-//             $in: avatarIDs
-//           },
-//           roomState: {
-//             $in: roomStates
-//           }
-//         },
-//         {
-//           avatar2_id: {
-//             $in: avatarIDs
-//           },
-//           roomState: {
-//             $in: roomStates
-//           }
-//         }
-//       ]
-//     }
-//   }).then(function (roomsFound) {
-//     // Iterate over all rooms found
-//     for (var i = 0; i < roomsFound.length; ++i) {
-//       // Get current room
-//       var currRoom = roomsFound[i].dataValues;
-//       // Get client avatar id
-//       var currAvatarID = currRoom.avatar1_id;
-//       if (currRoom.avatar2_id in data.avatars) {
-//         currAvatarID = currRoom.avatar2_id;
-//       }
-//       // Add room data
-//       if (data.avatars[currAvatarID].rooms === undefined) {
-//         data.avatars[currAvatarID].rooms = {};
-//       }
-//       // Add key
-//       data.avatars[currAvatarID].rooms[currRoom.id] = currRoom;
-//       // Rename id key to roomID
-//       var avatarRoom = data.avatars[currAvatarID].rooms[currRoom.id];
-//       avatarRoom.roomID = avatarRoom.id;
-//       delete avatarRoom.id;
-//     }
-
-//     // Handoff to messagesHelper
-//     // return messagesHelper.fetchMessagesForLogin(data);
-//   });
-// };
-
 // Rooms helper that gets rooms to every avatar in a room
 roomsHelper.getAllRooms = function (data, findFinishedRooms) {
   // Get array of all avatars
@@ -355,6 +296,9 @@ roomsHelper.getAllRooms = function (data, findFinishedRooms) {
       ]
     }
   }).then(function (roomsFound) {
+    // Opponent avatarID keys for image retrieval
+    var opponentAvatarKeys = {};
+
     // Iterate over all rooms found
     for (var i = 0; i < roomsFound.length; ++i) {
       // Get current room
@@ -370,6 +314,13 @@ roomsHelper.getAllRooms = function (data, findFinishedRooms) {
         opponentAvatarID = currRoom.avatar1_id;
         opponentAvatar = 'avatar1';
       }
+
+      // Set opponent avatar key id
+      opponentAvatarKeys[opponentAvatarID] = {
+        roomID: currRoom.id,
+        avatarID: currAvatarID
+      };
+
       // Add room data
       if (data.avatars[currAvatarID].rooms === undefined) {
         data.avatars[currAvatarID].rooms = {};
@@ -406,11 +357,32 @@ roomsHelper.getAllRooms = function (data, findFinishedRooms) {
         avatarRoom[opponentAvatar + '_userID'];
       delete avatarRoom[opponentAvatar + '_userID'];
       delete avatarRoom[opponentAvatar + '_votes'];
-
     }
 
-    // Handoff to messagesHelper
-    // return messagesHelper.fetchMessagesForLogin(data);
+    // Get opponent images
+    return avatarImagesTable.findAll({
+      where: {
+        id: {
+          $in: Object.keys(opponentAvatarKeys)
+        }
+      }
+    }).then(function (imagesFound) {
+      // Iterate over imagesFound
+      for (var i = 0; i < imagesFound.length; ++i) {
+        // Get current image
+        var currImage = imagesFound[i].dataValues;
+
+        // Get local avatar ID
+        var localAvatarID =
+          opponentAvatarKeys[currImage.id].avatarID;
+        // Get local roomID
+        var localRoomID =
+          opponentAvatarKeys[currImage.id].roomID;
+        // Set image for room
+        data.avatars[localAvatarID].rooms[localRoomID]
+          .opponentImage = currImage.imageSource.toString('utf-8');
+      }
+    });
   });
 };
 

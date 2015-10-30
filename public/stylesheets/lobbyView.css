@@ -6,6 +6,7 @@
   padding: 0% 5%;
   overflow-y: scroll;
   margin: 0 0 1% 1%;
+  background-color: #333333;
 }
 
 /*Avatar Top Container*/
@@ -17,4 +18,18 @@
 .lobbyView_bottomContainer {
   /*overflow-y: scroll;*/
   word-wrap: break-word;
+  background-color: #333333;
+}
+
+/*Opponent Image*/
+.lobbyView_opponentImage {
+  border-radius: 30%;
+  height: 20vh;
+  width: 20vh;
+  float: left;
+}
+
+/*Room Summary*/
+.lobbyView_roomSummary {
+  clear: both;
 }
