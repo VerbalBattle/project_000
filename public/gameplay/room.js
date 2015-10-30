@@ -59,7 +59,7 @@ angular.module('VBattle.room', [])
   //console.log(GamePlay.getMessages(1).rooms[1].messages, "heleelelellelel")
    GamePlay.getMessages(room)
    .then(function (result) { 
-
+    console.log(result);
     $scope.users = result.rooms[room];
 
     $scope.userIDmap = {  

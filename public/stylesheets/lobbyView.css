@@ -25,7 +25,7 @@
   height: 15vh;
   width: 100%;
   margin: 1% auto;
-  padding-top: 1%;
+  /*padding-top: 1%;*/
 }
 
 /*Opponent Image*/
@@ -33,9 +33,9 @@
   border-radius: 50%;
 /*  height: 15vh;
   width: 15vh;*/
-  height: 13vh;
+  height: 15vh;
   /*height: 100%;*/
-  width: 13vh;
+  width: 15vh;
   /*width: 25%;*/
   float: left;
 }
@@ -48,11 +48,41 @@
   width: 60%;
 }
 
-/*Room Summary Button View Room*/
+/*Room Summary Opponent Name*/
+.lobbyView_opponentName {
+  font-size: 125%;
+  font-weight: bold;
+  text-align: center;
+}
+
+/*Room Summary Button View Game*/
 .lobbyView_button_viewGame {
   margin: 2.5% 0 0 12.5%;
   width: 75%;
   height: 75%;
+  font-size: 150%;
+  font-weight: bold;
+  white-space: normal;
+  padding: 0 !important;
+}
+
+/*Room Summary Button Play Game*/
+.lobbyView_button_playGame {
+  margin: 2.5% 0 0 12.5%;
+  width: 75%;
+  height: 75%;
+  font-size: 150%;
+  font-weight: bold;
+  white-space: normal;
+  padding: 0 !important;
+}
+
+/*Room Summary Button Matchmaking*/
+.lobbyView_button_findGame {
+  /*margin: 25% 0 0 12.5%;*/
+  margin: 2.5% 0 0 12.5%;
+  width: 75%;
+  height: 7.5vh;
   font-size: 150%;
   font-weight: bold;
   white-space: normal;
