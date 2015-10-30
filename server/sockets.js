@@ -139,14 +139,14 @@ helper.clientJoinRoom = function (data, callback) {
       // Emit to sockets if online
       if (sockets_1) {
         // Iterate over all sockets
-        for (var socket in sockets_1) {
-          io.to(socket).emit('client:joinRoom', result);
+        for (var socket1 in sockets_1) {
+          io.to(socket1).emit('client:joinRoom', result);
         }
       }
       if (sockets_2) {
         // Iterate over all sockets
-        for (var socket in sockets_2) {
-          io.to(socket).emit('client:joinRoom', result);
+        for (var socket2 in sockets_2) {
+          io.to(socket2).emit('client:joinRoom', result);
         }
       }
     });
