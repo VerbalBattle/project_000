@@ -2,17 +2,73 @@
 
 <h2 class="text-center">{{ user.username }}'s avatars</h2>
 
-<!-- display avatars -->
+<!-- Avatar List Display -->
 <div class="col-md-4" ng-repeat="(key, value) in user.avatars">
-  <div class="avatars">
-    <!-- display avatar data -->
-    <div class="avatarValues">
-         <div class="avImg" style="background: url({{ value.imageSource }});background-size: cover;background-repeat: no-repeat;background-position: top;"></div>
-        <div>{{ value.avatarName }}</div>
-      <div>{{ value.aboutMe }}</div>
-      <button class="btn btn-primary" ng-click="removeAvatar()">Remove</button>
+
+  <!-- Avatar Profile Container -->
+  <div class="avatarsView_profileContiner">
+
+    <!-- Avatar Top Container (non scrollable) -->
+    <div class='avatarsView_topContainer'>
+
+      <!-- Avatar Remove Button -->
+      <button type="button"
+      class="btn btn-danger avatarsView_button_remove"
+      aria-label="Left Align"
+      ng-click='removeAvatar()'>
+        <span class="glyphicon glyphicon glyphicon-remove"
+        aria-hidden="true">
+        </span>
+      </button>
+
+      <!-- Avatar Edit Button -->
+      <button type="button"
+      class="btn btn-info avatarsView_button_edit"
+      aria-label="Left Align"
+      data-toggle="modal"
+      data-target="#editAvatar{{ key }}">
+        <span class="glyphicon glyphicon glyphicon-pencil"
+        aria-hidden="true">
+        </span>
+      </button>
+
+      <!-- Image -->
+      <div class='avatarsView_avatarImage'
+      style="background: url({{ value.imageSource }});background-size: cover;background-repeat: no-repeat;background-position: top;"></div>
+
+      <!-- Avatar name -->
+      <div class='avatarsView_avatarName'>
+        {{ value.avatarName }}
+      </div>
     </div>
-    <button class="btn btn-primary" data-toggle="modal" data-target="#editAvatar{{ key }}">Edit</button>
+
+    <!-- Avatar Bottom Container (scrollable) -->
+    <div class='avatarsView_bottomContainer'>
+
+      <!-- Avatar about -->
+      <div class='avatarsView_avatarAbout'>
+        <div class='avatarsView_avatarAbout_title'>
+          About
+        </div>
+        <div class='avatarsView_avatarAbout_body'>
+          {{ value.aboutMe }}
+        </div>
+      </div>
+
+      <!-- Avatar stats -->
+      <div class='avatarsView_avatarStats'>
+        <div class='avatarsView_avatarStats_title'>
+          Stats
+        </div>
+        <div ng-repeat='(k, v) in value.stats'>
+          <div class='avatarsView_avatarStat'>
+            <span class='avatarsView_avatarStat_key'>{{ k }}:</span>
+            <span class='avatarsView_avatarStat_value'>{{ v }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- edit avatar data -->
     <div id="editAvatar{{ key }}" class="modal fade" role="dialog">
       <div class="modal-dialog">

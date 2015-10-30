@@ -69,9 +69,9 @@ avatarStatsHelper.getAllStats = function (result) {
           // Avatar type
           avatarType: stats_i.avatarType,
           // Win velocity
-          winVelocity: stats_i.winVelocity,
-          // Rank
-          rank: stats_i.rank,
+          // winVelocity: stats_i.winVelocity,
+          // Elo / rank
+          elo: stats_i.elo,
           // Win streak
           winStreak: stats_i.winStreak
         };

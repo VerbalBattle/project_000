@@ -16,11 +16,13 @@ var Sequelize = require('sequelize');
 var bcrypt = require('bcrypt');
 
 // Require rooms table
-var roomsTable = require('./db_config.js').rooms;
+var roomsTable = require('./db_config').rooms;
 // Require avatars table
-var avatarsTable = require('./db_config.js').avatars;
+var avatarsTable = require('./db_config').avatars;
+// Require avatar images table
+var avatarImagesTable = require('./db_config').avatarImages;
 // Require messages table
-var messagesTable = require('./db_config.js').messages;
+var messagesTable = require('./db_config').messages;
 
 // Require messages helper
 var messagesHelper = require('./messagesHelper');
@@ -121,8 +123,10 @@ roomsHelper.canJoinMatchmaking = function (data) {
       id: avatarID
     }
   }).then(function (avatarFound) {
+
     // If avatar was found
     if (avatarFound) {
+
       // Ensure avatar is in at most 3 rooms
       return roomsTable.findAll({
         where: {
@@ -292,15 +296,31 @@ roomsHelper.getAllRooms = function (data, findFinishedRooms) {
       ]
     }
   }).then(function (roomsFound) {
+    // Opponent avatarID keys for image retrieval
+    var opponentAvatarKeys = {};
+
     // Iterate over all rooms found
     for (var i = 0; i < roomsFound.length; ++i) {
       // Get current room
       var currRoom = roomsFound[i].dataValues;
-      // Get avatar id that we need
+      // Get client avatarID and opponent avatar
       var currAvatarID = currRoom.avatar1_id;
+      var currAvatar = 'avatar1';
+      var opponentAvatarID = currRoom.avatar2_id;
+      var opponentAvatar = 'avatar2';
       if (currRoom.avatar2_id in data.avatars) {
         currAvatarID = currRoom.avatar2_id;
+        currAvatar = 'avatar2';
+        opponentAvatarID = currRoom.avatar1_id;
+        opponentAvatar = 'avatar1';
       }
+
+      // Set opponent avatar key id
+      opponentAvatarKeys[opponentAvatarID] = {
+        roomID: currRoom.id,
+        avatarID: currAvatarID
+      };
+
       // Add room data
       if (data.avatars[currAvatarID].rooms === undefined) {
         data.avatars[currAvatarID].rooms = {};
@@ -310,11 +330,59 @@ roomsHelper.getAllRooms = function (data, findFinishedRooms) {
       // Rename id key to roomID
       var avatarRoom = data.avatars[currAvatarID].rooms[currRoom.id];
       avatarRoom.roomID = avatarRoom.id;
+
+      // Add boolean for is turn
+      avatarRoom.canTakeTurn = false;
+      if ((avatarRoom.turnCount % 2 === 0 &&
+        currAvatar === 'avatar1') ||
+        (avatarRoom.turnCount % 2 === 1 &&
+          currAvatar === 'avatar2')) {
+        avatarRoom.canTakeTurn = true;
+      }
+
+      // Delete unnecessary data for client
       delete avatarRoom.id;
+      delete avatarRoom.roomState;
+      delete avatarRoom.turnCount;
+      delete avatarRoom.winnerAvatarID;
+      delete avatarRoom[currAvatar + '_id'];
+      delete avatarRoom[currAvatar + '_userID'];
+      delete avatarRoom[currAvatar + '_votes'];
+
+      // Rename opponent data for client
+      avatarRoom.opponentAvatarID =
+        avatarRoom[opponentAvatar + '_id'];
+      delete avatarRoom[opponentAvatar + '_id'];
+      avatarRoom.opponentUserID =
+        avatarRoom[opponentAvatar + '_userID'];
+      delete avatarRoom[opponentAvatar + '_userID'];
+      delete avatarRoom[opponentAvatar + '_votes'];
     }
 
-    // Handoff to messagesHelper
-    // return messagesHelper.fetchMessagesForLogin(data);
+    // Get opponent images
+    return avatarImagesTable.findAll({
+      where: {
+        id: {
+          $in: Object.keys(opponentAvatarKeys)
+        }
+      }
+    }).then(function (imagesFound) {
+      // Iterate over imagesFound
+      for (var i = 0; i < imagesFound.length; ++i) {
+        // Get current image
+        var currImage = imagesFound[i].dataValues;
+
+        // Get local avatar ID
+        var localAvatarID =
+          opponentAvatarKeys[currImage.id].avatarID;
+        // Get local roomID
+        var localRoomID =
+          opponentAvatarKeys[currImage.id].roomID;
+        // Set image for room
+        data.avatars[localAvatarID].rooms[localRoomID]
+          .opponentImage = currImage.imageSource.toString('utf-8');
+      }
+    });
   });
 };
 

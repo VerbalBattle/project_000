@@ -1,0 +1,94 @@
+/*Avatars View Profile Container*/
+.avatarsView_profileContiner {
+  border-style: solid;
+  border-color: #cccccc;
+  border-radius: 3%;
+  height: 75vh;
+  padding: 0% 5%;
+  overflow-y: scroll;
+  margin: 0 0 1% 1%;
+}
+
+/*Avatar Top Container*/
+.avatarsView_topContainer {
+  margin-top: 5%;
+}
+
+/*Avatar Remove Button*/
+.avatarsView_button_remove {
+  float: left;
+}
+
+/*Avatar Edit Button*/
+.avatarsView_button_edit {
+  float: right;
+}
+
+/*Avatar Bottom Container*/
+.avatarsView_bottomContainer {
+  /*overflow-y: scroll;*/
+  word-wrap: break-word;
+}
+
+/*Avatar Image*/
+.avatarsView_avatarImage {
+  border-radius: 30%;
+  height: 20vh;
+  width: 20vh;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*Avatar Name*/
+.avatarsView_avatarName {
+  text-align: center;
+  font-size: 1.75em;
+  font-weight: bold;
+}
+
+/*Avatar About*/
+.avatarsView_avatarAbout {
+  margin-top: 30px;
+}
+
+/*Avatar About Title*/
+.avatarsView_avatarAbout_title {
+  font-size: 1.25em;
+  font-weight: bold;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+/*Avatar About Body*/
+.avatarsView_avatarAbout_body {
+  /*text-align: justify;*/
+}
+
+/*Avatar Stats*/
+.avatarsView_avatarStats {
+  margin-top: 25px;
+}
+
+/*Avatar Stats Title*/
+.avatarsView_avatarStats_title {
+  font-size: 1.25em;
+  font-weight: bold;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+/*Avatar Stat*/
+.avatarsView_avatarStat {
+  margin-bottom: 5px;
+}
+
+/*Avatar Stat Name*/
+.avatarsView_avatarStat_key {
+  font-weight: bold;
+  font-size: 1em;
+}
+
+/*Avatar Stat Value*/
+.avatarsView_avatarStat_value {
+
+}

@@ -303,7 +303,7 @@ avatarsHelper.editAvatar = function (data) {
         }).then(function () {
           // Set update success to true
           result.updateSuccess = true;
-          console.log('updated avatar profile');
+
           // Invoke callback
           callback(result);
         });

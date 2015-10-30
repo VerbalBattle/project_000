@@ -11,10 +11,10 @@ angular.module('VBattle.gameplayServices', [])
         throw err;
       });
   };
-  // Post user data to matchmaking queue and expects a filled room
-  var startGame = function (user) {
+  // Post avatar data to matchmaking queue and expects a filled room
+  var startGame = function (avatar) {
 
-    return $http.post('/matchmaking', user)
+    return $http.post('/matchmaking', avatar)
       .then(function (resp) {
         return resp.data;
       }, function (err) {
