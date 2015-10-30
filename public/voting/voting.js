@@ -21,11 +21,11 @@ angular.module('VBattle.voting', [])
    // var rooms = window.localStorage["voteRooms"] || {};
     Voter.getRooms().then( function (result) {
     if (result.data[0]) {
-    $scope.roomID = result.data[0].id;
-    $scope.messages = result.data[0].messages;
-    console.log($scope.messages);
-    window.localStorage["voteRooms"] = JSON.stringify(result.data);  
-    //$scope.getNext();
+      $scope.roomID = result.data[0].id;
+      $scope.messages = result.data[0].messages;
+      console.log($scope.messages);
+      window.localStorage["voteRooms"] = JSON.stringify(result.data);  
+      //$scope.getNext();
     }
 
     }) 
@@ -59,7 +59,7 @@ angular.module('VBattle.voting', [])
         //user will receive the next chatroom 
         delete rooms[Object.keys(rooms)[0]];
         console.log(rooms, "back to local storage");
-        window.localStorage["voteRooms"] = rooms;
+        window.localStorage["voteRooms"] = JSON.stringify(rooms);
       } else {
         $scope.messages = [];
       }
