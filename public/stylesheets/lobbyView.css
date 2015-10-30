@@ -10,7 +10,7 @@
 
 /*Avatar Top Container*/
 .lobbyView_topContainer {
-  margin-top: 5%;
+  margin-top: 2%;
 }
 
 /*Avatar Bottom Container*/
@@ -21,18 +21,22 @@
 
 /*Room Container*/
 .lobbyView_roomContainer {
-  background-color: #888888;
+  background-color: #dddddd;
   height: 15vh;
   width: 100%;
+  margin: 1% auto;
+  padding-top: 1%;
 }
 
 /*Opponent Image*/
 .lobbyView_opponentImage {
-  border-radius: 30%;
+  border-radius: 50%;
 /*  height: 15vh;
   width: 15vh;*/
-  height: 15vh;
-  width: 15vh;
+  height: 13vh;
+  /*height: 100%;*/
+  width: 13vh;
+  /*width: 25%;*/
   float: left;
 }
 
@@ -41,5 +45,16 @@
   float: right;
   background-color: #cccccc;
   height: 100%;
-  width: 50%;
+  width: 60%;
+}
+
+/*Room Summary Button View Room*/
+.lobbyView_button_viewGame {
+  margin: 2.5% 0 0 12.5%;
+  width: 75%;
+  height: 75%;
+  font-size: 150%;
+  font-weight: bold;
+  white-space: normal;
+  padding: 0 !important;
 }

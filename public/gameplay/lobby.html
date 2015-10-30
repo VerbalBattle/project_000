@@ -35,10 +35,12 @@
             background-repeat: no-repeat;'>
           </div>
           <div class="lobbyView_roomSummary">
-            room id{{ room.roomID }}
-            <a href="#/rooms/{{ room.id || room.roomID }}/{{ key }}">
+            <a href='#/rooms/{{ room.id || room.roomID }}/{{ key }}'>
+            <button type="button"
+            class="btn btn-success lobbyView_button_viewGame"
+            aria-label="Left Align">
               {{ room.opponentName }}
-              Go to room: {{ room.id || room.roomID }}
+            </button>
             </a>
           </div>
       </div>
