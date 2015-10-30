@@ -1,35 +1,60 @@
 /*Avatars View Profile Container*/
-.lobbyView_profileContiner {
+.lobbyView_profileContainer {
   border: 3px solid #cccccc;
   border-radius: 3%;
   height: 75vh;
   padding: 0% 5%;
   overflow-y: scroll;
   margin: 0 0 1% 1%;
-  background-color: #333333;
 }
 
 /*Avatar Top Container*/
 .lobbyView_topContainer {
-  margin-top: 5%;
+  margin-top: 2%;
 }
 
 /*Avatar Bottom Container*/
 .lobbyView_bottomContainer {
   /*overflow-y: scroll;*/
   word-wrap: break-word;
-  background-color: #333333;
+}
+
+/*Room Container*/
+.lobbyView_roomContainer {
+  background-color: #dddddd;
+  height: 15vh;
+  width: 100%;
+  margin: 1% auto;
+  padding-top: 1%;
 }
 
 /*Opponent Image*/
 .lobbyView_opponentImage {
-  border-radius: 30%;
-  height: 20vh;
-  width: 20vh;
+  border-radius: 50%;
+/*  height: 15vh;
+  width: 15vh;*/
+  height: 13vh;
+  /*height: 100%;*/
+  width: 13vh;
+  /*width: 25%;*/
   float: left;
 }
 
 /*Room Summary*/
 .lobbyView_roomSummary {
-  clear: both;
+  float: right;
+  background-color: #cccccc;
+  height: 100%;
+  width: 60%;
+}
+
+/*Room Summary Button View Room*/
+.lobbyView_button_viewGame {
+  margin: 2.5% 0 0 12.5%;
+  width: 75%;
+  height: 75%;
+  font-size: 150%;
+  font-weight: bold;
+  white-space: normal;
+  padding: 0 !important;
 }

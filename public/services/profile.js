@@ -17,21 +17,16 @@ angular.module('VBattle.profileServices', [])
       // Get current avatar
       var currAvatar = avatars[avatarID];
       // Iterate over avatar's rooms
-      var rooms = currAvatar.rooms;
-      for (var room in rooms) {
-        // Get current room
-        var currRoom = rooms[room];
-
-        // Figure out which avatar is the local user's
-
-        // Avatar 1 is us
-        if (avatarID === currRoom.avatar1_id.toString()) {
-          currRoom.myAvatar = 'avatar1';
-        } else {
-          // Avatar 2 is us
-          currRoom.myAvatar = 'avatar2';
-        }
-      }
+      var currStats = currAvatar.stats;
+      // Un-camelCase stats
+      currStats['Elo'] = currStats.elo;
+      delete currStats.elo;
+      currStats['Avatar Type'] = currStats.avatarType;
+      delete currStats.avatarType;
+      currStats['Win/Loss Ratio'] = currStats.winLossRatio;
+      delete currStats.winLossRatio;
+      currStats['Win Streak'] = currStats.winStreak;
+      delete currStats.winStreak; 
     }
   };
 
@@ -42,7 +37,7 @@ angular.module('VBattle.profileServices', [])
       // Set login data
       userData = resp.data;
       // Edit/process login data for frontend
-      // editLoginData();
+      editLoginData();
     }, function (err) {
       throw err;
     });

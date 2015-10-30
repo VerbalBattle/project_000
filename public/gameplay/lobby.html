@@ -27,25 +27,26 @@
     <div class='lobbyView_bottomContainer'>
 
       <!-- Rooms List Display -->
-      <div ng-repeat="room in value.rooms">
-        <div class='lobbyView_room'>
+      <div ng-repeat="room in value.rooms"
+        class='lobbyView_roomContainer clearfix'>
           <div class='lobbyView_opponentImage'
             style='background: url({{ room.opponentImage }});
             background-size: cover;
             background-repeat: no-repeat;'>
           </div>
           <div class="lobbyView_roomSummary">
-            room id{{ room.roomID }}
-            <a href="#/rooms/{{ room.id || room.roomID }}/{{ key }}">
-              Go to room: {{ room.id || room.roomID }}
+            <a href='#/rooms/{{ room.id || room.roomID }}/{{ key }}'>
+            <button type="button"
+            class="btn btn-success lobbyView_button_viewGame"
+            aria-label="Left Align">
+              {{ room.opponentName }}
+            </button>
             </a>
-            {{ room.myAvatar }}
           </div>
-        </div>
       </div>
 
     <!-- Matchmaking Button -->
-    <button ng-click="room(value)">Find a Match</button>
+    <!-- <button ng-click="room(value)">Find a Match</button> -->
     </div>
   </div>
 
