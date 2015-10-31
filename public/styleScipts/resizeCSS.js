@@ -20,7 +20,7 @@ $(document).ready(function () {
     var roomContainerWidth = $('.lobbyView_roomContainer').width();
     // Desired of room summary
     var roomSummaryPercentage =
-      (1 - opponentImageWidth/roomContainerWidth) * 100 + '%';
+      (1 - opponentImageWidth / roomContainerWidth) * 100 + '%';
     // Get opponent image width
     $('.lobbyView_roomSummary').css({
       'width': roomSummaryPercentage
