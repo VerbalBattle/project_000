@@ -1,4 +1,4 @@
-<h2 class="text-center">Lobby</h2>
+<h2 class='viewTitle'>Lobby</h2>
 <form ng-submit="postMessages()"> 
 </form>
 
@@ -25,42 +25,50 @@
     <div class='lobbyView_bottomContainer'>
 
       <!-- Rooms List Display -->
-      <div ng-repeat="room in value.rooms"
-        class='lobbyView_roomContainer clearfix'>
-        <div class='lobbyView_opponentImage'
-          style='background: url({{ room.opponentImage }});
-          background-size: cover;
-          background-repeat: no-repeat;'>
-        </div>
-        <div class="lobbyView_roomSummary">
-          
-          <!-- Opponent name -->
-          <div class='lobbyView_opponentName'>
-            {{ room.opponentName }}
+
+      <!-- Rooms List Title -->
+      <div class='lobbyView_bottomContainer_title'>
+        Open Games
+      </div>
+      <!-- Rooms List Content -->
+      <div class='lobbyView_bottomContainer_Content'>
+        <div ng-repeat="room in value.rooms"
+          class='lobbyView_roomContainer clearfix'>
+          <div class='lobbyView_opponentImage'
+            style='background: url({{ room.opponentImage }});
+            background-size: cover;
+            background-repeat: no-repeat;'>
           </div>
-
-          <!-- Link to room -->
-          <a href='#/rooms/{{ room.id || room.roomID }}/{{ key }}'>
-
-            <!-- Local Player's Turn -->
-            <div ng-show='{{ room.canTakeTurn }}'>
-              <button type="button"
-              class="btn btn-warning lobbyView_button_playGame"
-              aria-label="Left Align">
-                <!-- {{ room.opponentName }} -->
-                Play
-              </button>
+          <div class="lobbyView_roomSummary">
+            
+            <!-- Opponent name -->
+            <div class='lobbyView_opponentName'>
+              {{ room.opponentName }}
             </div>
 
-            <!-- Foreign Player's Turn -->
-            <div ng-show='{{ !room.canTakeTurn }}'>
-              <button type="button"
-              class="btn btn-primary lobbyView_button_viewGame"
-              aria-label="Left Align">
-                View
-              </button>
-            </div>
-          </a>
+            <!-- Link to room -->
+            <a href='#/rooms/{{ room.id || room.roomID }}/{{ key }}'>
+
+              <!-- Local Player's Turn -->
+              <div ng-show='{{ room.canTakeTurn }}'>
+                <button type="button"
+                class="btn btn-warning lobbyView_button_playGame"
+                aria-label="Left Align">
+                  <!-- {{ room.opponentName }} -->
+                  Play
+                </button>
+              </div>
+
+              <!-- Foreign Player's Turn -->
+              <div ng-show='{{ !room.canTakeTurn }}'>
+                <button type="button"
+                class="btn btn-primary lobbyView_button_viewGame"
+                aria-label="Left Align">
+                  View
+                </button>
+              </div>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -84,3 +92,6 @@
   <!-- <strong class="nameDiv">{{value.avatarName}}</strong> -->
   <!-- <div class="nameDiv">{{ value.aboutMe }}</div> -->
 </div>
+
+<!-- Invoke CSS adjustment when loading view -->
+<script>$(window).resize();</script>

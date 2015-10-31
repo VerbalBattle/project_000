@@ -50,8 +50,8 @@
 /*Avatar Image*/
 .roomView_avatarImage {
   border-radius: 50%;
-  height: 5vh;
-  width: 5vh;
+  height: 10vh;
+  width: 10vh;
   border: .25vw solid white;
 }
 

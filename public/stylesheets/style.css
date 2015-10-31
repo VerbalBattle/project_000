@@ -3,8 +3,9 @@
 /*Styles Body*/
 body {
   padding: 0px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 2.5vh "Lucida Grande", Helvetica, Arial, sans-serif;
   /*background-color: #333d49;*/
+  color: #222222;
 }
 
 /*Link Styling*/
@@ -124,4 +125,10 @@ ul {
   padding: 20px;
   border-radius: 15px;
   color: green;
+}
+
+/*View Title*/
+.viewTitle {
+  text-align: center;
+  font-size: 5vh;
 }
