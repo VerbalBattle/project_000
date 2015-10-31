@@ -1,3 +1,7 @@
+/*btn override*/
+.btn {
+  padding: 0 12px;
+}
 /*btn:active, .btn:focus override*/
 .btn:active, .btn:focus {
   outline: none;

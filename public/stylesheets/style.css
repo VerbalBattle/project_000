@@ -126,3 +126,9 @@ ul {
   border-radius: 15px;
   color: green;
 }
+
+/*View Title*/
+.viewTitle {
+  text-align: center;
+  font-size: 5vh;
+}

@@ -1,6 +1,6 @@
 <button ng-show="showadd" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addAvatar">Add New Player</button>
 
-<h2 class="text-center">{{ user.username }}'s avatars</h2>
+<h2 class='viewTitle'>{{ user.username }}'s avatars</h2>
 
 <!-- Avatar List Display -->
 <div class="col-md-4" ng-repeat="(key, value) in user.avatars">
@@ -131,3 +131,6 @@
     </div>
   </div>
 </div>
+
+<!-- Invoke CSS adjustment when loading view -->
+<script>$(window).resize();</script>

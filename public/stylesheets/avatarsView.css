@@ -4,21 +4,28 @@
   border-radius: 3%;
   overflow-y: hidden;
   margin: 0 0 0 1%;
+  word-wrap: break-word;
 }
 
 /*Avatar Top Container*/
 .avatarsView_topContainer {
   padding-bottom: 5%;
   border-bottom: 3px solid #cccccc;
+  height: 30vh;
+  overflow-y: hidden;
 }
 
 /*Avatar Remove Button*/
 .avatarsView_button_remove {
+  padding: 1vh 2vh;
+  font-size: 3vh;
   float: left;
 }
 
 /*Avatar Edit Button*/
 .avatarsView_button_edit {
+  padding: 1vh 2vh;
+  font-size: 3vh;
   float: right;
 }
 
@@ -34,28 +41,33 @@
 .avatarsView_avatarImage {
   margin-top: 2%;
   border-radius: 50%;
+  border: .25vw solid #66A3FF;
   height: 20vh;
   width: 20vh;
   margin-left: auto;
   margin-right: auto;
-  clear: both;
+  /*clear: both;*/
+  position: relative;
+  top: 0%;
 }
 
 /*Avatar Name*/
 .avatarsView_avatarName {
   text-align: center;
-  font-size: 1.75em;
+  font-size: 4vh;
   font-weight: bold;
+  height: 4vh;
 }
 
 /*Avatar About*/
 .avatarsView_avatarAbout {
   margin-top: 5%;
+  font-size: 2.25vh;
 }
 
 /*Avatar About Title*/
 .avatarsView_avatarAbout_title {
-  font-size: 1.25em;
+  font-size: 3vh;
   font-weight: bold;
   margin-bottom: 5px;
   text-align: center;
@@ -73,7 +85,7 @@
 
 /*Avatar Stats Title*/
 .avatarsView_avatarStats_title {
-  font-size: 1.25em;
+  font-size: 3vh;
   font-weight: bold;
   margin-bottom: 5px;
   text-align: center;
@@ -82,6 +94,7 @@
 /*Avatar Stat*/
 .avatarsView_avatarStat {
   margin-bottom: 5px;
+  font-size: 2.25vh;
 }
 
 /*Avatar Stat Name*/
