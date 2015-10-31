@@ -485,13 +485,52 @@ roomsHelper.getRoomData = function (data) {
               // Set messages
               result.rooms[roomID].messages = messages;
 
-              // Invoke callback if provided
-              if (callback) {
-                callback(result);
-              } else {
-                // Other wise return result
-                return result;
-              }
+              // Get avatar images
+              return avatarImagesTable.findAll({
+                where: {
+                  id: {
+                    $in: [
+                      room.avatar1.avatarID,
+                      room.avatar2.avatarID
+                    ]
+                  }
+                }
+              }).then(function (imagesFound) {
+
+                // Iterate over images found
+                for (var i = 0; i < imagesFound.length; ++i) {
+                  // Get current image
+                  var currImage = imagesFound[i].dataValues;
+
+                  // Check for avatar1 image
+                  if (currImage.id === room.avatar1.avatarID) {
+                    room.avatar1.avatarImage =
+                      currImage.imageSource.toString('utf-8');
+                  } else if (currImage.id === room.avatar2.avatarID) {
+                    // Check for avatar2 image
+                    room.avatar2.avatarImage =
+                      currImage.imageSource.toString('utf-8');
+                  }
+                }
+
+                // If either avatar image isn't set, give empty string
+                if (!room.avatar1.avatarImage ||
+                  room.avatar1.avatarImage.length < 100) {
+                  room.avatar1.avatarImage = '';
+                }
+                if (!room.avatar2.avatarImage ||
+                  room.avatar2.avatarImage.length < 100) {
+                  room.avatar2.avatarImage = '';
+                }
+
+                // Invoke callback if provided
+                if (callback) {
+                  callback(result);
+                } else {
+                  // Other wise return result
+                  return result;
+                }
+              });
             });
 
         } else {

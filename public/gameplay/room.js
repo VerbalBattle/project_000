@@ -57,27 +57,43 @@ angular.module('VBattle.room', [])
 
   // $scope.messages.push(GamePlay.getMessages(1).rooms[1].messages);
   //console.log(GamePlay.getMessages(1).rooms[1].messages, "heleelelellelel")
-   GamePlay.getMessages(room)
-   .then(function (result) { 
-    console.log(result);
-    $scope.users = result.rooms[room];
+  GamePlay.getMessages(room).then(function (result) {
 
-    $scope.userIDmap = {  
+    // Log result
+    console.log(result);
+
+    // Get rooms
+    $scope.room = result.rooms[room];
+
+    // Mapping avatarID to avatarData
+    $scope.avatarIDMap = {};
+
+    // Get avatar1 mapping
+    $scope.avatarIDMap[$scope.room.avatar1.avatarID] = {
+      avatarName: $scope.room.avatar1.avatarName,
+      avatarImage: $scope.room.avatar1.avatarImage
+    };
+    // Get avatar2 mapping
+    $scope.avatarIDMap[ $scope.room.avatar2.avatarID] = {
+      avatarName: $scope.room.avatar2.avatarName,
+      avatarImage: $scope.room.avatar2.avatarImage
     };
 
-    $scope.userIDmap[$scope.users.avatar1.avatarID] = $scope.users.avatar1.avatarName;
-    $scope.userIDmap[ $scope.users.avatar2.avatarID] = $scope.users.avatar2.avatarName;
-    //  $scope.users.avatar1.avatarID : $scope.users.avatar1.avatarName,
-    //   $scope.users.avatar2.avatarID : $scope.users.avatar2.avatarName
-    // console.log("usermap", $scope.userIDmap);
+    // Figure out which avatarID is the opponent
+    var avatars = JSON.parse(localStorage.user).avatars;
+    $scope.opponentAvatarID = -1;
+    if (!($scope.room.avatar1.avatarID in avatars)) {
 
-     // for(var key in result.rooms) {
-     // avatarID = result.rooms[key].avatar2_id;
-     // console.log("fialure here")
-     // }
-     //getting playerID
-    $scope.enemy = result.rooms[room].avatar2_id;
-     $scope.messages = result.rooms;
+      // Avatar 1 is the opponent
+      $scope.opponentAvatarID = $scope.room.avatar1.avatarID;
+    } else if (!($scope.room.avatar2.avatarID in avatars)) {
+
+      // Avatar 2 is the opponent
+      $scope.opponentAvatarID = $scope.room.avatar2.avatarID;
+    }
+
+    // Set messages
+    $scope.messages = result.rooms;
    }); 
 
   };
