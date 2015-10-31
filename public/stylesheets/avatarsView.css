@@ -2,14 +2,12 @@
 .avatarsView_profileContainer {
   border: 3px solid #cccccc;
   border-radius: 3%;
-  padding: 0% 5%;
   overflow-y: hidden;
   margin: 0 0 0 1%;
 }
 
 /*Avatar Top Container*/
 .avatarsView_topContainer {
-  margin-top: 2%;
   padding-bottom: 5%;
   border-bottom: 3px solid #cccccc;
 }
@@ -26,6 +24,7 @@
 
 /*Avatar Bottom Container*/
 .avatarsView_bottomContainer {
+  padding: 0% 5%;
   height: 50vh;
   overflow-y: scroll;
   word-wrap: break-word;
@@ -33,11 +32,13 @@
 
 /*Avatar Image*/
 .avatarsView_avatarImage {
+  margin-top: 2%;
   border-radius: 50%;
   height: 20vh;
   width: 20vh;
   margin-left: auto;
   margin-right: auto;
+  clear: both;
 }
 
 /*Avatar Name*/
