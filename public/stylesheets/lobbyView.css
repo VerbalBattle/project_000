@@ -2,20 +2,23 @@
 .lobbyView_profileContainer {
   border: 3px solid #cccccc;
   border-radius: 3%;
-  height: 75vh;
-  padding: 0% 5%;
-  overflow-y: scroll;
+  overflow-y: hidden;
   margin: 0 0 1% 1%;
 }
 
 /*Avatar Top Container*/
 .lobbyView_topContainer {
   margin-top: 2%;
+  padding-bottom: 5%;
+  border-bottom: 3px solid #cccccc;
 }
 
 /*Avatar Bottom Container*/
 .lobbyView_bottomContainer {
-  /*overflow-y: scroll;*/
+  margin-top: 5%;
+  padding: 0 1%;
+  height: 47.5vh;
+  overflow-y: scroll;
   word-wrap: break-word;
 }
 
@@ -77,7 +80,15 @@
   padding: 0 !important;
 }
 
-/*Room Summary Button Matchmaking*/
+/*Matchmaking Container*/
+.lobbyView_matchmakingContainer {
+  position: relative;
+  top: -2.5vh;
+  background-color: #333333;
+  height: 10vh;
+}
+
+/*Matchmaking Button*/
 .lobbyView_button_findGame {
   /*margin: 25% 0 0 12.5%;*/
   margin: 2.5% 0 0 12.5%;
