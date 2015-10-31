@@ -37,11 +37,17 @@
   </div>
 
   <!-- Form Container -->
-  <div class='roomView_formContainer'>
+  <div class='roomView_formContainer clearfix'>
     <form ng-submit="">
-      <label>Send Message</label>
-      <input type="text" ng-model="input">
-      <button class="btn" ng-click="postMessage(input)">Send</button>
+      <textarea type="text"
+        ng-model="input"
+        placeholder='Message...'
+        class='roomView_messageField'>
+      </textarea>
+      <button class='btn btn-primary roomView_messageSubmit'
+        ng-click="postMessage(input)">
+        Send
+      </button>
     </form>
     <div ng-show = "shower" class="alert alert-danger" role="alert">
       <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
