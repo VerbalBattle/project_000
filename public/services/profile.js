@@ -26,7 +26,12 @@ angular.module('VBattle.profileServices', [])
       currStats['Win/Loss Ratio'] = currStats.winLossRatio;
       delete currStats.winLossRatio;
       currStats['Win Streak'] = currStats.winStreak;
-      delete currStats.winStreak; 
+      delete currStats.winStreak;
+
+      // Set gameCount since Object.keys() is not
+      // accessible on DOM through angular
+      currAvatar.gameCount =
+        (currAvatar.rooms ? Object.keys(currAvatar.rooms).length : 0);
     }
   };
 

@@ -177,12 +177,12 @@ helper.clientTurnUpdate = function (data, callback) {
         Object.keys(opponentSockets), 'and',
         Object.keys(senderSockets));
       // Emit live update to opponent sockets
-      for (var socket in opponentSockets) {
-        io.to(socket).emit('client:turnUpdate', result);
+      for (var opponentSocket in opponentSockets) {
+        io.to(opponentSocket).emit('client:turnUpdate', result);
       }
       // Emit live update to sender sockets
-      for (var socket in senderSockets) {
-        io.to(socket).emit('client:turnUpdate', result);
+      for (var senderSocket in senderSockets) {
+        io.to(senderSocket).emit('client:turnUpdate', result);
       }
     });
   }

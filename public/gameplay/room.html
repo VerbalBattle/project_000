@@ -1,20 +1,52 @@
 <h2 class="text-center">Pending fights</h2>
 <div ng-sidebar class="sidebar"></div>
-<form ng-submit="">
-  <label>Send Message</label>
-  <input type="text" ng-model="input">
-  <button class="btn" ng-click="postMessage(input)">Send</button>
-</form>
-<p>Chat with Avatar with ID: {{enemy}}</p>
-<div ng-show = "shower" class="alert alert-danger" role="alert">
-  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-  <span class="sr-only">Error:</span>
-  Its not you turn
-</div>
-<div>Messages:</div> 
-<div ng-repeat="message in messages">
-  <div ng-repeat = "mess in message.messages"><br>
-    <div class="message" >{{mess.message}} sent from <strong>{{ userIDmap[mess.avatarID] }}</strong>
+<div class='roomView_chatContainer'>
+  <div class='roomView_messagesContainer'>
+    <div ng-repeat="message in messages">
+      <div ng-repeat = "mess in message.messages"><br>
+        <div class='roomView_messageRow'>
+          <div class='roomView_avatarImage'
+            style='
+              background: 
+                url({{ avatarIDMap[mess.avatarID].avatarImage }});
+                background-size: cover;
+                background-repeat: no-repeat;'
+            ng-class='{
+              "roomView_avatarImage_friendly": mess.avatarID !==
+                opponentAvatarID,
+              "roomView_avatarImage_opponent": mess.avatarID ===
+                opponentAvatarID
+          }'>
+          </div>
+          <div class="roomView_messageBlock"
+            ng-class='{
+              "roomView_messageBlock_friendly": mess.avatarID !==
+                opponentAvatarID,
+              "roomView_messageBlock_opponent": mess.avatarID ===
+                opponentAvatarID
+            }'>
+            <strong>
+              {{ avatarIDMap[mess.avatarID].avatarName }}
+            </strong>
+            <br />
+            {{ mess.message }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form Container -->
+  <div class='roomView_formContainer'>
+    <form ng-submit="">
+      <label>Send Message</label>
+      <input type="text" ng-model="input">
+      <button class="btn" ng-click="postMessage(input)">Send</button>
+    </form>
+    <div ng-show = "shower" class="alert alert-danger" role="alert">
+      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+      <span class="sr-only">Error:</span>
+      Its not you turn
     </div>
   </div>
 </div>

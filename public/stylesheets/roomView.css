@@ -1,0 +1,68 @@
+/*Room View Chat Container*/
+.roomView_chatContainer {
+  width: 75%;
+  margin: 0 auto;
+  border: 3px solid #cccccc;
+  border-radius: 3%;
+}
+
+/*Messages Container*/
+.roomView_messagesContainer {
+  overflow-y: scroll;
+  border-bottom: 3px solid #cccccc;
+  height: 65vh;
+}
+
+/*Form Container*/
+.roomView_formContainer {
+  text-align: center;
+  padding: 1vh;
+}
+
+/*Message Row*/
+.roomView_messageRow {
+  clear: both;
+  word-wrap: break-word;
+}
+
+/*Message Block*/
+.roomView_messageBlock {
+  width: 40%;
+  padding: 1%;
+  border-radius: 5px;
+  margin-top: 1.5%;
+}
+
+/*Opponent Message Block*/
+.roomView_messageBlock_opponent {
+  float: left;
+  margin-left: .25%;
+  background-color: #FF6969;
+}
+
+/*Friendly Message Block*/
+.roomView_messageBlock_friendly {
+  float: right;
+  margin-right: .25%;
+  background-color: #66A3FF;
+}
+
+/*Avatar Image*/
+.roomView_avatarImage {
+  border-radius: 50%;
+  height: 5vh;
+  width: 5vh;
+  border: .25vw solid white;
+}
+
+/*Opponent Avatar Image*/
+.roomView_avatarImage_opponent {
+  border-color: #FF6969;
+  float: left;
+}
+
+/*Friendly Avatar Image*/
+.roomView_avatarImage_friendly {
+  border-color: #66A3FF;
+  float: right;
+}

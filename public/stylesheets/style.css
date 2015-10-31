@@ -4,6 +4,7 @@
 body {
   padding: 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  /*background-color: #333d49;*/
 }
 
 /*Link Styling*/
@@ -45,12 +46,7 @@ ul {
 }
 
 /*room styling*/
-.message {
-  background-color: green;
-  height: 30px;
-  width: 300px;
-  white-space: pre;
-}
+
 .nameDiv {
   height: 350px;
   background-color: grey;
