@@ -87,6 +87,7 @@ LinkedList.prototype.addToFront = function (val) {
 
 // Linked list add to back
 LinkedList.prototype.addToBack = function (val) {
+  console.log(val);
   // Assume player wasn't added
   var added = false;
   // Only continue if avatar isn't in queue
