@@ -88,14 +88,36 @@ roomsHelper.enqueueToPlay = function (data) {
     var added = waitingForGame.addToBack(data);
     // Print the queue
     waitingForGame.print();
-    // If there are 2 players in queue, pair them
+    // If there are 2 players in queue, pair them, or mark
+    // them as invalid pairing partners through callback
+    // invocation
     if (Object.keys(waitingForGame.nodes).length === 2) {
       this.pairPlayers([
         [
           waitingForGame.head.val,
           waitingForGame.tail.val
         ]
-      ]);
+      ], function (avatar1_ID, avatar2_ID) {
+
+        // Iterate over arugments
+        for (var i = 0; i < arguments.length; ++i) {
+
+          // Check if avatarID is already a KV map
+          // in invalid matches
+          if (waitingForGame.invalidMatches[arguments[i]] ===
+            undefined) {
+            // Initialize as empty object
+            waitingForGame.invalidMatches[arguments[i]] = {};
+          }
+
+          // Add invalid pair
+          waitingForGame.invalidMatches[arguments[i]]
+            [arguments[(i + 1) % arguments.length]] = true;
+        }
+
+        // Log invalid matches
+        console.log('Invalid Matches', waitingForGame.invalidMatches);
+      });
     }
 
     // Add added-to-room bool
@@ -157,7 +179,7 @@ roomsHelper.canJoinMatchmaking = function (data) {
 };
 
 // Rooms helper method to remove tuples from queue
-roomsHelper.pairPlayers = function (pairs) {
+roomsHelper.pairPlayers = function (pairs, callback) {
   // Iterate over all pairs
   for (var i = 0; i < pairs.length; ++i) {
     // Get pair
@@ -167,15 +189,29 @@ roomsHelper.pairPlayers = function (pairs) {
     // var avatar2_id = pair[1].avatarID;
     // Create room for both avatars
     this.addRoom(pair[0], pair[1]).then(function (roomID) {
-      // Set socket data
-      var socketData = {
-        userIDs: [pair[0].userID, pair[1].userID],
-        avatarIDs: [pair[0].avatarID, pair[1].avatarID],
-        roomID: roomID
-      };
-      // Handoff to socket helper
-      socketHelper.clientJoinRoom(socketData, 
-        roomsHelper.getRoomData);
+
+      // If a roomID was provided
+      if (roomID !== undefined) {
+        // Set socket data
+        var socketData = {
+          userIDs: [pair[0].userID, pair[1].userID],
+          avatarIDs: [pair[0].avatarID, pair[1].avatarID],
+          roomID: roomID
+        };
+        // Handoff to socket helper
+        socketHelper.clientJoinRoom(socketData, 
+          roomsHelper.getRoomData);
+
+        // Remove invalid matches key mapping
+        delete waitingForGame.invalidMatches[pair[0].avatarID];
+        delete waitingForGame.invalidMatches[pair[1].avatarID];
+
+        // Log invalid matches
+        console.log('Invalid Matches', waitingForGame.invalidMatches);
+      } else {
+        // No roomID was provided, so players cannot match
+        callback(pair[0].avatarID, pair[1].avatarID);
+      }
     });
   }
 };

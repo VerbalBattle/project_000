@@ -13,11 +13,6 @@
   height: 65vh;
 }
 
-/*Form Container*/
-.roomView_formContainer {
-  text-align: center;
-  padding: 1vh;
-}
 
 /*Message Row*/
 .roomView_messageRow {
@@ -65,4 +60,23 @@
 .roomView_avatarImage_friendly {
   border-color: #66A3FF;
   float: right;
+}
+
+/*Form Container*/
+.roomView_formContainer {
+  text-align: center;
+  padding: 1vh;
+}
+
+/*Message Field*/
+.roomView_messageField {
+  float: left;
+  border-radius: 6%;
+  border: 3px solid #cccccc;
+  resize: none;
+}
+
+/*Message Submit*/
+.roomView_messageSubmit {
+  float: left;
 }
