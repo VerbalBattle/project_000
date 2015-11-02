@@ -81,6 +81,7 @@ angular.module('VBattle.profile', [])
       var res = e.target.result;
       var src = btoa(res);
       var myImage = new Image();
+      // Initialize image
       myImage.src = 'data:image/jpeg;base64,' + src;
 
       $scope.$apply();
@@ -96,6 +97,7 @@ angular.module('VBattle.profile', [])
 
       ctx.drawImage(myImage, 0, 0, canvas.width, canvas.height);
       $scope.imageSrcComp = canvas.toDataURL();
+      console.log('UPLODADED', $scope.imageSrcComp);
     };
     reader.readAsBinaryString(files[0]);
   };

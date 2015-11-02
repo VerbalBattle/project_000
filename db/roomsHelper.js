@@ -35,6 +35,9 @@ var judging = require('../server/data').judging;
 // Require socket helper
 var socketHelper = require('../server/sockets').helper;
 
+// Matching algorithm
+// var matchBatch = require('../lib/matchingAlgorithm').matchBatch;
+
 //                                _   _      _                 
 //  _ __ ___   ___  _ __ ___  ___| | | | ___| |_ __   ___ _ __ 
 // | '__/ _ \ / _ \| '_ ` _ \/ __| |_| |/ _ \ | '_ \ / _ \ '__|
@@ -161,7 +164,8 @@ roomsHelper.canJoinMatchmaking = function (data) {
               avatar2_id: avatarID,
               roomState: 0
             }
-          ]}
+          ]
+        }
       }).then(function (roomsFound) {
         // If there were less than 3 rooms found
         if (roomsFound.length < 3) {
