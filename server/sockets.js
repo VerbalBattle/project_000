@@ -132,18 +132,20 @@ helper.clientJoinRoom = function (data, callback) {
     callback({
       roomID: roomID
     }).then(function (result) {
-      // Log
-      console.log('EMITTING LIVE UPDATE FOR ROOM JOIN to',
-        Object.keys(sockets_1), 'and/or',
-        Object.keys(sockets_2));
       // Emit to sockets if online
       if (sockets_1) {
+        // Log
+        console.log('EMITTING LIVE UPDATE FOR ROOM JOIN to',
+          Object.keys(sockets_1));
         // Iterate over all sockets
         for (var socket1 in sockets_1) {
           io.to(socket1).emit('client:joinRoom', result);
         }
       }
       if (sockets_2) {
+        // Log
+        console.log('EMITTING LIVE UPDATE FOR ROOM JOIN to',
+          Object.keys(sockets_2));
         // Iterate over all sockets
         for (var socket2 in sockets_2) {
           io.to(socket2).emit('client:joinRoom', result);

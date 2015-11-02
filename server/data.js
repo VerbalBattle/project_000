@@ -27,6 +27,10 @@ var avatarStatsTable = require('../db/db_config').avatarStats;
 
 // Make a new linked list for avatars waiting for game
 var waitingForGame = new LinkedList();
+// Add a invalid matches mapping where key is an avatarID
+// and the value is an object consisting of invalid
+// avatarIDs as keys
+waitingForGame.invalidMatches = {};
 
 //              _ _            
 //             | (_)           
