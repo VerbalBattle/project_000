@@ -41,15 +41,18 @@ angular.module('VBattle.profile', [])
   
   // Edit an existing avatar
   $scope.editAvatar = function () {
+
+    var avatarID = this.key;
+    var avatarName = this.value.avatarName;
+
     var avatar = {
       "avatarData": {
         "imageSource": $scope.imageSrcComp,
-        "aboutMe": this.value.aboutMeChanged
+        "aboutMe": /*this.value.aboutMeChanged*/
+          $('#editAvatar' + avatarID + ' .editAboutMe')
+            [0].value
       }
     };
-    console.log(avatar.avatarData.imageSource);
-    var avatarID = this.key;
-    var avatarName = this.value.avatarName;
 
     // Request change from server
     Profile.editAvatar(avatarID, avatar)

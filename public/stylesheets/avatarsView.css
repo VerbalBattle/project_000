@@ -75,7 +75,9 @@
 
 /*Avatar About Body*/
 .avatarsView_avatarAbout_body {
-  /*text-align: justify;*/
+  word-wrap: break-word;      /* IE 5.5-7 */
+  white-space: -moz-pre-line; /* Firefox 1.0-2.0 */
+  white-space: pre-line;      /* current browsers */
 }
 
 /*Avatar Stats*/
