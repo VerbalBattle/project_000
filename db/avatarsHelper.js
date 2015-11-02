@@ -19,6 +19,8 @@ var avatarsTable = require('./db_config').avatars;
 var avatarImagesTable = require('./db_config').avatarImages;
 // Require avatar stats table
 var avatarStatsTable = require('./db_config').avatarStats;
+// Require rooms table
+var roomsTable = require('./db_config').rooms;
 
 // Require avatarStatsHelper
 var avatarStatsHelper = require('./avatarStatsHelper');
@@ -367,6 +369,77 @@ avatarsHelper.deleteAvatar = function (data) {
 
             // Invoke callback
             callback(result);
+
+            // Award a win to the other player in any open
+            // game with this avatarID
+            return roomsTable.findAll({
+              where: {
+                $or: [
+                  {
+                    avatar1_id: avatarID,
+                    roomState: 0
+                  },
+                  {
+                    avatar2_id: avatarID,
+                    roomState: 0
+                  }
+                ]
+              }
+            }).then(function (roomsFound) {
+              // Avatars to award win to
+              var winnerAvatarIDs = [];
+
+              // Loop over rooms found
+              for (var i = 0; i < roomsFound.length; ++i) {
+                var roomFound = roomsFound[i].dataValues;
+                // If the room is open
+                if (roomFound.roomState < 2) {
+                  // Identify opponent player
+                  var opponentAvatarID = roomFound.avatar1_id;
+                  if (roomFound.avatar1_id === avatarID) {
+                    opponentAvatarID = avatar2_id;
+                  }
+                  // Push the opponent avatarID into winners
+                  winnerAvatarIDs.push(opponentAvatarID);
+                }
+                // Destroy room regardless
+                roomsFound[i].destroy();
+              }
+
+              // Award wins to winners
+              if (0 < winnerAvatarIDs.length) {
+                // Lookup in avatarStats
+                avatarStatsTable.findAll({
+                  where: {
+                    id: {
+                      $in: winnerAvatarIDs
+                    }
+                  }
+                }).then(function (avatarStatsFound) {
+                  // Update stats to reflect a win
+                  for (var i = 0; i < avatarStatsFound.length; ++i) {
+                    // Resulting stats
+                    var newStats = {};
+                    newStats.winCount =
+                      avatarStatsFound[i].dataValues.winCount + 1;
+                    newStats.gameCount =
+                      avatarStatsFound[i].dataValues.gameCount + 1;
+                    newStats.winLossRatio =
+                      newStats.winCount / newStats.gameCount;
+                    newStats.winStreak = 
+                      avatarStatsFound[i].dataValues.winStreak + 1;
+
+                    // Update avatarStats
+                    avatarStatsFound[i].update({
+                      winCount: newStats.winCount,
+                      gameCount: newStats.gameCount,
+                      winLossRatio: newStats.winLossRatio,
+                      winStreak: newStats.winStreak
+                    });
+                  }
+                });
+              }
+            });
           });
         } else {
           // No avatar was found

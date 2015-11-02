@@ -82,7 +82,13 @@
               </fieldset>
               <fieldset class="form-group">
                 <label>About me</label>
-                <textarea class="form-control" ng-model="value.aboutMeChanged" rows="3" required="required"></textarea>
+                <textarea class="form-control"
+                ng-model="value.aboutMe"
+                rows="3"
+                required="required"
+                placeholder='Who is {{ value.avatarName }}?'>
+                  Something here
+                </textarea>
               </fieldset>
               <fieldset class="form-group">
                 <label>Image</label>
