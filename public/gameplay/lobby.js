@@ -5,34 +5,61 @@ angular.module('VBattle.lobby', [])
   var mySocket = socketFactory();
   var user = JSON.parse(window.localStorage['user']);
   mySocket.on('client:joinRoom', function (data) {
-    console.log("join-room update", data);
-    //storing this data in the local storage -> 
-    console.log("localStorage", window.localStorage);
-    var rooms = data[Object.keys(data)[0]];
-    var roomID = Object.keys(rooms)[0];
+    // console.log("join-room update", data);
+    // //storing this data in the local storage -> 
+    // console.log("localStorage", window.localStorage);
 
-    var myAvatarID;
-    if (rooms[roomID].avatar1.avatarID in user.avatars) {
-      myAvatarID = rooms[roomID].avatar1.avatarID;
-    } else if (rooms[roomID].avatar2.avatarID in user.avatars) {
-      myAvatarID = rooms[roomID].avatar2.avatarID;
-    }
-    console.log(myAvatarID);
-    console.log("user first", user);
-    if (user.avatars[myAvatarID].rooms) {
-      user.avatars[myAvatarID][roomID] = data.rooms;
+    // Get the avatarID from the data
+    var avatarID = data.localAvatarID;
+    // Get the roomID
+    var roomID = data.roomID;
+
+    console.log(user.avatars);
+    console.log(Object.keys(user.avatars));
+    console.log(user.avatars[avatarID]);
+    console.log(avatarID);
+    // If the avatar belongs to us
+    if (user.avatars[avatarID]) {
+      console.log('avatarID found');
+      // If the avatar has no rooms
+      if (!user.avatars[avatarID].rooms) {
+        console.log("avatar doesn't have rooms");
+        // Initialize
+        user.avatars[avatarID].rooms = {};
+      }
+      // Add data to avatar's rooms
+      user.avatars[avatarID].rooms[roomID] = data;
+      // Stringify new user data
       window.localStorage['user'] = JSON.stringify(user);
-    } else {
-      user.avatars[myAvatarID].rooms = {};
-      user.avatars[myAvatarID].rooms[roomID] = data.rooms[roomID];
-      console.log("put in user, user last", user);
-      window.localStorage['user'] = JSON.stringify(user);
     }
-    if (!$scope.avatars[myAvatarID].rooms) {
-      $scope.avatars[myAvatarID].rooms = {};
-      console.log(Object.keys(rooms)[0], "object.keys(rooms)[0] is");
-      $scope.avatars[myAvatarID].rooms[Object.keys(rooms)[0]] = data.rooms[Object.keys(data.rooms)[0]];
-    }
+    console.log('USER DATA', user);
+
+
+    // var rooms = data[Object.keys(data)[0]];
+    // var roomID = Object.keys(rooms)[0];
+
+    // var myAvatarID;
+    // if (rooms[roomID].avatar1.avatarID in user.avatars) {
+    //   myAvatarID = rooms[roomID].avatar1.avatarID;
+    // } else if (rooms[roomID].avatar2.avatarID in user.avatars) {
+    //   myAvatarID = rooms[roomID].avatar2.avatarID;
+    // }
+    // console.log(myAvatarID);
+    // console.log("user first", user);
+    // if (user.avatars[myAvatarID].rooms) {
+    //   user.avatars[myAvatarID][roomID] = data.rooms;
+    //   window.localStorage['user'] = JSON.stringify(user);
+    // } else {
+    //   user.avatars[myAvatarID].rooms = {};
+    //   user.avatars[myAvatarID].rooms[roomID] = data.rooms[roomID];
+    //   console.log("put in user, user last", user);
+    //   window.localStorage['user'] = JSON.stringify(user);
+    // }
+    // if (!$scope.avatars[myAvatarID].rooms) {
+    //   $scope.avatars[myAvatarID].rooms = {};
+    //   console.log(Object.keys(rooms)[0], "object.keys(rooms)[0] is");
+    //   $scope.avatars[myAvatarID].rooms[Object.keys(rooms)[0]] = data.rooms[Object.keys(data.rooms)[0]];
+    // }
   });
 
   
