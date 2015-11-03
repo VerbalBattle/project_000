@@ -37,9 +37,11 @@
       <textarea type="text"
         ng-model="input"
         placeholder='Message...'
-        class='roomView_messageField'>
+        id='roomView_messageField'
+        rows='1'>
       </textarea>
-      <button class='btn btn-primary roomView_messageSubmit'
+      <button class='btn btn-primary'
+        id='roomView_messageSubmit'
         ng-click="postMessage(input)">
         Send
       </button>

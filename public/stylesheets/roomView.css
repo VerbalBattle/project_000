@@ -72,14 +72,22 @@
 }
 
 /*Message Field*/
-.roomView_messageField {
+#roomView_messageField {
   float: left;
   border-radius: 6%;
+  font-size: ;
   border: 3px solid #cccccc;
   resize: none;
+  word-wrap: break-word;      /* IE 5.5-7 */
+  white-space: -moz-pre-wrap; /* Firefox 1.0-2.0 */
+  white-space: pre-wrap;      /* current browsers */
+  padding: 1%;
+}
+#roomView_messageField:focus {
+  outline: none;
 }
 
 /*Message Submit*/
-.roomView_messageSubmit {
+#roomView_messageSubmit {
   float: left;
 }
