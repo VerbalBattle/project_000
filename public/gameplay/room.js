@@ -19,9 +19,8 @@ angular.module('VBattle.room', [])
       "message": text,
       "roomID": room
     };
-    console.log(msg);
 
-    //{
+  // {
   //     "userID": 17,
   //     "avatarID": 23,
   //     "message": "my message is here"
@@ -43,6 +42,9 @@ angular.module('VBattle.room', [])
     }, 20);
     });
     $scope.input = "";
+
+    // Resize input field
+    resizeMessageField(true);
   };
 
   var mySocket = socketFactory();
@@ -99,4 +101,35 @@ angular.module('VBattle.room', [])
   };
 
   $scope.getMessages();
+
+  // On message box input change
+  var resizeMessageField = function (reset) {
+    // If n supplied, set rows directly
+    if (reset) {
+      $('#roomView_messageField')[0].rows = 1;
+      return;
+    }
+    // Count the number of newline characters
+    var str = $('#roomView_messageField')[0].value;
+    var rowCount = 1;
+    for (var i = 0; i < str.length; ++i) {
+      if (str[i] === '\n') {
+        ++rowCount;
+      }
+    }
+    // Set the rows of this to be rowCount or 1
+    $('#roomView_messageField')[0].rows = rowCount;
+
+    $scope.messageLength = str.replace(/./g, '_').length;
+  };
+
+  $('#roomView_messageField').keydown(function (e) {
+    resizeMessageField();
+  });
+  $('#roomView_messageField').keyup(function (e) {
+    resizeMessageField();
+  });
+
+  // Message length
+  $scope.messageLength = 0;
 });

@@ -37,13 +37,15 @@
       <textarea type="text"
         ng-model="input"
         placeholder='Message...'
-        class='roomView_messageField'>
-      </textarea>
-      <button class='btn btn-primary roomView_messageSubmit'
+        id='roomView_messageField'
+        rows='1'></textarea>
+      <button class='btn btn-primary'
+        id='roomView_messageSubmit'
         ng-click="postMessage(input)">
-        Send
+        <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
       </button>
     </form>
+    <div id='roomView_messageLength'>{{ messageLength }}</div>
     <div ng-show = "shower" class="alert alert-danger" role="alert">
       <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
       <span class="sr-only">Error:</span>
