@@ -132,6 +132,7 @@ helper.clientJoinRoom = function (data, callback) {
     callback({
       roomID: roomID
     }).then(function (result) {
+
       // Emit to sockets if online
       if (sockets_1) {
         // Log
@@ -139,7 +140,7 @@ helper.clientJoinRoom = function (data, callback) {
           Object.keys(sockets_1));
         // Iterate over all sockets
         for (var socket1 in sockets_1) {
-          io.to(socket1).emit('client:joinRoom', result);
+          io.to(socket1).emit('client:joinRoom', result.pData1);
         }
       }
       if (sockets_2) {
@@ -148,7 +149,7 @@ helper.clientJoinRoom = function (data, callback) {
           Object.keys(sockets_2));
         // Iterate over all sockets
         for (var socket2 in sockets_2) {
-          io.to(socket2).emit('client:joinRoom', result);
+          io.to(socket2).emit('client:joinRoom', result.pData2);
         }
       }
     });

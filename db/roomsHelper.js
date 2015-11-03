@@ -204,7 +204,7 @@ roomsHelper.pairPlayers = function (pairs, callback) {
         };
         // Handoff to socket helper
         socketHelper.clientJoinRoom(socketData, 
-          roomsHelper.getRoomData);
+          roomsHelper.getDataForRoomJoin);
 
         // Remove invalid matches key mapping
         delete waitingForGame.invalidMatches[pair[0].avatarID];
@@ -447,6 +447,104 @@ roomsHelper.getAllRooms = function (data, findFinishedRooms) {
           data.avatars[localAvatarID].rooms[localRoomID]
             .opponentImage = currImage.imageSource.toString('utf-8');
         }
+      });
+    });
+  });
+};
+
+// Rooms helper get data for join game
+roomsHelper.getDataForRoomJoin = function (data) {
+
+  // Create result to build up and emit to both clients
+  var result = {};
+
+  // Get data for room specified
+  var roomID = data.roomID;
+
+  // Lookup room
+  return roomsTable.find({
+    where: {
+      id: roomID
+    }
+  }).then(function (roomFound) {
+
+    // Get the current room data
+    var roomData = roomFound.dataValues;
+
+    // Set the data for player 1
+    var pData1 = {
+      localAvatarID: roomData.avatar1_id,
+      roomID: roomData.id,
+      canTakeTurn: roomData.turnCount % 2 === 0,
+      opponentAvatarID: roomData.avatar2_id
+    };
+
+    // Set the data for player 2
+    var pData2 = {
+      localAvatarID: roomData.avatar2_id,
+      roomID: roomData.id,
+      canTakeTurn: roomData.turnCount % 2 === 1,
+      opponentAvatarID: roomData.avatar1_id
+    };
+
+    // Get avatar names
+    return avatarsTable.findAll({
+      where: {
+        id: {
+          $in: [roomData.avatar1_id, roomData.avatar2_id]
+        }
+      }
+    }).then(function (avatarsFound) {
+
+      // Extract names
+      for (var i = 0; i < avatarsFound.length; ++i) {
+
+        // If the id is pData1's opponent's avatar id
+        if (avatarsFound[i].dataValues.id ===
+          pData1.opponentAvatarID) {
+
+          // Set opponent name
+          pData1.opponentName = avatarsFound[i].dataValues.avatarName;
+        } else {
+
+          // The name belongs to pData2
+          pData2.opponentName = avatarsFound[i].dataValues.avatarName;
+        }
+      }
+
+      // Get opponent images
+      return avatarImagesTable.findAll({
+        where: {
+          id: {
+            $in: [roomData.avatar1_id, roomData.avatar2_id]
+          }
+        }
+      }).then(function (imagesFound) {
+
+        // Extract images
+        for (var i = 0; i < imagesFound.length; ++i) {
+
+          // If the id is pData1's opponent's avatar id
+          if (avatarsFound[i].dataValues.id ===
+            pData1.opponentAvatarID) {
+
+            // Set opponent image
+            pData1.opponentImage =
+              imagesFound[i].dataValues.imageSource.toString('utf-8');
+          } else {
+
+            // The image belongs to pData2
+            pData2.opponentImage =
+              imagesFound[i].dataValues.imageSource.toString('utf-8');
+          }
+        }
+
+        // Add pData to result
+        result.pData1 = pData1;
+        result.pData2 = pData2;
+
+        // Return result
+        return result;
       });
     });
   });

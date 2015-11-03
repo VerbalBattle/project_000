@@ -27,31 +27,30 @@ angular.module('VBattle.room', [])
   // }
 
     // Post message to server
-    GamePlay.postMessage(msg)
-    .then(function (result) {
+    GamePlay.postMessage(msg).then(function (result) {
       console.log("message sent", result.turnValid);
 
-    // If it is not this users turn
-    if (result.turnValid === false) {
-      $scope.shower = true;
-      $timeout( function () {
-        $scope.shower = false;
-        console.log("setting to true");
-      }, 2000);
-    } else {
-      // The message was sent successfuly
-      $scope.input = "";
-      // Reset character count
-      $('#roomView_messageLength').text(144 + ' chars');
-      // Scroll the div
-      $('.roomView_messagesContainer').animate({
-        scrollTop: $('.roomView_messagesContainer').height()
-      }, 500);
-    }
+      // If it is not this users turn
+      if (result.turnValid === false) {
+        $scope.shower = true;
+        $timeout( function () {
+          $scope.shower = false;
+          console.log("setting to true");
+        }, 2000);
+      } else {
+        // The message was sent successfuly
+        $scope.input = "";
+        // Reset character count
+        $('#roomView_messageLength').text(144 + ' chars');
+        // Scroll the div
+        $('.roomView_messagesContainer').animate({
+          scrollTop: $('.roomView_messagesContainer').height()
+        }, 500);
+      }
 
-    $timeout( function () {
-      $scope.getMessages();
-    }, 20);
+      $timeout(function () {
+        $scope.getMessages();
+      }, 20);
     });
 
     // Resize input field
@@ -152,6 +151,7 @@ angular.module('VBattle.room', [])
       $('#roomView_messageField')[0].value =
         $('#roomView_messageField')[0].value.substr(0, 144);
     }
+    console.log(e.which);
     resizeMessageField();
 
     // Set character count in #roomView_messageLength
