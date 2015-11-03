@@ -119,16 +119,17 @@ angular.module('VBattle.room', [])
     }
     // Set the rows of this to be rowCount or 1
     $('#roomView_messageField')[0].rows = rowCount;
+
+    $scope.messageLength = str.replace(/./g, '_').length;
   };
 
   $('#roomView_messageField').keydown(function (e) {
-    console.log(e.which);
     resizeMessageField();
   });
   $('#roomView_messageField').keyup(function (e) {
-    // Backspace, invoke immediately
-    if (e.which === 8) {
-      resizeMessageField();
-    }
+    resizeMessageField();
   });
+
+  // Message length
+  $scope.messageLength = 0;
 });

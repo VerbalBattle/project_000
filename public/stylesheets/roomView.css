@@ -97,3 +97,13 @@
   height: 6vh;
   font-size: 3vh;
 }
+
+/*Message Length*/
+#roomView_messageLength {
+  width: 95%;
+  height: 6vh;
+  clear: both;
+  color: #999999;
+  text-align: left;
+  padding: 1%;
+}
