@@ -26,22 +26,33 @@ angular.module('VBattle.room', [])
   //     "message": "my message is here"
   // }
 
+    // Post message to server
     GamePlay.postMessage(msg)
-    .then( function (result) {
+    .then(function (result) {
       console.log("message sent", result.turnValid);
 
-      if (result.turnValid === false) {
-        $scope.shower = true;
-        $timeout( function () {
-          $scope.shower = false;
-          console.log("setting to true");
-        }, 2000);
+    // If it is not this users turn
+    if (result.turnValid === false) {
+      $scope.shower = true;
+      $timeout( function () {
+        $scope.shower = false;
+        console.log("setting to true");
+      }, 2000);
+    } else {
+      // The message was sent successfuly
+      $scope.input = "";
+      // Reset character count
+      $('#roomView_messageLength').text(144 + ' chars');
+      // Scroll the div
+      $('.roomView_messagesContainer').animate({
+        scrollTop: $('.roomView_messagesContainer').height()
+      }, 500);
     }
+
     $timeout( function () {
       $scope.getMessages();
     }, 20);
     });
-    $scope.input = "";
 
     // Resize input field
     resizeMessageField(true);
@@ -52,7 +63,12 @@ angular.module('VBattle.room', [])
     console.log("message", data.rooms);
     console.log($scope.messages[Object.keys($scope.messages)[0]].messages);
       $scope.messages = data.rooms;
-    });
+
+    // Scroll div to proper height
+    $('.roomView_messagesContainer').animate({
+      scrollTop: $('.roomView_messagesContainer').height()
+    }, 500);
+  });
 
 
   $scope.getMessages = function () {
@@ -96,6 +112,11 @@ angular.module('VBattle.room', [])
 
     // Set messages
     $scope.messages = result.rooms;
+
+    // Set scroll height
+    $('.roomView_messagesContainer').animate({
+      scrollTop: $('.roomView_messagesContainer').height()
+    }, 500);
    }); 
 
   };
@@ -117,19 +138,29 @@ angular.module('VBattle.room', [])
         ++rowCount;
       }
     }
+    // Add rows for 
     // Set the rows of this to be rowCount or 1
     $('#roomView_messageField')[0].rows = rowCount;
-
-    $scope.messageLength = str.replace(/./g, '_').length;
   };
 
   $('#roomView_messageField').keydown(function (e) {
     resizeMessageField();
   });
   $('#roomView_messageField').keyup(function (e) {
+    // Set value to be substring
+    if (144 < $('#roomView_messageField')[0].value.length) {
+      $('#roomView_messageField')[0].value =
+        $('#roomView_messageField')[0].value.substr(0, 144);
+    }
     resizeMessageField();
+
+    // Set character count in #roomView_messageLength
+    $('#roomView_messageLength')
+    .text(144 - $('#roomView_messageField')[0].value.length +
+      ' chars');
   });
 
-  // Message length
-  $scope.messageLength = 0;
+  // Initialize character count to 0
+  $('#roomView_messageLength')
+  .text(144 + ' chars');
 });
