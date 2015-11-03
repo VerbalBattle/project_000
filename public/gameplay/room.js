@@ -121,7 +121,14 @@ angular.module('VBattle.room', [])
     $('#roomView_messageField')[0].rows = rowCount;
   };
 
-  $('#roomView_messageField').keydown(function () {
+  $('#roomView_messageField').keydown(function (e) {
+    console.log(e.which);
     resizeMessageField();
+  });
+  $('#roomView_messageField').keyup(function (e) {
+    // Backspace, invoke immediately
+    if (e.which === 8) {
+      resizeMessageField();
+    }
   });
 });

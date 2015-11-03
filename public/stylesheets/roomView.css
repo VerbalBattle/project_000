@@ -74,7 +74,7 @@
 /*Message Field*/
 #roomView_messageField {
   float: left;
-  border-radius: 6%;
+  border-radius: 3%;
   font-size: ;
   border: 3px solid #cccccc;
   resize: none;
@@ -82,6 +82,7 @@
   white-space: -moz-pre-wrap; /* Firefox 1.0-2.0 */
   white-space: pre-wrap;      /* current browsers */
   padding: 1%;
+  width: 90%;
 }
 #roomView_messageField:focus {
   outline: none;
@@ -89,5 +90,10 @@
 
 /*Message Submit*/
 #roomView_messageSubmit {
+  margin-left: 1%;
+  width: 9%;
+  height: ;
   float: left;
+  height: 6vh;
+  font-size: 3vh;
 }
