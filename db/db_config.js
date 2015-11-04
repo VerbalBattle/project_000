@@ -23,10 +23,13 @@ var Sequelize = require('sequelize');
 
 // Setup sequelize to connect to InsultPvP database
 // with root user and empty password
+// var sequelize = new Sequelize('InsultPvP', 'kingsimon', '', {
 var sequelize = new Sequelize('InsultPvP', 'root', '', {
   host: 'localhost',
   // Conditional dialect
+  // dialect: 'postgres',
   dialect: 'mysql',
+
   // disable logging; default: console.log
   logging: false
 });
