@@ -5,7 +5,7 @@ angular.module('VBattle.profileServices', [])
   var userData;
 
   // Edit login data
-  var editLoginData = function () {
+  var modifyLoginData = function () {
 
     // Identify our avatar as avatar1 or avatar2
     // in each game room
@@ -42,7 +42,7 @@ angular.module('VBattle.profileServices', [])
       // Set login data
       userData = resp.data;
       // Edit/process login data for frontend
-      editLoginData();
+      modifyLoginData();
     }, function (err) {
       throw err;
     });
