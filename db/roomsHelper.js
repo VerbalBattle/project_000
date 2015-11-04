@@ -29,8 +29,8 @@ var messagesHelper = require('./messagesHelper');
 
 // Require player game room queue
 var waitingForGame = require('../server/data').waitingForGame;
-// Require judging
-var judging = require('../server/data').judging;
+// Require judger
+var judger = require('../server/data').judger;
 
 // Require socket helper
 var socketHelper = require('../server/sockets').helper;
@@ -793,8 +793,24 @@ roomsHelper.sendMessageToRoom = function (data) {
 
                 // If the game is over
                 if (roomState === 1) {
-                  // Add the room to judging
-                  judging.addRoom(roomID, roomsHelper.getRoomData);
+                  // Add the room to judger
+                  judger.addRoom(roomID, roomsHelper.getRoomData);
+
+                  // Send live update for room to enter judger
+                  socketHelper.clientEnterJudgingUpdate({
+                    // RoomID
+                    roomID: roomID,
+                    // Player 1 data
+                    pData1: {
+                      userID: roomFound.avatar1_userID,
+                      avatarID: roomFound.avatar1_id
+                    },
+                    // Player 2 data
+                    pData2: {
+                      userID: roomFound.avatar2_userID,
+                      avatarID: roomFound.avatar2_id
+                    }
+                  });
                 }
               });
             } else {

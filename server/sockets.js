@@ -191,6 +191,93 @@ helper.clientTurnUpdate = function (data, callback) {
   }
 };
 
+// Helper send live update that room has ended and
+// entered judging to users in room
+helper.clientEnterJudgingUpdate = function (data) {
+  
+  // Log
+  console.log('ATTEMPTING ENTER JUDGING UPDATE');
+
+  // Get roomID
+  var roomID = data.roomID;
+  // Get player data for room
+  var player1 = data.pData1;
+  var player2 = data.pData2;
+
+  // Get Sockets
+  var sockets1 = onlineUsers[player1.userID];
+  var sockets2 = onlineUsers[player2.userID];
+
+  // Emit to player 1 and player 2 if they are online
+  if (sockets1) {
+    // Result to emit
+    var result1 = {
+      avatarID: player1.avatarID,
+      roomID: roomID
+    };
+    // Iterate
+    for (var s1 in sockets1) {
+      io.to(s1).emit('client:enterJudgingUpdate', result1);
+    }
+  }
+  if (sockets2) {
+    // Result to emit
+    var result2 = {
+      avatarID: player2.avatarID,
+      roomID: roomID
+    };
+    // Iterate
+    for (var s2 in sockets2) {
+      io.to(s2).emit('client:enterJudgingUpdate', result2);
+    }
+  }
+};
+
+// Helper send live update to client about game result
+// after judging
+helper.clientGameJudgedUpdate = function (data) {
+
+  // Log
+  console.log('ATTEMPTING GAME JUDGED UPDATE');
+
+  // Get roomID
+  var roomID = data.roomID;
+  // Get player data for room
+  var pData1 = data.pData1;
+  var pData2 = data.pData2;
+
+  // Get Sockets
+  var sockets1 = onlineUsers[pData1.userID];
+  var sockets2 = onlineUsers[pData2.userID];
+
+  // Emit to player 1 and player 2 if they are online
+  if (sockets1) {
+    // Modify pData to send off to client
+    pData1.roomID = roomID;
+    // Delete userID
+    delete pData1.userID;
+
+    // Iterate
+    for (var s1 in sockets1) {
+      io.to(s1).emit('client:gameJudgedUpdate', pData1);
+    }
+  }
+  if (sockets2) {
+    // Modify pData to send off to client
+    pData2.roomID = roomID;
+    // Delete userID
+    delete pData2.userID;
+
+    // Iterate
+    for (var s2 in sockets2) {
+      io.to(s2).emit('client:gameJudgedUpdate', pData2);
+    }
+  }
+};
+
+// Initialize judger judger
+require('./data').judger.initialize(helper.clientGameJudgedUpdate);
+
 //                             _       
 //                            | |      
 //   _____  ___ __   ___  _ __| |_ ___ 
