@@ -26,41 +26,49 @@ angular.module('VBattle.room', [])
   //     "message": "my message is here"
   // }
 
-    // Post message to server
-    GamePlay.postMessage(msg).then(function (result) {
-      console.log("message sent", result.turnValid);
+    // Post message to server if message isn't empt
+    if (0 < msg.message.length) {
+      GamePlay.postMessage(msg).then(function (result) {
+        // If the game isn't over
+        var msgs =
+          $scope.messages[Object.keys($scope.messages)[0]].messages;
+        if (msgs.length < 6) {
+          // If it is not this users turn
+          if (result.turnValid === false) {
+            $scope.shower = true;
+            $timeout( function () {
+              $scope.shower = false;
+            }, 2000);
+          } else {
+            // The message was sent successfuly
+            $scope.input = "";
+            // Reset character count
+            $('#roomView_messageLength').text(144 + ' chars');
+            // Scroll the div
+            $('.roomView_messagesContainer').animate({
+              scrollTop: $('.roomView_messagesContainer').height()
+            }, 500);
 
-      // If it is not this users turn
-      if (result.turnValid === false) {
-        $scope.shower = true;
-        $timeout( function () {
-          $scope.shower = false;
-          console.log("setting to true");
-        }, 2000);
-      } else {
-        // The message was sent successfuly
-        $scope.input = "";
-        // Reset character count
-        $('#roomView_messageLength').text(144 + ' chars');
-        // Scroll the div
-        $('.roomView_messagesContainer').animate({
-          scrollTop: $('.roomView_messagesContainer').height()
-        }, 500);
-      }
+            // Focus on message field
+            $('#roomView_messageField').focus();
 
-      $timeout(function () {
-        $scope.getMessages();
-      }, 20);
-    });
+            // Resize input field
+            resizeMessageField(true);
+          }
 
-    // Resize input field
-    resizeMessageField(true);
+          $timeout(function () {
+            $scope.getMessages();
+          }, 20);
+        } else {
+          
+          // Show that the room has ended
+        }
+      });
+    }
   };
 
   var mySocket = socketFactory();
   mySocket.on('client:turnUpdate', function (data) {
-    console.log("message", data.rooms);
-    console.log($scope.messages[Object.keys($scope.messages)[0]].messages);
       $scope.messages = data.rooms;
 
     // Scroll div to proper height
@@ -75,9 +83,6 @@ angular.module('VBattle.room', [])
   // $scope.messages.push(GamePlay.getMessages(1).rooms[1].messages);
   //console.log(GamePlay.getMessages(1).rooms[1].messages, "heleelelellelel")
   GamePlay.getMessages(room).then(function (result) {
-
-    // Log result
-    console.log(result);
 
     // Get rooms
     $scope.room = result.rooms[room];
@@ -162,4 +167,7 @@ angular.module('VBattle.room', [])
   // Initialize character count to 0
   $('#roomView_messageLength')
   .text(144 + ' chars');
+
+  // Focus on message field
+  $('#roomView_messageField').focus();
 });

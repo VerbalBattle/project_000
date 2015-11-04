@@ -28,6 +28,10 @@ angular.module('VBattle.profileServices', [])
       currStats['Win Streak'] = currStats.winStreak;
       delete currStats.winStreak;
 
+      // Iterate over the rooms the avatar has
+      for (var roomID in currAvatar.rooms) {
+        currAvatar.rooms[roomID].inJudging = false;
+      }
       // Set gameCount since Object.keys() is not
       // accessible on DOM through angular
       currAvatar.gameCount =

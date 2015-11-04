@@ -4,7 +4,7 @@
 
 <!-- Avatar List Display -->
 <div class="col-md-4" ng-repeat = "(key, value) in avatars">
-
+  
   <!-- Avatar Profile Container -->
   <div class='lobbyView_profileContainer'>
 
@@ -48,24 +48,36 @@
 
             <!-- Link to room -->
             <a href='#/rooms/{{ room.id || room.roomID }}/{{ key }}'>
-
-              <!-- Local Player's Turn -->
-              <div ng-show='{{ room.canTakeTurn }}'>
+              <!-- Show this if room is in judging -->
+              <div ng-show='{{ room.inJudging }}'>
                 <button type="button"
-                class="btn btn-warning lobbyView_button_playGame"
+                class="btn btn-danger lobbyView_button_game"
                 aria-label="Left Align">
                   <!-- {{ room.opponentName }} -->
-                  Play
+                  In Judging
                 </button>
               </div>
 
-              <!-- Foreign Player's Turn -->
-              <div ng-show='{{ !room.canTakeTurn }}'>
-                <button type="button"
-                class="btn btn-primary lobbyView_button_viewGame"
-                aria-label="Left Align">
-                  View
-                </button>
+              <!-- Show this if room is open -->
+              <div ng-show='{{ !room.inJudging }}'>
+                <!-- Local Player's Turn -->
+                <div ng-show='{{ room.canTakeTurn }}'>
+                  <button type="button"
+                  class="btn btn-warning lobbyView_button_game"
+                  aria-label="Left Align">
+                    <!-- {{ room.opponentName }} -->
+                    Play
+                  </button>
+                </div>
+
+                <!-- Foreign Player's Turn -->
+                <div ng-show='{{ !room.canTakeTurn }}'>
+                  <button type="button"
+                  class="btn btn-primary lobbyView_button_game"
+                  aria-label="Left Align">
+                    View
+                  </button>
+                </div>
               </div>
             </a>
           </div>

@@ -69,8 +69,8 @@
   font-weight: bold;
 }
 
-/*Room Summary Button View Game*/
-.lobbyView_button_viewGame {
+/*Room Summary Button Redirect*/
+.lobbyView_button_game {
   height: 6vh;
   font-size: 3vh;
   padding: 1vh 2vh;
@@ -78,13 +78,19 @@
   white-space: normal;
 }
 
+/*Room Summary Button View Game*/
+.lobbyView_button_viewGame {
+
+}
+
 /*Room Summary Button Play Game*/
 .lobbyView_button_playGame {
-  height: 6vh;
-  font-size: 3vh;
-  padding: 1vh 2vh;
-  font-weight: bold;
-  white-space: normal;
+
+}
+
+/*Room Summary Button In Judging Game*/
+.lobbyView_button_judgingGame {
+  
 }
 
 /*Matchmaking Container*/

@@ -18,7 +18,7 @@ var router = express.Router();
 var authenticator = require('../server/authenticator');
 
 // Require rooms helper
-var judging = require('../server/data').judging;
+var judger = require('../server/data').judger;
 
 //                  _            
 //                 | |           
@@ -47,7 +47,7 @@ router.get('/', authenticator.ensureAuthenticated,
   console.log('\n\nATTEMPTING TO GET ROOMS TO JUDGE FOR',
     userID, '\n\n');
   // Attempt to add to voting queue
-  judging.getRoomsToJudge(userID, callback);
+  judger.getRoomsToJudge(userID, callback);
 
   // Expected result sent to client
   // [roomObj1, roomObj2, ...]
@@ -82,7 +82,7 @@ router.put('/:roomID', authenticator.ensureAuthenticated,
   console.log('\n\nATTEMPTING TO CAST VOTE ON ROOM',
     data.roomID, 'FOR AVATAR', data.upVoteID);
   // Handoff to judging
-  judging.judgeOneRoom(data, callback);
+  judger.judgeOneRoom(data, callback);
 });
 
 module.exports = router;

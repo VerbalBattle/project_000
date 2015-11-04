@@ -109,3 +109,23 @@
 .avatarsView_avatarStat_value {
 
 }
+
+/*Avatar Add Container*/
+#avatarView_addAvatarContainer {
+  text-align: center;
+  height: 80vh;
+}
+
+/*Avatar Add Button*/
+#avatarView_addAvatarBtn {
+  margin-top: 30vh;
+  height: 20vh;
+  width: 20vh;
+  font-size: 7vh;
+  color: white;
+}
+
+/*Avatar Add Button Plus*/
+#avatarView_addAvatarBtn_Plus {
+  /*color: #5cb85c;*/
+}
