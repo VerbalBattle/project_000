@@ -22,12 +22,15 @@ angular.module('VBattle.profile', [])
       }
     };
 
-    Profile.addAvatar(avatar)
-    .then(function (data) {
+    Profile.addAvatar(avatar).then(function (data) {
       console.log("added avatar", data);
       for (avatarID in data.avatars) {
         $scope.user.avatars[avatarID] = data.avatars[avatarID];
       }
+
+      // Set the game count to 0
+      $scope.user.avatars[Object.keys(data.avatars)[0]].gameCount = 0;
+
       window.localStorage['user'] = JSON.stringify($scope.user);
       $scope.showadd = Object.keys($scope.user.avatars).length < $scope.user.avatarLimit;
       $scope.lengthBox = 12 / Object.keys($scope.user.avatars).length;

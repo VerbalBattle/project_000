@@ -14,10 +14,6 @@ angular.module('VBattle.lobby', [])
     // Get the roomID
     var roomID = data.roomID;
 
-    console.log(user.avatars);
-    console.log(Object.keys(user.avatars));
-    console.log(user.avatars[avatarID]);
-    console.log(avatarID);
     // If the avatar belongs to us
     if (user.avatars[avatarID]) {
       console.log('avatarID found');
