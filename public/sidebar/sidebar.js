@@ -13,6 +13,16 @@ angular.module('VBattle.sideBar', [])
     mySocket.on('client:turnUpdate', function (data) {
       console.log("new message update", data);
     });
+
+    // Listener for when a finished room enters judging
+    mySocket.on('client:enterJudgingUpdate', function (data) {
+      console.log('judgingUpdate incoming', data);
+    });
+
+    // Listener for when a room has been judged
+    mySocket.on('client:gameJudgedUpdate', function (data) {
+      console.log('gameJudgeUpdate', data);
+    });
   }
 
   // indicate whether sidebar is visible or not

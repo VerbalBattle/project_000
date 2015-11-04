@@ -151,7 +151,6 @@ angular.module('VBattle.room', [])
       $('#roomView_messageField')[0].value =
         $('#roomView_messageField')[0].value.substr(0, 144);
     }
-    console.log(e.which);
     resizeMessageField();
 
     // Set character count in #roomView_messageLength
