@@ -6,23 +6,6 @@ angular.module('VBattle.sideBar', [])
     mySocket.emit('client:linkUser', {
       token: window.localStorage['satellizer_token']
     });                                                             
-    
-    mySocket.on('client:joinRoom', function (data) {
-      console.log("join-room update", data);
-    });
-    mySocket.on('client:turnUpdate', function (data) {
-      console.log("new message update", data);
-    });
-
-    // Listener for when a finished room enters judging
-    mySocket.on('client:enterJudgingUpdate', function (data) {
-      console.log('judgingUpdate incoming', data);
-    });
-
-    // Listener for when a room has been judged
-    mySocket.on('client:gameJudgedUpdate', function (data) {
-      console.log('gameJudgeUpdate', data);
-    });
   }
 
   // indicate whether sidebar is visible or not

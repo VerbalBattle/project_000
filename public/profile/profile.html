@@ -1,5 +1,3 @@
-<button ng-show="showadd" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addAvatar">Add New Player</button>
-
 <h2 class='viewTitle'>{{ user.username }}'s avatars</h2>
 
 <!-- Avatar List Display -->
@@ -104,12 +102,30 @@
   </div>
 </div>
 
+<!-- Add Avatar Button -->
+<div ng-show='showadd'
+  id='avatarView_addAvatarContainer'
+  class='col-md-4'>
+  <button id='avatarView_addAvatarBtn'
+    class="btn btn-primary"
+    data-toggle="modal"
+    data-target="#addAvatar">
+    <span id='avatarView_addAvatarBtn_Plus'
+      class="glyphicon glyphicon-plus"
+      aria-hidden="true">
+    </span>
+    <span class="glyphicon glyphicon-user"
+      aria-hidden="true">
+    </span>
+  </button>
+</div>
+
 <!-- add avatar data -->
 <div id="addAvatar" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
-    <div class="modal-content">      
+    <div class="modal-content">
       <div class="modal-body">
         <form ng-submit="addAvatar()">
           <fieldset class="form-group">

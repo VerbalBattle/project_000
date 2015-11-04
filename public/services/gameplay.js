@@ -26,7 +26,6 @@ angular.module('VBattle.gameplayServices', [])
 
     return $http.get('/rooms/' + roomID)
       .then(function (resp) {
-        //console.log("messages received", resp.data.rooms[1].messages);
         return resp.data;
       }, function (err) {
         throw err;
@@ -37,10 +36,8 @@ angular.module('VBattle.gameplayServices', [])
   var postMessage = function (messageData) {
     var roomID = messageData.roomID;
     //will work when room exists
-    console.log("posting too rooms", roomID, messageData);
     return $http.post('/rooms/' + roomID, messageData)
      .then(function (resp) {
-      console.log("response", resp);
        return resp.data;
     }, function (err) {
        throw err;
