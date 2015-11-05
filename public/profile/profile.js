@@ -21,6 +21,7 @@ angular.module('VBattle.profile', [])
         "aboutMe": $scope.aboutMe
       }
     };
+    console.log("before Add", $scope.imageSrcComp, avatar.avatarData.imageSource);
 
     Profile.addAvatar(avatar).then(function (data) {
       console.log("added avatar", data);
@@ -104,7 +105,6 @@ angular.module('VBattle.profile', [])
       var ctx = canvas.getContext("2d").drawImage(myImage, 0, 0, canvas.width, canvas.height);
 
       $scope.imageSrcComp = canvas.toDataURL('png');
-      console.log($scope.imageSrcComp);
       if ($scope.imageSrcComp.length === 6) {
         $scope.uploadFile(files, canvasChoice);
       }
