@@ -30,7 +30,6 @@ angular.module('VBattle.profile', [])
 
       // Set the game count to 0
       $scope.user.avatars[Object.keys(data.avatars)[0]].gameCount = 0;
-
       window.localStorage['user'] = JSON.stringify($scope.user);
       $scope.showadd = Object.keys($scope.user.avatars).length < $scope.user.avatarLimit;
       $scope.lengthBox = 12 / Object.keys($scope.user.avatars).length;
@@ -103,7 +102,7 @@ angular.module('VBattle.profile', [])
 
       var ctx = canvas.getContext("2d").drawImage(myImage, 0, 0, canvas.width, canvas.height);
 
-      $scope.imageSrcComp = canvas.toDataURL();
+      $scope.imageSrcComp = canvas.toDataURL('png');
       if ($scope.imageSrcComp.length === 6) {
         $scope.uploadFile(files, canvasChoice);
       }
