@@ -90,7 +90,6 @@ angular.module('VBattle.profile', [])
       // Initialize image
       myImage.src = 'data:image/jpeg;base64,' + src;
 
-      $scope.$apply();
       var canvas = $document.find(canvasChoice)[0];
       if (myImage.height < myImage.width) {
         canvas.height = 150;
@@ -99,11 +98,10 @@ angular.module('VBattle.profile', [])
         canvas.width = 150;
         canvas.height = myImage.height / myImage.width * 150;
       }
-      var ctx = canvas.getContext("2d");
 
+      var ctx = canvas.getContext("2d");
       ctx.drawImage(myImage, 0, 0, canvas.width, canvas.height);
-      $scope.imageSrcComp = canvas.toDataURL();
-      console.log('UPLODADED', $scope.imageSrcComp);
+      $scope.imageSrcComp = canvas.toDataURL('image/png');
     };
     reader.readAsBinaryString(files[0]);
   };
