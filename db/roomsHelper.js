@@ -52,39 +52,43 @@ var roomsHelper = {};
 // of matches
 roomsHelper.makeMatches = function (pairs) {
 
-  // Iterate over all of the pairs
-  for (var i = 0; i < pairs.length; ++i) {
+  // If any pairs were found
+  if (0 < pairs.length) {
 
-    // Get the node associated with that pair's id and
-    // replace current tuple's indexed value
-    for (var j = 0; j < pairs[i].length; ++j) {
-      pairs[i][j] = waitingForGame.nodes[pairs[i][j]].val;
-      console.log(pairs[i][j]);
+    // Iterate over all of the pairs
+    for (var i = 0; i < pairs.length; ++i) {
+
+      // Get the node associated with that pair's id and
+      // replace current tuple's indexed value
+      for (var j = 0; j < pairs[i].length; ++j) {
+        pairs[i][j] = waitingForGame.nodes[pairs[i][j]].val;
+        console.log(pairs[i][j]);
+      }
     }
-  }
 
-  // Pair the players
-  this.pairPlayers([pairs], function (avatar1_ID, avatar2_ID) {
+    // Pair the players
+    this.pairPlayers([pairs], function (avatar1_ID, avatar2_ID) {
 
-    // Iterate over arugments
-    for (var i = 0; i < arguments.length; ++i) {
+      // Iterate over arugments
+      for (var i = 0; i < arguments.length; ++i) {
 
-      // Check if avatarID is already a KV map
-      // in invalid matches
-      if (waitingForGame.invalidMatches[arguments[i]] ===
-        undefined) {
-        // Initialize as empty object
-        waitingForGame.invalidMatches[arguments[i]] = {};
+        // Check if avatarID is already a KV map
+        // in invalid matches
+        if (waitingForGame.invalidMatches[arguments[i]] ===
+          undefined) {
+          // Initialize as empty object
+          waitingForGame.invalidMatches[arguments[i]] = {};
+        }
+
+        // Add invalid pair
+        waitingForGame.invalidMatches[arguments[i]]
+          [arguments[(i + 1) % arguments.length]] = true;
       }
 
-      // Add invalid pair
-      waitingForGame.invalidMatches[arguments[i]]
-        [arguments[(i + 1) % arguments.length]] = true;
-    }
-
-    // Log invalid matches
-    console.log('Invalid Matches', waitingForGame.invalidMatches);
-  });
+      // Log invalid matches
+      console.log('Invalid Matches', waitingForGame.invalidMatches);
+    });
+  }
 };
 
 // Rooms helper method to add to end of game queue
@@ -880,7 +884,6 @@ roomsHelper.initialize = function () {
   var that = this;
   // Perform set interval
   setInterval(function () {
-    console.log('oh no');
     that.makeMatches(matchBatch(n));
   }, 1000);
 };
