@@ -17,15 +17,15 @@
 
 /*Avatar Remove Button*/
 .avatarsView_button_remove {
-  padding: 1vh 2vh;
-  font-size: 3vh;
+  padding: .5vh 1vh;
+  font-size: 1.5vh;
   float: left;
 }
 
 /*Avatar Edit Button*/
 .avatarsView_button_edit {
-  padding: 1vh 2vh;
-  font-size: 3vh;
+  padding: .5vh 1vh;
+  font-size: 1.5vh;
   float: right;
 }
 

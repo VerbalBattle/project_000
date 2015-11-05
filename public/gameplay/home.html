@@ -1,2 +1,40 @@
-<a class="btn" href="#/lobby">Play</a>
-<a class="btn" href="#/voting">Vote</a>
+<!-- Title -->
+<div id='homeView_title'>
+  ButterUp
+</div>
+
+<!-- Home View Container -->
+<div id='homeView_navContainer'
+  class='clearfix'>
+
+  <!-- Play -->
+  <div id='homeView_battleDiv'
+    class='col-md-6'>
+    <a class="btn" href="#/lobby">
+      <button type='button'
+        id='homeView_battleButton'
+        class='btn btn-danger'
+        aria-label='Left Align'>
+        Battle<br />
+        <span class='glyphicon glyphicon-warning-sign'>
+        </span>
+      </button>
+    </a>
+  </div>
+
+  <!-- Judge -->
+  <div id='homeView_judgeDiv'
+    class='col-md-6'>
+    <a class="btn" href="#/voting">
+      <button type='button'
+        id='homeView_judgeButton'
+        class='btn btn-primary'
+        aria-label='Left Align'>
+        Judge<br />
+        <span class='glyphicon glyphicon-flag'
+          aria-hidden="true">
+        </span>
+      </button>
+    </a>
+  </div>
+</div>

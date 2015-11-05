@@ -1,3 +1,30 @@
+/*Room View Sub Title*/
+#roomView_SubTitle {
+  margin-top: -1vh;
+  text-align: center;
+  background-color: #222222;
+  width: 25%;
+  font-size: 3vh;
+  margin-left: 37.5%;
+  padding: 1vh;
+  border-radius: 1vh;
+}
+
+/*Room View Sub Title Open*/
+#viewSubTitle_open {
+  color: #5cb85c;
+}
+
+/*Room View Sub Title Judging*/
+#viewSubTitle_judging {
+  color: #d9534f;
+}
+
+/*Room View Sub Title Judging*/
+#viewSubTitle_closed {
+  color: #999999;
+}
+
 /*Room View Chat Container*/
 .roomView_chatContainer {
   width: 75%;
@@ -10,7 +37,7 @@
 .roomView_messagesContainer {
   overflow-y: scroll;
   border-bottom: 3px solid #cccccc;
-  height: 65vh;
+  height: 60vh;
 }
 
 

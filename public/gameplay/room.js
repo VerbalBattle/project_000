@@ -10,6 +10,9 @@ angular.module('VBattle.room', [])
   $scope.shower = false;
   $scope.enemy;
 
+  // State of the room
+  $scope.roomState = -1;
+
   $scope.postMessage = function (text) {
    //getting userID and avatarID form localstorage
    //replace roomID with variable room
@@ -30,46 +33,46 @@ angular.module('VBattle.room', [])
     if (0 < msg.message.length) {
       GamePlay.postMessage(msg).then(function (result) {
         // If the game isn't over
-        var msgs =
-          $scope.messages[Object.keys($scope.messages)[0]].messages;
-        if (msgs.length < 6) {
+        // var msgs =
+        //   $scope.messages[Object.keys($scope.messages)[0]].messages;
+        // if (msgs.length < 6) {
           // If it is not this users turn
-          if (result.turnValid === false) {
-            $scope.shower = true;
-            $timeout( function () {
-              $scope.shower = false;
-            }, 2000);
-          } else {
-            // The message was sent successfuly
-            $scope.input = "";
-            // Reset character count
-            $('#roomView_messageLength').text(144 + ' chars');
-            // Scroll the div
-            $('.roomView_messagesContainer').animate({
-              scrollTop: $('.roomView_messagesContainer').height()
-            }, 500);
-
-            // Focus on message field
-            $('#roomView_messageField').focus();
-
-            // Resize input field
-            resizeMessageField(true);
-          }
-
-          $timeout(function () {
-            $scope.getMessages();
-          }, 20);
+        if (result.turnValid === false) {
+          $scope.shower = true;
+          $timeout( function () {
+            $scope.shower = false;
+          }, 2000);
         } else {
-          
-          // Show that the room has ended
+          // The message was sent successfuly
+          $scope.input = "";
+          // Reset character count
+          $('#roomView_messageLength').text(144 + ' chars');
+          // Scroll the div
+          $('.roomView_messagesContainer').animate({
+            scrollTop: $('.roomView_messagesContainer').height()
+          }, 500);
+
+          // Focus on message field
+          $('#roomView_messageField').focus();
+
+          // Resize input field
+          resizeMessageField(true);
         }
+
+        $timeout(function () {
+          $scope.getMessages();
+        }, 20);
+        // } else {
+          
+        //   // Show that the room has ended
+        // }
       });
     }
   };
 
   var mySocket = socketFactory();
   mySocket.on('client:turnUpdate', function (data) {
-      $scope.messages = data.rooms;
+    $scope.messages = data.rooms;
 
     // Scroll div to proper height
     $('.roomView_messagesContainer').animate({
@@ -83,9 +86,11 @@ angular.module('VBattle.room', [])
   // $scope.messages.push(GamePlay.getMessages(1).rooms[1].messages);
   //console.log(GamePlay.getMessages(1).rooms[1].messages, "heleelelellelel")
   GamePlay.getMessages(room).then(function (result) {
-
     // Get rooms
     $scope.room = result.rooms[room];
+
+    // Set roomstate
+    $scope.roomState = $scope.room.roomState;
 
     // Mapping avatarID to avatarData
     $scope.avatarIDMap = {};
