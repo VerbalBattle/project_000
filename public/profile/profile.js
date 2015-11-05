@@ -21,15 +21,15 @@ angular.module('VBattle.profile', [])
         "aboutMe": $scope.aboutMe
       }
     };
-
     Profile.addAvatar(avatar).then(function (data) {
+      $document.find('#addAvatar').modal('hide');
       console.log("added avatar", data);
-      for (avatarID in data.avatars) {
-        $scope.user.avatars[avatarID] = data.avatars[avatarID];
-      }
+      var avatarID = Object.keys(data.avatars)[0];
+      $scope.user.avatars[avatarID] = avatar.avatarData;
+      $scope.user.avatars[avatarID].stats = data.avatars[avatarID].stats;
 
       // Set the game count to 0
-      $scope.user.avatars[Object.keys(data.avatars)[0]].gameCount = 0;
+      $scope.user.avatars[avatarID].gameCount = 0;
       window.localStorage['user'] = JSON.stringify($scope.user);
       $scope.showadd = Object.keys($scope.user.avatars).length < $scope.user.avatarLimit;
       $scope.lengthBox = 12 / Object.keys($scope.user.avatars).length;
@@ -37,7 +37,6 @@ angular.module('VBattle.profile', [])
       // clear form
       $scope.avatarName = "";
       $scope.aboutMe = "";
-      $document.find('#addAvatar').modal('hide');
     });
   };
   
@@ -55,7 +54,6 @@ angular.module('VBattle.profile', [])
             [0].value
       }
     };
-
     // Request change from server
     Profile.editAvatar(avatarID, avatar)
     .then(function (data) {
@@ -65,7 +63,6 @@ angular.module('VBattle.profile', [])
         // $scope.user.avatars[avatarID] = avatar.avatarData;
 
         // Set about me
-        console.log(avatar.avatarData);
         $scope.user.avatars[avatarID].aboutMe =
           avatar.avatarData.aboutMe;
         // Set image if changed
@@ -117,7 +114,7 @@ angular.module('VBattle.profile', [])
 
     Profile.removeAvatar(user)
     .then(function (data) {
-      console.log(data);
+      console.log("removed status", data);
 
       if (data.removeSuccess) {
         delete $scope.user.avatars[user.avatarID];

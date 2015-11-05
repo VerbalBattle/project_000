@@ -22,6 +22,7 @@
       <!-- Avatar Edit Button -->
       <button type="button"
       class="btn btn-info avatarsView_button_edit"
+      ng-click="loading=false"
       aria-label="Left Align"
       data-toggle="modal"
       data-target="#editAvatar{{ key }}">
@@ -73,7 +74,7 @@
         <!-- Modal content-->
         <div class="modal-content">      
           <div class="modal-body">
-            <form ng-submit="editAvatar()">
+            <form ng-submit="loading=true;editAvatar()">
               <fieldset class="form-group">
                 <label>Avatar Name</label>
                 <div>{{ value.avatarName }}</div>
@@ -90,7 +91,8 @@
                 <input type="file" class="form-control" name="file" onchange="angular.element(this).scope().uploadFile(this.files, 'canvas#edit')"/>
                 <canvas class="" id="edit"></canvas>
               </fieldset>
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button ng-show="!loading" type="submit" class="btn btn-primary">Edit Avatar</button>
+              <div ng-show="loading" id="loading"></div>
             </form>
           </div>
           <div class="modal-footer">
@@ -108,6 +110,7 @@
   class='col-md-4'>
   <button id='avatarView_addAvatarBtn'
     class="btn btn-primary"
+    ng-click="loading=false"
     data-toggle="modal"
     data-target="#addAvatar">
     <span id='avatarView_addAvatarBtn_Plus'
@@ -127,7 +130,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-body">
-        <form ng-submit="addAvatar()">
+        <form ng-submit="loading=true;addAvatar()">
           <fieldset class="form-group">
             <label>Avatar Name</label>
             <input type="text" class="form-control" placeholder="Name" ng-model="avatarName" required="required" ng-init="element.focus()">
@@ -146,7 +149,8 @@
             <input type="file" class="form-control" name="file" onchange="angular.element(this).scope().uploadFile(this.files, 'canvas#add')"/>
             <canvas class="" id="add"></canvas>
           </fieldset>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button ng-show="!loading" type="submit" class="btn btn-primary">Add Avatar</button>
+          <div ng-show="loading" id="loading"></div>
         </form>
       </div>
       <div class="modal-footer">
