@@ -22,8 +22,6 @@ angular.module('VBattle.profile', [])
         "aboutMe": $scope.aboutMe
       }
     };
-    console.log('start loading')
-    $scope.loading = true;
     Profile.addAvatar(avatar).then(function (data) {
       $scope.loading = false;
       console.log("added avatar", data);
@@ -58,7 +56,6 @@ angular.module('VBattle.profile', [])
             [0].value
       }
     };
-    $scope.loading = true;
     // Request change from server
     Profile.editAvatar(avatarID, avatar)
     .then(function (data) {
