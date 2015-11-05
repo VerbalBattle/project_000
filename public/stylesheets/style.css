@@ -132,3 +132,12 @@ ul {
   text-align: center;
   font-size: 5vh;
 }
+
+#loading {
+  background: url('../assets/loading_spinner.gif');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position:top;
+  height: 5vh;
+  width: 5vh;
+}

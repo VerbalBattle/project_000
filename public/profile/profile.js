@@ -12,6 +12,7 @@ angular.module('VBattle.profile', [])
     $scope.user.avatarLimit;
   // Image source compressed
   $scope.imageSrcComp = "";
+  $scope.loading = false;
 
   $scope.addAvatar = function () {
     var avatar = {
@@ -21,7 +22,7 @@ angular.module('VBattle.profile', [])
         "aboutMe": $scope.aboutMe
       }
     };
-
+    $scope.loading = true;
     Profile.addAvatar(avatar).then(function (data) {
       console.log("added avatar", data);
       var avatarID = Object.keys(data.avatars)[0];
