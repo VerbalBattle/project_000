@@ -11,6 +11,7 @@
 //              |_|       
 
 var Sequelize = require('sequelize');
+var sequelize;
 
 //           _               
 //          | |              
@@ -21,18 +22,33 @@ var Sequelize = require('sequelize');
 //                    | |    
 //                    |_|    
 
+
+if (process.env.DATABASE_URL) {
+  // the application is executed on Heroku ... use the postgres database
+  sequelize = new Sequelize(process.env.DATABASE_URL, {
+    dialect: 'postgres',
+    protocol: 'postgres',
+    port: 5432,
+    host: 'ec2-107-21-222-62.compute-1.amazonaws.com',
+    logging: true //false
+  });
+} else {
+  // the application is executed on the local machine ... use mysql
+  sequelize = new Sequelize('InsultPvP', 'root', '', {
+    host: 'localhost',
+    // Conditional dialect
+    // dialect: 'postgres',
+    dialect: 'mysql',
+
+    // disable logging; default: console.log
+    logging: false
+  });
+}
+
 // Setup sequelize to connect to InsultPvP database
 // with root user and empty password
-// var sequelize = new Sequelize('InsultPvP', 'kingsimon', '', {
-var sequelize = new Sequelize('InsultPvP', 'root', '', {
-  host: 'localhost',
-  // Conditional dialect
-  // dialect: 'postgres',
-  dialect: 'mysql',
+//var sequelize = new Sequelize('InsultPvP', 'kingsimon', '', {
 
-  // disable logging; default: console.log
-  logging: false
-});
                
 //  _   _ ___  ___ _ __ ___ 
 // | | | / __|/ _ \ '__/ __|
