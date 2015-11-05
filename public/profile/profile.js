@@ -33,7 +33,6 @@ angular.module('VBattle.profile', [])
       window.localStorage['user'] = JSON.stringify($scope.user);
       $scope.showadd = Object.keys($scope.user.avatars).length < $scope.user.avatarLimit;
       $scope.lengthBox = 12 / Object.keys($scope.user.avatars).length;
-      console.log(window.localStorage['user'])
 
       // clear form
       $scope.avatarName = "";
