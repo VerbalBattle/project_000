@@ -12,7 +12,6 @@ angular.module('VBattle.profile', [])
     $scope.user.avatarLimit;
   // Image source compressed
   $scope.imageSrcComp = "";
-  $scope.loading = false;
 
   $scope.addAvatar = function () {
     var avatar = {
@@ -22,7 +21,6 @@ angular.module('VBattle.profile', [])
         "aboutMe": $scope.aboutMe
       }
     };
-    $scope.loading = true;
     Profile.addAvatar(avatar).then(function (data) {
       $document.find('#addAvatar').modal('hide');
       console.log("added avatar", data);
@@ -56,7 +54,6 @@ angular.module('VBattle.profile', [])
             [0].value
       }
     };
-    $scope.loading = true;
     // Request change from server
     Profile.editAvatar(avatarID, avatar)
     .then(function (data) {
