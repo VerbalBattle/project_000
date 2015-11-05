@@ -24,6 +24,7 @@ angular.module('VBattle.profile', [])
     };
     $scope.loading = true;
     Profile.addAvatar(avatar).then(function (data) {
+      $document.find('#addAvatar').modal('hide');
       console.log("added avatar", data);
       var avatarID = Object.keys(data.avatars)[0];
       $scope.user.avatars[avatarID] = avatar.avatarData;
@@ -38,8 +39,6 @@ angular.module('VBattle.profile', [])
       // clear form
       $scope.avatarName = "";
       $scope.aboutMe = "";
-      $document.find('#addAvatar').modal('hide');
-      $scope.loading = false;
     });
   };
   
@@ -61,6 +60,7 @@ angular.module('VBattle.profile', [])
     // Request change from server
     Profile.editAvatar(avatarID, avatar)
     .then(function (data) {
+      console.log("Edited avatar", data);
       $document.find('#editAvatar' + avatarID).modal('hide');
       if (data.updateSuccess) {
         // $scope.user.avatars[avatarID] = avatar.avatarData;
@@ -75,8 +75,6 @@ angular.module('VBattle.profile', [])
         // $scope.user.avatars[avatarID].avatarName = avatarName;
         window.localStorage['user'] = JSON.stringify($scope.user);
       }
-      console.log("Edited avatar", data);
-      $scope.loading = false;
     });
   };
 

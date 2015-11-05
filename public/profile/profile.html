@@ -22,6 +22,7 @@
       <!-- Avatar Edit Button -->
       <button type="button"
       class="btn btn-info avatarsView_button_edit"
+      ng-click="loading=false"
       aria-label="Left Align"
       data-toggle="modal"
       data-target="#editAvatar{{ key }}">
@@ -109,6 +110,7 @@
   class='col-md-4'>
   <button id='avatarView_addAvatarBtn'
     class="btn btn-primary"
+    ng-click="loading=false"
     data-toggle="modal"
     data-target="#addAvatar">
     <span id='avatarView_addAvatarBtn_Plus'
