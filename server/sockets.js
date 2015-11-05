@@ -245,6 +245,7 @@ helper.clientGameJudgedUpdate = function (data) {
   // Get player data for room
   var pData1 = data.pData1;
   var pData2 = data.pData2;
+  console.log('roomJudged data', data);
 
   // Get Sockets
   var sockets1 = onlineUsers[pData1.userID];

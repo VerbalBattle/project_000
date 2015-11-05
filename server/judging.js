@@ -154,11 +154,11 @@ judging.archiveRoom = function (roomID) {
       // Initialize data to send to players 1 and 2
       var pData1 = {
         userID: roomFound.dataValues.avatar1_userID,
-        avatarID: roomFound.dataValues.avatar1_avatarID
+        avatarID: roomFound.dataValues.avatar1_id
       };
       var pData2 = {
         userID: roomFound.dataValues.avatar2_userID,
-        avatarID: roomFound.dataValues.avatar2_avatarID
+        avatarID: roomFound.dataValues.avatar2_id
       };
 
       // Get winner for room

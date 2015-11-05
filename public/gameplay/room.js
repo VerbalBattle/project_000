@@ -70,63 +70,77 @@ angular.module('VBattle.room', [])
     }
   };
 
+  // Socket
   var mySocket = socketFactory();
+
+  // Socket listener for turn update
   mySocket.on('client:turnUpdate', function (data) {
     $scope.messages = data.rooms;
 
+    $scope.roomState =
+      $scope.messages[Object.keys($scope.messages)[0]].roomState;
     // Scroll div to proper height
     $('.roomView_messagesContainer').animate({
       scrollTop: $('.roomView_messagesContainer').height()
     }, 500);
   });
 
+  // Socket listener for when a room has been judged
+  mySocket.on('client:gameJudgedUpdate', function (data) {
+    // If the roomID is this room's, mark room as closed
+    if (data.roomID === room) {
+      $scope.roomState = 2;
+    }
+  });
 
+  // Get all messages for a designated room
   $scope.getMessages = function () {
 
-  // $scope.messages.push(GamePlay.getMessages(1).rooms[1].messages);
-  //console.log(GamePlay.getMessages(1).rooms[1].messages, "heleelelellelel")
-  GamePlay.getMessages(room).then(function (result) {
-    // Get rooms
-    $scope.room = result.rooms[room];
+    // User service
+    GamePlay.getMessages(room).then(function (result) {
 
-    // Set roomstate
-    $scope.roomState = $scope.room.roomState;
+      // Get rooms
+      $scope.room = result.rooms[room];
 
-    // Mapping avatarID to avatarData
-    $scope.avatarIDMap = {};
+      // Set roomstate
+      $scope.roomState = $scope.room.roomState;
 
-    // Get avatar1 mapping
-    $scope.avatarIDMap[$scope.room.avatar1.avatarID] = {
-      avatarName: $scope.room.avatar1.avatarName,
-      avatarImage: $scope.room.avatar1.avatarImage
-    };
-    // Get avatar2 mapping
-    $scope.avatarIDMap[ $scope.room.avatar2.avatarID] = {
-      avatarName: $scope.room.avatar2.avatarName,
-      avatarImage: $scope.room.avatar2.avatarImage
-    };
+      // Mapping avatarID to avatarData
+      $scope.avatarIDMap = {};
 
-    // Figure out which avatarID is the opponent
-    var avatars = JSON.parse(localStorage.user).avatars;
-    $scope.opponentAvatarID = -1;
-    if (!($scope.room.avatar1.avatarID in avatars)) {
+      // Get avatar1 mapping
+      $scope.avatarIDMap[$scope.room.avatar1.avatarID] = {
+        avatarName: $scope.room.avatar1.avatarName,
+        avatarImage: $scope.room.avatar1.avatarImage
+      };
 
-      // Avatar 1 is the opponent
-      $scope.opponentAvatarID = $scope.room.avatar1.avatarID;
-    } else if (!($scope.room.avatar2.avatarID in avatars)) {
+      // Get avatar2 mapping
+      $scope.avatarIDMap[ $scope.room.avatar2.avatarID] = {
+        avatarName: $scope.room.avatar2.avatarName,
+        avatarImage: $scope.room.avatar2.avatarImage
+      };
 
-      // Avatar 2 is the opponent
-      $scope.opponentAvatarID = $scope.room.avatar2.avatarID;
-    }
+      // Figure out which avatarID is the opponent
+      var avatars = JSON.parse(localStorage.user).avatars;
+      $scope.opponentAvatarID = -1;
+      if (!($scope.room.avatar1.avatarID in avatars)) {
 
-    // Set messages
-    $scope.messages = result.rooms;
+        // Avatar 1 is the opponent
+        $scope.opponentAvatarID = $scope.room.avatar1.avatarID;
+      } else if (!($scope.room.avatar2.avatarID in avatars)) {
 
-    // Set scroll height
-    $('.roomView_messagesContainer').animate({
-      scrollTop: $('.roomView_messagesContainer').height()
-    }, 500);
-   }); 
+        // Avatar 2 is the opponent
+        $scope.opponentAvatarID = $scope.room.avatar2.avatarID;
+      }
+
+      // Set messages
+      $scope.messages = result.rooms;
+
+      // Set scroll height
+      $('.roomView_messagesContainer').animate({
+        scrollTop: $('.roomView_messagesContainer').height()
+      }, 500);
+    }); 
 
   };
 

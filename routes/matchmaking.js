@@ -36,8 +36,7 @@ router.post('/', authenticator.ensureAuthenticated,
     // "avatarStats": {
     //   "winLossRatio": 0,
     //   "avatarType": "untyped",
-    //   "winVelocity": 0,
-    //   "rank": 0,
+    //   "elo": 1000,
     //   "winStreak": 0
     // }
   // }

@@ -50,12 +50,25 @@
             <a href='#/rooms/{{ room.id || room.roomID }}/{{ key }}'>
               <!-- Show this if room is in judging -->
               <div ng-show='{{ room.inJudging }}'>
-                <button type="button"
-                class="btn btn-danger lobbyView_button_game"
-                aria-label="Left Align">
-                  <!-- {{ room.opponentName }} -->
-                  In Judging
-                </button>
+                
+                <!-- If room isn't judged -->
+                <div ng-show='{{ !room.isJudged }}'>
+                  <button type="button"
+                    class="btn btn-danger lobbyView_button_game"
+                    aria-label="Left Align">
+                    In Judging
+                  </button>
+                </div>
+
+                <!-- If room is judged -->
+                <div ng-show='{{ room.isJudged }}'>
+                  <button type='button'
+                    class='btn lobbyView_button_game
+                      lobbyView_button_game_closed'
+                    aria-label='Left Align'>
+                    Closed
+                  </button>
+                </div>
               </div>
 
               <!-- Show this if room is open -->

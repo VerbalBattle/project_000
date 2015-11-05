@@ -75,6 +75,26 @@ angular.module('VBattle.lobby', [])
   // Listener for when a room has been judged
   mySocket.on('client:gameJudgedUpdate', function (data) {
     console.log('gameJudgeUpdate', data);
+
+    // Check if avatar is in users
+    if (user.avatars[data.avatarID]) {
+      console.log('made it 1');
+      // Check if room in avatar's rooms
+      if (user.avatars[data.avatarID].rooms[data.roomID]) {
+        console.log('made it 2');
+
+        // Mark room as closed
+        user.avatars[data.avatarID]
+          .rooms[data.roomID].inJudging = true;
+        user.avatars[data.avatarID]
+          .rooms[data.roomID].isJudged = true;
+
+        // Stringify new user data
+        window.localStorage['user'] = JSON.stringify(user);
+        // Reset avatars for scope
+        $scope.avatars = user.avatars;
+      }
+    }
   });
 });
 
