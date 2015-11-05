@@ -73,7 +73,7 @@
         <!-- Modal content-->
         <div class="modal-content">      
           <div class="modal-body">
-            <form ng-submit="loading=true;editAvatar()">
+            <form ng-submit="editAvatar()">
               <fieldset class="form-group">
                 <label>Avatar Name</label>
                 <div>{{ value.avatarName }}</div>
@@ -90,8 +90,8 @@
                 <input type="file" class="form-control" name="file" onchange="angular.element(this).scope().uploadFile(this.files, 'canvas#edit')"/>
                 <canvas class="" id="edit"></canvas>
               </fieldset>
-              <button ng-show="{{ !loading }}" type="submit" class="btn btn-primary">Edit Avatar</button>
-              <div ng-show="{{ loading }}" id="loading"></div>
+              <button ng-show="!loading" type="submit" class="btn btn-primary">Edit Avatar</button>
+              <div ng-show="loading" id="loading"></div>
             </form>
           </div>
           <div class="modal-footer">
@@ -128,7 +128,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-body">
-        <form ng-submit="loading=true;addAvatar()">
+        <form ng-submit="addAvatar()">
           <fieldset class="form-group">
             <label>Avatar Name</label>
             <input type="text" class="form-control" placeholder="Name" ng-model="avatarName" required="required" ng-init="element.focus()">
@@ -147,12 +147,12 @@
             <input type="file" class="form-control" name="file" onchange="angular.element(this).scope().uploadFile(this.files, 'canvas#add')"/>
             <canvas class="" id="add"></canvas>
           </fieldset>
-          <button ng-show="{{ !loading }}" type="submit" class="btn btn-primary">Add Avatar</button>
-          <div ng-show="{{ loading }}" id="loading"></div>
+          <button ng-show="!loading" type="submit" class="btn btn-primary">Add Avatar</button>
+          <div ng-show="loading" id="loading"></div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default {{ !loading }}" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>

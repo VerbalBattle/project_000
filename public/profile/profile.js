@@ -22,8 +22,8 @@ angular.module('VBattle.profile', [])
         "aboutMe": $scope.aboutMe
       }
     };
+    $scope.loading = true;
     Profile.addAvatar(avatar).then(function (data) {
-      $scope.loading = false;
       console.log("added avatar", data);
       var avatarID = Object.keys(data.avatars)[0];
       $scope.user.avatars[avatarID] = avatar.avatarData;
@@ -39,6 +39,7 @@ angular.module('VBattle.profile', [])
       $scope.avatarName = "";
       $scope.aboutMe = "";
       $document.find('#addAvatar').modal('hide');
+      $scope.loading = false;
     });
   };
   
@@ -56,17 +57,15 @@ angular.module('VBattle.profile', [])
             [0].value
       }
     };
+    $scope.loading = true;
     // Request change from server
     Profile.editAvatar(avatarID, avatar)
     .then(function (data) {
-      $scope.loading = false;
-      console.log("Edited avatar", data);
       $document.find('#editAvatar' + avatarID).modal('hide');
       if (data.updateSuccess) {
         // $scope.user.avatars[avatarID] = avatar.avatarData;
 
         // Set about me
-        console.log(avatar.avatarData);
         $scope.user.avatars[avatarID].aboutMe =
           avatar.avatarData.aboutMe;
         // Set image if changed
@@ -76,6 +75,8 @@ angular.module('VBattle.profile', [])
         // $scope.user.avatars[avatarID].avatarName = avatarName;
         window.localStorage['user'] = JSON.stringify($scope.user);
       }
+      console.log("Edited avatar", data);
+      $scope.loading = false;
     });
   };
 
@@ -118,7 +119,7 @@ angular.module('VBattle.profile', [])
 
     Profile.removeAvatar(user)
     .then(function (data) {
-      console.log(data);
+      console.log("removed status", data);
 
       if (data.removeSuccess) {
         delete $scope.user.avatars[user.avatarID];
