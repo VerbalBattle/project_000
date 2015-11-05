@@ -21,7 +21,6 @@ angular.module('VBattle.profile', [])
         "aboutMe": $scope.aboutMe
       }
     };
-    console.log("before Add", $scope.imageSrcComp, avatar.avatarData.imageSource);
 
     Profile.addAvatar(avatar).then(function (data) {
       console.log("added avatar", data);
@@ -31,7 +30,7 @@ angular.module('VBattle.profile', [])
 
       // Set the game count to 0
       $scope.user.avatars[Object.keys(data.avatars)[0]].gameCount = 0;
-
+      console.log($scope.user)
       window.localStorage['user'] = JSON.stringify($scope.user);
       $scope.showadd = Object.keys($scope.user.avatars).length < $scope.user.avatarLimit;
       $scope.lengthBox = 12 / Object.keys($scope.user.avatars).length;
