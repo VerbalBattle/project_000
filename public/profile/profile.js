@@ -23,6 +23,7 @@ angular.module('VBattle.profile', [])
     };
 
     Profile.addAvatar(avatar).then(function (data) {
+      console.log("added avatar", data);
       var avatarID = Object.keys(data.avatars)[0];
       $scope.user.avatars[avatarID] = avatar.avatarData;
       $scope.user.avatars[avatarID].stats = data.avatars[avatarID].stats;
