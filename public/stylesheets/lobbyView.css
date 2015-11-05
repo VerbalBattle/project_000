@@ -78,19 +78,18 @@
   white-space: normal;
 }
 
-/*Room Summary Button View Game*/
-.lobbyView_button_viewGame {
-
+/*Room Summary Button Closed Game*/
+.lobbyView_button_game_closed {
+  background-color: #444444;
+  color: white;
 }
-
-/*Room Summary Button Play Game*/
-.lobbyView_button_playGame {
-
+.lobbyView_button_game_closed:hover,
+.lobbyView_button_game_closed:active {
+  color: white;
+  background-color: #222222;
 }
-
-/*Room Summary Button In Judging Game*/
-.lobbyView_button_judgingGame {
-  
+.lobbyView_button_game_closed:focus {
+  color: white;
 }
 
 /*Matchmaking Container*/
