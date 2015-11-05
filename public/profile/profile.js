@@ -103,7 +103,8 @@ angular.module('VBattle.profile', [])
 
       var ctx = canvas.getContext("2d").drawImage(myImage, 0, 0, canvas.width, canvas.height);
 
-      $scope.imageSrcComp = canvas.toDataURL();
+      $scope.imageSrcComp = canvas.toDataURL('png');
+      console.log($scope.imageSrcComp);
       if ($scope.imageSrcComp.length === 6) {
         $scope.uploadFile(files, canvasChoice);
       }
