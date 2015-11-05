@@ -51,7 +51,7 @@ var roomsHelper = {};
 // Rooms helper method to make matches given a set
 // of matches
 roomsHelper.makeMatches = function (pairs) {
-  
+
   // Iterate over all of the pairs
   for (var i = 0; i < pairs.length; ++i) {
 
@@ -109,45 +109,37 @@ roomsHelper.enqueueToPlay = function (data) {
     // Print the queue
     waitingForGame.print();
 
-    // COMMENT OUT BELOW
-    // COMMENT OUT BELOW
-    // COMMENT OUT BELOW
-
     // If there are 2 players in queue, pair them, or mark
     // them as invalid pairing partners through callback
     // invocation
-    if (Object.keys(waitingForGame.nodes).length === 2) {
-      this.pairPlayers([
-        [
-          waitingForGame.head.val,
-          waitingForGame.tail.val
-        ]
-      ], function (avatar1_ID, avatar2_ID) {
+    // if (Object.keys(waitingForGame.nodes).length === 2) {
+    //   this.pairPlayers([
+    //     [
+    //       waitingForGame.head.val,
+    //       waitingForGame.tail.val
+    //     ]
+    //   ], function (avatar1_ID, avatar2_ID) {
 
-        // Iterate over arugments
-        for (var i = 0; i < arguments.length; ++i) {
+    //     // Iterate over arugments
+    //     for (var i = 0; i < arguments.length; ++i) {
 
-          // Check if avatarID is already a KV map
-          // in invalid matches
-          if (waitingForGame.invalidMatches[arguments[i]] ===
-            undefined) {
-            // Initialize as empty object
-            waitingForGame.invalidMatches[arguments[i]] = {};
-          }
+    //       // Check if avatarID is already a KV map
+    //       // in invalid matches
+    //       if (waitingForGame.invalidMatches[arguments[i]] ===
+    //         undefined) {
+    //         // Initialize as empty object
+    //         waitingForGame.invalidMatches[arguments[i]] = {};
+    //       }
 
-          // Add invalid pair
-          waitingForGame.invalidMatches[arguments[i]]
-            [arguments[(i + 1) % arguments.length]] = true;
-        }
+    //       // Add invalid pair
+    //       waitingForGame.invalidMatches[arguments[i]]
+    //         [arguments[(i + 1) % arguments.length]] = true;
+    //     }
 
-        // Log invalid matches
-        console.log('Invalid Matches', waitingForGame.invalidMatches);
-      });
-    }
-
-    // COMMENT OUT ABOVE
-    // COMMENT OUT ABOVE
-    // COMMENT OUT ABOVE
+    //     // Log invalid matches
+    //     console.log('Invalid Matches', waitingForGame.invalidMatches);
+    //   });
+    // }
 
     // Add added-to-room bool
     result.inRoomQueue = added;
@@ -229,7 +221,7 @@ roomsHelper.pairPlayers = function (pairs, callback) {
           roomID: roomID
         };
         // Handoff to socket helper
-        socketHelper.clientJoinRoom(socketData, 
+        socketHelper.clientJoinRoom(socketData,
           roomsHelper.getDataForRoomJoin);
 
         // Remove invalid matches key mapping
@@ -809,7 +801,7 @@ roomsHelper.sendMessageToRoom = function (data) {
                 };
 
                 // Handoff to socket helper
-                socketHelper.clientTurnUpdate(socketData, 
+                socketHelper.clientTurnUpdate(socketData,
                   roomsHelper.getRoomData);
 
 
@@ -893,16 +885,8 @@ roomsHelper.initialize = function () {
   }, 1000);
 };
 
-// UNCOMMENT BELOW
-// UNCOMMENT BELOW
-// UNCOMMENT BELOW
-
 // Initialize
-// roomsHelper.initialize();
-
-// UNCOMMENT ABOVE
-// UNCOMMENT ABOVE
-// UNCOMMENT ABOVE
+roomsHelper.initialize();
 
 //                             _       
 //                            | |      
