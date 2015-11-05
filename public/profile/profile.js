@@ -23,8 +23,8 @@ angular.module('VBattle.profile', [])
     };
 
     Profile.addAvatar(avatar).then(function (data) {
-      console.log("added avatar", data, "user", $scope.user);
       var avatarID = Object.keys(data.avatars)[0];
+      $scope.user.avatars[avatarID] = avatar.avatarData;
       $scope.user.avatars[avatarID].stats = data.avatars[avatarID].stats;
 
       // Set the game count to 0
