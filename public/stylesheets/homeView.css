@@ -1,0 +1,43 @@
+/*Home View Title*/
+#homeView_title {
+  width: 100%;
+  margin-top: 10vh;
+  text-align: center;
+  font-size: 20vh;
+}
+
+/*Home View Nav Container*/
+#homeView_navContainer {
+  margin-top: 5vh;
+}
+
+/*Home View Battle Div*/
+#homeView_battleDiv {
+  text-align: center;
+  height: 30vh;
+  margin-bottom: 10vh;
+  /*width: 50%;*/
+  /*float: left;*/
+}
+
+/*Home View Battle Button*/
+#homeView_battleButton {
+  width: 40vw;
+  height: 40vh;
+  font-size: 8vh;
+}
+
+/*Home View Judge Div*/
+#homeView_judgeDiv {
+  text-align: center;
+  height: 30vh;
+  /*width: 50%;*/
+  /*float: right;*/
+}
+
+/*Home View Judge Button*/
+#homeView_judgeButton {
+  width: 40vw;
+  height: 40vh;
+  font-size: 8vh;
+}

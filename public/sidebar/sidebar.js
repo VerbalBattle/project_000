@@ -34,13 +34,13 @@ angular.module('VBattle.sideBar', [])
     text: 'Profile',
     route: '/profile'
   },
-  {
-    status: '',
-    clicked: '',
-    filePath: '../assets/setting.png',
-    text: 'Settings',
-    route: '/setting'
-  },
+  // {
+  //   status: '',
+  //   clicked: '',
+  //   filePath: '../assets/setting.png',
+  //   text: 'Settings',
+  //   route: '/setting'
+  // },
   {
     status: '',
     clicked: '',

@@ -1,5 +1,18 @@
 <h2 class='viewTitle'>Battle</h2>
-<div ng-sidebar class="sidebar"></div>
+<h3 id='roomView_SubTitle'>
+  <div id='viewSubTitle_open'
+    ng-show='roomState === 0'>
+    Open
+  </div>
+  <div id='viewSubTitle_judging'
+    ng-show='roomState === 1'>
+    Judging
+  </div>
+  <div id='viewSubTitle_closed'
+    ng-show='roomState === 2'>
+    Closed
+  </div>
+</h3>
 <div class='roomView_chatContainer'>
   <div class='roomView_messagesContainer'>
     <div ng-repeat="message in messages">
