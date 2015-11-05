@@ -36,7 +36,7 @@ var judger = require('../server/data').judger;
 var socketHelper = require('../server/sockets').helper;
 
 // Matching algorithm
-// var matchBatch = require('../lib/matchingAlgorithm').matchBatch;
+var matchBatch = require('../lib/matchingAlgorithm').matchBatch;
 
 //                                _   _      _                 
 //  _ __ ___   ___  _ __ ___  ___| | | | ___| |_ __   ___ _ __ 
@@ -48,27 +48,44 @@ var socketHelper = require('../server/sockets').helper;
 // Rooms helper master object
 var roomsHelper = {};
 
-// Rooms helper to get n rooms that need to be judged
-// roomsHelper.getRoomsToJudge = function (data) {
-//   // Get callback
-//   var callback = data.callback;
+// Rooms helper method to make matches given a set
+// of matches
+roomsHelper.makeMatches = function (pairs) {
+  
+  // Iterate over all of the pairs
+  for (var i = 0; i < pairs.length; ++i) {
 
-//   // Get userID
-//   var callback = data.callback;
+    // Get the node associated with that pair's id and
+    // replace current tuple's indexed value
+    for (var j = 0; j < pairs[i].length; ++j) {
+      pairs[i][j] = waitingForGame.nodes[pairs[i][j]].val;
+      console.log(pairs[i][j]);
+    }
+  }
 
-//   // Room count limit
-//   var roomLimit = data.roomLimit || 10;
+  // Pair the players
+  this.pairPlayers([pairs], function (avatar1_ID, avatar2_ID) {
 
-//   // Get roomLimit rooms to judge
-//   return roomsTable.findAll({
-//     where: {
-//       roomState: false
-//     },
-//     limit: roomLimit
-//   }).then(function (roomsFound) {
-    
-//   });
-// };
+    // Iterate over arugments
+    for (var i = 0; i < arguments.length; ++i) {
+
+      // Check if avatarID is already a KV map
+      // in invalid matches
+      if (waitingForGame.invalidMatches[arguments[i]] ===
+        undefined) {
+        // Initialize as empty object
+        waitingForGame.invalidMatches[arguments[i]] = {};
+      }
+
+      // Add invalid pair
+      waitingForGame.invalidMatches[arguments[i]]
+        [arguments[(i + 1) % arguments.length]] = true;
+    }
+
+    // Log invalid matches
+    console.log('Invalid Matches', waitingForGame.invalidMatches);
+  });
+};
 
 // Rooms helper method to add to end of game queue
 roomsHelper.enqueueToPlay = function (data) {
@@ -91,6 +108,11 @@ roomsHelper.enqueueToPlay = function (data) {
     var added = waitingForGame.addToBack(data);
     // Print the queue
     waitingForGame.print();
+
+    // COMMENT OUT BELOW
+    // COMMENT OUT BELOW
+    // COMMENT OUT BELOW
+
     // If there are 2 players in queue, pair them, or mark
     // them as invalid pairing partners through callback
     // invocation
@@ -122,6 +144,10 @@ roomsHelper.enqueueToPlay = function (data) {
         console.log('Invalid Matches', waitingForGame.invalidMatches);
       });
     }
+
+    // COMMENT OUT ABOVE
+    // COMMENT OUT ABOVE
+    // COMMENT OUT ABOVE
 
     // Add added-to-room bool
     result.inRoomQueue = added;
@@ -793,6 +819,7 @@ roomsHelper.sendMessageToRoom = function (data) {
 
                 // If the game is over
                 if (roomState === 1) {
+
                   // Add the room to judger
                   judger.addRoom(roomID, roomsHelper.getRoomData);
 
@@ -852,6 +879,30 @@ roomsHelper.checkTurn = function (avatarOneOrTwo, turnCount) {
   // Return bool
   return turnValid;
 };
+
+// Rooms helper initialize for matchmaking
+roomsHelper.initialize = function () {
+  // Set size of matches to make
+  var n = 1000;
+  // Get this reference
+  var that = this;
+  // Perform set interval
+  setInterval(function () {
+    console.log('oh no');
+    that.makeMatches(matchBatch(n));
+  }, 1000);
+};
+
+// UNCOMMENT BELOW
+// UNCOMMENT BELOW
+// UNCOMMENT BELOW
+
+// Initialize
+// roomsHelper.initialize();
+
+// UNCOMMENT ABOVE
+// UNCOMMENT ABOVE
+// UNCOMMENT ABOVE
 
 //                             _       
 //                            | |      
