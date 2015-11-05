@@ -86,22 +86,27 @@ angular.module('VBattle.profile', [])
     reader.onload = function (e) {
       var res = e.target.result;
       var src = btoa(res);
-      var myImage = new Image();
-      // Initialize image
+      var myImage = $('#imageToUpload')[0];
       myImage.src = 'data:image/jpeg;base64,' + src;
 
+      // Initialize image
       var canvas = $document.find(canvasChoice)[0];
-      if (myImage.height < myImage.width) {
+      $scope.$apply();
+
+      if (myImage.naturalHeight < myImage.naturalWidth) {
         canvas.height = 150;
-        canvas.width = myImage.width / myImage.height * 150;
+        canvas.width = myImage.naturalWidth / myImage.naturalHeight * 150;
       } else {
         canvas.width = 150;
-        canvas.height = myImage.height / myImage.width * 150;
+        canvas.height = myImage.naturalHeight / myImage.naturalWidth * 150;
       }
 
-      var ctx = canvas.getContext("2d");
-      ctx.drawImage(myImage, 0, 0, canvas.width, canvas.height);
-      $scope.imageSrcComp = canvas.toDataURL('image/png');
+      var ctx = canvas.getContext("2d").drawImage(myImage, 0, 0, canvas.width, canvas.height);
+
+      $scope.imageSrcComp = canvas.toDataURL();
+      if ($scope.imageSrcComp.length === 6) {
+        $scope.uploadFile(files, canvasChoice);
+      }
     };
     reader.readAsBinaryString(files[0]);
   };
