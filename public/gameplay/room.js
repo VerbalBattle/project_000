@@ -75,6 +75,7 @@ angular.module('VBattle.room', [])
 
   // Socket listener for turn update
   mySocket.on('client:turnUpdate', function (data) {
+    console.log('client:turnUpdate emitted', data);
     $scope.messages = data.rooms;
 
     $scope.roomState =

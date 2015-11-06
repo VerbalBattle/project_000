@@ -47,7 +47,7 @@ angular.module('VBattle.voting', [])
           avatarName: $scope.room.avatar2.avatarName,
           avatarImage: $scope.room.avatar2.avatarImage
         };
-
+        console.log($scope.room);
         console.log($scope.avatarIDMap);
 
         window.localStorage["voteRooms"] = JSON.stringify(result.data);  
