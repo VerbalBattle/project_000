@@ -37,7 +37,8 @@ angular.module('VBattle.voting', [])
         // Get avatar1 mapping
         $scope.avatarIDMap[$scope.room.avatar1.avatarID] = {
           avatarName: $scope.room.avatar1.avatarName,
-          avatarImage: $scope.room.avatar1.avatarImage
+          avatarImage: $scope.room.avatar1.avatarImage,
+          aboutMe: $scope.room.avatar1.aboutMe
         };
         // Set avatar1 to be opponent
         $scope.opponentAvatarID = $scope.room.avatar1.avatarID;
@@ -45,8 +46,12 @@ angular.module('VBattle.voting', [])
         // Get avatar2 mapping
         $scope.avatarIDMap[ $scope.room.avatar2.avatarID] = {
           avatarName: $scope.room.avatar2.avatarName,
-          avatarImage: $scope.room.avatar2.avatarImage
+          avatarImage: $scope.room.avatar2.avatarImage,
+          aboutMe: $scope.room.avatar2.aboutMe
         };
+        // Set avatar 2 to be friendly
+        $scope.friendlyAvatarID = $scope.room.avatar2.avatarID;
+
         console.log($scope.room);
         console.log($scope.avatarIDMap);
 
