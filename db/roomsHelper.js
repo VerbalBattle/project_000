@@ -886,13 +886,13 @@ roomsHelper.checkTurn = function (avatarOneOrTwo, turnCount) {
 // Rooms helper initialize for matchmaking
 roomsHelper.initialize = function () {
   // Set size of matches to make
-  var n = 500;
+  var n = 100;
   // Get this reference
   var that = this;
   // Perform set interval
   setInterval(function () {
     that.makeMatches(matchBatch(n));
-  }, 500);
+  }, 10000);
 };
 
 // Initialize
