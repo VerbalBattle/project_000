@@ -8,7 +8,7 @@
 }
 
 /*Voting View Chat Container*/
-.roomView_chatContainer {
+#votingView_chatContainer {
   /*width: 60%;*/
   /*  margin: 0 auto;*/
   /*float: left;*/
@@ -20,6 +20,7 @@
 .votingView_messagesContainer {
   overflow-y: scroll;
   height: 60vh;
+  padding: 1%;
 }
 
 /*Voting View Vote Container*/

@@ -90,6 +90,15 @@ angular.module('VBattle.lobby', [])
         user.avatars[data.avatarID]
           .rooms[data.roomID].isJudged = true;
 
+        // Get stats
+        var currStats = user.avatars[data.avatarID].stats;
+
+        // Set new stats
+        currStats['Elo'] = data.avatarStats.elo;
+        currStats['Avatar Type'] = data.avatarStats.avatarType;
+        currStats['Win/Loss Ratio'] = data.avatarStats.winLossRatio;
+        currStats['Win Streak'] = data.avatarStats.winStreak;
+
         // Stringify new user data
         window.localStorage['user'] = JSON.stringify(user);
         // Reset avatars for scope
