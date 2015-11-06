@@ -13,6 +13,26 @@
     Closed
   </div>
 </h3>
+
+<!-- OpponentInfo Container -->
+<div class='roomView_infoContainer'>
+
+  <!-- Info Top -->
+  <div class='roomView_infoContainer_top 
+    roomView_infoContainer_topOpponent'>
+    <!-- Avatar Image -->
+    <div class='roomView_infoImage'
+        style='
+          background: 
+            url({{ avatarIDMap[opponentAvatarID].avatarImage }});
+            background-size: cover;
+            background-repeat: no-repeat;'>
+
+    </div>
+  </div>
+</div>
+
+<!-- Chat Container -->
 <div class='roomView_chatContainer'>
   <div class='roomView_messagesContainer'>
     <div ng-repeat="message in messages">
@@ -64,6 +84,25 @@
       <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
       <span class="sr-only">Error:</span>
       Its not you turn
+    </div>
+  </div>
+</div>
+
+<!-- Friendly Info Container -->
+<div class='roomView_infoContainer'>
+
+  <!-- Info Top -->
+  <div class='roomView_infoContainer_top
+    roomView_infoContainer_topFriendly'>
+
+    <!-- Avatar Image -->
+    <div class='roomView_infoImage roomView_infoImage_friendly'
+        style='
+          background: 
+            url({{ avatarIDMap[friendlyAvatarID].avatarImage }});
+            background-size: cover;
+            background-repeat: no-repeat;'>
+
     </div>
   </div>
 </div>

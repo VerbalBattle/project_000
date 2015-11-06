@@ -128,10 +128,14 @@ angular.module('VBattle.room', [])
 
         // Avatar 1 is the opponent
         $scope.opponentAvatarID = $scope.room.avatar1.avatarID;
+        // Avatar 2 is friendly
+        $scope.friendlyAvatarID = $scope.room.avatar2.avatarID;
       } else if (!($scope.room.avatar2.avatarID in avatars)) {
 
         // Avatar 2 is the opponent
         $scope.opponentAvatarID = $scope.room.avatar2.avatarID;
+        // Avatar 1 is friendly
+        $scope.friendlyAvatarID = $scope.room.avatar1.avatarID;
       }
 
       // Set messages
