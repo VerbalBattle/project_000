@@ -16,14 +16,6 @@ var LinkedList = require('./linkedList');
 // Get judging
 var judger = require('./judging.js').judging;
 
-// // Require rooms table
-// var roomsTable = require('../db/db_config').rooms;
-// // Require avatar stats table
-// var avatarStatsTable = require('../db/db_config').avatarStats;
-
-// // Require socket helper
-// var socketHelper = require('./sockets').helper;
-
 //   __ _ _   _  ___ _   _  ___ 
 //  / _` | | | |/ _ \ | | |/ _ \
 // | (_| | |_| |  __/ |_| |  __/

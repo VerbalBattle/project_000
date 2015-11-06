@@ -81,7 +81,7 @@ angular.module('VBattle.voting', [])
     if (window.localStorage["voteRooms"] !== "[]") {
 
       var rooms = JSON.parse(window.localStorage["voteRooms"]);
-      console.log("parsed rooms", rooms);
+
       var room = rooms[Object.keys(rooms)[0]];
       $scope.avatarOne = room.avatar1.avatarID;
       $scope.avatarTwo = room.avatar2.avatarID;
