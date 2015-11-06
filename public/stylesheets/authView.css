@@ -1,0 +1,30 @@
+/*Auth Container*/
+#authContainer {
+  text-align: center;
+  background-color: #222222;
+  border-radius: 5vh;
+  color: white;
+}
+
+/*Auth View Input Container*/
+#authView_inputContainer {
+  width: 75%;
+  margin-left: 12.5%;
+}
+
+/*Auth Form Input Text*/
+.authForm_inputText {
+  text-align: center;
+}
+
+/*Auth Button Container*/
+#auth_btnContainer {
+  margin: 2vh 0;
+}
+
+/*Auth Button Submit*/
+.auth_btnSubmit {
+  margin: 0 10%;
+  height: 5vh;
+  font-size: 3vh;
+}

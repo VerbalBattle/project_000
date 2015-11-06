@@ -4,6 +4,7 @@
   margin-top: 10vh;
   text-align: center;
   font-size: 20vh;
+  word-wrap: break-word;
 }
 
 /*Home View Nav Container*/

@@ -1,13 +1,42 @@
-<div class="row">
-  <h2 class="text-center">Sign up</h2>
-  <form name="signupForm" class="form-group" ng-submit="signup()">
-    <label id="label_signup">Name:</label>
-    <input type="text" class="form-control signup" ng-model="username">
-    <label id="label_signup">Password:</label>
-    <input type="password" class="form-control signup" ng-model="password">
-    <label id="label_signup">Email:</label>
-    <input type="email" class="form-control signup" ng-model="email">
-    <input type="submit" class="signup" value='Sign Up'>
-  <a href="#/signin">Log in</a>
-  </form>
+<!-- Title -->
+<div id='homeView_title'>
+  ButterUp
 </div>
+
+<div class="row">
+  <div id='authContainer'
+    class='col-md-6 col-md-offset-3'>
+    <h2 class="text-center">Sign Up</h2>
+    <div id='authView_inputContainer'>
+      <form name="signupForm" class="form-group" ng-submit="signup()">
+        <label id="label_signup">Name</label>
+        <input type="text"
+          class="form-control signup authForm_inputText"
+          ng-model="username"
+          placeholder='Username'>
+        <br />
+        <label id="label_signup">Password</label>
+        <input type="password"
+          class="form-control signup authForm_inputText"
+          ng-model="password"
+          placeholder='Password'>
+
+        <!-- Button Container -->
+        <div id='auth_btnContainer'>
+          <a href="#/signin">
+            <button type='button'
+              class='btn btn-primary auth_btnSubmit'>
+              Log In
+            </button>
+          </a>
+          <button type='submit'
+            class='btn btn-success auth_btnSubmit'>
+            Sign Up
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
