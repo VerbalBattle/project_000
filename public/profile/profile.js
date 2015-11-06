@@ -28,6 +28,19 @@ angular.module('VBattle.profile', [])
       $scope.user.avatars[avatarID] = avatar.avatarData;
       $scope.user.avatars[avatarID].stats = data.avatars[avatarID].stats;
 
+      // Modify avatar stats
+
+      var currStats = $scope.user.avatars[avatarID].stats;
+      // Un-camelCase stats
+      currStats['Elo'] = currStats.elo;
+      delete currStats.elo;
+      currStats['Avatar Type'] = currStats.avatarType;
+      delete currStats.avatarType;
+      currStats['Win/Loss Ratio'] = currStats.winLossRatio;
+      delete currStats.winLossRatio;
+      currStats['Win Streak'] = currStats.winStreak;
+      delete currStats.winStreak;
+
       // Set the game count to 0
       $scope.user.avatars[avatarID].gameCount = 0;
       window.localStorage['user'] = JSON.stringify($scope.user);

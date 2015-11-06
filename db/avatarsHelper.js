@@ -222,10 +222,8 @@ avatarsHelper.addAvatar = function (data) {
                   winLossRatio: statsCreated.winLossRatio,
                   // Avatar type
                   avatarType: statsCreated.avatarType,
-                  // Win velocity
-                  winVelocity: statsCreated.winVelocity,
-                  // Rank
-                  rank: statsCreated.rank,
+                  // Elo
+                  elo: statsCreated.elo,
                   // Win streak
                   winStreak: statsCreated.winStreak
                 };

@@ -10,7 +10,7 @@ angular.module('VBattle.voting', [])
   //socket.on() for getting latest chats -> storing them in the localstorage
   //and getting rid of them after user voted
   $scope.upvote = function (input) {
-    console.log("upvoting for", input);
+
     //getting next messages object from local storage and removing the old one
     $scope.messages = $scope.newMessages;
   };

@@ -110,6 +110,7 @@ roomsHelper.enqueueToPlay = function (data) {
   if (canJoin) {
     // Add player to end of linked list
     var added = waitingForGame.addToBack(data);
+
     // Print the queue
     waitingForGame.print();
 

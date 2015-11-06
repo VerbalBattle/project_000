@@ -46,7 +46,8 @@ angular.module('VBattle.lobby', [])
     $scope.IDs[key] = true;
   }
 
-  $scope.room = function (val) { 
+  $scope.room = function (val) {
+    // Handoff stats
     Match.makeGame(this.key, val.stats);
   };
 
