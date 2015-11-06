@@ -101,6 +101,9 @@ angular.module('VBattle.voting', [])
       // Set show room to false
       $scope.showRoom = false;
     }
+
+    // Get next room to vote on
+    $scope.getVotes();
   };
   $scope.getVotes();
 });

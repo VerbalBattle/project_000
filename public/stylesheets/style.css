@@ -1,11 +1,15 @@
-
+/*Ninja Naruto Font*/
+@font-face {
+  /*font-family: shogunsClan;*/
+  /*src: url('../fonts/shoguns-clan/Shoguns Clan/Shoguns Clan.ttf');*/
+}
 
 /*Styles Body*/
 body {
   padding: 0px;
-  font: 2.5vh "Lucida Grande", Helvetica, Arial, sans-serif;
-  /*background-color: #333d49;*/
+  /*font: 2.5vh "Lucida Grande", Helvetica, Arial, sans-serif;*/
   color: #222222;
+  /*font-family: shogunsClan;*/
 }
 
 /*Link Styling*/

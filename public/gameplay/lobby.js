@@ -20,6 +20,11 @@ angular.module('VBattle.lobby', [])
       }
       // Add data to avatar's rooms
       user.avatars[avatarID].rooms[roomID] = data;
+      // Increment avatar game count
+      ++user.avatars[avatarID].gameCount;
+      console.log(user.avatars[avatarID]);
+      // Reset avatars
+      $scope.avatars = user.avatars;
       // Stringify new user data
       window.localStorage['user'] = JSON.stringify(user);
     }
@@ -51,9 +56,35 @@ angular.module('VBattle.lobby', [])
     Match.makeGame(this.key, val.stats);
   };
 
+  // Listener for when a room turn is switched
+  mySocket.on('client:turnUpdate', function (data) {
+
+    // Get the avatarID
+    var avatarID = data.rooms[Object.keys(data.rooms)[0]]
+        .avatar1.avatarID;
+    // If the avatar is in avatars
+    if (!user.avatars[avatarID]) {
+      // Set avatarID to be avatar2
+      avatarID = data.rooms[Object.keys(data.rooms)[0]]
+        .avatar2.avatarID;
+    }
+
+    // If the avatar is in avatars
+    if (user.avatars[avatarID]) {
+      // Get roomID
+      var roomID = Object.keys(data.rooms)[0];
+      // Flip turn bool
+      var turn = user.avatars[avatarID].rooms[roomID].canTakeTurn;
+      user.avatars[avatarID].rooms[roomID].canTakeTurn = !turn;
+      // Update local storage
+      window.localStorage['user'] = JSON.stringify(user);
+      // Reset avatars for scope
+      $scope.avatars = user.avatars;
+    }
+  });
+
   // Listener for when a finished room enters judging
   mySocket.on('client:enterJudgingUpdate', function (data) {
-    console.log('judgingUpdate incoming', data);
 
     // Get the avatarID from the data
     var avatarID = data.avatarID;
@@ -75,7 +106,6 @@ angular.module('VBattle.lobby', [])
 
   // Listener for when a room has been judged
   mySocket.on('client:gameJudgedUpdate', function (data) {
-    console.log('gameJudgeUpdate', data);
 
     // Check if avatar is in users
     if (user.avatars[data.avatarID]) {

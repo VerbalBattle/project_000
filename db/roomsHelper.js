@@ -892,7 +892,7 @@ roomsHelper.initialize = function () {
   // Perform set interval
   setInterval(function () {
     that.makeMatches(matchBatch(n));
-  }, 10000);
+  }, 1000);
 };
 
 // Initialize

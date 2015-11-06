@@ -31,12 +31,9 @@ angular.module('VBattle.room', [])
 
     // Post message to server if message isn't empt
     if (0 < msg.message.length) {
+      // Post a message to the server
       GamePlay.postMessage(msg).then(function (result) {
-        // If the game isn't over
-        // var msgs =
-        //   $scope.messages[Object.keys($scope.messages)[0]].messages;
-        // if (msgs.length < 6) {
-          // If it is not this users turn
+        // If it is not this users turn
         if (result.turnValid === false) {
           $scope.shower = true;
           $timeout( function () {

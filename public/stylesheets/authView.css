@@ -19,12 +19,12 @@
 
 /*Auth Button Container*/
 #auth_btnContainer {
-  margin: 2vh 0;
+  margin: 1vh 0;
 }
 
 /*Auth Button Submit*/
 .auth_btnSubmit {
-  margin: 0 10%;
+  margin: 1vh 10%;
   height: 5vh;
   font-size: 3vh;
 }
