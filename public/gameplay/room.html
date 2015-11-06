@@ -20,6 +20,7 @@
   <!-- Info Top -->
   <div class='roomView_infoContainer_top 
     roomView_infoContainer_topOpponent'>
+
     <!-- Avatar Image -->
     <div class='roomView_infoImage'
         style='
@@ -29,6 +30,15 @@
             background-repeat: no-repeat;'>
 
     </div>
+
+    <!-- Avatar Name -->
+    <div class='roomView_avatarName'>
+      {{ avatarIDMap[opponentAvatarID].avatarName }}
+    </div>
+  </div>
+
+  <!-- Avatar About Me -->
+  <div class='roomView_infoContainer_bottom'>{{ avatarIDMap[opponentAvatarID].aboutMe }}
   </div>
 </div>
 
@@ -96,13 +106,21 @@
     roomView_infoContainer_topFriendly'>
 
     <!-- Avatar Image -->
-    <div class='roomView_infoImage roomView_infoImage_friendly'
+    <div class='roomView_infoImage'
         style='
           background: 
             url({{ avatarIDMap[friendlyAvatarID].avatarImage }});
             background-size: cover;
             background-repeat: no-repeat;'>
-
     </div>
+
+    <!-- Avatar Name -->
+    <div class='roomView_avatarName'>
+      {{ avatarIDMap[friendlyAvatarID].avatarName }}
+    </div>
+  </div>
+
+  <!-- Avatar About Me -->
+  <div class='roomView_infoContainer_bottom'>{{ avatarIDMap[friendlyAvatarID].aboutMe }}
   </div>
 </div>

@@ -112,13 +112,15 @@ angular.module('VBattle.room', [])
       // Get avatar1 mapping
       $scope.avatarIDMap[$scope.room.avatar1.avatarID] = {
         avatarName: $scope.room.avatar1.avatarName,
-        avatarImage: $scope.room.avatar1.avatarImage
+        avatarImage: $scope.room.avatar1.avatarImage,
+        aboutMe: $scope.room.avatar1.aboutMe
       };
 
       // Get avatar2 mapping
-      $scope.avatarIDMap[ $scope.room.avatar2.avatarID] = {
+      $scope.avatarIDMap[$scope.room.avatar2.avatarID] = {
         avatarName: $scope.room.avatar2.avatarName,
-        avatarImage: $scope.room.avatar2.avatarImage
+        avatarImage: $scope.room.avatar2.avatarImage,
+        aboutMe: $scope.room.avatar2.aboutMe
       };
 
       // Figure out which avatarID is the opponent

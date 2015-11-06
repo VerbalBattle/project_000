@@ -1,4 +1,22 @@
-/*Voting Veiw Messages Container*/
+/*Voting View Middle Container*/
+#votingView_midContainer {
+  width: 60%;
+  /*  margin: 0 auto;*/
+  float: left;
+  /*border: 3px solid #cccccc;*/
+  /*border-radius: 3%;*/
+}
+
+/*Voting View Chat Container*/
+.roomView_chatContainer {
+  /*width: 60%;*/
+  /*  margin: 0 auto;*/
+  /*float: left;*/
+  border: 3px solid #cccccc;
+  border-radius: 3%;
+}
+
+/*Voting View Messages Container*/
 .votingView_messagesContainer {
   overflow-y: scroll;
   height: 60vh;
