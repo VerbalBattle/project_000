@@ -49,10 +49,10 @@
             <!-- Link to room -->
             <a href='#/rooms/{{ room.id || room.roomID }}/{{ key }}'>
               <!-- Show this if room is in judging -->
-              <div ng-show='{{ room.inJudging }}'>
+              <div ng-show='room.inJudging'>
                 
                 <!-- If room isn't judged -->
-                <div ng-show='{{ !room.isJudged }}'>
+                <div ng-show='!room.isJudged'>
                   <button type="button"
                     class="btn btn-danger lobbyView_button_game"
                     aria-label="Left Align">
@@ -61,7 +61,7 @@
                 </div>
 
                 <!-- If room is judged -->
-                <div ng-show='{{ room.isJudged }}'>
+                <div ng-show='room.isJudged'>
                   <button type='button'
                     class='btn lobbyView_button_game
                       lobbyView_button_game_closed'
@@ -72,9 +72,9 @@
               </div>
 
               <!-- Show this if room is open -->
-              <div ng-show='{{ !room.inJudging }}'>
+              <div ng-show='!room.inJudging'>
                 <!-- Local Player's Turn -->
-                <div ng-show='{{ room.canTakeTurn }}'>
+                <div ng-show='room.canTakeTurn'>
                   <button type="button"
                   class="btn btn-warning lobbyView_button_game"
                   aria-label="Left Align">
@@ -84,7 +84,7 @@
                 </div>
 
                 <!-- Foreign Player's Turn -->
-                <div ng-show='{{ !room.canTakeTurn }}'>
+                <div ng-show='!room.canTakeTurn'>
                   <button type="button"
                   class="btn btn-primary lobbyView_button_game"
                   aria-label="Left Align">
@@ -102,7 +102,7 @@
     <div class='lobbyView_matchmakingContainer'>
 
       <!-- Matchmaking Button -->
-      <div ng-show='{{ value.gameCount < 3 }}'>
+      <div ng-show='value.gameCount < 3'>
         <button type='button'
           class='btn btn-success
           lobbyView_button_findGame'
