@@ -1,11 +1,13 @@
 angular.module('VBattle.sideBar', [])
 
-.controller('SidebarCtrl', function ($auth, $scope, $location, $element, socketFactory) {
+.controller('SidebarCtrl', function ($rootScope, $auth, $scope, $location, $element, socketFactory) {
   if ($auth.isAuthenticated()) {
     var mySocket = socketFactory();
     mySocket.emit('client:linkUser', {
       token: window.localStorage['satellizer_token']
-    });                                                             
+    });
+  } else {
+    $rootScope.socketEmit = true;
   }
 
   // indicate whether sidebar is visible or not
