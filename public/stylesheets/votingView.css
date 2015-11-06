@@ -1,0 +1,26 @@
+/*Voting Veiw Messages Container*/
+.votingView_messagesContainer {
+  overflow-y: scroll;
+  height: 60vh;
+}
+
+/*Voting View Vote Container*/
+#votingView_voteContainer {
+  margin-top: 2vh;
+  text-align: center;
+  height: 20vh;
+}
+
+/*Voting View Vote Button*/
+.votingView_voteButton {
+  height: 10vh;
+  width: 20%;
+  margin: 0 10%;
+  word-wrap: break-word;
+}
+
+/*Voting View No Rooms Container*/
+#noRoomsContainer {
+  margin-top: 25vh;
+  text-align: center;
+}

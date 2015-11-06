@@ -2,7 +2,6 @@ angular.module('VBattle.voting', [])
 
 .controller('VotingCtrl', function ($scope, $rootScope, $location, Profile, Voter) {
   //makes get request to next rooms of queue and store them in the storage
-  $scope.showMessages = 1; 
   $scope.avatarOne; 
   $scope.avatarTwo;
   $scope.messages;
@@ -20,13 +19,43 @@ angular.module('VBattle.voting', [])
     //judging route
    // var rooms = window.localStorage["voteRooms"] || {};
     Voter.getRooms().then( function (result) {
-    if (result.data[0]) {
-      $scope.roomID = result.data[0].id;
-      $scope.messages = result.data[0].messages;
-      console.log($scope.messages);
-      window.localStorage["voteRooms"] = JSON.stringify(result.data);  
-      //$scope.getNext();
-    }
+
+      // If any rooms were found to judge
+      if (result.data[0]) {
+        // Should show a room
+        $scope.showRoom = true;
+
+        $scope.roomID = result.data[0].id;
+        $scope.messages = result.data[0].messages;
+
+        // Set the room of the scope
+        $scope.room = result.data[0];
+
+        // Mapping avatarID to avatarData
+        $scope.avatarIDMap = {};
+
+        // Get avatar1 mapping
+        $scope.avatarIDMap[$scope.room.avatar1.avatarID] = {
+          avatarName: $scope.room.avatar1.avatarName,
+          avatarImage: $scope.room.avatar1.avatarImage
+        };
+        // Set avatar1 to be opponent
+        $scope.opponentAvatarID = $scope.room.avatar1.avatarID;
+
+        // Get avatar2 mapping
+        $scope.avatarIDMap[ $scope.room.avatar2.avatarID] = {
+          avatarName: $scope.room.avatar2.avatarName,
+          avatarImage: $scope.room.avatar2.avatarImage
+        };
+
+        console.log($scope.avatarIDMap);
+
+        window.localStorage["voteRooms"] = JSON.stringify(result.data);  
+        //$scope.getNext();
+      } else {
+        // Set show room to be false
+        $scope.showRoom = false;
+      }
 
     }) 
     .catch(function (err) {
@@ -63,6 +92,9 @@ angular.module('VBattle.voting', [])
       } else {
         $scope.messages = [];
       }
+    } else {
+      // Set show room to false
+      $scope.showRoom = false;
     }
   };
   $scope.getVotes();

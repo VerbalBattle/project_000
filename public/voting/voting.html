@@ -1,14 +1,67 @@
-<div ng-show="showMessages">
- <h2 class='viewTitle'>Vote</h2>
-  <div>Vote!</div>
-  <div>Chat</div>
-  <div class="con">{{roomID}}
-  <div ng-repeat="mess in messages">  
-    <div class ="message">{{ mess.message }}: sent from: <strong>{{ mess.avatarID }}</strong>
-    </div><br>
+<!-- Title -->
+<h2 class='viewTitle'>Vote</h2>
+
+<!-- Display messages for a specific room -->
+<div ng-show="showRoom">
+
+  <!-- Chat container -->
+  <div class='roomView_chatContainer'>
+
+    <!-- Messages container -->
+    <div class='votingView_messagesContainer'>
+
+      <!-- List display of messages -->
+      <div ng-repeat='mess in messages'>
+
+        <!-- Message Row -->
+        <div class ='roomView_messageRow'>
+
+          <!-- Avatar Image -->
+          <div class='roomView_avatarImage'
+            style='
+              background: 
+                url({{ avatarIDMap[mess.avatarID].avatarImage }});
+                background-size: cover;
+                background-repeat: no-repeat;'
+            ng-class='{
+              "roomView_avatarImage_friendly": mess.avatarID !==
+                opponentAvatarID,
+              "roomView_avatarImage_opponent": mess.avatarID ===
+                opponentAvatarID
+          }'>
+          </div>
+
+          <!-- Message block -->
+          <div class="roomView_messageBlock"
+            ng-class='{
+              "roomView_messageBlock_friendly": mess.avatarID !==
+                opponentAvatarID,
+              "roomView_messageBlock_opponent": mess.avatarID ===
+                opponentAvatarID
+            }'><strong>{{ avatarIDMap[mess.avatarID].avatarName }}</strong><br />{{ mess.message }}
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-    <button class="upvote" ng-click="getNext(1)">Upvote for {{ avatarOne }}!</button>
-    <button class="upvote" ng-click="getNext(2)">Upvote for {{ avatarTwo }}!</button>
+
+
+  <!-- Voting -->
+  <div id='votingView_voteContainer'>
+    <button class='btn btn-danger votingView_voteButton' ng-click="getNext(1)">
+      {{ avatarIDMap[room.avatar1.avatarID].avatarName || 'Name One'}}
+    </button>
+    <button class='btn btn-info votingView_voteButton' ng-click="getNext(2)">
+      {{ avatarIDMap[room.avatar2.avatarID].avatarName || 'Name Two'}}
+    </button>
+    <button ng-click="getVotes()">f</button>
   </div>
-  <button ng-click="getVotes()">f</button>
+</div>
+
+<!-- No rooms are open for judging -->
+<div ng-hide='showRoom' id='noRoomsContainer'>
+  <h1>
+    There are currently no rooms available for judging,<br />
+    please come back later ...
+  </h1>
 </div>
