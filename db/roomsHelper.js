@@ -67,7 +67,7 @@ roomsHelper.makeMatches = function (pairs) {
     }
 
     // Pair the players
-    this.pairPlayers([pairs], function (avatar1_ID, avatar2_ID) {
+    this.pairPlayers(pairs, function (avatar1_ID, avatar2_ID) {
 
       // Iterate over arugments
       for (var i = 0; i < arguments.length; ++i) {
@@ -886,13 +886,13 @@ roomsHelper.checkTurn = function (avatarOneOrTwo, turnCount) {
 // Rooms helper initialize for matchmaking
 roomsHelper.initialize = function () {
   // Set size of matches to make
-  var n = 1000;
+  var n = 500;
   // Get this reference
   var that = this;
   // Perform set interval
   setInterval(function () {
     that.makeMatches(matchBatch(n));
-  }, 1000);
+  }, 500);
 };
 
 // Initialize
