@@ -627,16 +627,22 @@ roomsHelper.getRoomData = function (data) {
             avatarB.id === avatar2_id) {
             // Set names
             room.avatar1.avatarName = avatarA.avatarName;
+            room.avatar1.aboutMe = avatarA.aboutMe;
             room.avatar2.avatarName = avatarB.avatarName;
+            room.avatar2.aboutMe = avatarB.aboutMe;
           } else if (avatarA.id === avatar2_id &&
             avatarB.id === avatar1_id) {
             // avatarB is avatar1
             room.avatar1.avatarName = avatarB.avatarName;
+            room.avatar1.aboutMe = avatarB.aboutMe;
             room.avatar2.avatarName = avatarA.avatarName;
+            room.avatar2.aboutMe = avatarA.aboutMe;
           } else {
             // Avatar names are unknown (you messed up breh)
             room.avatar1.avatarName = 'Unknown';
+            room.avatar1.aboutMe = '';
             room.avatar2.avatarName = 'Unknown';
+            room.avatar2.aboutMe = '';
           }
 
           // Add messages to the room
