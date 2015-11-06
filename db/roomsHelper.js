@@ -116,34 +116,34 @@ roomsHelper.enqueueToPlay = function (data) {
     // If there are 2 players in queue, pair them, or mark
     // them as invalid pairing partners through callback
     // invocation
-    // if (Object.keys(waitingForGame.nodes).length === 2) {
-    //   this.pairPlayers([
-    //     [
-    //       waitingForGame.head.val,
-    //       waitingForGame.tail.val
-    //     ]
-    //   ], function (avatar1_ID, avatar2_ID) {
+    if (Object.keys(waitingForGame.nodes).length === 2) {
+      this.pairPlayers([
+        [
+          waitingForGame.head.val,
+          waitingForGame.tail.val
+        ]
+      ], function (avatar1_ID, avatar2_ID) {
 
-    //     // Iterate over arugments
-    //     for (var i = 0; i < arguments.length; ++i) {
+        // Iterate over arugments
+        for (var i = 0; i < arguments.length; ++i) {
 
-    //       // Check if avatarID is already a KV map
-    //       // in invalid matches
-    //       if (waitingForGame.invalidMatches[arguments[i]] ===
-    //         undefined) {
-    //         // Initialize as empty object
-    //         waitingForGame.invalidMatches[arguments[i]] = {};
-    //       }
+          // Check if avatarID is already a KV map
+          // in invalid matches
+          if (waitingForGame.invalidMatches[arguments[i]] ===
+            undefined) {
+            // Initialize as empty object
+            waitingForGame.invalidMatches[arguments[i]] = {};
+          }
 
-    //       // Add invalid pair
-    //       waitingForGame.invalidMatches[arguments[i]]
-    //         [arguments[(i + 1) % arguments.length]] = true;
-    //     }
+          // Add invalid pair
+          waitingForGame.invalidMatches[arguments[i]]
+            [arguments[(i + 1) % arguments.length]] = true;
+        }
 
-    //     // Log invalid matches
-    //     console.log('Invalid Matches', waitingForGame.invalidMatches);
-    //   });
-    // }
+        // Log invalid matches
+        console.log('Invalid Matches', waitingForGame.invalidMatches);
+      });
+    }
 
     // Add added-to-room bool
     result.inRoomQueue = added;
@@ -889,7 +889,7 @@ roomsHelper.initialize = function () {
 };
 
 // Initialize
-roomsHelper.initialize();
+// roomsHelper.initialize();
 
 //                             _       
 //                            | |      
