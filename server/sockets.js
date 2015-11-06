@@ -179,10 +179,14 @@ helper.clientTurnUpdate = function (data, callback) {
       console.log('EMITTING LIVE ROOM MESSAGE UPDATE to', 
         Object.keys(opponentSockets), 'and',
         Object.keys(senderSockets));
+      // Set result isSender to be false
+      result.isSender = false;
       // Emit live update to opponent sockets
       for (var opponentSocket in opponentSockets) {
         io.to(opponentSocket).emit('client:turnUpdate', result);
       }
+      // Set result isSender to be true
+      result.isSender = true;
       // Emit live update to sender sockets
       for (var senderSocket in senderSockets) {
         io.to(senderSocket).emit('client:turnUpdate', result);
@@ -277,6 +281,27 @@ helper.clientGameJudgedUpdate = function (data) {
 
 // Initialize judger judger
 require('./data').judger.initialize(helper.clientGameJudgedUpdate);
+
+// Helper emit live update to all clients connected about
+// how many players are online
+helper.emitOnlinePlayers = function () {
+
+  // Get the total number of players online
+  var userCount = Object.keys(onlineUsers).length;
+  // Emit number to all players online
+  for (var socket in onlineSocketUserMap) {
+
+    // Emit to socket
+    io.to(socket).emit('client:onlinePlayerCount', {
+      onlineUserCount: userCount
+    });
+  }
+};
+
+// Emit online player count on set interval
+setInterval(function () {
+  helper.emitOnlinePlayers();
+}, 10000);
 
 //                             _       
 //                            | |      

@@ -13,41 +13,38 @@ angular.module('VBattle.sideBar', [])
 
   // Elements in the sidebar
   $scope.list = [
-  {
-    status: '',
-    clicked: '',
-    filePath: '../assets/lobby.png',
-    text: 'Lobby',
-    route: '/lobby'
-  },
-  {
-    status: '',
-    clicked: '',
-    filePath: '../assets/vote.png',
-    text: 'Vote',
-    route: '/voting'
-  },
-  {
-    status: '',
-    clicked: '',
-    filePath: '../assets/profile.png',
-    text: 'Profile',
-    route: '/profile'
-  },
-  // {
-  //   status: '',
-  //   clicked: '',
-  //   filePath: '../assets/setting.png',
-  //   text: 'Settings',
-  //   route: '/setting'
-  // },
-  {
-    status: '',
-    clicked: '',
-    filePath: '../assets/logout.png',
-    text: 'Logout',
-    route: '/logout'
-  }
+    {
+      status: '',
+      clicked: '',
+      filePath: '../assets/lobby.png',
+      text: 'Home',
+      route: '/lobby',
+      glyphicon: 'glyphicon glyphicon-home'
+    },
+    {
+      status: '',
+      clicked: '',
+      filePath: '../assets/vote.png',
+      text: 'Vote',
+      route: '/voting',
+      glyphicon: 'glyphicon glyphicon-flag'
+    },
+    {
+      status: '',
+      clicked: '',
+      filePath: '../assets/profile.png',
+      text: 'Profile',
+      route: '/profile',
+      glyphicon: 'glyphicon glyphicon-user'
+    },
+    {
+      status: '',
+      clicked: '',
+      filePath: '../assets/logout.png',
+      text: 'Logout',
+      route: '/logout',
+      glyphicon: 'glyphicon glyphicon-road'
+    }
   ];
 
   // Change classname for tag with specific ID
@@ -67,6 +64,11 @@ angular.module('VBattle.sideBar', [])
     }
     $location.path($scope.list[index].route);
   };
+
+  // Listener for onlinePlayerCount
+  mySocket.on('client:onlinePlayerCount', function (data) {
+    console.log(data);
+  });
 })
 
 .directive('ngSidebar', function () {
