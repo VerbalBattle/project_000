@@ -41,7 +41,7 @@ if (app.get('env') === 'production') {
 }
 
 // Uncomment after placing your favicon in /public
-app.use(favicon(path.join(__dirname, 'public', 'assets', 'favicon.png')));
+app.use(favicon(path.join(__dirname, 'public', 'assets', 'favicon.gif')));
 app.use(logger('dev'));
 app.use(bodyParser.json({limit: '5mb'}));
 app.use(bodyParser.urlencoded({ extended: false }));
