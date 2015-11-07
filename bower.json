@@ -20,7 +20,6 @@
     "satellizer": "~0.12.5",
     "angular-socket-io": "~0.7.0",
     "flat-ui": "~2.2.2",
-    "angular-bootstrap": "~0.14.3",
-    "AngularJS-Toaster": "angularjs-toaster#~0.4.16"
+    "angular-bootstrap": "~0.14.3"
   }
 }
