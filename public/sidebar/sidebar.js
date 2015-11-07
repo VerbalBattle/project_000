@@ -6,6 +6,10 @@ angular.module('VBattle.sideBar', [])
     mySocket.emit('client:linkUser', {
       token: window.localStorage['satellizer_token']
     });
+    // Listener for onlinePlayerCount
+    mySocket.on('client:onlinePlayerCount', function (data) {
+      console.log(data);
+    });
   } else {
     $rootScope.socketEmit = true;
   }
@@ -66,11 +70,6 @@ angular.module('VBattle.sideBar', [])
     }
     $location.path($scope.list[index].route);
   };
-
-  // Listener for onlinePlayerCount
-  mySocket.on('client:onlinePlayerCount', function (data) {
-    console.log(data);
-  });
 })
 
 .directive('ngSidebar', function () {

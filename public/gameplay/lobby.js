@@ -31,7 +31,7 @@ angular.module('VBattle.lobby', [])
 
   if (!$rootScope.socketLobby) {
     $rootScope.socketLobby = true;
-    
+    console.log('lobby events attached');
     var mySocket = socketFactory();
     mySocket.on('client:joinRoom', function (data) {
 
@@ -85,11 +85,15 @@ angular.module('VBattle.lobby', [])
         $scope.avatars = user.avatars;
       }
 
-      toaster.pop({
-        type: 'info',
-        title: 'Received new message from ' + opponentName + '.',
-        timeout: 5000
-      });
+      if (!data.isSender) {
+        toaster.pop({
+          type: 'info',
+          title: 'Received new message from ' + opponentName + '.',
+          body: '<a href="#/rooms/' + roomID + '/' + avatarID + '"><div>Go to Room' + roomID + '</div></a>',
+          bodyOutputType: 'trustedHtml',
+          timeout: 5000
+        });
+      }
     });
 
     // Listener for when a finished room enters judging
