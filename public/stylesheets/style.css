@@ -26,6 +26,7 @@ a:hover {
   position: block;
   width: 85vw;
   min-height: 85vh;
+  margin-left: ;
 }
 
 /*Sidebar overall space*/
@@ -33,6 +34,8 @@ a:hover {
   position : fixed;
   left:-300px;
   top: 0;
+  height: 100vh;
+  background-color: #222222;
   transition: all .5s ease-out;
   -webkit-transition: all .5s ease-out;
 }
@@ -83,9 +86,9 @@ ul {
 
 /*circular anchor tags with pictures; used to navigate the app*/
 .navigation-items a {
-  position: relative;
+  /*position: relative;*/
   display: block;
-  background-color: #f7f7f7;
+  /*background-color: #f7f7f7;*/
   opacity: 0.7;
   color: #a7a7a7;
   width: 10vh;
@@ -96,12 +99,21 @@ ul {
 
 /*circular anchor tags on hover option*/
 .navigation-items a:hover {
-  box-shadow: 0px 0px 20px #000000, inset 0px 0px 10px #fff;
+  /*box-shadow: 0px 0px 20px #000000, inset 0px 0px 10px #fff;*/
 }
 
 /*selected button will stay shadowed*/
 .navigation-items a.selected {
-  box-shadow: 0px 0px 20px #000000, inset 0px 0px 10px #fff;
+  /*box-shadow: 0px 0px 20px #000000, inset 0px 0px 10px #fff;*/
+}
+
+/*Nav Item SVG*/
+.navItemSVG {
+  font-size: 5vh;
+  color: #ffffff;
+}
+.navItemSVG:hover {
+  color: #33ccff;
 }
 
 /*information divs regarding the anchor pictures*/
@@ -125,6 +137,12 @@ ul {
   font-size: 2.5vh;
 }
 
+/*Navigation*/
+.navigation {
+  width: 10vw;
+  text-align: center;
+}
+
 .upvote {
   padding: 20px;
   border-radius: 15px;
@@ -144,4 +162,41 @@ ul {
   background-position:top;
   height: 5vh;
   width: 5vh;
+}
+
+/*Custom navbar*/
+#navBar_custom {
+  border-radius: 0;
+  visibility: hidden;
+  margin-bottom: 0 !important;
+}
+
+/*Can See Status for Left Bar*/
+.canSee {
+  visibility: visible !important;
+}
+
+/*Custom navbar brand*/
+#navBar_custom_brand {
+  color: #eeeeee !important;
+  font-size: 120%;
+}
+#navBar_custom_brand:hover {
+  color: #FFCC00 !important;
+}
+
+/*Custom navbar li*/
+.navBar_custom_li {
+  border-left: .2vw solid #eeeeee;
+  padding-left: .5vw;
+  padding-right: .5vw;
+}
+
+/*Custom navbar a*/
+.navBar_custom_a {
+  color: #eeeeee !important;
+  cursor: pointer;
+}
+.navBar_custom_a:hover {
+  color: #33ccff !important;
 }
