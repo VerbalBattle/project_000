@@ -1,6 +1,6 @@
 angular.module('VBattle.signin', [])
 // Sign in controller
-.controller('SigninCtrl', function ($scope, $location, $auth, $http, Profile, toaster) {
+.controller('SigninCtrl', function ($scope, $location, $auth, $http, Profile) {
 
   $scope.signin = function () {
     var user = {
@@ -10,12 +10,7 @@ angular.module('VBattle.signin', [])
 
     $auth.login(user)
       .then(function () {
-        toaster.pop({
-          type: 'success',
-          title: user.username + ' is successfully logged in.',
-          timeout: 3000
-        });
-
+        // toastr.success('You have successfully signed in');
         Profile.getUserFromLogin()
         .then(function () {
           window.localStorage['user'] = JSON.stringify(Profile.getUser());
@@ -26,6 +21,19 @@ angular.module('VBattle.signin', [])
       .catch(function (response) {
         console.log('failed', response);
         // toastr.error(response.data.message, response.status);
+      });
+  };
+
+
+  $scope.authenticate = function (provider) {
+    $auth.authenticate(provider)
+      .then(function () {
+        // toastr.success('You have successfully signed in with ' + provider);
+        $location.path('/');
+      })
+
+      .catch(function (response) {
+        // toastr.error(response.data.message);
       });
   };
 });

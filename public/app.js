@@ -17,8 +17,6 @@ angular.module('VBattle', [
 'VBattle.votingServices',
 'satellizer',
 'ui.bootstrap',
-'toaster',
-'ngAnimate',
 'ngRoute'
 ])
 .config(function ($routeProvider, $httpProvider, $authProvider) {
@@ -114,11 +112,9 @@ angular.module('VBattle', [
       $rootScope.status = "slide";
       var mySocket = socketFactory();
       mySocket.connect();
-      if ($rootScope.socketEmit) {
-        mySocket.emit('client:linkUser', {
-          token: window.localStorage['satellizer_token']
-        });
-      }
+      mySocket.emit('client:linkUser', {
+        token: window.localStorage['satellizer_token']
+      });
       deferred.resolve();
     } else {
       $rootScope.status = "";
