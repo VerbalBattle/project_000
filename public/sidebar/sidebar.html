@@ -1,12 +1,35 @@
-<ul class="navigation" ng-repeat="item in list">
-  <li class="navigation-items">
-  <div class="navigation-text">
-    <div class="{{ item.status }}">{{ item.text }}</div>
-  </div>
-  <a class="{{ item.clicked }}"
-    style="background: url('{{ item.filePath }}');background-size: 70%;background-repeat: no-repeat;background-position: center;"
-    ng-mouseenter="showText($index)"
-    ng-mouseleave="hideText($index)"
-    ng-click="clickButton($index)">
-  </a></li>
-</ul>
+
+<nav class="navbar navbar-default navbar-inverse {{ status }}"
+  id ='navBar_custom'>
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand"
+        id='navBar_custom_brand'
+        href="#/">
+        ButterUp
+        <!-- <span class='glyphicon glyphicon-home'></span> -->
+      </a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right" ng-repeat="item in list">
+        <li class='navBar_custom_li'>
+          <a class="navBar_custom_a"
+            ng-click="clickButton($index)">
+            <span class='{{ item.glyphicon }}'>
+              {{ item.text }}
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>

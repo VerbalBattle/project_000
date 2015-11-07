@@ -5,7 +5,12 @@ angular.module('VBattle.sideBar', [])
     var mySocket = socketFactory();
     mySocket.emit('client:linkUser', {
       token: window.localStorage['satellizer_token']
-    });                                                             
+    });      
+
+    // Listener for onlinePlayerCount
+    mySocket.on('client:onlinePlayerCount', function (data) {
+      console.log(data);
+    });                                                       
   }
 
   // indicate whether sidebar is visible or not
@@ -16,10 +21,10 @@ angular.module('VBattle.sideBar', [])
     {
       status: '',
       clicked: '',
-      filePath: '../assets/lobby.png',
-      text: 'Home',
-      route: '/lobby',
-      glyphicon: 'glyphicon glyphicon-home'
+      filePath: '../assets/logout.png',
+      text: 'Bye',
+      route: '/logout',
+      glyphicon: 'glyphicon glyphicon-road'
     },
     {
       status: '',
@@ -33,17 +38,17 @@ angular.module('VBattle.sideBar', [])
       status: '',
       clicked: '',
       filePath: '../assets/profile.png',
-      text: 'Profile',
+      text: 'Avatars',
       route: '/profile',
       glyphicon: 'glyphicon glyphicon-user'
     },
     {
       status: '',
       clicked: '',
-      filePath: '../assets/logout.png',
-      text: 'Logout',
-      route: '/logout',
-      glyphicon: 'glyphicon glyphicon-road'
+      filePath: '../assets/lobby.png',
+      text: 'Lobby',
+      route: '/lobby',
+      glyphicon: 'glyphicon glyphicon-comment'
     }
   ];
 
@@ -64,11 +69,6 @@ angular.module('VBattle.sideBar', [])
     }
     $location.path($scope.list[index].route);
   };
-
-  // Listener for onlinePlayerCount
-  mySocket.on('client:onlinePlayerCount', function (data) {
-    console.log(data);
-  });
 })
 
 .directive('ngSidebar', function () {

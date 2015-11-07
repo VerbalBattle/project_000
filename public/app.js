@@ -109,7 +109,9 @@ angular.module('VBattle', [
   function loginRequired ($q, $location, $auth, $rootScope, socketFactory) {
     var deferred = $q.defer();
     if ($auth.isAuthenticated()) {
-      $rootScope.status = "slide";
+      // $rootScope.status = "slide";
+      $rootScope.status = 'canSee';
+      console.log('sliding');
       var mySocket = socketFactory();
       mySocket.connect();
       mySocket.emit('client:linkUser', {
@@ -125,7 +127,8 @@ angular.module('VBattle', [
 
   function sidebarStatus ($auth, $rootScope) {
     if ($auth.isAuthenticated()) {
-      $rootScope.status = "slide";
+      // $rootScope.status = "slide";
+      $rootScope.status = 'canSee';
     } else {
       $rootScope.status = "";
     }
