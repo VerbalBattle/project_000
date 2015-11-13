@@ -218,6 +218,11 @@ ul {
 .demo img:hover {
   position: relative;
   z-index: 100;
+  -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -ms-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
   transform:scale(1.5);
     -ms-transform:scale(1.5); /* IE 9 */
     -moz-transform:scale(1.5); /* Firefox */
