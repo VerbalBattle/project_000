@@ -11,6 +11,7 @@ angular.module('VBattle', [
 'VBattle.lobby',
 'VBattle.room',
 'VBattle.sideBar',
+'VBattle.overview',
 'VBattle.search',
 'VBattle.matchmakerServices',
 'VBattle.voting',
