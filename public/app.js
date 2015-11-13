@@ -17,6 +17,8 @@ angular.module('VBattle', [
 'VBattle.votingServices',
 'satellizer',
 'ui.bootstrap',
+'toaster',
+'ngAnimate',
 'ngRoute'
 ])
 .config(function ($routeProvider, $httpProvider, $authProvider) {
