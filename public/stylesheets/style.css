@@ -200,3 +200,27 @@ ul {
 .navBar_custom_a:hover {
   color: #33ccff !important;
 }
+
+.demo {
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.demo img {
+  -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -ms-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+  z-index: -1;
+}
+
+.demo img:hover {
+  position: relative;
+  z-index: 100;
+  transform:scale(1.5);
+    -ms-transform:scale(1.5); /* IE 9 */
+    -moz-transform:scale(1.5); /* Firefox */
+    -webkit-transform:scale(1.5); /* Safari and Chrome */
+    -o-transform:scale(1.5); /* Opera */
+}
