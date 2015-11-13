@@ -5,14 +5,12 @@ angular.module('VBattle.sideBar', [])
     var mySocket = socketFactory();
     mySocket.emit('client:linkUser', {
       token: window.localStorage['satellizer_token']
-    });      
-
+    });
     // Listener for onlinePlayerCount
     mySocket.on('client:onlinePlayerCount', function (data) {
       console.log(data);
-    });                                                       
+    });
   }
-
   // indicate whether sidebar is visible or not
   $scope.state = false;
 

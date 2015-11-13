@@ -1,6 +1,6 @@
 angular.module('VBattle.lobby', [])
 
-.controller('LobbyCtrl', function ($scope, $location, GamePlay, Match, socketFactory) {
+.controller('LobbyCtrl', function ($scope, $location, GamePlay, Match, socketFactory, toaster) {
 
   var mySocket = socketFactory();
   var user = JSON.parse(window.localStorage['user']);
@@ -80,6 +80,16 @@ angular.module('VBattle.lobby', [])
       window.localStorage['user'] = JSON.stringify(user);
       // Reset avatars for scope
       $scope.avatars = user.avatars;
+    }
+
+    if (!data.isSender) {
+      toaster.pop({
+        type: 'info',
+        title: 'Received new message from ' + opponentName + '.',
+        body: '<a href="#/rooms/' + roomID + '/' + avatarID + '"><div>Go to Room' + roomID + '</div></a>',
+        bodyOutputType: 'trustedHtml',
+        timeout: 5000
+      });
     }
   });
 
